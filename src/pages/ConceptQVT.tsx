@@ -125,7 +125,7 @@ const ConceptQVT = () => {
                   <h3 className="font-semibold text-teal-800 mb-2">{benefit.title}</h3>
                   <p className="text-sm text-gray-600">{benefit.desc}</p>
                 </CardContent>
-              </card>
+              </Card>
             ))}
           </div>
         </div>

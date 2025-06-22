@@ -31,13 +31,16 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin-panel" element={<AdminPanel />} />
+          <Route path="/admin-content" element={<AdminContentManager />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/coach-qvt" element={<CoachQVT />} />
+          <Route path="/coach-dashboard" element={<CoachDashboard />} />
           <Route path="/concept-qvt" element={<ConceptQVT />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/famille" element={<Famille />} />
           <Route path="/family-simulator" element={<FamilySimulator />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/shop" element={<Shop />} />
           <Route path="/teens-home" element={<TeensHome />} />
           <Route path="/simulator-home" element={<SimulatorHome />} />
           <Route path="/simulator-hub" element={<SimulatorHub />} />

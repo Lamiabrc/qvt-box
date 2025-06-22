@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -204,7 +205,7 @@ const Dashboard = ({ universe }: DashboardProps) => {
                 <AlertTriangle className="w-4 h-4 text-orange-600" />
                 <div className="flex-1">
                   <p className="text-sm font-medium">Alerte RPS détectée - Équipe Commercial</p>
-                  <p className="text-xs text-gray-600">3 salariés avec score < 5/15</p>
+                  <p className="text-xs text-gray-600">3 salariés avec score &lt; 5/15</p>
                 </div>
                 <Badge variant="secondary" className="text-xs">Il y a 3h</Badge>
               </div>

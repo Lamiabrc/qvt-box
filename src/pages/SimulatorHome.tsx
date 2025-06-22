@@ -8,7 +8,7 @@ import {
   Heart, 
   Users, 
   Building2,
-  Family,
+  Home,
   ArrowRight,
   Clock,
   Target

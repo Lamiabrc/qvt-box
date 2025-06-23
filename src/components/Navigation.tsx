@@ -53,16 +53,24 @@ const Navigation = () => {
                             QVTeen Box Famille
                           </div>
                           <p className="text-sm leading-tight text-white/90">
-                            Espace d'expression pour ados & parents
+                            Choisissez votre profil famille
                           </p>
                         </Link>
                       </NavigationMenuLink>
                     </div>
                     <NavigationMenuLink asChild>
                       <Link to="/teens-home" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Espace Ados</div>
+                        <div className="text-sm font-medium leading-none">Espace Ados (11-18 ans)</div>
                         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                           Interface dédiée aux adolescents
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link to="/kids-home" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Espace Enfants (6-10 ans)</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          Activités ludiques pour les plus jeunes
                         </p>
                       </Link>
                     </NavigationMenuLink>
@@ -94,6 +102,22 @@ const Navigation = () => {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <div className="grid gap-3 p-6 w-80">
+                    <div className="row-span-3">
+                      <NavigationMenuLink asChild>
+                        <Link 
+                          to="/enterprise"
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-teal-500/50 to-teal-700/50 p-6 no-underline outline-none focus:shadow-md"
+                        >
+                          <Building2 className="h-6 w-6 text-white" />
+                          <div className="mb-2 mt-4 text-lg font-medium text-white">
+                            QVT Box Entreprise
+                          </div>
+                          <p className="text-sm leading-tight text-white/90">
+                            Choisissez votre profil entreprise
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </div>
                     <NavigationMenuLink asChild>
                       <Link to="/employee-dashboard" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                         <div className="text-sm font-medium leading-none">Espace Salarié</div>
@@ -115,6 +139,14 @@ const Navigation = () => {
                         <div className="text-sm font-medium leading-none">Responsable QVT</div>
                         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                           Pilotage qualité de vie au travail
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link to="/executive-dashboard" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Direction</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          Vue exécutive et KPI stratégiques
                         </p>
                       </Link>
                     </NavigationMenuLink>

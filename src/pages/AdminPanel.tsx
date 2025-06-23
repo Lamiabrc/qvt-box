@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,12 +13,21 @@ import {
   TrendingUp,
   Mail,
   Database,
-  Shield
+  Shield,
+  Edit,
+  Plus,
+  Trash2,
+  Eye,
+  FileText,
+  ShoppingCart,
+  Globe
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
+import { useToast } from "@/hooks/use-toast";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const { toast } = useToast();
 
   const stats = {
     totalUsers: 2847,
@@ -28,6 +36,35 @@ const AdminPanel = () => {
     totalBoxes: 12450,
     monthlyRevenue: 89420,
     alertsCount: 23
+  };
+
+  const pages = [
+    { id: 1, name: "Page d'accueil", path: "/", status: "Publié", lastModified: "2024-01-15" },
+    { id: 2, name: "Univers Famille", path: "/famille", status: "Publié", lastModified: "2024-01-14" },
+    { id: 3, name: "Univers Entreprise", path: "/concept-qvt", status: "Publié", lastModified: "2024-01-13" },
+    { id: 4, name: "Boutique", path: "/shop", status: "Publié", lastModified: "2024-01-16" },
+    { id: 5, name: "Contact", path: "/contact", status: "Publié", lastModified: "2024-01-12" }
+  ];
+
+  const products = [
+    { id: 1, name: "Box Anti-Stress Entreprise", price: 49.90, category: "Entreprise", stock: 150, status: "Actif" },
+    { id: 2, name: "Teen Box Digital Detox", price: 34.90, category: "Famille", stock: 89, status: "Actif" },
+    { id: 3, name: "Box Team Building", price: 89.90, category: "Entreprise", stock: 45, status: "Actif" },
+    { id: 4, name: "Family Box Communication", price: 44.90, category: "Famille", stock: 67, status: "Actif" }
+  ];
+
+  const handleEditPage = (pageId: number) => {
+    toast({
+      title: "Édition de page",
+      description: `Ouverture de l'éditeur pour la page ${pageId}`
+    });
+  };
+
+  const handleEditProduct = (productId: number) => {
+    toast({
+      title: "Édition produit",
+      description: `Ouverture de l'éditeur pour le produit ${productId}`
+    });
   };
 
   return (
@@ -106,11 +143,12 @@ const AdminPanel = () => {
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
+            <TabsTrigger value="pages">Pages</TabsTrigger>
+            <TabsTrigger value="shop">Boutique</TabsTrigger>
             <TabsTrigger value="users">Utilisateurs</TabsTrigger>
             <TabsTrigger value="companies">Entreprises</TabsTrigger>
-            <TabsTrigger value="boxes">Box & Produits</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
           </TabsList>
 
@@ -187,6 +225,109 @@ const AdminPanel = () => {
             </div>
           </TabsContent>
 
+          <TabsContent value="pages" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-semibold">Gestion des Pages</h2>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Plus className="w-4 h-4 mr-2" />
+                Nouvelle page
+              </Button>
+            </div>
+
+            <div className="grid gap-4">
+              {pages.map((page) => (
+                <Card key={page.id} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <Globe className="w-6 h-6 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold">{page.name}</h3>
+                          <p className="text-sm text-gray-600">{page.path}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-4">
+                        <div className="text-right text-sm text-gray-600">
+                          <p>Modifié le {page.lastModified}</p>
+                        </div>
+                        <Badge variant="default" className="bg-green-600">
+                          {page.status}
+                        </Badge>
+                        
+                        <div className="flex gap-1">
+                          <Button size="sm" variant="outline">
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                          <Button size="sm" variant="outline" onClick={() => handleEditPage(page.id)}>
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="shop" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-semibold">Gestion de la Boutique</h2>
+              <Button className="bg-green-600 hover:bg-green-700">
+                <Plus className="w-4 h-4 mr-2" />
+                Nouveau produit
+              </Button>
+            </div>
+
+            <div className="grid gap-4">
+              {products.map((product) => (
+                <Card key={product.id} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                          <Package className="w-6 h-6 text-green-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold">{product.name}</h3>
+                          <div className="flex gap-2 mt-1">
+                            <Badge variant="outline">{product.category}</Badge>
+                            <Badge variant="secondary">Stock: {product.stock}</Badge>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-4">
+                        <div className="text-right">
+                          <p className="text-lg font-bold text-green-600">{product.price}€</p>
+                          <p className="text-sm text-gray-600">{product.status}</p>
+                        </div>
+                        
+                        <div className="flex gap-1">
+                          <Button size="sm" variant="outline">
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                          <Button size="sm" variant="outline" onClick={() => handleEditProduct(product.id)}>
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
           <TabsContent value="users" className="space-y-6">
             <Card>
               <CardHeader>
@@ -207,18 +348,6 @@ const AdminPanel = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">Interface de gestion des entreprises à développer...</p>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="boxes" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Gestion des Box</CardTitle>
-                <CardDescription>Administration des produits et box</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">Interface de gestion des box à développer...</p>
               </CardContent>
             </Card>
           </TabsContent>

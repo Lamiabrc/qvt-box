@@ -1,19 +1,51 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Building2, Users, Sparkles, Heart, Brain, Package } from "lucide-react";
+import { Building2, Users, Sparkles, Heart, Brain, Package, ArrowRight, CheckCircle, Star, Zap } from "lucide-react";
 import WellbeingEvaluator from "../components/WellbeingEvaluator";
 import Dashboard from "../components/Dashboard";
 import BoxShop from "../components/BoxShop";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const [activeUniverse, setActiveUniverse] = useState<'home' | 'enterprise' | 'family'>('home');
   const [activeSection, setActiveSection] = useState<'dashboard' | 'evaluator' | 'shop'>('dashboard');
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const { toast } = useToast();
+
+  const testimonials = [
+    {
+      name: "Marie L.",
+      role: "RH Manager",
+      company: "TechCorp",
+      text: "QVT Box a révolutionné notre approche du bien-être. -30% de burn-out en 6 mois !",
+      rating: 5
+    },
+    {
+      name: "Sophie M.",
+      role: "Maman de 2 ados",
+      text: "Enfin un outil qui aide toute la famille. La communication s'est nettement améliorée.",
+      rating: 5
+    },
+    {
+      name: "Thomas R.",
+      role: "Chef d'équipe",
+      company: "InnovTech",
+      text: "Les analytics me permettent d'anticiper les problèmes avant qu'ils n'éclatent.",
+      rating: 5
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleUniverseChange = (universe: 'enterprise' | 'family') => {
     setActiveUniverse(universe);
@@ -22,6 +54,14 @@ const Index = () => {
       title: `Bienvenue dans l'univers ${universe === 'enterprise' ? 'QVT Box Entreprise' : 'QVTeen Box Famille'}`,
       description: "Découvrez vos outils personnalisés"
     });
+  };
+
+  const handleGetStarted = () => {
+    toast({
+      title: "Commencer l'aventure QVT",
+      description: "Choisissez votre univers pour démarrer"
+    });
+    document.getElementById('universes')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   if (activeUniverse !== 'home') {
@@ -109,42 +149,101 @@ const Index = () => {
       <FloatingBubbles />
       
       <div className="container mx-auto px-4 py-12 relative z-10">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <div className="flex justify-center mb-8">
-            <img 
-              src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
-              alt="QVT Box Logo" 
-              className="h-24 w-auto animate-fade-in"
-            />
-          </div>
+        {/* Hero Section avec effet Waou */}
+        <div className="text-center mb-20 relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 via-cyan-400/20 to-blue-400/20 blur-3xl animate-pulse" />
           
-          <h1 className="text-5xl font-bold text-teal-800 mb-6 animate-fade-in">
-            QVT Box
-          </h1>
-          <p className="text-xl text-teal-600 mb-4 max-w-3xl mx-auto animate-fade-in">
-            Une solution phygitale de santé mentale à double impact : entreprise & famille
-          </p>
-          <p className="text-lg text-gray-600 max-w-4xl mx-auto animate-fade-in">
-            Intelligence artificielle, accompagnement humain et objets physiques pour le bien-être des salariés, 
-            des ados et de leur entourage.
-          </p>
+          <div className="relative z-10">
+            <div className="flex justify-center mb-8">
+              <div className="relative">
+                <img 
+                  src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
+                  alt="QVT Box Logo" 
+                  className="h-32 w-auto animate-fade-in drop-shadow-2xl"
+                />
+                <div className="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold animate-bounce">
+                  Nouveau !
+                </div>
+              </div>
+            </div>
+            
+            <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 mb-6 animate-fade-in">
+              QVT Box
+            </h1>
+            
+            <div className="mb-8">
+              <p className="text-2xl text-teal-700 mb-4 font-semibold animate-fade-in">
+                L'IA émotionnelle qui révolutionne le bien-être
+              </p>
+              <p className="text-xl text-teal-600 mb-6 max-w-4xl mx-auto animate-fade-in">
+                Solution phygitale de santé mentale à <span className="font-bold text-cyan-600">double impact</span> : 
+                entreprise & famille
+              </p>
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                <Badge className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-4 py-2 text-sm">
+                  <Zap className="w-4 h-4 mr-2" />
+                  IA prédictive
+                </Badge>
+                <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 text-sm">
+                  <Heart className="w-4 h-4 mr-2" />
+                  100% RGPD
+                </Badge>
+                <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 text-sm">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  Résultats prouvés
+                </Badge>
+              </div>
+            </div>
+
+            <Button 
+              onClick={handleGetStarted}
+              size="lg"
+              className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-lg px-8 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
+            >
+              Commencer l'aventure QVT
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
         </div>
 
-        {/* Two Universes */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {/* Universe 1 - Enterprise */}
-          <Card className="group hover:shadow-2xl transition-all duration-300 border-teal-200 hover:border-teal-300 animate-scale-in">
-            <CardHeader className="text-center pb-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <Building2 className="w-8 h-8 text-white" />
+        {/* Témoignages rotatifs */}
+        <div className="mb-16">
+          <Card className="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm border-0 shadow-xl">
+            <CardContent className="p-8 text-center">
+              <div className="flex justify-center mb-4">
+                {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                ))}
               </div>
-              <CardTitle className="text-2xl text-teal-800">QVT Box Entreprise</CardTitle>
-              <CardDescription className="text-teal-600">
+              <p className="text-lg text-gray-700 italic mb-4">
+                "{testimonials[currentTestimonial].text}"
+              </p>
+              <div>
+                <p className="font-semibold text-gray-800">{testimonials[currentTestimonial].name}</p>
+                <p className="text-sm text-gray-600">
+                  {testimonials[currentTestimonial].role}
+                  {testimonials[currentTestimonial].company && ` - ${testimonials[currentTestimonial].company}`}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Deux Univers */}
+        <div id="universes" className="grid md:grid-cols-2 gap-8 mb-20">
+          {/* Universe 1 - Enterprise */}
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-teal-200 hover:border-teal-300 animate-scale-in transform hover:scale-105 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <CardHeader className="text-center pb-4 relative z-10">
+              <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <Building2 className="w-10 h-10 text-white" />
+              </div>
+              <CardTitle className="text-2xl text-teal-800 mb-2">QVT Box Entreprise</CardTitle>
+              <CardDescription className="text-teal-600 text-lg">
                 Prévention des risques psychosociaux & cohésion d'équipe
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6 relative z-10">
               <div className="flex flex-wrap gap-2 mb-4">
                 <Badge variant="secondary" className="bg-teal-100 text-teal-800">Burn-out</Badge>
                 <Badge variant="secondary" className="bg-cyan-100 text-cyan-800">Télétravail</Badge>
@@ -152,49 +251,73 @@ const Index = () => {
                 <Badge variant="secondary" className="bg-emerald-100 text-emerald-800">Performance</Badge>
               </div>
               
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-teal-500" />
-                  Évaluateur bien-être express (2 min)
+              <ul className="space-y-3 text-sm text-gray-600">
+                <li className="flex items-center gap-3">
+                  <Sparkles className="w-5 h-5 text-teal-500" />
+                  <span>Évaluateur bien-être express (2 min)</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <Brain className="w-4 h-4 text-teal-500" />
-                  IA émotionnelle prédictive
+                <li className="flex items-center gap-3">
+                  <Brain className="w-5 h-5 text-teal-500" />
+                  <span>IA émotionnelle prédictive</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <Package className="w-4 h-4 text-teal-500" />
-                  Box mensuelles personnalisées
+                <li className="flex items-center gap-3">
+                  <Package className="w-5 h-5 text-teal-500" />
+                  <span>Box mensuelles personnalisées</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-teal-500" />
-                  Dashboard RH & reporting
+                <li className="flex items-center gap-3">
+                  <Users className="w-5 h-5 text-teal-500" />
+                  <span>Dashboard RH & reporting</span>
                 </li>
               </ul>
               
-              <div className="pt-4 border-t">
-                <p className="text-lg font-semibold text-teal-700 mb-2">33€/salarié/mois</p>
+              <div className="pt-6 border-t bg-gradient-to-r from-teal-50 to-cyan-50 -mx-6 -mb-6 px-6 pb-6">
+                <div className="flex justify-between items-center mb-4">
+                  <p className="text-2xl font-bold text-teal-700">33€/salarié/mois</p>
+                  <Badge className="bg-green-100 text-green-700">ROI garanti</Badge>
+                </div>
+                <div className="space-y-2 mb-4">
+                  <Link to="/employee-dashboard">
+                    <Button variant="outline" size="sm" className="w-full mb-2">
+                      Espace Salarié
+                    </Button>
+                  </Link>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link to="/team-leader-dashboard">
+                      <Button variant="outline" size="sm" className="w-full text-xs">
+                        Chef d'Équipe
+                      </Button>
+                    </Link>
+                    <Link to="/qvt-manager-dashboard">
+                      <Button variant="outline" size="sm" className="w-full text-xs">
+                        Resp. QVT
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
                 <Button 
                   onClick={() => handleUniverseChange('enterprise')}
-                  className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white"
+                  className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white shadow-lg"
                 >
                   Découvrir l'univers Entreprise
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             </CardContent>
           </Card>
 
           {/* Universe 2 - Family */}
-          <Card className="group hover:shadow-2xl transition-all duration-300 border-purple-200 hover:border-purple-300 animate-scale-in">
-            <CardHeader className="text-center pb-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <Heart className="w-8 h-8 text-white" />
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-purple-200 hover:border-purple-300 animate-scale-in transform hover:scale-105 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <CardHeader className="text-center pb-4 relative z-10">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <Heart className="w-10 h-10 text-white" />
               </div>
-              <CardTitle className="text-2xl text-purple-800">QVTeen Box Famille</CardTitle>
-              <CardDescription className="text-purple-600">
+              <CardTitle className="text-2xl text-purple-800 mb-2">QVTeen Box Famille</CardTitle>
+              <CardDescription className="text-purple-600 text-lg">
                 Espace d'expression pour ados & parents (11-18 ans)
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6 relative z-10">
               <div className="flex flex-wrap gap-2 mb-4">
                 <Badge variant="secondary" className="bg-purple-100 text-purple-800">Digital Detox</Badge>
                 <Badge variant="secondary" className="bg-pink-100 text-pink-800">SafeZone</Badge>
@@ -202,74 +325,114 @@ const Index = () => {
                 <Badge variant="secondary" className="bg-indigo-100 text-indigo-800">Émotion</Badge>
               </div>
               
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-purple-500" />
-                  Diagnostic familial rapide (2 min)
+              <ul className="space-y-3 text-sm text-gray-600">
+                <li className="flex items-center gap-3">
+                  <Sparkles className="w-5 h-5 text-purple-500" />
+                  <span>Diagnostic familial rapide (2 min)</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <Brain className="w-4 h-4 text-purple-500" />
-                  Mood-tracker intergénérationnel
+                <li className="flex items-center gap-3">
+                  <Brain className="w-5 h-5 text-purple-500" />
+                  <span>Mood-tracker intergénérationnel</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <Package className="w-4 h-4 text-purple-500" />
-                  Teen Box & Family Box
+                <li className="flex items-center gap-3">
+                  <Package className="w-5 h-5 text-purple-500" />
+                  <span>Teen Box & Family Box</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-purple-500" />
-                  Interface famille multi-profils
+                <li className="flex items-center gap-3">
+                  <Users className="w-5 h-5 text-purple-500" />
+                  <span>Interface famille multi-profils</span>
                 </li>
               </ul>
               
-              <div className="pt-4 border-t">
-                <p className="text-lg font-semibold text-purple-700 mb-2">25€/famille/mois</p>
+              <div className="pt-6 border-t bg-gradient-to-r from-purple-50 to-pink-50 -mx-6 -mb-6 px-6 pb-6">
+                <div className="flex justify-between items-center mb-4">
+                  <p className="text-2xl font-bold text-purple-700">25€/famille/mois</p>
+                  <Badge className="bg-green-100 text-green-700">Harmonie familiale</Badge>
+                </div>
+                <div className="space-y-2 mb-4">
+                  <Link to="/teens-home">
+                    <Button variant="outline" size="sm" className="w-full mb-2">
+                      Espace Ados
+                    </Button>
+                  </Link>
+                  <Link to="/parent-dashboard">
+                    <Button variant="outline" size="sm" className="w-full">
+                      Espace Parents
+                    </Button>
+                  </Link>
+                </div>
                 <Button 
                   onClick={() => handleUniverseChange('family')}
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg"
                 >
                   Découvrir l'univers Famille
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Features Overview */}
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-teal-100">
-          <h2 className="text-3xl font-bold text-center text-teal-800 mb-8">
+        {/* Features Overview avec animations */}
+        <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-teal-100 mb-16">
+          <h2 className="text-4xl font-bold text-center text-teal-800 mb-12">
             Une IA émotionnelle éthique & transparente
           </h2>
           
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Brain className="w-6 h-6 text-teal-600" />
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Brain className="w-8 h-8 text-teal-600" />
               </div>
-              <h3 className="font-semibold text-teal-800 mb-2">Détection précoce</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="font-semibold text-teal-800 mb-3 text-lg">Détection précoce</h3>
+              <p className="text-gray-600">
                 Signaux faibles détectés avant qu'ils ne deviennent critiques
               </p>
             </div>
             
-            <div className="text-center">
-              <div className="w-12 h-12 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-6 h-6 text-cyan-600" />
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Heart className="w-8 h-8 text-cyan-600" />
               </div>
-              <h3 className="font-semibold text-cyan-800 mb-2">Vision interconnectée</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="font-semibold text-cyan-800 mb-3 text-lg">Vision interconnectée</h3>
+              <p className="text-gray-600">
                 Croise sphère pro et perso sans empiéter sur l'intimité
               </p>
             </div>
             
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Sparkles className="w-6 h-6 text-blue-600" />
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Sparkles className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="font-semibold text-blue-800 mb-2">100% RGPD</h3>
-              <p className="text-sm text-gray-600">
+              <h3 className="font-semibold text-blue-800 mb-3 text-lg">100% RGPD</h3>
+              <p className="text-gray-600">
                 Respecte la vie privée avec une transparence totale
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Call to Action final */}
+        <div className="text-center">
+          <h3 className="text-2xl font-bold text-teal-800 mb-4">
+            Prêt à révolutionner votre bien-être ?
+          </h3>
+          <p className="text-teal-600 mb-8 max-w-2xl mx-auto">
+            Rejoignez les milliers d'utilisateurs qui ont déjà transformé leur quotidien avec QVT Box
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/shop">
+              <Button size="lg" className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700">
+                Découvrir la boutique
+                <Package className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button size="lg" variant="outline" className="border-teal-300 text-teal-700 hover:bg-teal-50">
+                Demander une démo
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

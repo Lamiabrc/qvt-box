@@ -34,6 +34,20 @@ import FamilyOrientation from "./pages/FamilyOrientation";
 import EnterpriseOrientation from "./pages/EnterpriseOrientation";
 import ExecutiveDashboard from "./pages/ExecutiveDashboard";
 
+// Import des nouvelles pages teens
+import TeensPersonalSpace from "./pages/TeensPersonalSpace";
+import TeensCheckIn from "./pages/TeensCheckIn";
+import TeensAIEvaluation from "./pages/TeensAIEvaluation";
+import TeensCalendar from "./pages/TeensCalendar";
+import TeensJournal from "./pages/TeensJournal";
+import TeensFamilySpace from "./pages/TeensFamilySpace";
+import TeensFunSolutions from "./pages/TeensFunSolutions";
+import TeensCustomization from "./pages/TeensCustomization";
+import TeensPlaylist from "./pages/TeensPlaylist";
+import TeensShop from "./pages/TeensShop";
+import TeensQuickAlert from "./pages/TeensQuickAlert";
+import TeensParentalAccess from "./pages/TeensParentalAccess";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -68,19 +82,19 @@ const App = () => (
               <Route path="/simulator-home" element={<SimulatorHome />} />
               <Route path="/simulator-hub" element={<SimulatorHub />} />
               
-              {/* Teen pages - placeholders for now */}
-              <Route path="/teens-personal-space" element={<NotFound />} />
-              <Route path="/teens-checkin" element={<NotFound />} />
-              <Route path="/teens-ai-evaluation" element={<NotFound />} />
-              <Route path="/teens-calendar" element={<NotFound />} />
-              <Route path="/teens-journal" element={<NotFound />} />
-              <Route path="/teens-family-space" element={<NotFound />} />
-              <Route path="/teens-fun-solutions" element={<NotFound />} />
-              <Route path="/teens-customization" element={<NotFound />} />
-              <Route path="/teens-playlist" element={<NotFound />} />
-              <Route path="/teens-shop" element={<NotFound />} />
-              <Route path="/teens-quick-alert" element={<NotFound />} />
-              <Route path="/teens-parental-access" element={<NotFound />} />
+              {/* Teen pages - now with real components */}
+              <Route path="/teens-personal-space" element={<TeensPersonalSpace />} />
+              <Route path="/teens-checkin" element={<TeensCheckIn />} />
+              <Route path="/teens-ai-evaluation" element={<TeensAIEvaluation />} />
+              <Route path="/teens-calendar" element={<TeensCalendar />} />
+              <Route path="/teens-journal" element={<TeensJournal />} />
+              <Route path="/teens-family-space" element={<TeensFamilySpace />} />
+              <Route path="/teens-fun-solutions" element={<TeensFunSolutions />} />
+              <Route path="/teens-customization" element={<TeensCustomization />} />
+              <Route path="/teens-playlist" element={<TeensPlaylist />} />
+              <Route path="/teens-shop" element={<TeensShop />} />
+              <Route path="/teens-quick-alert" element={<TeensQuickAlert />} />
+              <Route path="/teens-parental-access" element={<TeensParentalAccess />} />
               
               {/* User spaces */}
               <Route path="/parent-dashboard" element={<ParentDashboard />} />

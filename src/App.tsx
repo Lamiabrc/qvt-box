@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -31,7 +32,6 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CGU from "./pages/CGU";
 import FamilyOrientation from "./pages/FamilyOrientation";
 import EnterpriseOrientation from "./pages/EnterpriseOrientation";
-import KidsHome from "./pages/KidsHome";
 import ExecutiveDashboard from "./pages/ExecutiveDashboard";
 
 const queryClient = new QueryClient();
@@ -60,14 +60,27 @@ const App = () => (
               <Route path="/famille" element={<FamilyOrientation />} />
               <Route path="/enterprise" element={<EnterpriseOrientation />} />
               
-              {/* Family universe */}
+              {/* Family universe - Teens only */}
               <Route path="/family-simulator" element={<FamilySimulator />} />
               <Route path="/login" element={<Login />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/teens-home" element={<TeensHome />} />
-              <Route path="/kids-home" element={<KidsHome />} />
               <Route path="/simulator-home" element={<SimulatorHome />} />
               <Route path="/simulator-hub" element={<SimulatorHub />} />
+              
+              {/* Teen pages - placeholders for now */}
+              <Route path="/teens-personal-space" element={<NotFound />} />
+              <Route path="/teens-checkin" element={<NotFound />} />
+              <Route path="/teens-ai-evaluation" element={<NotFound />} />
+              <Route path="/teens-calendar" element={<NotFound />} />
+              <Route path="/teens-journal" element={<NotFound />} />
+              <Route path="/teens-family-space" element={<NotFound />} />
+              <Route path="/teens-fun-solutions" element={<NotFound />} />
+              <Route path="/teens-customization" element={<NotFound />} />
+              <Route path="/teens-playlist" element={<NotFound />} />
+              <Route path="/teens-shop" element={<NotFound />} />
+              <Route path="/teens-quick-alert" element={<NotFound />} />
+              <Route path="/teens-parental-access" element={<NotFound />} />
               
               {/* User spaces */}
               <Route path="/parent-dashboard" element={<ParentDashboard />} />

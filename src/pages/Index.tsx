@@ -171,7 +171,17 @@ const Index = () => {
               QVT Box
             </h1>
             
+            {/* Motto prominently displayed */}
             <div className="mb-8">
+              <div className="bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-blue-500/10 backdrop-blur-sm rounded-2xl p-6 border border-teal-200/50 shadow-xl mb-6">
+                <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-cyan-600 mb-2">
+                  "Sortez de votre bulle, on veille sur vous"
+                </h2>
+                <p className="text-lg text-teal-700 opacity-90">
+                  Notre devise : vous accompagner vers un bien-être authentique
+                </p>
+              </div>
+              
               <p className="text-2xl text-teal-700 mb-4 font-semibold animate-fade-in">
                 L'IA émotionnelle qui révolutionne le bien-être
               </p>
@@ -375,9 +385,12 @@ const Index = () => {
 
         {/* Features Overview avec animations */}
         <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-teal-100 mb-16">
-          <h2 className="text-4xl font-bold text-center text-teal-800 mb-12">
+          <h2 className="text-4xl font-bold text-center text-teal-800 mb-6">
             Une IA émotionnelle éthique & transparente
           </h2>
+          <p className="text-center text-lg text-teal-600 mb-12 italic">
+            "Sortez de votre bulle, on veille sur vous" - Notre engagement quotidien
+          </p>
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center group">

@@ -84,7 +84,7 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
                 alt="QVT Box Logo" 
-                className="h-12 w-auto"
+                className="h-12 w-12 rounded-full object-cover shadow-lg"
               />
               <div>
                 <h1 className="text-2xl font-bold text-teal-800">
@@ -169,7 +169,7 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
                 alt="QVT Box Logo" 
-                className="h-40 w-auto mx-auto animate-bounce drop-shadow-2xl"
+                className="h-40 w-40 mx-auto animate-bounce drop-shadow-2xl rounded-full object-cover"
               />
               <div className="absolute inset-0 bg-white/20 rounded-full blur-3xl animate-ping" />
             </div>
@@ -195,7 +195,7 @@ const Index = () => {
                 <img 
                   src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
                   alt="QVT Box Logo" 
-                  className="h-32 w-auto animate-fade-in drop-shadow-2xl transform hover:scale-110 transition-transform duration-500"
+                  className="h-32 w-32 animate-fade-in drop-shadow-2xl transform hover:scale-110 transition-transform duration-500 rounded-full object-cover"
                 />
                 <div className="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold animate-bounce">
                   Nouveau !

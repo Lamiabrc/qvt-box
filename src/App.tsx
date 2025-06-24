@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminPanel from "./pages/AdminPanel";
 import AdminContentManager from "./pages/AdminContentManager";
+import AdminContentEditor from "./pages/AdminContentEditor";
 import Auth from "./pages/Auth";
 import CoachQVT from "./pages/CoachQVT";
 import CoachDashboard from "./pages/CoachDashboard";
@@ -34,6 +35,7 @@ import FamilyOrientation from "./pages/FamilyOrientation";
 import EnterpriseOrientation from "./pages/EnterpriseOrientation";
 import ExecutiveDashboard from "./pages/ExecutiveDashboard";
 import Payment from "./pages/Payment";
+import EnterpriseSimulator from "./pages/EnterpriseSimulator";
 
 // Import des pages teens
 import TeensPersonalSpace from "./pages/TeensPersonalSpace";
@@ -65,6 +67,7 @@ const App = () => (
               <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/admin-panel" element={<AdminPanel />} />
               <Route path="/admin-content" element={<AdminContentManager />} />
+              <Route path="/admin-content-editor" element={<AdminContentEditor />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/coach-qvt" element={<CoachQVT />} />
               <Route path="/coach-dashboard" element={<CoachDashboard />} />
@@ -76,13 +79,16 @@ const App = () => (
               <Route path="/famille" element={<FamilyOrientation />} />
               <Route path="/enterprise" element={<EnterpriseOrientation />} />
               
+              {/* Simulators */}
+              <Route path="/simulator-home" element={<SimulatorHome />} />
+              <Route path="/simulator-hub" element={<SimulatorHub />} />
+              <Route path="/enterprise-simulator" element={<EnterpriseSimulator />} />
+              
               {/* Family universe */}
               <Route path="/family-simulator" element={<FamilySimulator />} />
               <Route path="/login" element={<Login />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/teens-home" element={<TeensHome />} />
-              <Route path="/simulator-home" element={<SimulatorHome />} />
-              <Route path="/simulator-hub" element={<SimulatorHub />} />
               
               {/* Teen pages */}
               <Route path="/teens-personal-space" element={<TeensPersonalSpace />} />

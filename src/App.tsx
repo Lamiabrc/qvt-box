@@ -33,8 +33,9 @@ import CGU from "./pages/CGU";
 import FamilyOrientation from "./pages/FamilyOrientation";
 import EnterpriseOrientation from "./pages/EnterpriseOrientation";
 import ExecutiveDashboard from "./pages/ExecutiveDashboard";
+import Payment from "./pages/Payment";
 
-// Import des nouvelles pages teens
+// Import des pages teens
 import TeensPersonalSpace from "./pages/TeensPersonalSpace";
 import TeensCheckIn from "./pages/TeensCheckIn";
 import TeensAIEvaluation from "./pages/TeensAIEvaluation";
@@ -69,12 +70,13 @@ const App = () => (
               <Route path="/coach-dashboard" element={<CoachDashboard />} />
               <Route path="/concept-qvt" element={<ConceptQVT />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/payment" element={<Payment />} />
               
               {/* Orientation pages */}
               <Route path="/famille" element={<FamilyOrientation />} />
               <Route path="/enterprise" element={<EnterpriseOrientation />} />
               
-              {/* Family universe - Teens only */}
+              {/* Family universe */}
               <Route path="/family-simulator" element={<FamilySimulator />} />
               <Route path="/login" element={<Login />} />
               <Route path="/shop" element={<Shop />} />
@@ -82,7 +84,7 @@ const App = () => (
               <Route path="/simulator-home" element={<SimulatorHome />} />
               <Route path="/simulator-hub" element={<SimulatorHub />} />
               
-              {/* Teen pages - now with real components */}
+              {/* Teen pages */}
               <Route path="/teens-personal-space" element={<TeensPersonalSpace />} />
               <Route path="/teens-checkin" element={<TeensCheckIn />} />
               <Route path="/teens-ai-evaluation" element={<TeensAIEvaluation />} />
@@ -108,7 +110,6 @@ const App = () => (
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/cgu" element={<CGU />} />
               
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

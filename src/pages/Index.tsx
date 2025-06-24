@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,6 +14,7 @@ const Index = () => {
   const [activeUniverse, setActiveUniverse] = useState<'home' | 'enterprise' | 'family'>('home');
   const [activeSection, setActiveSection] = useState<'dashboard' | 'evaluator' | 'shop'>('dashboard');
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [showWowEffect, setShowWowEffect] = useState(true);
   const { toast } = useToast();
 
   const testimonials = [
@@ -45,6 +45,14 @@ const Index = () => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
     }, 4000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    // Effet WAOU d'entrée
+    const timer = setTimeout(() => {
+      setShowWowEffect(false);
+    }, 3000);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleUniverseChange = (universe: 'enterprise' | 'family') => {
@@ -98,6 +106,11 @@ const Index = () => {
               >
                 Accueil
               </Button>
+              <Link to="/admin-login">
+                <Button variant="outline" className="border-purple-300 text-purple-700 hover:bg-purple-50">
+                  Admin
+                </Button>
+              </Link>
             </div>
           </div>
 
@@ -148,6 +161,29 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 relative overflow-hidden">
       <FloatingBubbles />
       
+      {/* Effet WAOU d'entrée */}
+      {showWowEffect && (
+        <div className="fixed inset-0 z-50 bg-gradient-to-br from-teal-600 via-cyan-600 to-blue-600 flex items-center justify-center">
+          <div className="text-center text-white animate-pulse">
+            <div className="relative mb-8">
+              <img 
+                src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
+                alt="QVT Box Logo" 
+                className="h-40 w-auto mx-auto animate-bounce drop-shadow-2xl"
+              />
+              <div className="absolute inset-0 bg-white/20 rounded-full blur-3xl animate-ping" />
+            </div>
+            <h1 className="text-6xl font-bold mb-4 animate-fade-in">QVT Box</h1>
+            <p className="text-2xl animate-fade-in" style={{ animationDelay: '0.5s' }}>
+              "Sortez de votre bulle, on veille sur vous"
+            </p>
+            <div className="mt-8 flex justify-center">
+              <div className="w-20 h-1 bg-white/50 rounded-full animate-pulse" />
+            </div>
+          </div>
+        </div>
+      )}
+      
       <div className="container mx-auto px-4 py-12 relative z-10">
         {/* Hero Section avec effet Waou */}
         <div className="text-center mb-20 relative">
@@ -159,21 +195,24 @@ const Index = () => {
                 <img 
                   src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
                   alt="QVT Box Logo" 
-                  className="h-32 w-auto animate-fade-in drop-shadow-2xl"
+                  className="h-32 w-auto animate-fade-in drop-shadow-2xl transform hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold animate-bounce">
                   Nouveau !
                 </div>
+                <div className="absolute -bottom-2 -left-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
+                  IA
+                </div>
               </div>
             </div>
             
-            <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 mb-6 animate-fade-in">
+            <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 mb-6 animate-fade-in transform hover:scale-105 transition-transform duration-300">
               QVT Box
             </h1>
             
             {/* Motto prominently displayed */}
             <div className="mb-8">
-              <div className="bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-blue-500/10 backdrop-blur-sm rounded-2xl p-6 border border-teal-200/50 shadow-xl mb-6">
+              <div className="bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-blue-500/10 backdrop-blur-sm rounded-2xl p-6 border border-teal-200/50 shadow-xl mb-6 hover:shadow-2xl transition-shadow duration-300">
                 <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-cyan-600 mb-2">
                   "Sortez de votre bulle, on veille sur vous"
                 </h2>
@@ -190,39 +229,50 @@ const Index = () => {
                 entreprise & famille
               </p>
               <div className="flex flex-wrap justify-center gap-4 mb-8">
-                <Badge className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-4 py-2 text-sm">
+                <Badge className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-4 py-2 text-sm hover:scale-105 transition-transform cursor-pointer">
                   <Zap className="w-4 h-4 mr-2" />
                   IA prédictive
                 </Badge>
-                <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 text-sm">
+                <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 text-sm hover:scale-105 transition-transform cursor-pointer">
                   <Heart className="w-4 h-4 mr-2" />
                   100% RGPD
                 </Badge>
-                <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 text-sm">
+                <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 text-sm hover:scale-105 transition-transform cursor-pointer">
                   <CheckCircle className="w-4 h-4 mr-2" />
                   Résultats prouvés
                 </Badge>
               </div>
             </div>
 
-            <Button 
-              onClick={handleGetStarted}
-              size="lg"
-              className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-lg px-8 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
-            >
-              Commencer l'aventure QVT
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <div className="flex gap-4 justify-center">
+              <Button 
+                onClick={handleGetStarted}
+                size="lg"
+                className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-lg px-8 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
+              >
+                Commencer l'aventure QVT
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+              <Link to="/admin-login">
+                <Button 
+                  variant="outline"
+                  size="lg"
+                  className="border-purple-400 text-purple-700 hover:bg-purple-50 px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                >
+                  Administration
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
 
         {/* Témoignages rotatifs */}
         <div className="mb-16">
-          <Card className="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm border-0 shadow-xl">
+          <Card className="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-shadow duration-300">
             <CardContent className="p-8 text-center">
               <div className="flex justify-center mb-4">
                 {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current animate-pulse" style={{ animationDelay: `${i * 0.1}s` }} />
                 ))}
               </div>
               <p className="text-lg text-gray-700 italic mb-4">
@@ -287,18 +337,18 @@ const Index = () => {
                 </div>
                 <div className="space-y-2 mb-4">
                   <Link to="/employee-dashboard">
-                    <Button variant="outline" size="sm" className="w-full mb-2">
+                    <Button variant="outline" size="sm" className="w-full mb-2 hover:scale-105 transition-transform">
                       Espace Salarié
                     </Button>
                   </Link>
                   <div className="grid grid-cols-2 gap-2">
                     <Link to="/team-leader-dashboard">
-                      <Button variant="outline" size="sm" className="w-full text-xs">
+                      <Button variant="outline" size="sm" className="w-full text-xs hover:scale-105 transition-transform">
                         Chef d'Équipe
                       </Button>
                     </Link>
                     <Link to="/qvt-manager-dashboard">
-                      <Button variant="outline" size="sm" className="w-full text-xs">
+                      <Button variant="outline" size="sm" className="w-full text-xs hover:scale-105 transition-transform">
                         Resp. QVT
                       </Button>
                     </Link>
@@ -306,7 +356,7 @@ const Index = () => {
                 </div>
                 <Button 
                   onClick={() => handleUniverseChange('enterprise')}
-                  className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white shadow-lg"
+                  className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white shadow-lg hover:scale-105 transition-transform"
                 >
                   Découvrir l'univers Entreprise
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -361,19 +411,19 @@ const Index = () => {
                 </div>
                 <div className="space-y-2 mb-4">
                   <Link to="/teens-home">
-                    <Button variant="outline" size="sm" className="w-full mb-2">
+                    <Button variant="outline" size="sm" className="w-full mb-2 hover:scale-105 transition-transform">
                       Espace Ados
                     </Button>
                   </Link>
                   <Link to="/parent-dashboard">
-                    <Button variant="outline" size="sm" className="w-full">
+                    <Button variant="outline" size="sm" className="w-full hover:scale-105 transition-transform">
                       Espace Parents
                     </Button>
                   </Link>
                 </div>
                 <Button 
                   onClick={() => handleUniverseChange('family')}
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg"
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:scale-105 transition-transform"
                 >
                   Découvrir l'univers Famille
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -384,7 +434,7 @@ const Index = () => {
         </div>
 
         {/* Features Overview avec animations */}
-        <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-teal-100 mb-16">
+        <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-teal-100 mb-16 hover:shadow-3xl transition-shadow duration-300">
           <h2 className="text-4xl font-bold text-center text-teal-800 mb-6">
             Une IA émotionnelle éthique & transparente
           </h2>
@@ -435,15 +485,21 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/shop">
-              <Button size="lg" className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700">
+              <Button size="lg" className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 hover:scale-105 transition-transform">
                 Découvrir la boutique
                 <Package className="w-5 h-5 ml-2" />
               </Button>
             </Link>
             <Link to="/contact">
-              <Button size="lg" variant="outline" className="border-teal-300 text-teal-700 hover:bg-teal-50">
+              <Button size="lg" variant="outline" className="border-teal-300 text-teal-700 hover:bg-teal-50 hover:scale-105 transition-transform">
                 Demander une démo
                 <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+            <Link to="/simulator-home">
+              <Button size="lg" variant="outline" className="border-purple-300 text-purple-700 hover:bg-purple-50 hover:scale-105 transition-transform">
+                Simulateurs gratuits
+                <Brain className="w-5 h-5 ml-2" />
               </Button>
             </Link>
           </div>

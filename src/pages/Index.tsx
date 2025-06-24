@@ -48,10 +48,10 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    // Effet WAOU d'entrée
+    // Effet WAOU d'entrée amélioré
     const timer = setTimeout(() => {
       setShowWowEffect(false);
-    }, 3000);
+    }, 4000); // Augmenté à 4 secondes
     return () => clearTimeout(timer);
   }, []);
 
@@ -161,24 +161,30 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 relative overflow-hidden">
       <FloatingBubbles />
       
-      {/* Effet WAOU d'entrée */}
+      {/* Effet WAOU d'entrée amélioré */}
       {showWowEffect && (
         <div className="fixed inset-0 z-50 bg-gradient-to-br from-teal-600 via-cyan-600 to-blue-600 flex items-center justify-center">
-          <div className="text-center text-white animate-pulse">
+          <div className="text-center text-white">
             <div className="relative mb-8">
               <img 
                 src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
                 alt="QVT Box Logo" 
-                className="h-40 w-40 mx-auto animate-bounce drop-shadow-2xl rounded-full object-cover"
+                className="h-40 w-40 mx-auto rounded-full object-cover drop-shadow-2xl transform animate-bounce"
               />
               <div className="absolute inset-0 bg-white/20 rounded-full blur-3xl animate-ping" />
+              <div className="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold animate-pulse">
+                Nouveau !
+              </div>
             </div>
-            <h1 className="text-6xl font-bold mb-4 animate-fade-in">QVT Box</h1>
-            <p className="text-2xl animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            <h1 className="text-6xl font-bold mb-4 animate-fade-in transform">QVT Box</h1>
+            <p className="text-2xl mb-4 animate-fade-in italic font-light" style={{ animationDelay: '0.5s' }}>
               "Sortez de votre bulle, on veille sur vous"
             </p>
+            <p className="text-lg animate-fade-in opacity-90" style={{ animationDelay: '1s' }}>
+              L'IA émotionnelle qui révolutionne le bien-être
+            </p>
             <div className="mt-8 flex justify-center">
-              <div className="w-20 h-1 bg-white/50 rounded-full animate-pulse" />
+              <div className="w-20 h-1 bg-white/50 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }} />
             </div>
           </div>
         </div>

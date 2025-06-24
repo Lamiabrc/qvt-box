@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -55,15 +56,15 @@ const AdminPanel = () => {
 
   const handleEditPage = (pageId: number) => {
     toast({
-      title: "Édition de page",
-      description: `Ouverture de l'éditeur pour la page ${pageId}`
+      title: "Redirection",
+      description: "Ouverture de l'éditeur de contenu"
     });
   };
 
   const handleEditProduct = (productId: number) => {
     toast({
-      title: "Édition produit",
-      description: `Ouverture de l'éditeur pour le produit ${productId}`
+      title: "Redirection",
+      description: "Ouverture de l'éditeur de produit"
     });
   };
 
@@ -228,10 +229,12 @@ const AdminPanel = () => {
           <TabsContent value="pages" className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold">Gestion des Pages</h2>
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                <Plus className="w-4 h-4 mr-2" />
-                Nouvelle page
-              </Button>
+              <Link to="/admin-content-editor">
+                <Button className="bg-blue-600 hover:bg-blue-700">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Nouvelle page
+                </Button>
+              </Link>
             </div>
 
             <div className="grid gap-4">
@@ -240,7 +243,7 @@ const AdminPanel = () => {
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                           <Globe className="w-6 h-6 text-blue-600" />
                         </div>
                         <div>
@@ -261,9 +264,11 @@ const AdminPanel = () => {
                           <Button size="sm" variant="outline">
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button size="sm" variant="outline" onClick={() => handleEditPage(page.id)}>
-                            <Edit className="w-4 h-4" />
-                          </Button>
+                          <Link to="/admin-content-editor">
+                            <Button size="sm" variant="outline" onClick={() => handleEditPage(page.id)}>
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                          </Link>
                           <Button size="sm" variant="outline">
                             <Trash2 className="w-4 h-4" />
                           </Button>
@@ -279,10 +284,12 @@ const AdminPanel = () => {
           <TabsContent value="shop" className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold">Gestion de la Boutique</h2>
-              <Button className="bg-green-600 hover:bg-green-700">
-                <Plus className="w-4 h-4 mr-2" />
-                Nouveau produit
-              </Button>
+              <Link to="/admin-content-editor">
+                <Button className="bg-green-600 hover:bg-green-700">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Nouveau produit
+                </Button>
+              </Link>
             </div>
 
             <div className="grid gap-4">
@@ -291,7 +298,7 @@ const AdminPanel = () => {
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
                           <Package className="w-6 h-6 text-green-600" />
                         </div>
                         <div>
@@ -313,9 +320,11 @@ const AdminPanel = () => {
                           <Button size="sm" variant="outline">
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button size="sm" variant="outline" onClick={() => handleEditProduct(product.id)}>
-                            <Edit className="w-4 h-4" />
-                          </Button>
+                          <Link to="/admin-content-editor">
+                            <Button size="sm" variant="outline" onClick={() => handleEditProduct(product.id)}>
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                          </Link>
                           <Button size="sm" variant="outline">
                             <Trash2 className="w-4 h-4" />
                           </Button>

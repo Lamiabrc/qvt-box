@@ -7,6 +7,7 @@ import WellbeingEvaluator from "../components/WellbeingEvaluator";
 import Dashboard from "../components/Dashboard";
 import BoxShop from "../components/BoxShop";
 import FloatingBubbles from "../components/FloatingBubbles";
+import SubscriptionPopup from "../components/SubscriptionPopup";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 
@@ -15,6 +16,7 @@ const Index = () => {
   const [activeSection, setActiveSection] = useState<'dashboard' | 'evaluator' | 'shop'>('dashboard');
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [showWowEffect, setShowWowEffect] = useState(true);
+  const [showSubscriptionPopup, setShowSubscriptionPopup] = useState(false);
   const { toast } = useToast();
 
   const testimonials = [
@@ -51,7 +53,11 @@ const Index = () => {
     // Effet WAOU d'entrée amélioré
     const timer = setTimeout(() => {
       setShowWowEffect(false);
-    }, 4000); // Augmenté à 4 secondes
+      // Afficher le pop-up d'abonnement après l'effet WAOU
+      setTimeout(() => {
+        setShowSubscriptionPopup(true);
+      }, 1000);
+    }, 4000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -160,6 +166,12 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 relative overflow-hidden">
       <FloatingBubbles />
+      
+      {/* Pop-up d'abonnement */}
+      <SubscriptionPopup 
+        isOpen={showSubscriptionPopup} 
+        onClose={() => setShowSubscriptionPopup(false)} 
+      />
       
       {/* Effet WAOU d'entrée amélioré */}
       {showWowEffect && (

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,13 +10,26 @@ interface WellbeingEvaluatorProps {
   universe: 'enterprise' | 'family';
 }
 
+interface MLInsights {
+  score: number;
+  riskLevel: 'high' | 'medium' | 'low';
+  riskFactors: string[];
+  strengths: string[];
+  trend: 'improving' | 'declining';
+  confidence: number;
+  predictions: {
+    burnoutRisk: number;
+    improvementPotential: number;
+  };
+}
+
 const WellbeingEvaluator = ({ universe }: WellbeingEvaluatorProps) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [isCompleted, setIsCompleted] = useState(false);
   const [aiScore, setAiScore] = useState<number | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [mlInsights, setMlInsights] = useState<any>(null);
+  const [mlInsights, setMlInsights] = useState<MLInsights | null>(null);
   const { toast } = useToast();
 
   const enterpriseQuestions = [
@@ -86,7 +98,7 @@ const WellbeingEvaluator = ({ universe }: WellbeingEvaluatorProps) => {
   const currentQ = questions[currentQuestion];
 
   // Simulation d'analyse ML
-  const simulateMLAnalysis = (userAnswers: number[]) => {
+  const simulateMLAnalysis = (userAnswers: number[]): Promise<MLInsights> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         // Calcul pondéré intelligent
@@ -97,8 +109,8 @@ const WellbeingEvaluator = ({ universe }: WellbeingEvaluatorProps) => {
         const normalizedScore = Math.round((weightedScore / 5) * 15);
         
         // Analyse prédictive simulée
-        const riskFactors = [];
-        const strengths = [];
+        const riskFactors: string[] = [];
+        const strengths: string[] = [];
         
         userAnswers.forEach((answer, index) => {
           if (answer <= 2) {
@@ -108,7 +120,7 @@ const WellbeingEvaluator = ({ universe }: WellbeingEvaluatorProps) => {
           }
         });
 
-        const insights = {
+        const insights: MLInsights = {
           score: normalizedScore,
           riskLevel: normalizedScore <= 5 ? 'high' : normalizedScore <= 10 ? 'medium' : 'low',
           riskFactors,
@@ -175,7 +187,7 @@ const WellbeingEvaluator = ({ universe }: WellbeingEvaluatorProps) => {
     }
   };
 
-  const getRecommendations = (insights: any) => {
+  const getRecommendations = (insights: MLInsights) => {
     if (universe === 'enterprise') {
       if (insights.score <= 5) return [
         "Box Burn-out recommandée (urgence)",

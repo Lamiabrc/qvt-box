@@ -30,7 +30,17 @@ export const useCart = () => {
         .eq('user_id', user.id);
 
       if (error) throw error;
-      setCartItems(data || []);
+      
+      // Type assertion to ensure compatibility
+      const typedData = (data || []).map(item => ({
+        id: item.id,
+        box_id: item.box_id,
+        box_type: item.box_type as 'enterprise' | 'family',
+        quantity: item.quantity,
+        price: Number(item.price)
+      }));
+      
+      setCartItems(typedData);
     } catch (error) {
       console.error('Error loading cart:', error);
     } finally {

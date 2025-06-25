@@ -1,300 +1,221 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Eye, EyeOff, Lock, Mail, User, Heart, Building2 } from "lucide-react";
+import { Building2, Heart, User, Mail, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
 import FloatingBubbles from "../components/FloatingBubbles";
 
 const Auth = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    fullName: '',
-    accountType: 'particulier_travailleur'
+  const [loginData, setLoginData] = useState({ email: '', password: '' });
+  const [registerData, setRegisterData] = useState({ 
+    email: '', 
+    password: '', 
+    confirmPassword: '', 
+    firstName: '', 
+    lastName: '',
+    accountType: 'individual' 
   });
   const { toast } = useToast();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Check if user is already logged in
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        navigate('/');
-      }
-    };
-    checkUser();
-  }, [navigate]);
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Connexion en cours...",
+      description: "Redirection vers votre dashboard"
+    });
   };
 
-  const handleSignUp = async (e: React.FormEvent) => {
+  const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const redirectUrl = `${window.location.origin}/`;
-      
-      const { error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          emailRedirectTo: redirectUrl,
-          data: {
-            full_name: formData.fullName,
-            account_type: formData.accountType
-          }
-        }
-      });
-
-      if (error) {
-        toast({
-          title: "Erreur d'inscription",
-          description: error.message,
-          variant: "destructive"
-        });
-      } else {
-        toast({
-          title: "Inscription réussie",
-          description: "Vérifiez votre email pour confirmer votre compte"
-        });
-      }
-    } catch (error) {
+    if (registerData.password !== registerData.confirmPassword) {
       toast({
         title: "Erreur",
-        description: "Une erreur inattendue s'est produite",
+        description: "Les mots de passe ne correspondent pas",
         variant: "destructive"
       });
-    } finally {
-      setIsLoading(false);
+      return;
     }
-  };
-
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password
-      });
-
-      if (error) {
-        toast({
-          title: "Erreur de connexion",
-          description: error.message,
-          variant: "destructive"
-        });
-      } else {
-        toast({
-          title: "Connexion réussie",
-          description: "Bienvenue sur QVT Box !"
-        });
-        navigate('/');
-      }
-    } catch (error) {
-      toast({
-        title: "Erreur",
-        description: "Une erreur inattendue s'est produite",
-        variant: "destructive"
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    toast({
+      title: "Compte créé avec succès !",
+      description: "Bienvenue dans la communauté QVT Box"
+    });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 relative overflow-hidden">
       <FloatingBubbles />
       
       <div className="container mx-auto px-4 py-12 relative z-10">
-        <div className="max-w-md mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-slate-800 mb-2">
-              QVT Box
-            </h1>
-            <p className="text-slate-600">
-              Votre solution de bien-être personnalisée
-            </p>
-          </div>
-
-          <Tabs defaultValue="signin" className="space-y-4">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Connexion</TabsTrigger>
-              <TabsTrigger value="signup">Inscription</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="signin">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Lock className="w-5 h-5" />
-                    Connexion
-                  </CardTitle>
-                  <CardDescription>
-                    Connectez-vous à votre compte QVT Box
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSignIn} className="space-y-4">
+        <div className="flex items-center justify-center min-h-screen">
+          <Card className="w-full max-w-md">
+            <CardHeader className="text-center">
+              <img 
+                src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
+                alt="QVT Box Logo" 
+                className="h-16 w-auto mx-auto mb-4"
+              />
+              <CardTitle className="text-2xl text-teal-800">QVT Box</CardTitle>
+              <CardDescription className="text-teal-600">
+                Votre solution phygitale de bien-être
+              </CardDescription>
+            </CardHeader>
+            
+            <CardContent>
+              <Tabs defaultValue="login" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="login">Connexion</TabsTrigger>
+                  <TabsTrigger value="register">Inscription</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="login">
+                  <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="signin-email">Email</Label>
+                      <Label htmlFor="email">Email</Label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                         <Input
-                          id="signin-email"
+                          id="email"
                           type="email"
-                          placeholder="votre.email@exemple.com"
-                          value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
                           className="pl-10"
+                          value={loginData.email}
+                          onChange={(e) => setLoginData({...loginData, email: e.target.value})}
+                          placeholder="votre@email.com"
                           required
                         />
                       </div>
                     </div>
-
+                    
                     <div className="space-y-2">
-                      <Label htmlFor="signin-password">Mot de passe</Label>
+                      <Label htmlFor="password">Mot de passe</Label>
                       <div className="relative">
-                        <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                         <Input
-                          id="signin-password"
-                          type={showPassword ? "text" : "password"}
+                          id="password"
+                          type="password"
+                          className="pl-10"
+                          value={loginData.password}
+                          onChange={(e) => setLoginData({...loginData, password: e.target.value})}
                           placeholder="••••••••"
-                          value={formData.password}
-                          onChange={(e) => handleInputChange('password', e.target.value)}
-                          className="pl-10 pr-10"
                           required
                         />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                        >
-                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                        </button>
                       </div>
                     </div>
-
-                    <Button type="submit" className="w-full" disabled={isLoading}>
-                      {isLoading ? "Connexion..." : "Se connecter"}
+                    
+                    <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">
+                      Se connecter
                     </Button>
                   </form>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="signup">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <User className="w-5 h-5" />
-                    Inscription
-                  </CardTitle>
-                  <CardDescription>
-                    Créez votre compte QVT Box
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSignUp} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-name">Nom complet</Label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                </TabsContent>
+                
+                <TabsContent value="register">
+                  <form onSubmit={handleRegister} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="space-y-2">
+                        <Label htmlFor="firstName">Prénom</Label>
                         <Input
-                          id="signup-name"
-                          type="text"
-                          placeholder="Votre nom complet"
-                          value={formData.fullName}
-                          onChange={(e) => handleInputChange('fullName', e.target.value)}
-                          className="pl-10"
+                          id="firstName"
+                          value={registerData.firstName}
+                          onChange={(e) => setRegisterData({...registerData, firstName: e.target.value})}
+                          placeholder="John"
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="lastName">Nom</Label>
+                        <Input
+                          id="lastName"
+                          value={registerData.lastName}
+                          onChange={(e) => setRegisterData({...registerData, lastName: e.target.value})}
+                          placeholder="Doe"
                           required
                         />
                       </div>
                     </div>
-
+                    
                     <div className="space-y-2">
-                      <Label htmlFor="signup-email">Email</Label>
+                      <Label htmlFor="registerEmail">Email</Label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                         <Input
-                          id="signup-email"
+                          id="registerEmail"
                           type="email"
-                          placeholder="votre.email@exemple.com"
-                          value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
                           className="pl-10"
+                          value={registerData.email}
+                          onChange={(e) => setRegisterData({...registerData, email: e.target.value})}
+                          placeholder="votre@email.com"
                           required
                         />
                       </div>
                     </div>
-
+                    
                     <div className="space-y-2">
-                      <Label htmlFor="signup-password">Mot de passe</Label>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                        <Input
-                          id="signup-password"
-                          type={showPassword ? "text" : "password"}
-                          placeholder="••••••••"
-                          value={formData.password}
-                          onChange={(e) => handleInputChange('password', e.target.value)}
-                          className="pl-10 pr-10"
-                          required
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                        >
-                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="account-type">Type de compte</Label>
-                      <div className="grid grid-cols-2 gap-2">
+                      <Label>Type de compte</Label>
+                      <div className="flex gap-2">
                         <Button
                           type="button"
-                          variant={formData.accountType === 'particulier_travailleur' ? 'default' : 'outline'}
-                          onClick={() => handleInputChange('accountType', 'particulier_travailleur')}
-                          className="flex items-center gap-2"
+                          variant={registerData.accountType === 'individual' ? 'default' : 'outline'}
+                          onClick={() => setRegisterData({...registerData, accountType: 'individual'})}
+                          className="flex-1"
                         >
-                          <Heart className="w-4 h-4" />
+                          <Heart className="w-4 h-4 mr-2" />
                           Famille
                         </Button>
                         <Button
                           type="button"
-                          variant={formData.accountType === 'abonne_salarie' ? 'default' : 'outline'}
-                          onClick={() => handleInputChange('accountType', 'abonne_salarie')}
-                          className="flex items-center gap-2"
+                          variant={registerData.accountType === 'enterprise' ? 'default' : 'outline'}
+                          onClick={() => setRegisterData({...registerData, accountType: 'enterprise'})}
+                          className="flex-1"
                         >
-                          <Building2 className="w-4 h-4" />
+                          <Building2 className="w-4 h-4 mr-2" />
                           Entreprise
                         </Button>
                       </div>
                     </div>
-
-                    <Button type="submit" className="w-full" disabled={isLoading}>
-                      {isLoading ? "Création du compte..." : "Créer mon compte"}
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="registerPassword">Mot de passe</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                        <Input
+                          id="registerPassword"
+                          type="password"
+                          className="pl-10"
+                          value={registerData.password}
+                          onChange={(e) => setRegisterData({...registerData, password: e.target.value})}
+                          placeholder="••••••••"
+                          required
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="confirmPassword">Confirmer le mot de passe</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                        <Input
+                          id="confirmPassword"
+                          type="password"
+                          className="pl-10"
+                          value={registerData.confirmPassword}
+                          onChange={(e) => setRegisterData({...registerData, confirmPassword: e.target.value})}
+                          placeholder="••••••••"
+                          required
+                        />
+                      </div>
+                    </div>
+                    
+                    <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700">
+                      Créer mon compte
                     </Button>
                   </form>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

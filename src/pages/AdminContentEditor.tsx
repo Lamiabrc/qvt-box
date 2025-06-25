@@ -1,84 +1,90 @@
 
 import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, Plus, Search, Filter } from "lucide-react";
+import { Save, ArrowLeft, Plus, Edit, Trash2, X } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
-import { useAdminContent } from "@/hooks/useAdminContent";
-import { ContentEditForm } from "@/components/admin/ContentEditForm";
-import { ContentList } from "@/components/admin/ContentList";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const AdminContentEditor = () => {
-  const { content, loading, updateContent, createContent, deleteContent } = useAdminContent();
-  const [selectedContent, setSelectedContent] = useState('content');
-  const [editingContent, setEditingContent] = useState(null);
-  const [isCreating, setIsCreating] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [pageFilter, setPageFilter] = useState('all');
+  const [selectedContent, setSelectedContent] = useState('pages');
+  const [editingPage, setEditingPage] = useState<number | null>(null);
+  const [editingProduct, setEditingProduct] = useState<number | null>(null);
+  const [pageForm, setPageForm] = useState({ title: '', content: '', status: 'published' });
+  const [productForm, setProductForm] = useState({ name: '', price: '', category: '', stock: '', status: 'active' });
+  const { toast } = useToast();
 
-  const handleEditContent = (item) => {
-    setEditingContent(item);
-    setIsCreating(false);
-  };
+  const pages = [
+    { id: 1, title: "Page d'accueil", status: "published", lastEdit: "2024-01-15", content: "Contenu de la page d'accueil..." },
+    { id: 2, title: "Concept QVT", status: "draft", lastEdit: "2024-01-14", content: "Contenu du concept QVT..." },
+    { id: 3, title: "Contact", status: "published", lastEdit: "2024-01-13", content: "Contenu de la page contact..." }
+  ];
 
-  const handleSaveContent = async (data) => {
-    if (editingContent) {
-      await updateContent(editingContent.id, data);
-    } else {
-      await createContent(data);
+  const products = [
+    { id: 1, name: "QVT Box Entreprise", price: "33", category: "Entreprise", stock: "150", status: "active" },
+    { id: 2, name: "QVTeen Box Famille", price: "25", category: "Famille", stock: "89", status: "active" },
+    { id: 3, name: "Box Anti-Stress", price: "49.90", category: "Entreprise", stock: "45", status: "inactive" }
+  ];
+
+  const handleEditPage = (pageId: number) => {
+    const page = pages.find(p => p.id === pageId);
+    if (page) {
+      setPageForm({ title: page.title, content: page.content, status: page.status });
+      setEditingPage(pageId);
     }
-    setEditingContent(null);
-    setIsCreating(false);
   };
 
-  const handleDeleteContent = async (id) => {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce contenu ?')) {
-      await deleteContent(id);
+  const handleEditProduct = (productId: number) => {
+    const product = products.find(p => p.id === productId);
+    if (product) {
+      setProductForm({ 
+        name: product.name, 
+        price: product.price, 
+        category: product.category, 
+        stock: product.stock, 
+        status: product.status 
+      });
+      setEditingProduct(productId);
     }
   };
 
-  const handleCreateNew = () => {
-    setEditingContent(null);
-    setIsCreating(true);
+  const handleSavePage = () => {
+    toast({
+      title: "Page sauvegardée",
+      description: `La page "${pageForm.title}" a été mise à jour avec succès`
+    });
+    setEditingPage(null);
   };
 
-  const handleCancel = () => {
-    setEditingContent(null);
-    setIsCreating(false);
+  const handleSaveProduct = () => {
+    toast({
+      title: "Produit sauvegardé",
+      description: `Le produit "${productForm.name}" a été mis à jour avec succès`
+    });
+    setEditingProduct(null);
   };
 
-  // Filter content based on search and page filter
-  const filteredContent = content.filter(item => {
-    const matchesSearch = !searchTerm || 
-      item.page.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.section.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.content_key.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesPage = pageFilter === 'all' || item.page === pageFilter;
-    
-    return matchesSearch && matchesPage;
-  });
+  const handleDeletePage = (pageId: number) => {
+    toast({
+      title: "Page supprimée",
+      description: "La page a été supprimée avec succès"
+    });
+  };
 
-  // Get unique pages for filter
-  const pages = Array.from(new Set(content.map(item => item.page)));
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Chargement du contenu...</p>
-        </div>
-      </div>
-    );
-  }
+  const handleDeleteProduct = (productId: number) => {
+    toast({
+      title: "Produit supprimé",
+      description: "Le produit a été supprimé avec succès"
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
@@ -89,143 +95,236 @@ const AdminContentEditor = () => {
               </Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-bold text-gray-800">Gestion de Contenu</h1>
-              <p className="text-gray-600">Éditez facilement le contenu de votre site</p>
+              <h1 className="text-3xl font-bold text-gray-800">Éditeur de Contenu</h1>
+              <p className="text-gray-600">Gérez vos pages et produits</p>
             </div>
           </div>
         </div>
 
         <Tabs value={selectedContent} onValueChange={setSelectedContent}>
           <TabsList className="grid w-full grid-cols-2 max-w-md">
-            <TabsTrigger value="content">Contenu du Site</TabsTrigger>
+            <TabsTrigger value="pages">Pages</TabsTrigger>
             <TabsTrigger value="products">Produits</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="content" className="space-y-6">
-            {/* Search and Filter Bar */}
-            <div className="flex gap-4 items-center">
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <Input
-                  placeholder="Rechercher dans le contenu..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-              
-              <Select value={pageFilter} onValueChange={setPageFilter}>
-                <SelectTrigger className="w-48">
-                  <Filter className="w-4 h-4 mr-2" />
-                  <SelectValue placeholder="Filtrer par page" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Toutes les pages</SelectItem>
-                  {pages.map(page => (
-                    <SelectItem key={page} value={page}>{page}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Button onClick={handleCreateNew} className="bg-blue-600 hover:bg-blue-700">
+          <TabsContent value="pages" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">Gestion des Pages</h2>
+              <Button className="bg-blue-600 hover:bg-blue-700">
                 <Plus className="w-4 h-4 mr-2" />
-                Nouveau Contenu
+                Nouvelle Page
               </Button>
             </div>
 
-            {/* Content Statistics */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">Total Contenus</CardTitle>
+            {/* Formulaire d'édition de page */}
+            {editingPage && (
+              <Card className="border-blue-200 bg-blue-50">
+                <CardHeader>
+                  <div className="flex justify-between items-center">
+                    <CardTitle>Modifier la page</CardTitle>
+                    <Button variant="ghost" size="sm" onClick={() => setEditingPage(null)}>
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{content.length}</div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">Publiés</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-green-600">
-                    {content.filter(item => item.is_published).length}
+                <CardContent className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Titre</label>
+                    <Input 
+                      value={pageForm.title}
+                      onChange={(e) => setPageForm({...pageForm, title: e.target.value})}
+                      placeholder="Titre de la page"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Contenu</label>
+                    <Textarea 
+                      value={pageForm.content}
+                      onChange={(e) => setPageForm({...pageForm, content: e.target.value})}
+                      placeholder="Contenu de la page"
+                      rows={6}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Statut</label>
+                    <select 
+                      value={pageForm.status}
+                      onChange={(e) => setPageForm({...pageForm, status: e.target.value})}
+                      className="w-full p-2 border rounded-md"
+                    >
+                      <option value="published">Publié</option>
+                      <option value="draft">Brouillon</option>
+                    </select>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button onClick={handleSavePage} className="bg-green-600 hover:bg-green-700">
+                      <Save className="w-4 h-4 mr-2" />
+                      Sauvegarder
+                    </Button>
+                    <Button variant="outline" onClick={() => setEditingPage(null)}>
+                      Annuler
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
-              
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">Brouillons</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-orange-600">
-                    {content.filter(item => !item.is_published).length}
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">Pages</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-blue-600">{pages.length}</div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Edit Form */}
-            {(editingContent || isCreating) && (
-              <ContentEditForm
-                content={editingContent}
-                onSave={handleSaveContent}
-                onCancel={handleCancel}
-              />
             )}
 
-            {/* Content List */}
-            <div>
-              <h2 className="text-xl font-semibold mb-4">
-                Contenus ({filteredContent.length})
-              </h2>
-              {filteredContent.length > 0 ? (
-                <ContentList
-                  content={filteredContent}
-                  onEdit={handleEditContent}
-                  onDelete={handleDeleteContent}
-                />
-              ) : (
-                <Card>
-                  <CardContent className="p-8 text-center">
-                    <p className="text-gray-500">Aucun contenu trouvé</p>
-                    {searchTerm && (
-                      <Button 
-                        variant="outline" 
-                        onClick={() => setSearchTerm('')}
-                        className="mt-2"
-                      >
-                        Effacer la recherche
-                      </Button>
-                    )}
+            <div className="grid gap-4">
+              {pages.map((page) => (
+                <Card key={page.id}>
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-semibold text-lg">{page.title}</h3>
+                        <p className="text-sm text-gray-600">Dernière modification: {page.lastEdit}</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Badge variant={page.status === 'published' ? 'default' : 'secondary'}>
+                          {page.status === 'published' ? 'Publié' : 'Brouillon'}
+                        </Badge>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleEditPage(page.id)}
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleDeletePage(page.id)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
-              )}
+              ))}
             </div>
           </TabsContent>
 
           <TabsContent value="products" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Gestion des Produits</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Interface de gestion des produits - À développer avec les fonctionnalités de création, édition et suppression des box QVT.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">Gestion des Produits</h2>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Plus className="w-4 h-4 mr-2" />
+                Nouveau Produit
+              </Button>
+            </div>
+
+            {/* Formulaire d'édition de produit */}
+            {editingProduct && (
+              <Card className="border-green-200 bg-green-50">
+                <CardHeader>
+                  <div className="flex justify-between items-center">
+                    <CardTitle>Modifier le produit</CardTitle>
+                    <Button variant="ghost" size="sm" onClick={() => setEditingProduct(null)}>
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Nom</label>
+                    <Input 
+                      value={productForm.name}
+                      onChange={(e) => setProductForm({...productForm, name: e.target.value})}
+                      placeholder="Nom du produit"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Prix (€)</label>
+                      <Input 
+                        value={productForm.price}
+                        onChange={(e) => setProductForm({...productForm, price: e.target.value})}
+                        placeholder="Prix"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Stock</label>
+                      <Input 
+                        value={productForm.stock}
+                        onChange={(e) => setProductForm({...productForm, stock: e.target.value})}
+                        placeholder="Quantité en stock"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Catégorie</label>
+                    <select 
+                      value={productForm.category}
+                      onChange={(e) => setProductForm({...productForm, category: e.target.value})}
+                      className="w-full p-2 border rounded-md"
+                    >
+                      <option value="Entreprise">Entreprise</option>
+                      <option value="Famille">Famille</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Statut</label>
+                    <select 
+                      value={productForm.status}
+                      onChange={(e) => setProductForm({...productForm, status: e.target.value})}
+                      className="w-full p-2 border rounded-md"
+                    >
+                      <option value="active">Actif</option>
+                      <option value="inactive">Inactif</option>
+                    </select>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button onClick={handleSaveProduct} className="bg-green-600 hover:bg-green-700">
+                      <Save className="w-4 h-4 mr-2" />
+                      Sauvegarder
+                    </Button>
+                    <Button variant="outline" onClick={() => setEditingProduct(null)}>
+                      Annuler
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            <div className="grid gap-4">
+              {products.map((product) => (
+                <Card key={product.id}>
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-semibold text-lg">{product.name}</h3>
+                        <div className="flex gap-2 mt-1">
+                          <Badge variant="outline">{product.category}</Badge>
+                          <Badge variant="secondary">Stock: {product.stock}</Badge>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <div className="text-right">
+                          <p className="text-lg font-bold text-green-600">{product.price}€</p>
+                          <p className="text-sm text-gray-600">{product.status === 'active' ? 'Actif' : 'Inactif'}</p>
+                        </div>
+                        <div className="flex gap-1">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleEditProduct(product.id)}
+                          >
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleDeleteProduct(product.id)}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </TabsContent>
         </Tabs>
       </div>

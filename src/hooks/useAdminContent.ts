@@ -10,7 +10,7 @@ export interface ContentItem {
   section: string;
   content_key: string;
   content_value: any;
-  content_type: string; // Changé pour correspondre au type Supabase
+  content_type: 'text' | 'image' | 'html' | 'json';
   is_published: boolean;
   created_at: string;
   updated_at: string;

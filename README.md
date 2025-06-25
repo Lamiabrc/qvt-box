@@ -1,72 +1,73 @@
-# 🌈 QVT Box – Application Web pour le Bien-Être et la Santé Mentale
+# Welcome to your Lovable project
 
-![Made in France](https://img.shields.io/badge/Made%20in-France-blue?style=flat-square&logo=france&labelColor=blue&color=white)
-<!-- Variante 1 -->
-<!-- ![France](https://img.shields.io/badge/Made%20in-France-0055A4?style=flat-square&logo=france) -->
-<!-- Variante 2 -->
-<!-- ![Made with ❤️ in France](https://img.shields.io/badge/Made%20with%20❤️%20in-France-0055A4?style=flat-square) -->
-<!-- Variante 3 -->
-<!-- ![FemTech Française](https://img.shields.io/badge/FemTech-Française-f36f91?style=flat-square&logo=heart) -->
+## Project info
 
----
+**URL**: https://lovable.dev/projects/d0b4b43a-ed3f-4246-807f-bc69144dca57
 
-## 🌍 Aperçu du projet
+## How can I edit this code?
 
-**QVT Box** est une application **phygitale** innovante qui mêle intelligence artificielle, accompagnement humain et box bien-être physiques livrées chaque mois.  
-Elle est dédiée à la **santé mentale** et à la **qualité de vie** des **salariés**, **adolescents** et de leur **entourage familial**.
+There are several ways of editing your application.
 
----
+**Use Lovable**
 
-## 🔍 Fonctionnalités principales
+Simply visit the [Lovable Project](https://lovable.dev/projects/d0b4b43a-ed3f-4246-807f-bc69144dca57) and start prompting.
 
-- 🧠 **Évaluation IA du bien-être** (stress, charge mentale, lien social)
-- 📊 **Dashboard RH** pour suivre les indicateurs QVT (burnout, engagement, scoring)
-- 📦 **Box physiques mensuelles** (kits psychoéducatifs, jeux, activités déstressantes)
-- 🛍️ **Boutique bien-être** avec contenus vidéos, ateliers, cartes cadeaux partenaires
-- 👨‍👩‍👧 **Espace famille / ado** pour renforcer les liens et ouvrir la discussion émotionnelle
+Changes made via Lovable will be committed automatically to this repo.
 
----
+**Use your preferred IDE**
 
-## 🎯 Publics cibles
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-- **Entreprises** : prévention RPS, culture QVT, cohésion d’équipe
-- **Familles** : alternative aux réseaux sociaux, repérage précoce, lien générationnel
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
----
+Follow these steps:
 
-## 🚀 Stack Technique
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-- **Frontend** : React, TailwindCSS, TypeScript
-- **Backend** : FastAPI, Supabase
-- **IA / scoring** : Analyse émotionnelle, NLP, machine learning
-- **Déploiement** : GitHub Pages ou Vercel + DNS via Cloudflare
-- **UX/UI** : Design doux et émotionnel (QVT), ludique (QVTeens), mobile-first
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
----
+# Step 3: Install the necessary dependencies.
+npm i
 
-## 🖼️ Démo
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
+```
 
-🌐 [www.qvtbox.com](https://www.qvtbox.com)
+**Edit a file directly in GitHub**
 
----
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-## 🤝 Contact
+**Use GitHub Codespaces**
 
-**Lamia Bréchet**  
-📧 [lamia.brechet@outlook.fr](mailto:lamia.brechet@outlook.fr)  
-💼 Fondatrice de QVT Box
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
----
+## What technologies are used for this project?
 
-## 🛠️ Contributions bienvenues
+This project is built with:
 
-> Le projet est en développement actif. Toute aide UX, Dev, ou IA est bienvenue 🤝  
-Crée une issue ou un fork pour proposer une amélioration ou un test terrain.
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
----
+## How can I deploy this project?
 
-## 🏷️ Licence
+Simply open [Lovable](https://lovable.dev/projects/d0b4b43a-ed3f-4246-807f-bc69144dca57) and click on Share -> Publish.
 
-Ce projet est sous licence MIT.  
-Copiez, améliorez, contribuez… toujours avec bienveillance ❤️
+## Can I connect a custom domain to my Lovable project?
 
+Yes, you can!
+
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

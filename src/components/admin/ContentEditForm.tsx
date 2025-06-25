@@ -26,7 +26,7 @@ export const ContentEditForm: React.FC<ContentEditFormProps> = ({
     section: '',
     content_key: '',
     content_value: '',
-    content_type: 'text' as const,
+    content_type: 'text', // Type string simple
     is_published: true
   });
 
@@ -114,7 +114,7 @@ export const ContentEditForm: React.FC<ContentEditFormProps> = ({
             </div>
             <div>
               <Label htmlFor="content_type">Type de contenu</Label>
-              <Select value={formData.content_type} onValueChange={(value: any) => setFormData({...formData, content_type: value})}>
+              <Select value={formData.content_type} onValueChange={(value) => setFormData({...formData, content_type: value})}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>

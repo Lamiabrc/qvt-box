@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,14 +14,21 @@ import {
   Check,
   Truck,
   Shield,
-  RefreshCw
+  RefreshCw,
+  User,
+  LogOut
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
+import { useCart } from "@/hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 const Shop = () => {
-  const [cart, setCart] = useState<{[key: string]: number}>({});
+  const { user, signOut } = useAuth();
+  const { addToCart, cartCount } = useCart();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const enterpriseBoxes = [
     {
@@ -84,24 +90,12 @@ const Shop = () => {
     }
   ];
 
-  const addToCart = (boxId: string) => {
-    setCart(prev => ({ ...prev, [boxId]: (prev[boxId] || 0) + 1 }));
-    toast({
-      title: "Ajouté au panier",
-      description: "Le produit a été ajouté à votre panier"
-    });
-  };
-
-  const removeFromCart = (boxId: string) => {
-    setCart(prev => {
-      const newCart = { ...prev };
-      if (newCart[boxId] > 1) {
-        newCart[boxId]--;
-      } else {
-        delete newCart[boxId];
-      }
-      return newCart;
-    });
+  const handleAddToCart = async (boxId: string, boxType: 'enterprise' | 'family', price: number) => {
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+    await addToCart(boxId, boxType, price);
   };
 
   const BoxCard = ({ box, type }: { box: any, type: 'enterprise' | 'family' }) => (
@@ -137,43 +131,51 @@ const Shop = () => {
         </div>
         
         <div className="flex items-center gap-2 pt-4">
-          {cart[box.id] ? (
-            <div className="flex items-center gap-2 flex-1">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => removeFromCart(box.id)}
-              >
-                <Minus className="w-4 h-4" />
-              </Button>
-              <span className="font-medium">{cart[box.id]}</span>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => addToCart(box.id)}
-              >
-                <Plus className="w-4 h-4" />
-              </Button>
-            </div>
-          ) : (
-            <Button 
-              onClick={() => addToCart(box.id)}
-              className={`flex-1 ${type === 'enterprise' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-purple-600 hover:bg-purple-700'}`}
-            >
-              <ShoppingCart className="w-4 h-4 mr-2" />
-              Ajouter au panier
-            </Button>
-          )}
+          <Button 
+            onClick={() => handleAddToCart(box.id, type, box.price)}
+            className={`flex-1 ${type === 'enterprise' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-purple-600 hover:bg-purple-700'}`}
+          >
+            <ShoppingCart className="w-4 h-4 mr-2" />
+            Ajouter au panier
+          </Button>
         </div>
       </CardContent>
     </Card>
   );
 
-  const cartItemsCount = Object.values(cart).reduce((sum, count) => sum + count, 0);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
       <FloatingBubbles />
+      
+      {/* Navigation Bar */}
+      <div className="relative z-20 bg-white/80 backdrop-blur-sm border-b">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-slate-800">QVT Box</h1>
+          
+          <div className="flex items-center gap-4">
+            {user ? (
+              <>
+                <Button variant="outline" onClick={() => navigate('/payment')}>
+                  <ShoppingCart className="w-4 h-4 mr-2" />
+                  Panier ({cartCount})
+                </Button>
+                <div className="flex items-center gap-2 text-sm text-slate-600">
+                  <User className="w-4 h-4" />
+                  {user.email}
+                </div>
+                <Button variant="ghost" size="sm" onClick={signOut}>
+                  <LogOut className="w-4 h-4" />
+                </Button>
+              </>
+            ) : (
+              <Button onClick={() => navigate('/auth')}>
+                <User className="w-4 h-4 mr-2" />
+                Se connecter
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
       
       <div className="container mx-auto px-4 py-12 relative z-10">
         {/* Header */}
@@ -184,15 +186,6 @@ const Shop = () => {
           <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-6">
             Découvrez nos box personnalisées pour améliorer le bien-être au travail et en famille
           </p>
-          
-          {cartItemsCount > 0 && (
-            <div className="fixed top-4 right-4 z-50">
-              <Button className="bg-green-600 hover:bg-green-700 rounded-full p-3">
-                <ShoppingCart className="w-5 h-5" />
-                <Badge className="ml-2 bg-white text-green-600">{cartItemsCount}</Badge>
-              </Button>
-            </div>
-          )}
         </div>
 
         {/* Features */}

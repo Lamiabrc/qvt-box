@@ -5,234 +5,165 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
   Heart, 
+  Users, 
+  Calendar, 
+  MessageCircle, 
   Shield, 
-  Brain,
-  Smartphone,
-  Users,
   Sparkles,
-  MessageSquare,
-  ArrowRight,
   Star,
-  Calendar,
-  BookOpen,
-  Settings,
-  Palette,
+  Camera,
   Music,
-  ShoppingBag,
-  UserCheck
+  Palette,
+  Zap
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import FloatingBubbles from "../components/FloatingBubbles";
 
 const TeensHome = () => {
-  const mainFeatures = [
-    {
-      icon: Shield,
-      title: "Espace Personnel",
-      description: "Ton espace privé et sécurisé",
-      color: "from-blue-500 to-cyan-500",
-      link: "/teens-personal-space"
-    },
-    {
-      icon: Heart,
-      title: "Check-in Quotidien",
-      description: "Partage ton humeur du jour",
-      color: "from-pink-500 to-purple-500",
-      link: "/teens-checkin"
-    },
-    {
-      icon: Brain,
-      title: "IA d'Évaluation",
-      description: "Analyse personnalisée de ton bien-être",
-      color: "from-purple-500 to-indigo-500",
-      link: "/teens-ai-evaluation"
-    },
-    {
-      icon: Calendar,
-      title: "Planning Famille",
-      description: "Organise tes activités familiales",
-      color: "from-green-500 to-teal-500",
-      link: "/teens-calendar"
-    },
-    {
-      icon: BookOpen,
-      title: "Journal Intime",
-      description: "Écris tes pensées en toute confidentialité",
-      color: "from-orange-500 to-red-500",
-      link: "/teens-journal"
-    },
-    {
-      icon: Users,
-      title: "Espace Famille",
-      description: "Reconnecte avec tes proches",
-      color: "from-violet-500 to-purple-500",
-      link: "/teens-family-space"
-    }
-  ];
-
-  const additionalFeatures = [
-    {
-      icon: Sparkles,
-      title: "Solutions Fun",
-      description: "Activités pour améliorer ton bien-être",
-      link: "/teens-fun-solutions"
-    },
-    {
-      icon: Settings,
-      title: "Personnalisation",
-      description: "Customise ton espace à ton image",
-      link: "/teens-customization"
-    },
-    {
-      icon: Music,
-      title: "Ma Playlist",
-      description: "Musiques qui te font du bien",
-      link: "/teens-playlist"
-    },
-    {
-      icon: ShoppingBag,
-      title: "Boutique Teen",
-      description: "Découvre la Teen Box",
-      link: "/teens-shop"
-    },
-    {
-      icon: MessageSquare,
-      title: "Alerte Rapide",
-      description: "Besoin d'aide immédiate ?",
-      link: "/teens-quick-alert"
-    },
-    {
-      icon: UserCheck,
-      title: "Accès Parental",
-      description: "Gestion des accès parents",
-      link: "/teens-parental-access"
-    }
-  ];
-
-  const testimonials = [
-    {
-      name: "Emma, 16 ans",
-      text: "Enfin un espace où je peux être moi-même sans me prendre la tête !",
-      rating: 5
-    },
-    {
-      name: "Lucas, 14 ans", 
-      text: "Ma mère et moi on se dispute moins depuis qu'on utilise QVTeen Box.",
-      rating: 5
-    },
-    {
-      name: "Chloé, 17 ans",
-      text: "J'ai appris à gérer mon stress grâce aux conseils de l'IA.",
-      rating: 4
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-violet-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 via-blue-100 to-cyan-100 relative overflow-hidden">
       <FloatingBubbles />
       
-      <div className="container mx-auto px-4 py-12 relative z-10">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-purple-100 text-purple-800">Pour les 11-18 ans</Badge>
-          <h1 className="text-5xl font-bold text-purple-800 mb-6">
-            Ton Espace Ados 🌟
-          </h1>
-          <p className="text-xl text-purple-600 mb-8 max-w-4xl mx-auto">
-            QVTeen Box, c'est TON espace à toi ! Pas de pression, pas de jugement.
-            Juste un endroit safe pour explorer tes émotions et créer du lien avec ta famille.
-          </p>
-        </div>
-
-        {/* Main Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {mainFeatures.map((feature, index) => (
-            <Link key={index} to={feature.link}>
-              <Card className="group hover:shadow-xl transition-all duration-300 border-purple-200 hover:scale-105 cursor-pointer">
-                <CardHeader>
-                  <div className={`w-14 h-14 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <feature.icon className="w-7 h-7 text-white" />
-                  </div>
-                  <CardTitle className="text-xl text-purple-800">{feature.title}</CardTitle>
-                  <CardDescription className="text-gray-600 text-base">
-                    {feature.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          ))}
-        </div>
-
-        {/* Additional Features */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-purple-800 mb-8">
-            Découvre toutes les fonctionnalités
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {additionalFeatures.map((feature, index) => (
-              <Link key={index} to={feature.link}>
-                <Card className="hover:shadow-lg transition-all duration-300 border-purple-200 hover:border-purple-300 cursor-pointer group">
-                  <CardContent className="p-4 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
-                      <feature.icon className="w-6 h-6 text-purple-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-purple-800">{feature.title}</h3>
-                      <p className="text-sm text-gray-600">{feature.description}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        {/* Hero Section avec couleurs fun */}
+        <div className="text-center mb-12 relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-pink-400/20 via-purple-400/20 to-cyan-400/20 rounded-3xl blur-3xl"></div>
+          <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border-4 border-gradient-to-r from-pink-300 to-purple-300">
+            <Badge className="mb-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-lg px-6 py-2 animate-bounce">
+              <Star className="w-5 h-5 mr-2" />
+              Ton Espace Perso
+            </Badge>
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
+              Salut ! 👋
+            </h1>
+            <p className="text-2xl text-gray-700 mb-8 font-medium">
+              Bienvenue dans ton univers coloré et bienveillant
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 mb-6">
+              <Badge className="bg-gradient-to-r from-pink-400 to-rose-400 text-white px-4 py-2 hover:scale-105 transition-transform">
+                <Heart className="w-4 h-4 mr-2" />
+                100% Safe
+              </Badge>
+              <Badge className="bg-gradient-to-r from-purple-400 to-violet-400 text-white px-4 py-2 hover:scale-105 transition-transform">
+                <Sparkles className="w-4 h-4 mr-2" />
+                Ton Style
+              </Badge>
+              <Badge className="bg-gradient-to-r from-cyan-400 to-blue-400 text-white px-4 py-2 hover:scale-105 transition-transform">
+                <Zap className="w-4 h-4 mr-2" />
+                Super Fun
+              </Badge>
+            </div>
           </div>
         </div>
 
-        {/* Testimonials */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-purple-800 mb-12">
-            Ce que disent les ados
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-purple-200 bg-white/80">
-                <CardHeader>
-                  <div className="flex items-center gap-2 mb-2">
-                    {[...Array(5)].map((_, i) => (
-                      <Star 
-                        key={i} 
-                        className={`w-4 h-4 ${i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
-                      />
-                    ))}
-                  </div>
-                  <CardDescription className="text-gray-700 italic text-base">
-                    "{testimonial.text}"
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="font-semibold text-purple-700">{testimonial.name}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+        {/* Navigation Cards avec couleurs vibrantes */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <Link to="/teens-check-in">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-pink-200 to-rose-200 hover:from-pink-300 hover:to-rose-300 transform hover:scale-105 hover:rotate-1">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                  <Heart className="w-10 h-10 text-white animate-pulse" />
+                </div>
+                <CardTitle className="text-2xl text-pink-800 font-bold">Mon Humeur</CardTitle>
+                <CardDescription className="text-pink-700 text-lg">Comment tu te sens aujourd'hui ?</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+
+          <Link to="/teens-personal-space">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-purple-200 to-violet-200 hover:from-purple-300 hover:to-violet-300 transform hover:scale-105 hover:-rotate-1">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                  <Shield className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-purple-800 font-bold">Ma SafeZone</CardTitle>
+                <CardDescription className="text-purple-700 text-lg">Ton espace 100% privé</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+
+          <Link to="/teens-family-space">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-cyan-200 to-blue-200 hover:from-cyan-300 hover:to-blue-300 transform hover:scale-105 hover:rotate-1">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                  <Users className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-cyan-800 font-bold">Espace Famille</CardTitle>
+                <CardDescription className="text-cyan-700 text-lg">Connecte-toi avec tes proches</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+
+          <Link to="/teens-calendar">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-orange-200 to-amber-200 hover:from-orange-300 hover:to-amber-300 transform hover:scale-105 hover:-rotate-1">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                  <Calendar className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-orange-800 font-bold">Mon Planning</CardTitle>
+                <CardDescription className="text-orange-700 text-lg">Organise tes activités fun</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+
+          <Link to="/teens-playlist">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-emerald-200 to-green-200 hover:from-emerald-300 hover:to-green-300 transform hover:scale-105 hover:rotate-1">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                  <Music className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-emerald-800 font-bold">Mes Playlists</CardTitle>
+                <CardDescription className="text-emerald-700 text-lg">Musique et détente</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+
+          <Link to="/teens-customization">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-indigo-200 to-purple-200 hover:from-indigo-300 hover:to-purple-300 transform hover:scale-105 hover:-rotate-1">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                  <Palette className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-indigo-800 font-bold">Personnalise</CardTitle>
+                <CardDescription className="text-indigo-700 text-lg">Crée ton style unique</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
         </div>
 
-        {/* CTA Final */}
-        <div className="text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl p-12">
-          <h2 className="text-3xl font-bold mb-4">
-            Prêt(e) à commencer ton voyage ? 🚀
-          </h2>
-          <p className="text-xl mb-6 max-w-3xl mx-auto opacity-90">
-            Rejoins des milliers d'ados qui ont trouvé leur équilibre avec QVTeen Box
-          </p>
-          <div className="flex justify-center gap-4">
-            <Link to="/teens-checkin">
-              <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
-                Je commence maintenant
+        {/* Section d'urgence avec design coloré */}
+        <div className="bg-gradient-to-r from-red-200 via-pink-200 to-purple-200 rounded-3xl p-8 mb-8 border-4 border-red-300 shadow-2xl">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-red-800 mb-4">
+              🚨 Besoin d'aide maintenant ?
+            </h2>
+            <p className="text-red-700 text-lg mb-6">
+              Si tu ne te sens pas bien, on est là pour toi
+            </p>
+            <Link to="/teens-quick-alert">
+              <Button className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white text-xl px-8 py-4 rounded-full shadow-lg hover:scale-105 transition-all">
+                Alerte Rapide 🆘
               </Button>
             </Link>
-            <Link to="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                J'ai des questions
+          </div>
+        </div>
+
+        {/* Navigation vers d'autres sections */}
+        <div className="text-center space-y-4">
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link to="/teens-shop">
+              <Button variant="outline" className="border-purple-400 text-purple-700 hover:bg-purple-50 px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                🛍️ Ma Boutique
+              </Button>
+            </Link>
+            <Link to="/family-orientation">
+              <Button variant="outline" className="border-cyan-400 text-cyan-700 hover:bg-cyan-50 px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                👨‍👩‍👧‍👦 Espace Parents
+              </Button>
+            </Link>
+            <Link to="/">
+              <Button variant="outline" className="border-pink-400 text-pink-700 hover:bg-pink-50 px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                🏠 Accueil
               </Button>
             </Link>
           </div>

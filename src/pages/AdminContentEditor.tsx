@@ -9,34 +9,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Save, ArrowLeft, Plus, Edit, Trash2, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import PageEditor from "../components/admin/PageEditor";
 
 const AdminContentEditor = () => {
   const [selectedContent, setSelectedContent] = useState('pages');
-  const [editingPage, setEditingPage] = useState<number | null>(null);
   const [editingProduct, setEditingProduct] = useState<number | null>(null);
-  const [pageForm, setPageForm] = useState({ title: '', content: '', status: 'published' });
   const [productForm, setProductForm] = useState({ name: '', price: '', category: '', stock: '', status: 'active' });
   const { toast } = useToast();
-
-  const pages = [
-    { id: 1, title: "Page d'accueil", status: "published", lastEdit: "2024-01-15", content: "Contenu de la page d'accueil..." },
-    { id: 2, title: "Concept QVT", status: "draft", lastEdit: "2024-01-14", content: "Contenu du concept QVT..." },
-    { id: 3, title: "Contact", status: "published", lastEdit: "2024-01-13", content: "Contenu de la page contact..." }
-  ];
 
   const products = [
     { id: 1, name: "QVT Box Entreprise", price: "33", category: "Entreprise", stock: "150", status: "active" },
     { id: 2, name: "QVTeen Box Famille", price: "25", category: "Famille", stock: "89", status: "active" },
-    { id: 3, name: "Box Anti-Stress", price: "49.90", category: "Entreprise", stock: "45", status: "inactive" }
+    { id: 3, name: "Box Anti-Stress", price: "49.90", category: "Entreprise", stock: "45", status: "inactive" },
+    { id: 4, name: "Teen Box Créativité", price: "35", category: "Famille", stock: "67", status: "active" },
+    { id: 5, name: "Family Box Harmonie", price: "42", category: "Famille", stock: "23", status: "active" },
+    { id: 6, name: "Manager Box Leadership", price: "55", category: "Entreprise", stock: "78", status: "active" }
   ];
-
-  const handleEditPage = (pageId: number) => {
-    const page = pages.find(p => p.id === pageId);
-    if (page) {
-      setPageForm({ title: page.title, content: page.content, status: page.status });
-      setEditingPage(pageId);
-    }
-  };
 
   const handleEditProduct = (productId: number) => {
     const product = products.find(p => p.id === productId);
@@ -52,27 +40,12 @@ const AdminContentEditor = () => {
     }
   };
 
-  const handleSavePage = () => {
-    toast({
-      title: "Page sauvegardée",
-      description: `La page "${pageForm.title}" a été mise à jour avec succès`
-    });
-    setEditingPage(null);
-  };
-
   const handleSaveProduct = () => {
     toast({
       title: "Produit sauvegardé",
       description: `Le produit "${productForm.name}" a été mis à jour avec succès`
     });
     setEditingProduct(null);
-  };
-
-  const handleDeletePage = (pageId: number) => {
-    toast({
-      title: "Page supprimée",
-      description: "La page a été supprimée avec succès"
-    });
   };
 
   const handleDeleteProduct = (productId: number) => {
@@ -108,100 +81,7 @@ const AdminContentEditor = () => {
           </TabsList>
 
           <TabsContent value="pages" className="space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-semibold">Gestion des Pages</h2>
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                <Plus className="w-4 h-4 mr-2" />
-                Nouvelle Page
-              </Button>
-            </div>
-
-            {/* Formulaire d'édition de page */}
-            {editingPage && (
-              <Card className="border-blue-200 bg-blue-50">
-                <CardHeader>
-                  <div className="flex justify-between items-center">
-                    <CardTitle>Modifier la page</CardTitle>
-                    <Button variant="ghost" size="sm" onClick={() => setEditingPage(null)}>
-                      <X className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Titre</label>
-                    <Input 
-                      value={pageForm.title}
-                      onChange={(e) => setPageForm({...pageForm, title: e.target.value})}
-                      placeholder="Titre de la page"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Contenu</label>
-                    <Textarea 
-                      value={pageForm.content}
-                      onChange={(e) => setPageForm({...pageForm, content: e.target.value})}
-                      placeholder="Contenu de la page"
-                      rows={6}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Statut</label>
-                    <select 
-                      value={pageForm.status}
-                      onChange={(e) => setPageForm({...pageForm, status: e.target.value})}
-                      className="w-full p-2 border rounded-md"
-                    >
-                      <option value="published">Publié</option>
-                      <option value="draft">Brouillon</option>
-                    </select>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button onClick={handleSavePage} className="bg-green-600 hover:bg-green-700">
-                      <Save className="w-4 h-4 mr-2" />
-                      Sauvegarder
-                    </Button>
-                    <Button variant="outline" onClick={() => setEditingPage(null)}>
-                      Annuler
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            <div className="grid gap-4">
-              {pages.map((page) => (
-                <Card key={page.id}>
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h3 className="font-semibold text-lg">{page.title}</h3>
-                        <p className="text-sm text-gray-600">Dernière modification: {page.lastEdit}</p>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Badge variant={page.status === 'published' ? 'default' : 'secondary'}>
-                          {page.status === 'published' ? 'Publié' : 'Brouillon'}
-                        </Badge>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => handleEditPage(page.id)}
-                        >
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => handleDeletePage(page.id)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <PageEditor />
           </TabsContent>
 
           <TabsContent value="products" className="space-y-6">

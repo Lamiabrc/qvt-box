@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,7 +16,6 @@ const Index = () => {
   const [activeUniverse, setActiveUniverse] = useState<'home' | 'enterprise' | 'family'>('home');
   const [activeSection, setActiveSection] = useState<'dashboard' | 'evaluator' | 'shop'>('dashboard');
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [showWowEffect, setShowWowEffect] = useState(true);
   const [showSubscriptionPopup, setShowSubscriptionPopup] = useState(false);
   const { toast } = useToast();
 
@@ -49,15 +49,11 @@ const Index = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Afficher le popup après 3 secondes au lieu de l'effet WAOU
   useEffect(() => {
-    // Effet WAOU d'entrée amélioré
     const timer = setTimeout(() => {
-      setShowWowEffect(false);
-      // Afficher le pop-up d'abonnement après l'effet WAOU
-      setTimeout(() => {
-        setShowSubscriptionPopup(true);
-      }, 1000);
-    }, 4000);
+      setShowSubscriptionPopup(true);
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -173,47 +169,16 @@ const Index = () => {
         onClose={() => setShowSubscriptionPopup(false)} 
       />
       
-      {/* Effet WAOU d'entrée amélioré */}
-      {showWowEffect && (
-        <div className="fixed inset-0 z-50 bg-gradient-to-br from-teal-600 via-cyan-600 to-blue-600 flex items-center justify-center">
-          <div className="text-center text-white">
-            <div className="relative mb-8">
-              <img 
-                src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
-                alt="QVT Box Logo" 
-                className="h-40 w-40 mx-auto rounded-full object-cover drop-shadow-2xl transform animate-bounce"
-              />
-              <div className="absolute inset-0 bg-white/20 rounded-full blur-3xl animate-ping" />
-              <div className="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold animate-pulse">
-                Nouveau !
-              </div>
-            </div>
-            <h1 className="text-6xl font-bold mb-4 animate-fade-in transform">QVT Box</h1>
-            <p className="text-2xl mb-4 animate-fade-in italic font-light" style={{ animationDelay: '0.5s' }}>
-              "Sortez de votre bulle, on veille sur vous"
-            </p>
-            <p className="text-lg animate-fade-in opacity-90" style={{ animationDelay: '1s' }}>
-              L'IA émotionnelle qui révolutionne le bien-être
-            </p>
-            <div className="mt-8 flex justify-center">
-              <div className="w-20 h-1 bg-white/50 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }} />
-            </div>
-          </div>
-        </div>
-      )}
-      
       <div className="container mx-auto px-4 py-12 relative z-10">
-        {/* Hero Section avec effet Waou */}
-        <div className="text-center mb-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 via-cyan-400/20 to-blue-400/20 blur-3xl animate-pulse" />
-          
+        {/* Hero Section optimisé */}
+        <div className="text-center mb-16 relative">
           <div className="relative z-10">
             <div className="flex justify-center mb-8">
               <div className="relative">
                 <img 
                   src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
                   alt="QVT Box Logo" 
-                  className="h-32 w-32 animate-fade-in drop-shadow-2xl transform hover:scale-110 transition-transform duration-500 rounded-full object-cover"
+                  className="h-32 w-32 drop-shadow-2xl transform hover:scale-110 transition-transform duration-500 rounded-full object-cover"
                 />
                 <div className="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold animate-bounce">
                   Nouveau !
@@ -224,7 +189,7 @@ const Index = () => {
               </div>
             </div>
             
-            <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 mb-6 animate-fade-in transform hover:scale-105 transition-transform duration-300">
+            <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 mb-6 transform hover:scale-105 transition-transform duration-300">
               QVT Box
             </h1>
             
@@ -239,10 +204,10 @@ const Index = () => {
                 </p>
               </div>
               
-              <p className="text-2xl text-teal-700 mb-4 font-semibold animate-fade-in">
+              <p className="text-2xl text-teal-700 mb-4 font-semibold">
                 L'IA émotionnelle qui révolutionne le bien-être
               </p>
-              <p className="text-xl text-teal-600 mb-6 max-w-4xl mx-auto animate-fade-in">
+              <p className="text-xl text-teal-600 mb-6 max-w-4xl mx-auto">
                 Solution phygitale de santé mentale à <span className="font-bold text-cyan-600">double impact</span> : 
                 entreprise & famille
               </p>
@@ -262,13 +227,13 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center mb-12">
               <Button 
                 onClick={handleGetStarted}
                 size="lg"
                 className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-lg px-8 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
               >
-                Commencer l'aventure QVT
+                Choisir mon univers
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Link to="/admin-login">
@@ -280,6 +245,25 @@ const Index = () => {
                   Administration
                 </Button>
               </Link>
+            </div>
+
+            {/* Message clair pour les deux univers */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-teal-200 mb-12">
+              <h2 className="text-3xl font-bold text-teal-800 mb-4">
+                Deux univers, une même mission : votre bien-être
+              </h2>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="text-center">
+                  <Building2 className="w-16 h-16 text-teal-600 mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-teal-800 mb-2">Univers Entreprise</h3>
+                  <p className="text-teal-600">Pour les entreprises soucieuses du bien-être de leurs équipes</p>
+                </div>
+                <div className="text-center">
+                  <Heart className="w-16 h-16 text-purple-600 mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-purple-800 mb-2">Univers Famille</h3>
+                  <p className="text-purple-600">Pour créer l'harmonie entre ados et parents</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -307,10 +291,10 @@ const Index = () => {
           </Card>
         </div>
 
-        {/* Deux Univers */}
+        {/* Deux Univers - Section principale */}
         <div id="universes" className="grid md:grid-cols-2 gap-8 mb-20">
           {/* Universe 1 - Enterprise */}
-          <Card className="group hover:shadow-2xl transition-all duration-500 border-teal-200 hover:border-teal-300 animate-scale-in transform hover:scale-105 overflow-hidden">
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-teal-200 hover:border-teal-300 transform hover:scale-105 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <CardHeader className="text-center pb-4 relative z-10">
               <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
@@ -384,7 +368,7 @@ const Index = () => {
           </Card>
 
           {/* Universe 2 - Family */}
-          <Card className="group hover:shadow-2xl transition-all duration-500 border-purple-200 hover:border-purple-300 animate-scale-in transform hover:scale-105 overflow-hidden">
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-purple-200 hover:border-purple-300 transform hover:scale-105 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <CardHeader className="text-center pb-4 relative z-10">
               <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">

@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { X, Building2, Heart, Star, Check, ArrowRight } from "lucide-react";
+import { Building2, Heart, Star, Check, ArrowRight } from "lucide-react";
 
 interface SubscriptionPopupProps {
   isOpen: boolean;
@@ -15,17 +15,6 @@ const SubscriptionPopup = ({ isOpen, onClose }: SubscriptionPopupProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 border-2 border-teal-200">
-        <div className="absolute right-4 top-4 z-50">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={onClose}
-            className="h-8 w-8 rounded-full hover:bg-white/50"
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-
         <DialogHeader className="text-center pb-6">
           <div className="flex justify-center mb-4">
             <img 

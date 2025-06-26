@@ -6,14 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Save, ArrowLeft, Plus, Edit, Trash2, X, FileText, Palette } from "lucide-react";
+import { Save, ArrowLeft, Plus, Edit, Trash2, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import PageEditor from "../components/admin/PageEditor";
-import ContentEditor from "../components/admin/ContentEditor";
 
 const AdminContentEditor = () => {
-  const [selectedContent, setSelectedContent] = useState('content');
+  const [selectedContent, setSelectedContent] = useState('pages');
   const [editingProduct, setEditingProduct] = useState<number | null>(null);
   const [productForm, setProductForm] = useState({ name: '', price: '', category: '', stock: '', status: 'active' });
   const { toast } = useToast();
@@ -70,27 +69,16 @@ const AdminContentEditor = () => {
             </Link>
             <div>
               <h1 className="text-3xl font-bold text-gray-800">Éditeur de Contenu</h1>
-              <p className="text-gray-600">Gérez vos contenus, pages et produits</p>
+              <p className="text-gray-600">Gérez vos pages et produits</p>
             </div>
           </div>
         </div>
 
         <Tabs value={selectedContent} onValueChange={setSelectedContent}>
-          <TabsList className="grid w-full grid-cols-3 max-w-lg">
-            <TabsTrigger value="content">
-              <Palette className="w-4 h-4 mr-2" />
-              Contenu
-            </TabsTrigger>
-            <TabsTrigger value="pages">
-              <FileText className="w-4 h-4 mr-2" />
-              Pages
-            </TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 max-w-md">
+            <TabsTrigger value="pages">Pages</TabsTrigger>
             <TabsTrigger value="products">Produits</TabsTrigger>
           </TabsList>
-
-          <TabsContent value="content" className="space-y-6">
-            <ContentEditor />
-          </TabsContent>
 
           <TabsContent value="pages" className="space-y-6">
             <PageEditor />

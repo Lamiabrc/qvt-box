@@ -86,6 +86,45 @@ export type Database = {
           },
         ]
       }
+      editable_content: {
+        Row: {
+          content_key: string
+          content_type: string
+          content_value: Json
+          created_at: string | null
+          default_value: Json
+          description: string | null
+          id: string
+          page_name: string
+          section_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          content_key: string
+          content_type?: string
+          content_value?: Json
+          created_at?: string | null
+          default_value?: Json
+          description?: string | null
+          id?: string
+          page_name: string
+          section_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          content_key?: string
+          content_type?: string
+          content_value?: Json
+          created_at?: string | null
+          default_value?: Json
+          description?: string | null
+          id?: string
+          page_name?: string
+          section_name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       enterprise_members: {
         Row: {
           created_at: string
@@ -584,6 +623,39 @@ export type Database = {
           page?: string
           section?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      site_themes: {
+        Row: {
+          colors: Json
+          created_at: string | null
+          description: string | null
+          fonts: Json
+          id: string
+          is_active: boolean | null
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          colors?: Json
+          created_at?: string | null
+          description?: string | null
+          fonts?: Json
+          id?: string
+          is_active?: boolean | null
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          colors?: Json
+          created_at?: string | null
+          description?: string | null
+          fonts?: Json
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          updated_at?: string | null
         }
         Relationships: []
       }

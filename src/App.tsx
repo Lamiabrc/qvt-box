@@ -35,6 +35,11 @@ import EnterpriseOrientation from "./pages/EnterpriseOrientation";
 import ExecutiveDashboard from "./pages/ExecutiveDashboard";
 import Payment from "./pages/Payment";
 import EnterpriseSimulator from "./pages/EnterpriseSimulator";
+import SimulatorSelector from "./pages/SimulatorSelector";
+import EnterpriseManagerSimulator from "./pages/EnterpriseManagerSimulator";
+import EnterpriseEmployeeSimulator from "./pages/EnterpriseEmployeeSimulator";
+import FamilyParentSimulator from "./pages/FamilyParentSimulator";
+import FamilyTeenSimulator from "./pages/FamilyTeenSimulator";
 
 // Import des pages teens
 import TeensPersonalSpace from "./pages/TeensPersonalSpace";
@@ -94,10 +99,16 @@ const App = () => (
               {/* Simulators */}
               <Route path="/simulator-home" element={<SimulatorHome />} />
               <Route path="/simulator-hub" element={<SimulatorHub />} />
+              <Route path="/simulator-selector" element={<SimulatorSelector />} />
               <Route path="/enterprise-simulator" element={<EnterpriseSimulator />} />
+              <Route path="/enterprise-manager-simulator" element={<EnterpriseManagerSimulator />} />
+              <Route path="/enterprise-employee-simulator" element={<EnterpriseEmployeeSimulator />} />
               
               {/* Family universe */}
               <Route path="/family-simulator" element={<FamilySimulator />} />
+              <Route path="/family-parent-simulator" element={<FamilyParentSimulator />} />
+              <Route path="/family-teen-simulator" element={<FamilyTeenSimulator />} />
+              
               <Route path="/login" element={<Login />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/teens-home" element={<TeensHome />} />

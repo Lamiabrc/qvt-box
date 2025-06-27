@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,46 +21,44 @@ const SimulatorHome = () => {
   const simulators = [
     {
       id: 'enterprise',
-      title: 'Simulateur Entreprise',
-      description: 'Évaluez le bien-être de vos équipes et identifiez les risques psychosociaux',
+      title: 'Simulateurs Entreprise',
+      description: 'Évaluations spécialisées pour managers et salariés',
       icon: Building2,
       color: 'from-teal-500 to-cyan-500',
       bgColor: 'bg-teal-50 border-teal-200',
       textColor: 'text-teal-800',
       features: [
-        'Analyse QVT par service',
+        'Version Manager : Analyse d\'équipe',
+        'Version Salarié : Bien-être personnel',
         'Détection précoce du burn-out',
-        'Recommandations personnalisées',
-        'Dashboard RH complet'
+        'Recommandations personnalisées'
       ],
       duration: '3-5 min',
-      participants: 'RH, Managers, Salariés'
+      participants: 'Managers, RH, Salariés',
+      route: '/simulator-selector'
     },
     {
       id: 'family',
-      title: 'Simulateur Famille',
-      description: 'Diagnostic familial pour améliorer la communication et le bien-être de tous',
+      title: 'Simulateurs Famille',
+      description: 'Évaluations adaptées pour parents et adolescents',
       icon: Heart,
       color: 'from-purple-500 to-pink-500',
       bgColor: 'bg-purple-50 border-purple-200',
       textColor: 'text-purple-800',
       features: [
-        'Évaluation climat familial',
-        'Gestion temps d\'écran ados',
+        'Version Parent : Bien-être parental',
+        'Version Ado : Check-up jeune',
         'Communication parent-enfant',
-        'Recommandations d\'activités'
+        'Gestion du temps d\'écran'
       ],
-      duration: '2-3 min',
-      participants: 'Parents, Ados 11-18 ans'
+      duration: '2-4 min',
+      participants: 'Parents, Ados 11-18 ans',
+      route: '/simulator-selector'
     }
   ];
 
-  const handleSimulatorSelect = (simulatorId: string) => {
-    if (simulatorId === 'enterprise') {
-      navigate('/simulator-enterprise');
-    } else if (simulatorId === 'family') {
-      navigate('/family-simulator');
-    }
+  const handleSimulatorSelect = (route: string) => {
+    navigate(route);
   };
 
   return (
@@ -77,7 +74,7 @@ const SimulatorHome = () => {
           </h1>
           <p className="text-xl text-slate-600 mb-8 max-w-4xl mx-auto">
             Nos simulateurs intelligents analysent votre situation et vous proposent 
-            des solutions personnalisées pour améliorer votre qualité de vie.
+            des solutions personnalisées. Chaque profil a son évaluation spécialisée.
           </p>
           <div className="flex justify-center items-center gap-6 text-sm text-slate-500">
             <div className="flex items-center gap-2">
@@ -90,7 +87,7 @@ const SimulatorHome = () => {
             </div>
             <div className="flex items-center gap-2">
               <Target className="w-4 h-4" />
-              <span>Recommandations précises</span>
+              <span>Personnalisé par profil</span>
             </div>
           </div>
         </div>
@@ -125,7 +122,7 @@ const SimulatorHome = () => {
               <CardContent className="space-y-6">
                 {/* Features */}
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Ce que vous découvrirez :</h4>
+                  <h4 className="font-semibold text-gray-800 mb-3">Évaluations disponibles :</h4>
                   <ul className="space-y-2">
                     {simulator.features.map((feature, idx) => (
                       <li key={idx} className="flex items-center gap-2 text-sm text-gray-700">
@@ -138,11 +135,11 @@ const SimulatorHome = () => {
                 
                 {/* CTA Button */}
                 <Button 
-                  onClick={() => handleSimulatorSelect(simulator.id)}
+                  onClick={() => handleSimulatorSelect(simulator.route)}
                   className={`w-full ${simulator.id === 'enterprise' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-purple-600 hover:bg-purple-700'}`}
                   size="lg"
                 >
-                  Commencer l'évaluation
+                  Choisir mon évaluation
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </CardContent>

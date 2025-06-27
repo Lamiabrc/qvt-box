@@ -48,6 +48,44 @@ export type Database = {
         }
         Relationships: []
       }
+      bubble_rewards: {
+        Row: {
+          bubble_type: Database["public"]["Enums"]["bubble_type"]
+          created_at: string
+          giver_id: string | null
+          id: string
+          message: string | null
+          post_id: string | null
+          receiver_id: string | null
+        }
+        Insert: {
+          bubble_type: Database["public"]["Enums"]["bubble_type"]
+          created_at?: string
+          giver_id?: string | null
+          id?: string
+          message?: string | null
+          post_id?: string | null
+          receiver_id?: string | null
+        }
+        Update: {
+          bubble_type?: Database["public"]["Enums"]["bubble_type"]
+          created_at?: string
+          giver_id?: string | null
+          id?: string
+          message?: string | null
+          post_id?: string | null
+          receiver_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bubble_rewards_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "shared_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cart_items: {
         Row: {
           box_id: string
@@ -314,6 +352,47 @@ export type Database = {
           },
         ]
       }
+      group_invitations: {
+        Row: {
+          created_at: string
+          expires_at: string
+          group_id: string | null
+          id: string
+          invitee_email: string
+          invitee_id: string | null
+          inviter_id: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string
+          group_id?: string | null
+          id?: string
+          invitee_email: string
+          invitee_id?: string | null
+          inviter_id?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          group_id?: string | null
+          id?: string
+          invitee_email?: string
+          invitee_id?: string | null
+          inviter_id?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_invitations_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "social_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       metrics: {
         Row: {
           event: string
@@ -554,6 +633,50 @@ export type Database = {
           },
         ]
       }
+      shared_posts: {
+        Row: {
+          author_id: string | null
+          content: string
+          created_at: string
+          group_id: string | null
+          id: string
+          media_urls: Json | null
+          post_type: string
+          privacy_level: string
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string | null
+          content: string
+          created_at?: string
+          group_id?: string | null
+          id?: string
+          media_urls?: Json | null
+          post_type: string
+          privacy_level?: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string | null
+          content?: string
+          created_at?: string
+          group_id?: string | null
+          id?: string
+          media_urls?: Json | null
+          post_type?: string
+          privacy_level?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shared_posts_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "social_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       simulator_responses: {
         Row: {
           answers: Json
@@ -656,6 +779,68 @@ export type Database = {
           is_active?: boolean | null
           name?: string
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      social_group_members: {
+        Row: {
+          group_id: string | null
+          id: string
+          joined_at: string
+          role: string
+          user_id: string | null
+        }
+        Insert: {
+          group_id?: string | null
+          id?: string
+          joined_at?: string
+          role?: string
+          user_id?: string | null
+        }
+        Update: {
+          group_id?: string | null
+          id?: string
+          joined_at?: string
+          role?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "social_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_groups: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          group_code: string
+          id: string
+          name: string
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          group_code: string
+          id?: string
+          name: string
+          type: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          group_code?: string
+          id?: string
+          name?: string
+          type?: string
         }
         Relationships: []
       }
@@ -1121,6 +1306,39 @@ export type Database = {
           },
         ]
       }
+      user_bubble_points: {
+        Row: {
+          connexion_points: number
+          id: string
+          inspiration_points: number
+          soin_points: number
+          total_points: number
+          transformation_points: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          connexion_points?: number
+          id?: string
+          inspiration_points?: number
+          soin_points?: number
+          total_points?: number
+          transformation_points?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          connexion_points?: number
+          id?: string
+          inspiration_points?: number
+          soin_points?: number
+          total_points?: number
+          transformation_points?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_feedback: {
         Row: {
           burnout_risk: string | null
@@ -1266,6 +1484,7 @@ export type Database = {
         | "happy"
         | "with_friends"
         | "need_help"
+      bubble_type: "soin" | "inspiration" | "transformation" | "connexion"
       enterprise_role_enum: "employee" | "manager" | "hr" | "admin"
       family_role: "parent" | "teen" | "sibling"
       subscription_plan: "basic" | "premium" | "family"
@@ -1419,6 +1638,7 @@ export const Constants = {
         "with_friends",
         "need_help",
       ],
+      bubble_type: ["soin", "inspiration", "transformation", "connexion"],
       enterprise_role_enum: ["employee", "manager", "hr", "admin"],
       family_role: ["parent", "teen", "sibling"],
       subscription_plan: ["basic", "premium", "family"],

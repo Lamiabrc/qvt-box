@@ -50,6 +50,18 @@ import TeensShop from "./pages/TeensShop";
 import TeensQuickAlert from "./pages/TeensQuickAlert";
 import TeensParentalAccess from "./pages/TeensParentalAccess";
 
+// Import des pages employés
+import EmployeeCheckIn from "./pages/EmployeeCheckIn";
+import EmployeePersonalSpace from "./pages/EmployeePersonalSpace";
+import EmployeeTeamSpace from "./pages/EmployeeTeamSpace";
+import EmployeeWellnessActivities from "./pages/EmployeeWellnessActivities";
+import EmployeeCustomization from "./pages/EmployeeCustomization";
+
+// Import des espaces sociaux
+import TeamSpace from "./pages/TeamSpace";
+import FamilySpace from "./pages/FamilySpace";
+import FriendsSpace from "./pages/FriendsSpace";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -103,10 +115,23 @@ const App = () => (
               <Route path="/teens-shop" element={<TeensShop />} />
               <Route path="/teens-quick-alert" element={<TeensQuickAlert />} />
               <Route path="/teens-parental-access" element={<TeensParentalAccess />} />
+              <Route path="/teens-friends-space" element={<FriendsSpace />} />
+              
+              {/* Employee pages */}
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/employee-checkin" element={<EmployeeCheckIn />} />
+              <Route path="/employee-personal-space" element={<EmployeePersonalSpace />} />
+              <Route path="/employee-team-space" element={<EmployeeTeamSpace />} />
+              <Route path="/employee-wellness-activities" element={<EmployeeWellnessActivities />} />
+              <Route path="/employee-customization" element={<EmployeeCustomization />} />
+              
+              {/* Social spaces */}
+              <Route path="/team-space" element={<TeamSpace />} />
+              <Route path="/family-space" element={<FamilySpace />} />
+              <Route path="/friends-space" element={<FriendsSpace />} />
               
               {/* User spaces */}
               <Route path="/parent-dashboard" element={<ParentDashboard />} />
-              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/team-leader-dashboard" element={<TeamLeaderDashboard />} />
               <Route path="/qvt-manager-dashboard" element={<QVTManagerDashboard />} />
               <Route path="/executive-dashboard" element={<ExecutiveDashboard />} />

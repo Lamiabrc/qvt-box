@@ -58,7 +58,7 @@ const TeensHome = () => {
 
         {/* Navigation Cards avec couleurs vibrantes */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          <Link to="/teens-check-in">
+          <Link to="/teens-checkin">
             <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-pink-200 to-rose-200 hover:from-pink-300 hover:to-rose-300 transform hover:scale-105 hover:rotate-1">
               <CardHeader className="text-center">
                 <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
@@ -94,8 +94,20 @@ const TeensHome = () => {
             </Card>
           </Link>
 
+          <Link to="/friends-space">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-green-200 to-emerald-200 hover:from-green-300 hover:to-emerald-300 transform hover:scale-105 hover:-rotate-1">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                  <Users className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-green-800 font-bold">Mes Potes</CardTitle>
+                <CardDescription className="text-green-700 text-lg">Partage avec tes amis</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+
           <Link to="/teens-calendar">
-            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-orange-200 to-amber-200 hover:from-orange-300 hover:to-amber-300 transform hover:scale-105 hover:-rotate-1">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-orange-200 to-amber-200 hover:from-orange-300 hover:to-amber-300 transform hover:scale-105 hover:rotate-1">
               <CardHeader className="text-center">
                 <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
                   <Calendar className="w-10 h-10 text-white" />
@@ -107,7 +119,7 @@ const TeensHome = () => {
           </Link>
 
           <Link to="/teens-playlist">
-            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-emerald-200 to-green-200 hover:from-emerald-300 hover:to-green-300 transform hover:scale-105 hover:rotate-1">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-emerald-200 to-green-200 hover:from-emerald-300 hover:to-green-300 transform hover:scale-105 hover:-rotate-1">
               <CardHeader className="text-center">
                 <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
                   <Music className="w-10 h-10 text-white" />
@@ -119,13 +131,37 @@ const TeensHome = () => {
           </Link>
 
           <Link to="/teens-customization">
-            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-indigo-200 to-purple-200 hover:from-indigo-300 hover:to-purple-300 transform hover:scale-105 hover:-rotate-1">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-indigo-200 to-purple-200 hover:from-indigo-300 hover:to-purple-300 transform hover:scale-105 hover:rotate-1">
               <CardHeader className="text-center">
                 <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
                   <Palette className="w-10 h-10 text-white" />
                 </div>
                 <CardTitle className="text-2xl text-indigo-800 font-bold">Personnalise</CardTitle>
                 <CardDescription className="text-indigo-700 text-lg">Crée ton style unique</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+
+          <Link to="/teens-fun-solutions">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-yellow-200 to-orange-200 hover:from-yellow-300 hover:to-orange-300 transform hover:scale-105 hover:-rotate-1">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                  <Sparkles className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-yellow-800 font-bold">Activités Fun</CardTitle>
+                <CardDescription className="text-yellow-700 text-lg">Solutions bien-être ludiques</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+
+          <Link to="/teens-journal">
+            <Card className="group hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-red-200 to-pink-200 hover:from-red-300 hover:to-pink-300 transform hover:scale-105 hover:rotate-1">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                  <MessageCircle className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-red-800 font-bold">Mon Journal</CardTitle>
+                <CardDescription className="text-red-700 text-lg">Exprime tes pensées</CardDescription>
               </CardHeader>
             </Card>
           </Link>

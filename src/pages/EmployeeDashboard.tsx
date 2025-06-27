@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,6 +21,7 @@ import {
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const EmployeeDashboard = () => {
   const [wellbeingScore, setWellbeingScore] = useState(7.2);
@@ -211,38 +211,45 @@ const EmployeeDashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <Button 
-                    variant="outline" 
-                    className="h-20 flex flex-col gap-2"
-                    onClick={() => handleQuickAction("Évaluation express")}
-                  >
-                    <Brain className="w-6 h-6" />
-                    <span className="text-sm">Évaluation Express</span>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="h-20 flex flex-col gap-2"
-                    onClick={() => handleQuickAction("Pause bien-être")}
-                  >
-                    <Coffee className="w-6 h-6" />
-                    <span className="text-sm">Pause Bien-être</span>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="h-20 flex flex-col gap-2"
-                    onClick={() => handleQuickAction("Partage humeur")}
-                  >
-                    <MessageCircle className="w-6 h-6" />
-                    <span className="text-sm">Partager Humeur</span>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="h-20 flex flex-col gap-2"
-                    onClick={() => handleQuickAction("SOS manager")}
-                  >
-                    <AlertTriangle className="w-6 h-6" />
-                    <span className="text-sm">SOS Manager</span>
-                  </Button>
+                  <Link to="/employee-checkin">
+                    <Button 
+                      variant="outline" 
+                      className="h-20 flex flex-col gap-2 w-full"
+                    >
+                      <Brain className="w-6 h-6" />
+                      <span className="text-sm">Check-in</span>
+                    </Button>
+                  </Link>
+                  
+                  <Link to="/employee-wellness-activities">
+                    <Button 
+                      variant="outline" 
+                      className="h-20 flex flex-col gap-2 w-full"
+                    >
+                      <Coffee className="w-6 h-6" />
+                      <span className="text-sm">Activités Bien-être</span>
+                    </Button>
+                  </Link>
+                  
+                  <Link to="/employee-team-space">
+                    <Button 
+                      variant="outline" 
+                      className="h-20 flex flex-col gap-2 w-full"
+                    >
+                      <MessageCircle className="w-6 h-6" />
+                      <span className="text-sm">Espace Équipe</span>
+                    </Button>
+                  </Link>
+                  
+                  <Link to="/employee-personal-space">
+                    <Button 
+                      variant="outline" 
+                      className="h-20 flex flex-col gap-2 w-full"
+                    >
+                      <User className="w-6 h-6" />
+                      <span className="text-sm">Espace Personnel</span>
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
@@ -360,56 +367,62 @@ const EmployeeDashboard = () => {
           {/* Ressources */}
           <TabsContent value="resources" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BookOpen className="w-5 h-5 text-blue-600" />
-                    Guides Bien-être
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Ressources pour améliorer votre bien-être au travail
-                  </p>
-                  <Button variant="outline" size="sm">
-                    Accéder
-                  </Button>
-                </CardContent>
-              </Card>
+              <Link to="/employee-wellness-activities">
+                <Card className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <BookOpen className="w-5 h-5 text-blue-600" />
+                      Activités Bien-être
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Découvrez des activités pour améliorer votre bien-être
+                    </p>
+                    <Button variant="outline" size="sm">
+                      Accéder
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
 
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MessageCircle className="w-5 h-5 text-green-600" />
-                    Support
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Besoin d'aide ? Contactez notre équipe support
-                  </p>
-                  <Button variant="outline" size="sm">
-                    Contacter
-                  </Button>
-                </CardContent>
-              </Card>
+              <Link to="/employee-team-space">
+                <Card className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <MessageCircle className="w-5 h-5 text-green-600" />
+                      Espace Équipe
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Partagez avec vos collègues et renforcez les liens
+                    </p>
+                    <Button variant="outline" size="sm">
+                      Rejoindre
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
 
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Package className="w-5 h-5 text-purple-600" />
-                    Ma Box
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Suivez votre box mensuelle et son contenu
-                  </p>
-                  <Button variant="outline" size="sm">
-                    Voir ma box
-                  </Button>
-                </CardContent>
-              </Card>
+              <Link to="/employee-customization">
+                <Card className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Package className="w-5 h-5 text-purple-600" />
+                      Personnalisation
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Personnalisez votre expérience utilisateur
+                    </p>
+                    <Button variant="outline" size="sm">
+                      Configurer
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
             </div>
           </TabsContent>
         </Tabs>

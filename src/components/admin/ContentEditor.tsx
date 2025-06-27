@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Save, Palette, Type, Refresh } from "lucide-react";
+import { Save, Palette, Type, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useEditableContent } from "@/hooks/useEditableContent";
 
@@ -66,7 +66,7 @@ const ContentEditor = () => {
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-semibold">Éditeur de Contenu</h2>
         <Button onClick={refreshAll} variant="outline">
-          <Refresh className="w-4 h-4 mr-2" />
+          <RefreshCw className="w-4 h-4 mr-2" />
           Actualiser
         </Button>
       </div>

@@ -86,6 +86,45 @@ export type Database = {
           },
         ]
       }
+      editable_content: {
+        Row: {
+          content_key: string
+          content_type: string
+          content_value: Json
+          created_at: string | null
+          default_value: Json
+          description: string | null
+          id: string
+          page_name: string
+          section_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          content_key: string
+          content_type?: string
+          content_value?: Json
+          created_at?: string | null
+          default_value?: Json
+          description?: string | null
+          id?: string
+          page_name: string
+          section_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          content_key?: string
+          content_type?: string
+          content_value?: Json
+          created_at?: string | null
+          default_value?: Json
+          description?: string | null
+          id?: string
+          page_name?: string
+          section_name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       enterprise_members: {
         Row: {
           created_at: string
@@ -584,6 +623,39 @@ export type Database = {
           page?: string
           section?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      site_themes: {
+        Row: {
+          colors: Json
+          created_at: string | null
+          description: string | null
+          fonts: Json
+          id: string
+          is_active: boolean | null
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          colors?: Json
+          created_at?: string | null
+          description?: string | null
+          fonts?: Json
+          id?: string
+          is_active?: boolean | null
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          colors?: Json
+          created_at?: string | null
+          description?: string | null
+          fonts?: Json
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -1141,15 +1213,19 @@ export type Database = {
         Returns: string
       }
       get_user_role: {
-        Args: { user_id: string }
+        Args: { user_uuid: string }
         Returns: string
       }
       is_admin: {
-        Args: Record<PropertyKey, never> | { user_id: string }
+        Args: Record<PropertyKey, never> | { user_uuid: string }
         Returns: boolean
       }
       is_user_admin: {
         Args: { user_id: string }
+        Returns: boolean
+      }
+      is_user_famille: {
+        Args: { user_uuid: string }
         Returns: boolean
       }
       is_user_hr: {
@@ -1158,6 +1234,14 @@ export type Database = {
       }
       is_user_manager: {
         Args: { target_user_id: string }
+        Returns: boolean
+      }
+      is_user_responsable_qvt: {
+        Args: { user_uuid: string }
+        Returns: boolean
+      }
+      is_user_rh: {
+        Args: { user_uuid: string }
         Returns: boolean
       }
       setup_qvt_database: {
@@ -1193,7 +1277,19 @@ export type Database = {
         | "very_sad"
         | "anxious"
         | "stressed"
-      user_role: "admin" | "user"
+      user_role:
+        | "admin"
+        | "user"
+        | "salarié"
+        | "responsable_qvt"
+        | "rh"
+        | "parent"
+        | "ado"
+        | "enfant"
+        | "grand_parent"
+        | "tuteur"
+        | "autre_referent"
+        | "coach"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1335,7 +1431,20 @@ export const Constants = {
         "anxious",
         "stressed",
       ],
-      user_role: ["admin", "user"],
+      user_role: [
+        "admin",
+        "user",
+        "salarié",
+        "responsable_qvt",
+        "rh",
+        "parent",
+        "ado",
+        "enfant",
+        "grand_parent",
+        "tuteur",
+        "autre_referent",
+        "coach",
+      ],
     },
   },
 } as const

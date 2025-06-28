@@ -10,7 +10,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import { Heart, Building2, Users, GraduationCap, ShoppingBag, Phone, User } from "lucide-react";
+import { Heart, Building2, ShoppingBag, Phone, User } from "lucide-react";
 
 const Navigation = () => {
   const location = useLocation();
@@ -62,7 +62,7 @@ const Navigation = () => {
                       <Link to="/teens-home" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                         <div className="text-sm font-medium leading-none">Espace Ados (11-18 ans)</div>
                         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Interface dédiée aux adolescents
+                          Interface dédiée aux adolescents avec zones étendues
                         </p>
                       </Link>
                     </NavigationMenuLink>
@@ -70,15 +70,23 @@ const Navigation = () => {
                       <Link to="/parent-dashboard" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                         <div className="text-sm font-medium leading-none">Espace Parents</div>
                         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Suivi et accompagnement parental
+                          Suivi et accès aux informations des ados
                         </p>
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link to="/family-simulator" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Simulateur Famille</div>
+                      <Link to="/family-parent-simulator" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Simulateur Parent</div>
                         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Outils d'évaluation familiale
+                          Évaluation bien-être parental
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link to="/family-teen-simulator" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Simulateur Ado</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          Évaluation bien-être adolescent
                         </p>
                       </Link>
                     </NavigationMenuLink>
@@ -143,38 +151,18 @@ const Navigation = () => {
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link to="/concept-qvt" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Concept QVT</div>
+                      <Link to="/enterprise-manager-simulator" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Simulateur Manager</div>
                         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Découvrir notre approche QVT
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              {/* Coach */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-blue-700">
-                  <GraduationCap className="w-4 h-4 mr-2" />
-                  Coach
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="grid gap-3 p-6 w-80">
-                    <NavigationMenuLink asChild>
-                      <Link to="/coach-dashboard" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Dashboard Coach</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Suivi des clients et sessions
+                          Évaluation QVT managériale
                         </p>
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link to="/coach-qvt" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Coach QVT</div>
+                      <Link to="/enterprise-employee-simulator" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Simulateur Salarié</div>
                         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Outils spécialisés QVT
+                          Évaluation bien-être salarié
                         </p>
                       </Link>
                     </NavigationMenuLink>

@@ -4,361 +4,352 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Progress } from "@/components/ui/progress";
 import { 
   Heart, 
   Users, 
+  Calendar, 
   MessageCircle, 
   TrendingUp, 
-  Calendar,
+  Clock,
+  Star,
+  AlertTriangle,
+  Shield,
+  Eye,
   Bell,
   BookOpen,
+  Activity,
   Target,
-  AlertTriangle,
-  CheckCircle,
-  Clock,
-  Star
+  Smile,
+  Frown,
+  Meh,
+  RefreshCw
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import FloatingBubbles from "../components/FloatingBubbles";
-import { useToast } from "@/hooks/use-toast";
 
 const ParentDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
-  const { toast } = useToast();
 
-  const teensData = [
-    {
-      name: "Emma",
-      age: 16,
-      mood: "positive",
-      screenTime: "3h 45m",
-      communication: 85,
-      activities: 12,
-      alerts: 0
-    },
-    {
-      name: "Lucas",
-      age: 14,
-      mood: "neutral",
-      screenTime: "5h 20m",
-      communication: 65,
-      activities: 8,
-      alerts: 2
-    }
+  // Données fictives pour les informations des ados
+  const teenData = {
+    name: "Emma",
+    age: 16,
+    lastCheckIn: "Aujourd'hui 14:30",
+    mood: "content",
+    riskLevel: "faible",
+    weeklyTrend: "stable",
+    alerts: 0,
+    completedActivities: 3,
+    totalActivities: 5
+  };
+
+  const moodHistory = [
+    { date: "Lun", mood: "happy", score: 8 },
+    { date: "Mar", mood: "neutral", score: 6 },
+    { date: "Mer", mood: "happy", score: 9 },
+    { date: "Jeu", mood: "sad", score: 4 },
+    { date: "Ven", mood: "happy", score: 8 },
+    { date: "Sam", mood: "happy", score: 9 },
+    { date: "Dim", mood: "neutral", score: 7 }
   ];
 
-  const familyActivities = [
-    {
-      title: "Soirée jeux de société",
-      date: "Ce soir 19h30",
-      participants: 4,
-      status: "planifié"
-    },
-    {
-      title: "Discussion émotions",
-      date: "Hier",
-      participants: 3,
-      status: "terminé"
-    },
-    {
-      title: "Activité nature",
-      date: "Weekend prochain",
-      participants: 4,
-      status: "proposé"
+  const getMoodIcon = (mood: string) => {
+    switch (mood) {
+      case 'happy': return <Smile className="w-6 h-6 text-green-500" />;
+      case 'sad': return <Frown className="w-6 h-6 text-red-500" />;
+      default: return <Meh className="w-6 h-6 text-yellow-500" />;
     }
-  ];
-
-  const handleQuickAction = (action: string) => {
-    toast({
-      title: "Action lancée",
-      description: `${action} en cours...`
-    });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 relative overflow-hidden">
       <FloatingBubbles />
       
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="container mx-auto px-4 py-6 relative z-10">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-purple-800 mb-2">
-            Espace Parents
+        <div className="text-center mb-8">
+          <Badge className="mb-4 bg-purple-100 text-purple-800">Espace Parent</Badge>
+          <h1 className="text-4xl font-bold text-purple-800 mb-4">
+            Dashboard Parental 👨‍👩‍👧‍👦
           </h1>
-          <p className="text-purple-600">
-            Suivez et accompagnez le bien-être de votre famille
+          <p className="text-xl text-purple-600">
+            Suivi bienveillant de votre adolescent(e)
           </p>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="border-purple-200">
-            <CardContent className="p-6">
+        {/* Stats rapides */}
+        <div className="grid md:grid-cols-4 gap-4 mb-8">
+          <Card className="border-l-4 border-l-green-500">
+            <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-purple-600">Ambiance Familiale</p>
-                  <p className="text-2xl font-bold text-purple-800">8.2/10</p>
+                  <p className="text-sm font-medium text-gray-600">État général</p>
+                  <p className="text-2xl font-bold text-green-700">Bon</p>
                 </div>
-                <Heart className="h-8 w-8 text-purple-500" />
+                <Heart className="w-8 h-8 text-green-600" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-pink-200">
-            <CardContent className="p-6">
+          <Card className="border-l-4 border-l-blue-500">
+            <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-pink-600">Communication</p>
-                  <p className="text-2xl font-bold text-pink-800">75%</p>
+                  <p className="text-sm font-medium text-gray-600">Activités complétées</p>
+                  <p className="text-2xl font-bold text-blue-700">{teenData.completedActivities}/{teenData.totalActivities}</p>
                 </div>
-                <MessageCircle className="h-8 w-8 text-pink-500" />
+                <Activity className="w-8 h-8 text-blue-600" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-indigo-200">
-            <CardContent className="p-6">
+          <Card className="border-l-4 border-l-orange-500">
+            <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-indigo-600">Activités</p>
-                  <p className="text-2xl font-bold text-indigo-800">20</p>
+                  <p className="text-sm font-medium text-gray-600">Alertes</p>
+                  <p className="text-2xl font-bold text-orange-700">{teenData.alerts}</p>
                 </div>
-                <Calendar className="h-8 w-8 text-indigo-500" />
+                <Bell className="w-8 h-8 text-orange-600" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-orange-200">
-            <CardContent className="p-6">
+          <Card className="border-l-4 border-l-purple-500">
+            <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-orange-600">Alertes</p>
-                  <p className="text-2xl font-bold text-orange-800">2</p>
+                  <p className="text-sm font-medium text-gray-600">Dernière connexion</p>
+                  <p className="text-sm font-bold text-purple-700">{teenData.lastCheckIn}</p>
                 </div>
-                <Bell className="h-8 w-8 text-orange-500" />
+                <Clock className="w-8 h-8 text-purple-600" />
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Main Content */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+        {/* Contenu principal avec onglets */}
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-4 mb-6">
             <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
-            <TabsTrigger value="teens">Suivi Ados</TabsTrigger>
+            <TabsTrigger value="mood">Humeur</TabsTrigger>
             <TabsTrigger value="activities">Activités</TabsTrigger>
-            <TabsTrigger value="resources">Ressources</TabsTrigger>
+            <TabsTrigger value="communication">Communication</TabsTrigger>
           </TabsList>
 
-          {/* Vue d'ensemble */}
           <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid lg:grid-cols-2 gap-6">
+              {/* Profil de l'ado */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-purple-600" />
-                    Évolution Familiale
+                    <Users className="w-5 h-5 text-purple-600" />
+                    Profil de {teenData.name}
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span>Bien-être général</span>
-                        <span>82%</span>
-                      </div>
-                      <Progress value={82} className="h-2" />
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Âge:</span>
+                    <span className="font-semibold">{teenData.age} ans</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Humeur actuelle:</span>
+                    <div className="flex items-center gap-2">
+                      {getMoodIcon(teenData.mood)}
+                      <span className="font-semibold capitalize">{teenData.mood}</span>
                     </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span>Communication</span>
-                        <span>75%</span>
-                      </div>
-                      <Progress value={75} className="h-2" />
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span>Temps qualité</span>
-                        <span>68%</span>
-                      </div>
-                      <Progress value={68} className="h-2" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Niveau de risque:</span>
+                    <Badge className="bg-green-100 text-green-800">{teenData.riskLevel}</Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Tendance hebdomadaire:</span>
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className="w-4 h-4 text-green-500" />
+                      <span className="text-green-600 font-semibold">{teenData.weeklyTrend}</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
+              {/* Actions rapides */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Target className="w-5 h-5 text-green-600" />
-                    Objectifs de la Semaine
+                    <Target className="w-5 h-5 text-blue-600" />
+                    Actions Rapides
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span className="text-sm">3 repas famille</span>
-                      <Badge variant="secondary">Terminé</Badge>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-orange-500" />
-                      <span className="text-sm">Discussion émotions</span>
-                      <Badge variant="outline">En cours</Badge>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Target className="w-4 h-4 text-blue-500" />
-                      <span className="text-sm">Activité extérieure</span>
-                      <Badge variant="outline">Planifié</Badge>
-                    </div>
-                  </div>
+                <CardContent className="space-y-3">
+                  <Link to="/family-parent-simulator">
+                    <Button className="w-full bg-purple-600 hover:bg-purple-700 justify-start">
+                      <RefreshCw className="w-4 h-4 mr-2" />
+                      Faire le simulateur parent
+                    </Button>
+                  </Link>
+                  <Link to="/family-space">
+                    <Button variant="outline" className="w-full justify-start">
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      Espace famille partagé
+                    </Button>
+                  </Link>
+                  <Link to="/teens-parental-access">
+                    <Button variant="outline" className="w-full justify-start">
+                      <Shield className="w-4 h-4 mr-2" />
+                      Gérer les autorisations
+                    </Button>
+                  </Link>
+                  <Button variant="outline" className="w-full justify-start">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    Programmer une activité
+                  </Button>
                 </CardContent>
               </Card>
             </div>
           </TabsContent>
 
-          {/* Suivi Ados */}
-          <TabsContent value="teens" className="space-y-6">
-            <div className="grid gap-6">
-              {teensData.map((teen) => (
-                <Card key={teen.name}>
-                  <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <CardTitle className="text-lg">{teen.name}</CardTitle>
-                        <CardDescription>{teen.age} ans</CardDescription>
-                      </div>
-                      <div className="flex gap-2">
-                        <Badge 
-                          variant={teen.mood === 'positive' ? 'default' : teen.mood === 'neutral' ? 'secondary' : 'destructive'}
-                        >
-                          {teen.mood === 'positive' ? 'Positif' : teen.mood === 'neutral' ? 'Neutre' : 'Négatif'}
-                        </Badge>
-                        {teen.alerts > 0 && (
-                          <Badge variant="destructive">{teen.alerts} alerte(s)</Badge>
-                        )}
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div className="text-center">
-                        <p className="text-sm text-gray-600">Temps écran</p>
-                        <p className="text-lg font-semibold">{teen.screenTime}</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-sm text-gray-600">Communication</p>
-                        <p className="text-lg font-semibold">{teen.communication}%</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-sm text-gray-600">Activités</p>
-                        <p className="text-lg font-semibold">{teen.activities}</p>
-                      </div>
-                      <div className="text-center">
-                        <Button 
-                          size="sm" 
-                          onClick={() => handleQuickAction(`Discussion avec ${teen.name}`)}
-                        >
-                          Contacter
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          {/* Activités */}
-          <TabsContent value="activities" className="space-y-6">
-            <div className="grid gap-4">
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold">Activités Familiales</h3>
-                <Button onClick={() => handleQuickAction("Nouvelle activité")}>
-                  Planifier une activité
-                </Button>
-              </div>
-              
-              {familyActivities.map((activity, index) => (
-                <Card key={index}>
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-medium">{activity.title}</h4>
-                        <p className="text-sm text-gray-600">{activity.date}</p>
-                        <p className="text-sm text-gray-500">{activity.participants} participants</p>
-                      </div>
-                      <Badge 
-                        variant={
-                          activity.status === 'terminé' ? 'default' :
-                          activity.status === 'planifié' ? 'secondary' : 'outline'
-                        }
+          <TabsContent value="mood" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Heart className="w-5 h-5 text-pink-600" />
+                  Suivi de l'humeur - 7 derniers jours
+                </CardTitle>
+                <CardDescription>
+                  Évolution de l'état émotionnel de {teenData.name}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex justify-between items-end h-32 mb-4">
+                  {moodHistory.map((day, index) => (
+                    <div key={index} className="flex flex-col items-center">
+                      <div 
+                        className="bg-purple-200 rounded-t-lg mb-2 flex items-end justify-center"
+                        style={{ height: `${day.score * 8}px`, minHeight: '20px', width: '30px' }}
                       >
-                        {activity.status}
-                      </Badge>
+                        <span className="text-xs font-semibold text-purple-800">{day.score}</span>
+                      </div>
+                      {getMoodIcon(day.mood)}
+                      <span className="text-xs text-gray-600 mt-1">{day.date}</span>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  ))}
+                </div>
+                <div className="text-sm text-gray-600 text-center">
+                  Échelle: 1-10 (1 = très mal, 10 = excellent)
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
-          {/* Ressources */}
-          <TabsContent value="resources" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <BookOpen className="w-5 h-5 text-blue-600" />
-                    Guides Parents
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Ressources pour améliorer la communication familiale
-                  </p>
-                  <Button variant="outline" size="sm">
-                    Accéder aux guides
-                  </Button>
-                </CardContent>
-              </Card>
+          <TabsContent value="activities" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-green-600" />
+                  Activités de bien-être
+                </CardTitle>
+                <CardDescription>
+                  Progrès dans les activités recommandées
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                  <div>
+                    <p className="font-medium">Méditation quotidienne</p>
+                    <p className="text-sm text-gray-600">5 min/jour</p>
+                  </div>
+                  <Badge className="bg-green-100 text-green-800">Terminé</Badge>
+                </div>
+                
+                <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                  <div>
+                    <p className="font-medium">Journal de gratitude</p>
+                    <p className="text-sm text-gray-600">3 points positifs</p>
+                  </div>
+                  <Badge className="bg-blue-100 text-blue-800">En cours</Badge>
+                </div>
+                
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <p className="font-medium">Activité physique</p>
+                    <p className="text-sm text-gray-600">30 min</p>
+                  </div>
+                  <Badge variant="outline">À faire</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Users className="w-5 h-5 text-green-600" />
-                    Communauté
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Échangez avec d'autres parents
-                  </p>
-                  <Button variant="outline" size="sm">
-                    Rejoindre
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Star className="w-5 h-5 text-yellow-600" />
-                    Conseils Expert
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Conseils personnalisés de professionnels
-                  </p>
-                  <Button variant="outline" size="sm">
-                    Consulter
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+          <TabsContent value="communication" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <MessageCircle className="w-5 h-5 text-blue-600" />
+                  Communication Famille
+                </CardTitle>
+                <CardDescription>
+                  Messages et interactions récentes
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 bg-blue-50 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                      E
+                    </div>
+                    <span className="font-medium">{teenData.name}</span>
+                    <span className="text-sm text-gray-500">il y a 2h</span>
+                  </div>
+                  <p className="text-sm">"Journée ok au lycée, un peu fatiguée mais ça va !"</p>
+                </div>
+                
+                <div className="p-4 bg-purple-50 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-semibold">
+                      M
+                    </div>
+                    <span className="font-medium">Maman</span>
+                    <span className="text-sm text-gray-500">il y a 1h</span>
+                  </div>
+                  <p className="text-sm">"Super ! N'oublie pas de faire ta séance de relaxation 💆‍♀️"</p>
+                </div>
+                
+                <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Envoyer un message encourageant
+                </Button>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Conseils et ressources */}
+        <div className="mt-8">
+          <Card className="border-2 border-dashed border-purple-300 bg-purple-50/50">
+            <CardContent className="py-8 text-center">
+              <Star className="w-16 h-16 text-purple-600 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-purple-800 mb-2">
+                Conseils du jour
+              </h3>
+              <p className="text-purple-600 mb-4 max-w-md mx-auto">
+                Votre ado traverse une phase normale. Continuez à être présent(e) et bienveillant(e).
+              </p>
+              <div className="flex justify-center gap-4">
+                <Link to="/contact">
+                  <Button variant="outline" className="border-purple-300">
+                    Parler à un expert
+                  </Button>
+                </Link>
+                <Link to="/shop">
+                  <Button className="bg-purple-600 hover:bg-purple-700">
+                    Découvrir QVTeen Box
+                  </Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

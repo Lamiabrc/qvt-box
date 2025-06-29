@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -155,6 +154,86 @@
   }
 }
 
+@keyframes bubble-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(-10px) rotate(240deg);
+  }
+}
+
+@keyframes bubble-shimmer {
+  0% {
+    background-position: -200% 0;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    background-position: 200% 0;
+    opacity: 0.3;
+  }
+}
+
+@keyframes soap-bubble-pop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes floating-gentle {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-15px) translateX(5px);
+  }
+  50% {
+    transform: translateY(-8px) translateX(-3px);
+  }
+  75% {
+    transform: translateY(-12px) translateX(8px);
+  }
+}
+
+@keyframes bubble-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.6), inset 0 0 30px rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes bubble-surface {
+  0% {
+    background: linear-gradient(45deg, rgba(6, 182, 212, 0.3), rgba(20, 184, 166, 0.3), rgba(147, 51, 234, 0.2));
+  }
+  33% {
+    background: linear-gradient(45deg, rgba(147, 51, 234, 0.3), rgba(236, 72, 153, 0.3), rgba(6, 182, 212, 0.2));
+  }
+  66% {
+    background: linear-gradient(45deg, rgba(20, 184, 166, 0.3), rgba(6, 182, 212, 0.3), rgba(147, 51, 234, 0.2));
+  }
+  100% {
+    background: linear-gradient(45deg, rgba(6, 182, 212, 0.3), rgba(20, 184, 166, 0.3), rgba(147, 51, 234, 0.2));
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.8s ease-out forwards;
 }
@@ -179,6 +258,32 @@
 
 .animate-rotate-colors {
   animation: rotate-colors 8s linear infinite;
+}
+
+.animate-bubble-float {
+  animation: bubble-float 4s ease-in-out infinite;
+}
+
+.animate-bubble-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200% 100%;
+  animation: bubble-shimmer 3s ease-in-out infinite;
+}
+
+.animate-soap-bubble-pop {
+  animation: soap-bubble-pop 0.6s ease-out forwards;
+}
+
+.animate-floating-gentle {
+  animation: floating-gentle 5s ease-in-out infinite;
+}
+
+.animate-bubble-glow {
+  animation: bubble-glow 3s ease-in-out infinite;
+}
+
+.animate-bubble-surface {
+  animation: bubble-surface 8s ease-in-out infinite;
 }
 
 /* Délais d'animation */
@@ -255,4 +360,44 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+/* Enhanced bubble effects */
+.bubble-highlight {
+  position: relative;
+}
+
+.bubble-highlight::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  width: 30%;
+  height: 30%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.bubble-highlight::after {
+  content: '';
+  position: absolute;
+  top: 60%;
+  right: 15%;
+  width: 15%;
+  height: 15%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.soap-bubble-effect {
+  background: linear-gradient(45deg, 
+    rgba(6, 182, 212, 0.4), 
+    rgba(20, 184, 166, 0.3), 
+    rgba(147, 51, 234, 0.3),
+    rgba(236, 72, 153, 0.3)
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }

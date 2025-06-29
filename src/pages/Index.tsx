@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -101,19 +100,26 @@ const Index = () => {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-4">
-              <img 
-                src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
-                alt="QVT Box Logo" 
-                className="h-12 w-12 rounded-full object-cover shadow-lg"
-              />
+              <div className="relative">
+                <img 
+                  src="/lovable-uploads/bed0f5ad-cedc-4afa-8b5d-24f9bf8ec5ff.png" 
+                  alt="QVT Box Logo" 
+                  className="h-16 w-16 object-contain drop-shadow-2xl hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-cyan-400 rounded-full animate-pulse"></div>
+                <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+              </div>
               <div>
-                <h1 className="text-2xl font-bold text-teal-800">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
                   {activeUniverse === 'enterprise' ? 'QVT Box Entreprise' : 'QVTeen Box Famille'}
                 </h1>
-                <p className="text-teal-600 text-sm">
+                <p className="text-teal-600 text-sm font-medium">
                   {activeUniverse === 'enterprise' 
                     ? 'Santé mentale & bien-être au travail' 
                     : 'Espace famille pour ados & parents'}
+                </p>
+                <p className="text-xs text-teal-500 italic">
+                  "Sortez de votre bulle, on veille sur vous"
                 </p>
               </div>
             </div>
@@ -179,10 +185,15 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Animated background with multiple gradients */}
+      {/* Enhanced bubble-themed background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
         <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-transparent to-pink-500/10 animate-pulse"></div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
+        
+        {/* Additional bubble effects */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-teal-400/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-48 h-48 bg-gradient-to-br from-purple-400/15 to-pink-400/15 rounded-full blur-2xl animate-bounce" style={{ animationDuration: '4s' }}></div>
+        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-br from-teal-300/25 to-cyan-300/25 rounded-full blur-lg animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <FloatingBubbles />
@@ -194,34 +205,48 @@ const Index = () => {
       />
       
       <div className="container mx-auto px-4 py-12 relative z-10">
-        {/* Hero Section ultra-moderne */}
+        {/* Hero Section ultra-moderne avec nouveau logo */}
         <div className="text-center mb-20 relative">
           <div className="relative z-10">
             {/* Logo avec effet holographique */}
             <div className="flex justify-center mb-12">
               <div className="relative group">
-                <div className="absolute -inset-4 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-full blur-2xl opacity-30 group-hover:opacity-60 animate-pulse transition-opacity duration-1000"></div>
+                <div className="absolute -inset-8 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-full blur-3xl opacity-20 group-hover:opacity-40 animate-pulse transition-opacity duration-1000"></div>
+                <div className="absolute -inset-4 bg-gradient-to-r from-teal-300 to-cyan-300 rounded-full blur-2xl opacity-30 group-hover:opacity-50 animate-bounce transition-opacity duration-700" style={{ animationDuration: '3s' }}></div>
+                
                 <img 
-                  src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
-                  alt="QVT Box Logo" 
-                  className="relative h-40 w-40 drop-shadow-2xl transform hover:scale-110 transition-transform duration-700 rounded-full object-cover ring-4 ring-white/20"
+                  src="/lovable-uploads/bed0f5ad-cedc-4afa-8b5d-24f9bf8ec5ff.png" 
+                  alt="QVT Box - Sortez de votre bulle, on veille sur vous" 
+                  className="relative h-48 w-48 object-contain drop-shadow-2xl transform hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute -top-6 -right-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold animate-bounce shadow-2xl">
+                
+                {/* Bulles flottantes autour du logo */}
+                <div className="absolute -top-8 -right-8 w-6 h-6 bg-gradient-to-br from-cyan-300 to-teal-300 rounded-full animate-bounce opacity-80" style={{ animationDelay: '0.5s' }}></div>
+                <div className="absolute -bottom-6 -left-6 w-4 h-4 bg-gradient-to-br from-purple-300 to-pink-300 rounded-full animate-pulse opacity-70" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-4 -left-8 w-3 h-3 bg-gradient-to-br from-teal-400 to-cyan-400 rounded-full animate-ping opacity-60" style={{ animationDelay: '1.5s' }}></div>
+                <div className="absolute -top-4 left-12 w-5 h-5 bg-gradient-to-br from-purple-400 to-cyan-400 rounded-full animate-bounce opacity-75" style={{ animationDelay: '2s', animationDuration: '2s' }}></div>
+                
+                <div className="absolute -top-10 -right-4 bg-gradient-to-r from-cyan-400 to-teal-400 text-white px-4 py-2 rounded-full text-sm font-bold animate-bounce shadow-2xl backdrop-blur-sm">
                   ✨ Nouveau !
                 </div>
-                <div className="absolute -bottom-4 -left-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse shadow-xl">
-                  🤖 IA
+                <div className="absolute -bottom-8 -left-4 bg-gradient-to-r from-purple-400 to-pink-400 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse shadow-xl backdrop-blur-sm">
+                  🫧 IA Bulles
                 </div>
               </div>
             </div>
             
-            {/* Titre principal avec effet néon */}
+            {/* Titre principal avec effet néon bulle */}
             <div className="mb-8 relative">
-              <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 mb-4 transform hover:scale-105 transition-transform duration-500 animate-fade-in">
-                QVT Box
+              <h1 className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 mb-4 transform hover:scale-105 transition-transform duration-500 animate-fade-in drop-shadow-2xl">
+                QVT BOX
               </h1>
-              <div className="absolute inset-0 text-8xl font-black text-cyan-400/20 blur-sm -z-10 animate-pulse">
-                QVT Box
+              <div className="absolute inset-0 text-8xl font-black text-cyan-400/10 blur-lg -z-10 animate-pulse">
+                QVT BOX
+              </div>
+              
+              {/* Slogan emblématique */}
+              <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-cyan-300 mb-2 animate-fade-in delay-150">
+                "Sortez de votre bulle, on veille sur vous"
               </div>
             </div>
             
@@ -296,11 +321,16 @@ const Index = () => {
             <div className="grid md:grid-cols-3 gap-8 mb-16 animate-fade-in delay-1200">
               {stats.map((stat, index) => (
                 <div key={index} className="group">
-                  <div className="relative bg-gradient-to-br from-slate-800/80 to-purple-900/80 backdrop-blur-xl rounded-2xl p-8 border border-purple-500/30 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 hover:scale-105">
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative bg-gradient-to-br from-slate-800/80 to-purple-900/80 backdrop-blur-xl rounded-full p-8 border border-purple-500/30 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 hover:scale-105">
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    {/* Bubble effects around stats */}
+                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-br from-cyan-400 to-teal-400 rounded-full animate-pulse opacity-60"></div>
+                    <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full animate-bounce opacity-70" style={{ animationDelay: '0.5s' }}></div>
+                    
                     <div className="relative text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:rotate-6 transition-transform duration-300">
-                        <stat.icon className="w-8 h-8 text-white" />
+                      <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:rotate-6 transition-transform duration-300 shadow-lg">
+                        <stat.icon className="w-8 h-8 text-white drop-shadow-md" />
                       </div>
                       <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-300 mb-2">
                         {index === 0 ? statsCounter.users.toLocaleString() + stat.suffix : 
@@ -316,7 +346,7 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Témoignages avec design futuriste */}
+        {/* Enhanced testimonials with bubble theme */}
         <div className="mb-20 animate-fade-in delay-1400">
           <Card className="max-w-4xl mx-auto bg-gradient-to-br from-slate-800/90 to-purple-900/90 backdrop-blur-xl border-purple-500/30 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500">
             <CardContent className="p-12 text-center relative">
@@ -345,20 +375,35 @@ const Index = () => {
           </Card>
         </div>
 
-        {/* Deux Univers - Design révolutionnaire */}
+        {/* Enhanced universe section with bubble theme */}
         <div id="universes" className="mb-20 animate-fade-in delay-1600">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-300 mb-6">
-              Deux univers, une même mission
+              Deux univers, une même bulle protectrice
             </h2>
-            <p className="text-2xl text-slate-300 mb-8">Votre bien-être au cœur de nos préoccupations</p>
+            <p className="text-2xl text-slate-300 mb-8 italic">
+              "Sortez de votre bulle, on veille sur vous" - Notre engagement quotidien
+            </p>
+            
+            {/* Floating bubble decorations */}
+            <div className="flex justify-center gap-4 mb-8">
+              <div className="w-3 h-3 bg-gradient-to-br from-cyan-400 to-teal-400 rounded-full animate-bounce"></div>
+              <div className="w-4 h-4 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              <div className="w-2 h-2 bg-gradient-to-br from-teal-400 to-cyan-400 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
+              <div className="w-5 h-5 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full animate-bounce" style={{ animationDelay: '1.5s' }}></div>
+              <div className="w-3 h-3 bg-gradient-to-br from-cyan-300 to-purple-300 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
-            {/* Universe 1 - Enterprise */}
-            <Card className="group relative overflow-hidden bg-gradient-to-br from-slate-800/90 to-teal-900/90 backdrop-blur-xl border-teal-500/30 hover:border-teal-400/50 transition-all duration-700 hover:scale-105 shadow-2xl hover:shadow-teal-500/20">
+            {/* Universe 1 - Enterprise with enhanced bubble effects */}
+            <Card className="group relative overflow-hidden bg-gradient-to-br from-slate-800/90 to-teal-900/90 backdrop-blur-xl border-teal-500/30 hover:border-teal-400/50 transition-all duration-700 hover:scale-105 shadow-2xl hover:shadow-teal-500/20 rounded-3xl">
               <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
+              
+              {/* Floating bubbles around enterprise card */}
+              <div className="absolute top-4 right-4 w-6 h-6 bg-gradient-to-br from-teal-300 to-cyan-300 rounded-full animate-pulse opacity-60"></div>
+              <div className="absolute bottom-8 left-6 w-4 h-4 bg-gradient-to-br from-cyan-400 to-teal-400 rounded-full animate-bounce opacity-50" style={{ animationDelay: '1s' }}></div>
               
               <CardHeader className="text-center pb-6 relative z-10">
                 <div className="w-24 h-24 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
@@ -431,10 +476,14 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* Universe 2 - Family */}
-            <Card className="group relative overflow-hidden bg-gradient-to-br from-slate-800/90 to-purple-900/90 backdrop-blur-xl border-purple-500/30 hover:border-purple-400/50 transition-all duration-700 hover:scale-105 shadow-2xl hover:shadow-purple-500/20">
+            {/* Universe 2 - Family with enhanced bubble effects */}
+            <Card className="group relative overflow-hidden bg-gradient-to-br from-slate-800/90 to-purple-900/90 backdrop-blur-xl border-purple-500/30 hover:border-purple-400/50 transition-all duration-700 hover:scale-105 shadow-2xl hover:shadow-purple-500/20 rounded-3xl">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="absolute -top-20 -left-20 w-40 h-40 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
+              
+              {/* Floating bubbles around family card */}
+              <div className="absolute top-6 left-4 w-5 h-5 bg-gradient-to-br from-purple-300 to-pink-300 rounded-full animate-pulse opacity-70"></div>
+              <div className="absolute bottom-6 right-8 w-3 h-3 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full animate-bounce opacity-60" style={{ animationDelay: '0.8s' }}></div>
               
               <CardHeader className="text-center pb-6 relative z-10">
                 <div className="w-24 h-24 bg-gradient-to-br from-purple-400 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
@@ -502,7 +551,7 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Features avec design ultra-moderne */}
+        {/* Features with design ultra-moderne */}
         <div className="mb-20 animate-fade-in delay-1800">
           <Card className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border-slate-700/50 shadow-2xl hover:shadow-slate-500/10 transition-all duration-500">
             <CardContent className="p-16 relative">

@@ -4,151 +4,124 @@ import React from 'react';
 const FloatingBubbles = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Large bubbles with photos */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-teal-200/30 rounded-full animate-pulse overflow-hidden">
-        <img 
-          src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=80&h=80&fit=crop&crop=face" 
-          alt="Bubble content" 
-          className="w-full h-full object-cover opacity-70"
-        />
+      {/* Enhanced soap bubble theme with new logo integration */}
+      
+      {/* Large bubbles with QVT Box theme */}
+      <div className="absolute top-20 left-10 w-24 h-24 bg-gradient-to-br from-cyan-200/40 to-teal-200/40 rounded-full animate-pulse overflow-hidden backdrop-blur-sm border border-cyan-300/20">
+        <div className="w-full h-full bg-gradient-to-br from-cyan-400/20 to-teal-400/20 rounded-full flex items-center justify-center">
+          <div className="w-12 h-12 bg-gradient-to-br from-cyan-500/30 to-teal-500/30 rounded-full"></div>
+        </div>
       </div>
       
-      <div className="absolute top-40 right-20 w-16 h-16 bg-cyan-200/40 rounded-full animate-bounce overflow-hidden" style={{ animationDelay: '1s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=64&h=64&fit=crop" 
-          alt="Nature bubble" 
-          className="w-full h-full object-cover opacity-70"
-        />
+      <div className="absolute top-40 right-20 w-20 h-20 bg-gradient-to-br from-purple-200/50 to-pink-200/50 rounded-full animate-bounce overflow-hidden backdrop-blur-sm border border-purple-300/20" style={{ animationDelay: '1s' }}>
+        <div className="w-full h-full bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 bg-gradient-to-br from-purple-500/40 to-pink-500/40 rounded-full"></div>
+        </div>
       </div>
       
-      <div className="absolute bottom-40 left-20 w-24 h-24 bg-blue-200/25 rounded-full animate-pulse overflow-hidden" style={{ animationDelay: '2s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=96&h=96&fit=crop" 
-          alt="Ocean bubble" 
-          className="w-full h-full object-cover opacity-60"
-        />
+      <div className="absolute bottom-40 left-20 w-28 h-28 bg-gradient-to-br from-teal-200/35 to-cyan-200/35 rounded-full animate-pulse overflow-hidden backdrop-blur-sm border border-teal-300/25" style={{ animationDelay: '2s' }}>
+        <div className="w-full h-full bg-gradient-to-br from-teal-400/25 to-cyan-400/25 rounded-full flex items-center justify-center">
+          <div className="w-14 h-14 bg-gradient-to-br from-teal-500/35 to-cyan-500/35 rounded-full"></div>
+        </div>
       </div>
       
-      <div className="absolute bottom-20 right-10 w-18 h-18 bg-purple-200/35 rounded-full animate-bounce overflow-hidden" style={{ animationDelay: '0.5s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=72&h=72&fit=crop" 
-          alt="Cozy bubble" 
-          className="w-full h-full object-cover opacity-75"
-        />
+      <div className="absolute bottom-20 right-10 w-18 h-18 bg-gradient-to-br from-purple-200/45 to-cyan-200/45 rounded-full animate-bounce overflow-hidden backdrop-blur-sm border border-purple-300/30" style={{ animationDelay: '0.5s' }}>
+        <div className="w-full h-full bg-gradient-to-br from-purple-400/30 to-cyan-400/30 rounded-full"></div>
       </div>
       
-      {/* Medium bubbles with photos */}
-      <div className="absolute top-60 left-1/3 w-12 h-12 bg-teal-300/40 rounded-full animate-pulse overflow-hidden" style={{ animationDelay: '1.5s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=48&h=48&fit=crop&crop=face" 
-          alt="Cat bubble" 
-          className="w-full h-full object-cover opacity-80"
-        />
+      {/* Medium bubbles with enhanced soap bubble effect */}
+      <div className="absolute top-60 left-1/3 w-16 h-16 bg-gradient-to-br from-cyan-300/50 to-teal-300/50 rounded-full animate-pulse overflow-hidden backdrop-blur-lg border border-cyan-400/40" style={{ animationDelay: '1.5s' }}>
+        <div className="absolute top-2 left-3 w-4 h-4 bg-white/30 rounded-full blur-sm"></div>
+        <div className="absolute bottom-3 right-2 w-2 h-2 bg-white/50 rounded-full"></div>
       </div>
       
-      <div className="absolute top-80 right-1/3 w-10 h-10 bg-cyan-300/30 rounded-full animate-bounce overflow-hidden" style={{ animationDelay: '2.5s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=40&h=40&fit=crop" 
-          alt="Light bubble" 
-          className="w-full h-full object-cover opacity-70"
-        />
+      <div className="absolute top-80 right-1/3 w-14 h-14 bg-gradient-to-br from-purple-300/40 to-pink-300/40 rounded-full animate-bounce overflow-hidden backdrop-blur-lg border border-purple-400/35" style={{ animationDelay: '2.5s' }}>
+        <div className="absolute top-2 left-2 w-3 h-3 bg-white/40 rounded-full blur-sm"></div>
+        <div className="absolute bottom-2 right-3 w-2 h-2 bg-white/60 rounded-full"></div>
       </div>
       
-      <div className="absolute bottom-60 left-1/2 w-14 h-14 bg-blue-300/35 rounded-full animate-pulse overflow-hidden" style={{ animationDelay: '3s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=56&h=56&fit=crop" 
-          alt="Wave bubble" 
-          className="w-full h-full object-cover opacity-65"
-        />
+      <div className="absolute bottom-60 left-1/2 w-18 h-18 bg-gradient-to-br from-teal-300/45 to-cyan-300/45 rounded-full animate-pulse overflow-hidden backdrop-blur-lg border border-teal-400/40" style={{ animationDelay: '3s' }}>
+        <div className="absolute top-3 left-4 w-3 h-3 bg-white/35 rounded-full blur-sm"></div>
+        <div className="absolute bottom-4 right-2 w-2 h-2 bg-white/55 rounded-full"></div>
       </div>
       
-      {/* Small bubbles with photos */}
-      <div className="absolute top-32 left-1/4 w-6 h-6 bg-teal-400/50 rounded-full animate-bounce overflow-hidden" style={{ animationDelay: '0.2s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=24&h=24&fit=crop" 
-          alt="Home bubble" 
-          className="w-full h-full object-cover opacity-90"
-        />
+      {/* Small bubbles with realistic soap bubble highlights */}
+      <div className="absolute top-32 left-1/4 w-10 h-10 bg-gradient-to-br from-cyan-400/60 to-teal-400/60 rounded-full animate-bounce overflow-hidden backdrop-blur-md border border-cyan-500/50" style={{ animationDelay: '0.2s' }}>
+        <div className="absolute top-1 left-2 w-2 h-2 bg-white/50 rounded-full"></div>
+        <div className="absolute top-2 right-1 w-1 h-1 bg-white/70 rounded-full"></div>
       </div>
       
-      <div className="absolute top-72 right-1/4 w-8 h-8 bg-cyan-400/40 rounded-full animate-pulse overflow-hidden" style={{ animationDelay: '1.8s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=32&h=32&fit=crop&crop=face" 
-          alt="Pet bubble" 
-          className="w-full h-full object-cover opacity-75"
-        />
+      <div className="absolute top-72 right-1/4 w-12 h-12 bg-gradient-to-br from-purple-400/50 to-pink-400/50 rounded-full animate-pulse overflow-hidden backdrop-blur-md border border-purple-500/45" style={{ animationDelay: '1.8s' }}>
+        <div className="absolute top-2 left-2 w-2 h-2 bg-white/45 rounded-full"></div>
+        <div className="absolute bottom-2 right-2 w-1 h-1 bg-white/65 rounded-full"></div>
       </div>
       
-      <div className="absolute bottom-32 left-3/4 w-5 h-5 bg-purple-400/45 rounded-full animate-bounce overflow-hidden" style={{ animationDelay: '2.2s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=20&h=20&fit=crop" 
-          alt="Mini nature bubble" 
-          className="w-full h-full object-cover opacity-85"
-        />
+      <div className="absolute bottom-32 left-3/4 w-8 h-8 bg-gradient-to-br from-teal-400/55 to-cyan-400/55 rounded-full animate-bounce overflow-hidden backdrop-blur-md border border-teal-500/50" style={{ animationDelay: '2.2s' }}>
+        <div className="absolute top-1 left-1 w-2 h-2 bg-white/50 rounded-full"></div>
       </div>
       
-      <div className="absolute bottom-72 right-1/2 w-7 h-7 bg-blue-400/35 rounded-full animate-pulse overflow-hidden" style={{ animationDelay: '0.8s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=28&h=28&fit=crop" 
-          alt="Small ocean bubble" 
-          className="w-full h-full object-cover opacity-80"
-        />
+      <div className="absolute bottom-72 right-1/2 w-9 h-9 bg-gradient-to-br from-purple-400/45 to-cyan-400/45 rounded-full animate-pulse overflow-hidden backdrop-blur-md border border-purple-500/40" style={{ animationDelay: '0.8s' }}>
+        <div className="absolute top-2 left-2 w-2 h-2 bg-white/40 rounded-full"></div>
       </div>
       
-      {/* Additional photo bubbles */}
-      <div className="absolute top-96 left-16 w-10 h-10 bg-emerald-300/40 rounded-full animate-bounce overflow-hidden" style={{ animationDelay: '3.5s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=40&h=40&fit=crop" 
-          alt="Living space bubble" 
-          className="w-full h-full object-cover opacity-70"
-        />
+      {/* Tiny floating soap bubbles */}
+      <div className="absolute top-16 right-40 w-6 h-6 bg-gradient-to-br from-cyan-500/70 to-teal-500/70 rounded-full animate-ping overflow-hidden backdrop-blur-sm border border-cyan-600/60" style={{ animationDelay: '1.2s' }}>
+        <div className="absolute top-1 left-1 w-1 h-1 bg-white/60 rounded-full"></div>
       </div>
       
-      <div className="absolute bottom-96 right-16 w-12 h-12 bg-rose-300/35 rounded-full animate-pulse overflow-hidden" style={{ animationDelay: '4s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=48&h=48&fit=crop&crop=face" 
-          alt="Comfort bubble" 
-          className="w-full h-full object-cover opacity-75"
-        />
+      <div className="absolute top-96 left-40 w-7 h-7 bg-gradient-to-br from-purple-500/60 to-pink-500/60 rounded-full animate-ping overflow-hidden backdrop-blur-sm border border-purple-600/55" style={{ animationDelay: '2.8s' }}>
+        <div className="absolute top-1 left-1 w-1 h-1 bg-white/55 rounded-full"></div>
       </div>
       
-      {/* Tiny floating elements with subtle photos */}
-      <div className="absolute top-16 right-40 w-3 h-3 bg-teal-500/60 rounded-full animate-ping overflow-hidden" style={{ animationDelay: '1.2s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=12&h=12&fit=crop" 
-          alt="Tiny bubble" 
-          className="w-full h-full object-cover opacity-90"
-        />
+      <div className="absolute bottom-16 right-60 w-5 h-5 bg-gradient-to-br from-teal-500/65 to-cyan-500/65 rounded-full animate-ping overflow-hidden backdrop-blur-sm border border-teal-600/60" style={{ animationDelay: '0.3s' }}>
+        <div className="absolute top-0.5 left-0.5 w-1 h-1 bg-white/65 rounded-full"></div>
       </div>
       
-      <div className="absolute top-96 left-40 w-4 h-4 bg-cyan-500/50 rounded-full animate-ping overflow-hidden" style={{ animationDelay: '2.8s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=16&h=16&fit=crop" 
-          alt="Water tiny bubble" 
-          className="w-full h-full object-cover opacity-80"
-        />
-      </div>
-      
-      <div className="absolute bottom-16 right-60 w-3 h-3 bg-purple-500/55 rounded-full animate-ping overflow-hidden" style={{ animationDelay: '0.3s' }}>
-        <img 
-          src="https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=12&h=12&fit=crop" 
-          alt="Cozy tiny bubble" 
-          className="w-full h-full object-cover opacity-95"
-        />
-      </div>
-      
-      {/* Motto bubble - floating text */}
-      <div className="absolute top-1/2 left-8 transform -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg animate-pulse border border-teal-200" style={{ animationDelay: '5s' }}>
-        <p className="text-xs font-medium text-teal-700 whitespace-nowrap">
-          Sortez de votre bulle
+      {/* Enhanced motto bubbles with soap theme */}
+      <div className="absolute top-1/2 left-8 transform -translate-y-1/2 bg-gradient-to-r from-white/90 to-cyan-50/90 backdrop-blur-lg rounded-full px-6 py-3 shadow-2xl animate-pulse border-2 border-cyan-200/50" style={{ animationDelay: '5s' }}>
+        <p className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-cyan-600 whitespace-nowrap">
+          🫧 Sortez de votre bulle
         </p>
+        <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-br from-cyan-400 to-teal-400 rounded-full animate-bounce"></div>
       </div>
       
-      <div className="absolute bottom-1/3 right-8 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg animate-bounce border border-cyan-200" style={{ animationDelay: '6s' }}>
-        <p className="text-xs font-medium text-cyan-700 whitespace-nowrap">
-          On veille sur vous
+      <div className="absolute bottom-1/3 right-8 bg-gradient-to-r from-white/90 to-purple-50/90 backdrop-blur-lg rounded-full px-6 py-3 shadow-2xl animate-bounce border-2 border-purple-200/50" style={{ animationDelay: '6s' }}>
+        <p className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 whitespace-nowrap">
+          💙 On veille sur vous
         </p>
+        <div className="absolute -top-1 -left-1 w-3 h-3 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full animate-pulse"></div>
       </div>
+      
+      {/* Additional floating micro-bubbles for atmosphere */}
+      {[...Array(15)].map((_, i) => (
+        <div
+          key={i}
+          className={`absolute w-2 h-2 bg-gradient-to-br from-cyan-300/40 to-teal-300/40 rounded-full animate-pulse backdrop-blur-sm border border-cyan-400/30`}
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 4}s`,
+            animationDuration: `${2 + Math.random() * 3}s`
+          }}
+        >
+          <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 bg-white/60 rounded-full"></div>
+        </div>
+      ))}
+      
+      {[...Array(12)].map((_, i) => (
+        <div
+          key={`purple-${i}`}
+          className={`absolute w-2 h-2 bg-gradient-to-br from-purple-300/40 to-pink-300/40 rounded-full animate-bounce backdrop-blur-sm border border-purple-400/30`}
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 4}s`,
+            animationDuration: `${2 + Math.random() * 3}s`
+          }}
+        >
+          <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 bg-white/60 rounded-full"></div>
+        </div>
+      ))}
     </div>
   );
 };

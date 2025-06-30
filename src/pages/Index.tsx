@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -41,7 +40,7 @@ const Index = () => {
                 Espace Famille
               </Button>
             </Link>
-            <Link to="/enterprise">
+            <Link to="/entreprise">
               <Button className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white px-8 py-3 text-lg">
                 <Building2 className="w-5 h-5 mr-2" />
                 Espace Entreprise
@@ -167,7 +166,7 @@ const Index = () => {
                     <span className="text-sm">Prédiction burn-out</span>
                   </li>
                 </ul>
-                <Link to="/enterprise" className="block">
+                <Link to="/entreprise" className="block">
                   <Button className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white">
                     Découvrir l'univers Entreprise
                     <ArrowRight className="w-4 h-4 ml-2" />
@@ -189,7 +188,7 @@ const Index = () => {
             Rejoignez la révolution du bien-être phygital et transformez votre quotidien dès aujourd'hui.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/auth">
+            <Link to="/login">
               <Button className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-3 text-lg">
                 Commencer maintenant
                 <ArrowRight className="w-5 h-5 ml-2" />

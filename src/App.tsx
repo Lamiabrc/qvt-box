@@ -43,6 +43,8 @@ import TeensPersonalSpace from './pages/TeensPersonalSpace';
 import TeensFamilySpace from './pages/TeensFamilySpace';
 import TeensParentalAccess from './pages/TeensParentalAccess';
 import TeensQuickAlert from './pages/TeensQuickAlert';
+import FriendsSpace from './pages/FriendsSpace';
+import FamilySpace from './pages/FamilySpace';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -97,6 +99,10 @@ function App() {
               <Route path="/teens-family-space" element={<TeensFamilySpace />} />
               <Route path="/teens-parental-access" element={<TeensParentalAccess />} />
               <Route path="/teens-quick-alert" element={<TeensQuickAlert />} />
+              
+              {/* Espaces sociaux */}
+              <Route path="/friends-space" element={<FriendsSpace />} />
+              <Route path="/family-space" element={<FamilySpace />} />
               
               {/* 404 Route */}
               <Route path="*" element={<NotFound />} />

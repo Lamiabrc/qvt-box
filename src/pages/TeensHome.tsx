@@ -1,6 +1,8 @@
+
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { 
   Heart, 
   Shield, 
@@ -12,7 +14,10 @@ import {
   Palette,
   Brain,
   Target,
-  Sparkles
+  Sparkles,
+  Star,
+  TrendingUp,
+  Zap
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import FloatingBubbles from "../components/FloatingBubbles";
@@ -28,6 +33,42 @@ const TeensHome = () => {
       <div className="container mx-auto px-4 py-8 relative z-10">
         <HeroSection />
         <EmergencyAlert />
+
+        {/* Section statistiques rapides */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <Card className="bg-gradient-to-r from-pink-100 to-purple-100 border-0 shadow-lg">
+            <CardContent className="p-4 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Heart className="w-5 h-5 text-pink-600" />
+                <span className="font-bold text-pink-800">Humeur</span>
+              </div>
+              <div className="text-2xl font-bold text-pink-700">8/10</div>
+              <p className="text-sm text-pink-600">Aujourd'hui</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-to-r from-green-100 to-emerald-100 border-0 shadow-lg">
+            <CardContent className="p-4 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <TrendingUp className="w-5 h-5 text-green-600" />
+                <span className="font-bold text-green-800">Streak</span>
+              </div>
+              <div className="text-2xl font-bold text-green-700">7 jours</div>
+              <p className="text-sm text-green-600">Check-ins</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-to-r from-blue-100 to-cyan-100 border-0 shadow-lg">
+            <CardContent className="p-4 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Star className="w-5 h-5 text-blue-600" />
+                <span className="font-bold text-blue-800">Points</span>
+              </div>
+              <div className="text-2xl font-bold text-blue-700">1,247</div>
+              <p className="text-sm text-blue-600">Total</p>
+            </CardContent>
+          </Card>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <NavigationCard
@@ -56,7 +97,7 @@ const TeensHome = () => {
             title="Famille"
             description="Connecte-toi avec tes proches"
             icon={Users}
-            link="/teens-family-space"
+            link="/family-space"
             gradient="bg-gradient-to-br from-cyan-200 to-blue-200 hover:from-cyan-300 hover:to-blue-300"
             iconColor="from-cyan-500 to-blue-500"
             textColor="text-cyan-800"
@@ -151,6 +192,32 @@ const TeensHome = () => {
             rotation="hover:scale-105 hover:rotate-1"
           />
         </div>
+
+        {/* Section recommandations */}
+        <Card className="bg-gradient-to-r from-white/90 to-purple-50/90 backdrop-blur-sm border-purple-200 mb-8">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <Zap className="w-6 h-6 text-purple-600" />
+              <h3 className="text-xl font-bold text-purple-800">Recommandé pour toi</h3>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="flex items-center gap-3 p-3 bg-purple-100 rounded-lg">
+                <Heart className="w-5 h-5 text-purple-600" />
+                <div>
+                  <p className="font-semibold text-purple-800">Check-in quotidien</p>
+                  <p className="text-sm text-purple-600">Tu n'as pas encore fait ton check-in aujourd'hui</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 bg-blue-100 rounded-lg">
+                <Headphones className="w-5 h-5 text-blue-600" />
+                <div>
+                  <p className="font-semibold text-blue-800">Playlist détente</p>
+                  <p className="text-sm text-blue-600">Nouvelle playlist "Zen & Focus" disponible</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <div className="bg-gradient-to-r from-white/80 to-purple-50/80 backdrop-blur-sm rounded-3xl p-10 shadow-2xl border-4 border-purple-200 mb-8">
           <h2 className="text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-10">

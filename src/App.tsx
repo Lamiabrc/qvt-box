@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import AdminGuard from "@/components/auth/AdminGuard";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import Index from "./pages/Index";
@@ -78,22 +79,19 @@ function App() {
                   </ProtectedRoute>
                 } />
                 
-                <Route path="/admin-panel" element={
-                  <ProtectedRoute requireAdmin>
-                    <AdminPanel />
-                  </ProtectedRoute>
-                } />
+                {/* Admin routes with proper protection */}
+                <Route path="/admin-login" element={<AdminLogin />} />
                 
-                <Route path="/admin-login" element={
-                  <ProtectedRoute requireAdmin>
-                    <AdminLogin />
-                  </ProtectedRoute>
+                <Route path="/admin-panel" element={
+                  <AdminGuard>
+                    <AdminPanel />
+                  </AdminGuard>
                 } />
                 
                 <Route path="/admin-content-manager" element={
-                  <ProtectedRoute requireAdmin>
+                  <AdminGuard>
                     <AdminContentManager />
-                  </ProtectedRoute>
+                  </AdminGuard>
                 } />
                 
                 <Route path="/team-leader-dashboard" element={

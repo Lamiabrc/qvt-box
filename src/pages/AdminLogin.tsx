@@ -1,11 +1,14 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Shield, Eye, EyeOff } from "lucide-react";
+import { Shield, Eye, EyeOff, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import FloatingBubbles from "../components/FloatingBubbles";
 
 const AdminLogin = () => {
@@ -14,29 +17,61 @@ const AdminLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { user, signIn, isAdmin, loading } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect if already authenticated and is admin
+  useEffect(() => {
+    if (!loading && user && isAdmin) {
+      navigate('/admin-panel');
+    }
+  }, [user, isAdmin, loading, navigate]);
+
+  // Show loading while checking authentication
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-600"></div>
+      </div>
+    );
+  }
+
+  // Redirect non-admin users who are already logged in
+  if (user && !isAdmin) {
+    return <Navigate to="/unauthorized" replace />;
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulation de connexion admin
-    setTimeout(() => {
-      if (email === 'admin@qvtbox.com' && password === 'admin123') {
-        toast({
-          title: "Connexion réussie",
-          description: "Redirection vers le panel d'administration..."
-        });
-        // Redirection vers AdminPanel
-        window.location.href = '/admin-panel';
-      } else {
+    try {
+      const { error } = await signIn(email, password);
+      
+      if (error) {
         toast({
           title: "Erreur de connexion",
-          description: "Identifiants incorrects",
+          description: error.message || "Identifiants incorrects",
           variant: "destructive"
         });
+        setIsLoading(false);
+        return;
       }
+
+      // The useEffect will handle the redirect once auth state is updated
+      toast({
+        title: "Connexion réussie",
+        description: "Vérification des permissions..."
+      });
+    } catch (error) {
+      console.error('Admin login error:', error);
+      toast({
+        title: "Erreur de connexion",
+        description: "Une erreur inattendue s'est produite",
+        variant: "destructive"
+      });
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -57,6 +92,13 @@ const AdminLogin = () => {
             </CardHeader>
             
             <CardContent>
+              <Alert className="mb-4 border-orange-600 bg-orange-900/20">
+                <AlertCircle className="h-4 w-4 text-orange-400" />
+                <AlertDescription className="text-orange-200">
+                  Vous devez être connecté avec un compte administrateur pour accéder à cette section.
+                </AlertDescription>
+              </Alert>
+
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-slate-200">Email administrateur</Label>
@@ -100,12 +142,6 @@ const AdminLogin = () => {
                 >
                   {isLoading ? "Connexion..." : "Se connecter"}
                 </Button>
-                
-                <div className="text-center text-sm text-slate-400">
-                  <p>Identifiants de test :</p>
-                  <p>Email: admin@qvtbox.com</p>
-                  <p>Mot de passe: admin123</p>
-                </div>
               </form>
             </CardContent>
           </Card>

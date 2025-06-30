@@ -24,6 +24,7 @@ import EnterpriseSolutions from './pages/EnterpriseSolutions';
 import IntelligentRecommendations from './pages/IntelligentRecommendations';
 import FamilyComparativeSimulator from './pages/FamilyComparativeSimulator';
 import WorkplaceComparativeSimulator from './pages/WorkplaceComparativeSimulator';
+import EnterpriseOrientation from './pages/EnterpriseOrientation';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/teens-home" element={<TeensHome />} />
               <Route path="/famille" element={<Famille />} />
+              <Route path="/entreprise" element={<EnterpriseOrientation />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/enterprise-simulator" element={<EnterpriseSimulator />} />
               <Route path="/family-parent-simulator" element={<FamilyParentSimulator />} />

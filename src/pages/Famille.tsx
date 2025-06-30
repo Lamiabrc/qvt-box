@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,12 +17,16 @@ import {
   Package,
   Star,
   Smile,
-  Building2
+  Building2,
+  CreditCard
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
+import SubscriptionPopup from "../components/SubscriptionPopup";
 import { Link } from "react-router-dom";
 
 const Famille = () => {
+  const [isSubscriptionPopupOpen, setIsSubscriptionPopupOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-violet-50 relative overflow-hidden">
       <FloatingBubbles />
@@ -446,12 +451,14 @@ const Famille = () => {
               Rejoignez les familles qui ont choisi l'innovation pour améliorer leur bien-être et leur communication.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/family-parent-simulator">
-                <Button className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3 text-lg">
-                  Commencer l'évaluation
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
+              <Button 
+                onClick={() => setIsSubscriptionPopupOpen(true)}
+                className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3 text-lg"
+              >
+                <CreditCard className="w-5 h-5 mr-2" />
+                S'abonner maintenant
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
               <Link to="/contact">
                 <Button variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600 px-8 py-3 text-lg">
                   Demander des conseils
@@ -461,6 +468,12 @@ const Famille = () => {
           </div>
         </div>
       </div>
+
+      {/* Subscription Popup */}
+      <SubscriptionPopup 
+        isOpen={isSubscriptionPopupOpen} 
+        onClose={() => setIsSubscriptionPopupOpen(false)} 
+      />
     </div>
   );
 };

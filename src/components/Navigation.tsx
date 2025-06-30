@@ -6,21 +6,36 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/contexts/AuthContext";
+import { useSecureAuth } from "@/hooks/useSecureAuth";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, signOut, isAdmin } = useAuth();
+  const { user, isAdmin } = useAuth();
+  const { secureSignOut } = useSecureAuth();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
+    try {
+      await secureSignOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
   };
 
   const getUserInitials = () => {
     if (!user?.email) return 'U';
     return user.email.charAt(0).toUpperCase();
+  };
+
+  const getDashboardRoute = () => {
+    // Redirect to appropriate dashboard based on user role/context
+    if (isAdmin) {
+      return '/admin-panel';
+    }
+    // Default dashboard routes - you can customize this logic based on user roles
+    return '/employee-dashboard';
   };
 
   return (
@@ -68,7 +83,7 @@ const Navigation = () => {
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuContent className="w-56 bg-white" align="end" forceMount>
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
                       <p className="font-medium">{user?.email}</p>
@@ -79,14 +94,14 @@ const Navigation = () => {
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link to="/dashboard" className="flex items-center">
+                    <Link to={getDashboardRoute()} className="flex items-center w-full cursor-pointer">
                       <User className="mr-2 h-4 w-4" />
                       <span>Tableau de bord</span>
                     </Link>
                   </DropdownMenuItem>
                   <AuthGuard requireAdmin>
                     <DropdownMenuItem asChild>
-                      <Link to="/admin-panel" className="flex items-center">
+                      <Link to="/admin-panel" className="flex items-center w-full cursor-pointer">
                         <Shield className="mr-2 h-4 w-4" />
                         <span>Administration</span>
                       </Link>
@@ -161,7 +176,7 @@ const Navigation = () => {
                 </p>
                 <div className="space-y-1">
                   <Link 
-                    to="/dashboard" 
+                    to={getDashboardRoute()} 
                     className="block py-2 text-gray-700 hover:text-teal-600"
                     onClick={() => setIsOpen(false)}
                   >

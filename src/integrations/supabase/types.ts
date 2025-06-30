@@ -124,6 +124,36 @@ export type Database = {
           },
         ]
       }
+      conversations: {
+        Row: {
+          created_at: string
+          id: string
+          status: string
+          updated_at: string
+          visitor_email: string | null
+          visitor_id: string
+          visitor_name: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          visitor_email?: string | null
+          visitor_id: string
+          visitor_name?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          visitor_email?: string | null
+          visitor_id?: string
+          visitor_name?: string | null
+        }
+        Relationships: []
+      }
       editable_content: {
         Row: {
           content_key: string
@@ -511,6 +541,41 @@ export type Database = {
             columns: ["group_id"]
             isOneToOne: false
             referencedRelation: "social_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          admin_user_id: string | null
+          content: string
+          conversation_id: string | null
+          created_at: string
+          id: string
+          is_from_visitor: boolean
+        }
+        Insert: {
+          admin_user_id?: string | null
+          content: string
+          conversation_id?: string | null
+          created_at?: string
+          id?: string
+          is_from_visitor?: boolean
+        }
+        Update: {
+          admin_user_id?: string | null
+          content?: string
+          conversation_id?: string | null
+          created_at?: string
+          id?: string
+          is_from_visitor?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
             referencedColumns: ["id"]
           },
         ]

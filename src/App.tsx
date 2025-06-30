@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,11 +7,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
-import ChatBot from "./components/ChatBot";
+import RealtimeChatBot from "./components/RealtimeChatBot";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Auth from "./pages/Auth";
 import Contact from "./pages/Contact";
+import ChatAdmin from "./pages/ChatAdmin";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import TeamLeaderDashboard from "./pages/TeamLeaderDashboard";
 import EmployeePersonalSpace from "./pages/EmployeePersonalSpace";
@@ -38,6 +40,7 @@ function App() {
                   <Route path="/register" element={<Auth />} />
                   <Route path="/account" element={<Auth />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/chat-admin" element={<ChatAdmin />} />
                   <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
                   <Route path="/team-leader-dashboard" element={<TeamLeaderDashboard />} />
                   <Route path="/employee-personal-space" element={<EmployeePersonalSpace />} />
@@ -48,7 +51,7 @@ function App() {
                 </Routes>
               </main>
               <Footer />
-              <ChatBot />
+              <RealtimeChatBot />
             </div>
           </BrowserRouter>
         </TooltipProvider>

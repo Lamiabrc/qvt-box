@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,7 +15,8 @@ import {
   Play,
   Package,
   Star,
-  Smile
+  Smile,
+  Building2
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { Link } from "react-router-dom";
@@ -59,7 +59,7 @@ const Famille = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Parent Simulator */}
             <Card className="hover:shadow-xl transition-all duration-300 border-purple-200 relative overflow-hidden">
               <div className="absolute inset-0 opacity-5">
@@ -137,6 +137,48 @@ const Famille = () => {
                 </div>
                 <Link to="/family-teen-simulator">
                   <Button className="w-full bg-pink-600 hover:bg-pink-700">
+                    <Play className="w-4 h-4 mr-2" />
+                    Tester maintenant
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Family-Enterprise Simulator */}
+            <Card className="hover:shadow-xl transition-all duration-300 border-teal-200 relative overflow-hidden">
+              <div className="absolute inset-0 opacity-5">
+                <img 
+                  src="/lovable-uploads/99f6252d-1cb0-42a7-9b79-3930f5264417.png" 
+                  alt="Famille Entreprise" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardHeader className="relative z-10">
+                <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-500 rounded-xl flex items-center justify-center mb-4">
+                  <Building2 className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="text-xl text-teal-800">Simulateur Famille-Entreprise</CardTitle>
+                <CardDescription className="text-gray-600">
+                  Équilibre vie professionnelle et familiale
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative z-10 space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Équilibre vie pro/perso</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Communication famille-travail</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Solutions QVT personnalisées</span>
+                  </div>
+                </div>
+                <Link to="/family-enterprise-simulator">
+                  <Button className="w-full bg-teal-600 hover:bg-teal-700">
                     <Play className="w-4 h-4 mr-2" />
                     Tester maintenant
                   </Button>

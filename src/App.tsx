@@ -17,6 +17,10 @@ import Shop from './pages/Shop';
 import EnterpriseSimulator from './pages/EnterpriseSimulator';
 import FamilyParentSimulator from './pages/FamilyParentSimulator';
 import FamilyTeenSimulator from './pages/FamilyTeenSimulator';
+import FamilyEnterpriseSimulator from './pages/FamilyEnterpriseSimulator';
+import EnterpriseManagerSimulator from './pages/EnterpriseManagerSimulator';
+import EnterpriseEmployeeSimulator from './pages/EnterpriseEmployeeSimulator';
+import EnterpriseSolutions from './pages/EnterpriseSolutions';
 
 function App() {
   return (
@@ -39,6 +43,10 @@ function App() {
               <Route path="/enterprise-simulator" element={<EnterpriseSimulator />} />
               <Route path="/family-parent-simulator" element={<FamilyParentSimulator />} />
               <Route path="/family-teen-simulator" element={<FamilyTeenSimulator />} />
+              <Route path="/family-enterprise-simulator" element={<FamilyEnterpriseSimulator />} />
+              <Route path="/enterprise-manager-simulator" element={<EnterpriseManagerSimulator />} />
+              <Route path="/enterprise-employee-simulator" element={<EnterpriseEmployeeSimulator />} />
+              <Route path="/enterprise-solutions" element={<EnterpriseSolutions />} />
             </Routes>
           </main>
           <Footer />

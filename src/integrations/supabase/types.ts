@@ -163,6 +163,84 @@ export type Database = {
         }
         Relationships: []
       }
+      employee_events: {
+        Row: {
+          confidential: boolean | null
+          created_at: string | null
+          description: string | null
+          event_date: string
+          event_type: string
+          id: string
+          impact_level: number | null
+          support_needed: boolean | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          confidential?: boolean | null
+          created_at?: string | null
+          description?: string | null
+          event_date: string
+          event_type: string
+          id?: string
+          impact_level?: number | null
+          support_needed?: boolean | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          confidential?: boolean | null
+          created_at?: string | null
+          description?: string | null
+          event_date?: string
+          event_type?: string
+          id?: string
+          impact_level?: number | null
+          support_needed?: boolean | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      employee_specificities: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          end_date: string | null
+          id: string
+          is_active: boolean | null
+          severity_level: number | null
+          specificity_type: string
+          start_date: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          severity_level?: number | null
+          specificity_type: string
+          start_date?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          severity_level?: number | null
+          specificity_type?: string
+          start_date?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       enterprise_members: {
         Row: {
           created_at: string
@@ -289,6 +367,50 @@ export type Database = {
           name?: string
         }
         Relationships: []
+      }
+      event_questionnaires: {
+        Row: {
+          created_at: string | null
+          event_id: string | null
+          follow_up_required: boolean | null
+          id: string
+          questionnaire_type: string
+          responses: Json
+          support_needs: Json | null
+          user_id: string
+          wellbeing_score: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_id?: string | null
+          follow_up_required?: boolean | null
+          id?: string
+          questionnaire_type: string
+          responses?: Json
+          support_needs?: Json | null
+          user_id: string
+          wellbeing_score?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          event_id?: string | null
+          follow_up_required?: boolean | null
+          id?: string
+          questionnaire_type?: string
+          responses?: Json
+          support_needs?: Json | null
+          user_id?: string
+          wellbeing_score?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_questionnaires_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "employee_events"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       families: {
         Row: {

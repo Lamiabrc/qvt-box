@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -116,10 +115,10 @@ const EmployeeDashboard = () => {
     },
     {
       title: 'Mon Profil',
-      description: 'Personnaliser',
+      description: 'Spécificités & événements',
       icon: User,
       color: 'from-orange-500 to-red-500',
-      link: '/employee-personal-space'
+      link: '/employee-profile'
     }
   ];
 

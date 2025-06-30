@@ -31,6 +31,7 @@ const FamilyTeenSimulator = () => {
     let riskLevel = '';
     let riskColor = '';
     let recommendations: string[] = [];
+    let recommendedBoxes: any[] = [];
 
     if (percentage >= 80) {
       riskLevel = 'Super !';
@@ -40,6 +41,14 @@ const FamilyTeenSimulator = () => {
         'Continue comme ça, tu gères !',
         'Peut-être que tu peux aider d\'autres ados ?'
       ];
+      recommendedBoxes = [
+        {
+          name: 'Teen Box Excellence',
+          description: 'Pour maintenir ton épanouissement',
+          price: '29€/mois',
+          features: ['Activités créatives', 'Défis positifs', 'Communauté ados']
+        }
+      ];
     } else if (percentage >= 60) {
       riskLevel = 'Ça va';
       riskColor = 'text-yellow-600';
@@ -47,6 +56,14 @@ const FamilyTeenSimulator = () => {
         'Il y a quelques trucs à améliorer',
         'Parle avec tes parents ou un adulte de confiance',
         'QVTeen Box pourrait t\'aider'
+      ];
+      recommendedBoxes = [
+        {
+          name: 'Teen Box Équilibre',
+          description: 'Retrouver l\'harmonie au quotidien',
+          price: '34€/mois',
+          features: ['Journal créatif', 'Techniques relaxation', 'Planning équilibré']
+        }
       ];
     } else if (percentage >= 40) {
       riskLevel = 'Difficile';
@@ -56,6 +73,14 @@ const FamilyTeenSimulator = () => {
         'QVTeen Box est vraiment recommandée pour toi',
         'N\'hésite pas à demander de l\'aide'
       ];
+      recommendedBoxes = [
+        {
+          name: 'Teen Box Soutien',
+          description: 'Outils pour traverser les difficultés',
+          price: '39€/mois',
+          features: ['Kit gestion émotions', 'Cartes motivation', 'Guide bien-être']
+        }
+      ];
     } else {
       riskLevel = 'Urgent';
       riskColor = 'text-red-600';
@@ -64,6 +89,14 @@ const FamilyTeenSimulator = () => {
         'Parle immédiatement à un adulte de confiance',
         'QVTeen Box avec accompagnement prioritaire'
       ];
+      recommendedBoxes = [
+        {
+          name: 'Teen Box Urgence',
+          description: 'Support immédiat et accompagnement',
+          price: '44€/mois',
+          features: ['Kit d\'urgence émotionnel', 'Ligne d\'écoute', 'Accompagnement perso']
+        }
+      ];
     }
 
     setResults({
@@ -71,7 +104,8 @@ const FamilyTeenSimulator = () => {
       maxScore: 100,
       riskLevel,
       riskColor,
-      recommendations
+      recommendations,
+      recommendedBoxes
     });
 
     toast({
@@ -89,11 +123,11 @@ const FamilyTeenSimulator = () => {
         riskLevel={results.riskLevel}
         riskColor={results.riskColor}
         recommendations={results.recommendations}
+        recommendedBoxes={results.recommendedBoxes}
         backgroundColor="from-pink-50 via-purple-50 to-indigo-50"
         accentColor="pink"
         icon={<Smile className="w-12 h-12 text-white" />}
         ctaButtons={[
-          { label: "QVTeen Box Ado", link: "/payment" },
           { label: "Mon espace ado", link: "/teens-home", variant: "outline" }
         ]}
       />

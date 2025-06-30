@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, ArrowRight } from "lucide-react";
+import { CheckCircle, ArrowRight, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface SimulatorResultsProps {
@@ -21,6 +21,12 @@ interface SimulatorResultsProps {
     link: string;
     variant?: "default" | "outline";
   }[];
+  recommendedBoxes?: {
+    name: string;
+    description: string;
+    price: string;
+    features: string[];
+  }[];
 }
 
 const SimulatorResults: React.FC<SimulatorResultsProps> = ({
@@ -33,7 +39,8 @@ const SimulatorResults: React.FC<SimulatorResultsProps> = ({
   backgroundColor = "from-blue-50 via-indigo-50 to-purple-50",
   accentColor = "blue",
   icon,
-  ctaButtons = []
+  ctaButtons = [],
+  recommendedBoxes = []
 }) => {
   return (
     <div className={`min-h-screen bg-gradient-to-br ${backgroundColor} p-6`}>
@@ -73,6 +80,45 @@ const SimulatorResults: React.FC<SimulatorResultsProps> = ({
             </div>
           </CardContent>
         </Card>
+
+        {/* Recommended Boxes Section */}
+        {recommendedBoxes.length > 0 && (
+          <div className="mb-8">
+            <h2 className={`text-2xl font-bold text-${accentColor}-800 mb-6 text-center`}>
+              Box Recommandées pour Vous
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {recommendedBoxes.map((box, idx) => (
+                <Card key={idx} className={`border-${accentColor}-200 hover:shadow-lg transition-shadow`}>
+                  <CardHeader>
+                    <CardTitle className={`text-lg text-${accentColor}-800`}>{box.name}</CardTitle>
+                    <CardDescription>{box.description}</CardDescription>
+                    <div className={`text-2xl font-bold text-${accentColor}-600`}>{box.price}</div>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-sm">
+                      {box.features.map((feature, featureIdx) => (
+                        <li key={featureIdx} className="flex items-center gap-2">
+                          <Package className={`w-3 h-3 text-${accentColor}-500`} />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="text-center mt-6">
+              <Link to="/shop">
+                <Button className={`bg-${accentColor}-600 hover:bg-${accentColor}-700`}>
+                  <Package className="w-4 h-4 mr-2" />
+                  Enrichir ma box dans la boutique
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
 
         <div className="text-center space-x-4">
           {ctaButtons.map((button, idx) => (

@@ -11,9 +11,15 @@ import {
   Sparkles,
   Calendar,
   MessageCircle,
-  ArrowRight
+  ArrowRight,
+  CheckCircle,
+  Play,
+  Package,
+  Star,
+  Smile
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
+import { Link } from "react-router-dom";
 
 const Famille = () => {
   return (
@@ -39,15 +45,233 @@ const Famille = () => {
               Un espace d'expression et de régulation émotionnelle pour les ados et leurs parents.
               Créer du lien intergénérationnel et favoriser le dialogue en famille.
             </p>
-            <div className="flex justify-center gap-4">
-              <Button className="bg-purple-600 hover:bg-purple-700">
-                Commencer l'aventure famille
+          </div>
+        </div>
+
+        {/* Simulator Test Buttons */}
+        <div className="mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-purple-800 mb-4">
+              Testez nos Simulateurs Famille
+            </h2>
+            <p className="text-lg text-purple-600">
+              Évaluations rapides avec recommandations de box personnalisées
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Parent Simulator */}
+            <Card className="hover:shadow-xl transition-all duration-300 border-purple-200 relative overflow-hidden">
+              <div className="absolute inset-0 opacity-5">
+                <img 
+                  src="/lovable-uploads/c06535ca-3da6-476e-8686-9908c0725a0f.png" 
+                  alt="Parent" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardHeader className="relative z-10">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-4">
+                  <Heart className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="text-xl text-purple-800">Simulateur Parent</CardTitle>
+                <CardDescription className="text-gray-600">
+                  Évaluez votre bien-être parental en 3 minutes
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative z-10 space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Charge mentale parentale</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Communication parent-ado</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Box Famille personnalisées</span>
+                  </div>
+                </div>
+                <Link to="/family-parent-simulator">
+                  <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                    <Play className="w-4 h-4 mr-2" />
+                    Tester maintenant
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Teen Simulator */}
+            <Card className="hover:shadow-xl transition-all duration-300 border-pink-200 relative overflow-hidden">
+              <div className="absolute inset-0 opacity-5">
+                <img 
+                  src="/lovable-uploads/15bdba5d-c57a-47fa-b8a1-e9c2168b32fb.png" 
+                  alt="Adolescent" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardHeader className="relative z-10">
+                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-violet-500 rounded-xl flex items-center justify-center mb-4">
+                  <Smile className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="text-xl text-pink-800">Simulateur Ado</CardTitle>
+                <CardDescription className="text-gray-600">
+                  Auto-évaluation du bien-être adolescent
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative z-10 space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Bilan émotionnel complet</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Gestion temps d'écran</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Box Ado personnalisées</span>
+                  </div>
+                </div>
+                <Link to="/family-teen-simulator">
+                  <Button className="w-full bg-pink-600 hover:bg-pink-700">
+                    <Play className="w-4 h-4 mr-2" />
+                    Tester maintenant
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Box Recommendations Preview */}
+        <div className="mb-16 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-8">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-cyan-800 mb-4">
+              Nos Box Famille Recommandées
+            </h3>
+            <p className="text-cyan-600">
+              Découvrez nos solutions personnalisées selon vos résultats de simulation
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Box Communication */}
+            <Card className="border-blue-200 hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <Badge className="bg-blue-500 text-white">COMMUNICATION</Badge>
+                  <div className="flex items-center">
+                    <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                    <span className="text-sm ml-1">4.7/5</span>
+                  </div>
+                </div>
+                <CardTitle className="text-lg text-blue-800">Family Box Dialogue</CardTitle>
+                <CardDescription>
+                  Améliorer la communication parent-ado
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-blue-600 mb-4">39€/mois</div>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <Package className="w-3 h-3 text-blue-500" />
+                    Cartes de conversation
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Package className="w-3 h-3 text-blue-500" />
+                    Activités famille
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Package className="w-3 h-3 text-blue-500" />
+                    Guide parents-ados
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Box Détox Numérique */}
+            <Card className="border-green-200 hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <Badge className="bg-green-500 text-white">DIGITAL DETOX</Badge>
+                  <div className="flex items-center">
+                    <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                    <span className="text-sm ml-1">4.5/5</span>
+                  </div>
+                </div>
+                <CardTitle className="text-lg text-green-800">Teen Box Déconnexion</CardTitle>
+                <CardDescription>
+                  Gérer sainement le temps d'écran
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-green-600 mb-4">44€/mois</div>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <Package className="w-3 h-3 text-green-500" />
+                    Activités créatives offline
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Package className="w-3 h-3 text-green-500" />
+                    Planning équilibré
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Package className="w-3 h-3 text-green-500" />
+                    Jeux de société modernes
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Box Émotions */}
+            <Card className="border-purple-200 hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <Badge className="bg-purple-500 text-white">ÉMOTIONS</Badge>
+                  <div className="flex items-center">
+                    <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                    <span className="text-sm ml-1">4.8/5</span>
+                  </div>
+                </div>
+                <CardTitle className="text-lg text-purple-800">Teen Box Émotions</CardTitle>
+                <CardDescription>
+                  Comprendre et gérer ses émotions
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-purple-600 mb-4">34€/mois</div>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <Package className="w-3 h-3 text-purple-500" />
+                    Roue des émotions
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Package className="w-3 h-3 text-purple-500" />
+                    Journal créatif
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Package className="w-3 h-3 text-purple-500" />
+                    Techniques d'apaisement
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center mt-8">
+            <p className="text-sm text-cyan-600 mb-4">
+              💡 Les box sont recommandées automatiquement selon vos résultats de simulation
+            </p>
+            <Link to="/shop?tab=family">
+              <Button className="bg-cyan-600 hover:bg-cyan-700">
+                <Package className="w-4 h-4 mr-2" />
+                Voir toutes les box famille
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
-              <Button variant="outline" className="border-purple-300 text-purple-700">
-                Découvrir les fonctionnalités
-              </Button>
-            </div>
+            </Link>
           </div>
         </div>
 
@@ -174,14 +398,24 @@ const Famille = () => {
           </div>
           <div className="relative z-10">
             <h2 className="text-3xl font-bold mb-4">
-              Rejoignez l'Aventure Famille
+              Prêt à Transformer votre Famille ?
             </h2>
             <p className="text-xl mb-6 max-w-3xl mx-auto opacity-90">
-              25€/famille/mois pour transformer vos relations familiales
+              Rejoignez les familles qui ont choisi l'innovation pour améliorer leur bien-être et leur communication.
             </p>
-            <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
-              Commencer maintenant
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/family-parent-simulator">
+                <Button className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3 text-lg">
+                  Commencer l'évaluation
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600 px-8 py-3 text-lg">
+                  Demander des conseils
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

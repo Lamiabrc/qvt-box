@@ -21,6 +21,7 @@ import EmployeeTeamSpace from "./pages/EmployeeTeamSpace";
 import EmployeeWellnessActivities from "./pages/EmployeeWellnessActivities";
 import EmployeeCheckIn from "./pages/EmployeeCheckIn";
 import EmployeeProfile from "./pages/EmployeeProfile";
+import ConceptQVT from "./pages/ConceptQVT";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ function App() {
               <main className="flex-1">
                 <Routes>
                   <Route path="/" element={<Index />} />
+                  <Route path="/concept-qvt" element={<ConceptQVT />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/admin-login" element={<AdminLogin />} />
                   <Route path="/register" element={<Auth />} />

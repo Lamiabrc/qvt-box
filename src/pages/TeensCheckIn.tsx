@@ -1,14 +1,19 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
-import { Textarea } from "@/components/ui/textarea";
-import { Heart, Brain, Users, Bed, BookOpen, Home } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { useToast } from "@/hooks/use-toast";
+import MoodSlider from "../components/teens/checkin/MoodSlider";
+import EnergySlider from "../components/teens/checkin/EnergySlider";
+import StressSlider from "../components/teens/checkin/StressSlider";
+import SleepSlider from "../components/teens/checkin/SleepSlider";
+import SocialSlider from "../components/teens/checkin/SocialSlider";
+import AcademicSlider from "../components/teens/checkin/AcademicSlider";
+import FamilySlider from "../components/teens/checkin/FamilySlider";
+import NotesSection from "../components/teens/checkin/NotesSection";
 
 const TeensCheckIn = () => {
   const { toast } = useToast();
@@ -29,14 +34,6 @@ const TeensCheckIn = () => {
     });
   };
 
-  const getMoodEmoji = (value: number) => {
-    if (value <= 2) return "😢";
-    if (value <= 4) return "😐";
-    if (value <= 6) return "🙂";
-    if (value <= 8) return "😊";
-    return "😄";
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 relative overflow-hidden">
       <FloatingBubbles />
@@ -54,205 +51,15 @@ const TeensCheckIn = () => {
         </div>
 
         <div className="max-w-4xl mx-auto space-y-6">
-          {/* Humeur générale */}
-          <Card className="border-pink-200 bg-gradient-to-r from-pink-50 to-rose-50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-pink-800">
-                <Heart className="w-6 h-6" />
-                Humeur générale {getMoodEmoji(mood)}
-              </CardTitle>
-              <CardDescription>Comment te sens-tu globalement aujourd'hui ?</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Slider
-                value={[mood]}
-                onValueChange={(value) => setMood(value[0])}
-                max={10}
-                min={1}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-sm text-gray-600 mt-2">
-                <span>Très mal</span>
-                <span className="font-medium">{mood}/10</span>
-                <span>Excellent</span>
-              </div>
-            </CardContent>
-          </Card>
+          <MoodSlider mood={mood} setMood={setMood} />
+          <EnergySlider energy={energy} setEnergy={setEnergy} />
+          <StressSlider stress={stress} setStress={setStress} />
+          <SleepSlider sleep={sleep} setSleep={setSleep} />
+          <SocialSlider social={social} setSocial={setSocial} />
+          <AcademicSlider academic={academic} setAcademic={setAcademic} />
+          <FamilySlider family={family} setFamily={setFamily} />
+          <NotesSection notes={notes} setNotes={setNotes} />
 
-          {/* Niveau d'énergie */}
-          <Card className="border-orange-200 bg-gradient-to-r from-orange-50 to-yellow-50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-orange-800">
-                <Brain className="w-6 h-6" />
-                Niveau d'énergie
-              </CardTitle>
-              <CardDescription>As-tu de l'énergie aujourd'hui ?</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Slider
-                value={[energy]}
-                onValueChange={(value) => setEnergy(value[0])}
-                max={10}
-                min={1}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-sm text-gray-600 mt-2">
-                <span>Épuisé(e)</span>
-                <span className="font-medium">{energy}/10</span>
-                <span>Plein d'énergie</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Niveau de stress */}
-          <Card className="border-purple-200 bg-gradient-to-r from-purple-50 to-violet-50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-purple-800">
-                <Brain className="w-6 h-6" />
-                Niveau de stress
-              </CardTitle>
-              <CardDescription>Te sens-tu stressé(e) ou anxieux(se) ?</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Slider
-                value={[stress]}
-                onValueChange={(value) => setStress(value[0])}
-                max={10}
-                min={1}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-sm text-gray-600 mt-2">
-                <span>Très stressé(e)</span>
-                <span className="font-medium">{stress}/10</span>
-                <span>Très détendu(e)</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Qualité du sommeil */}
-          <Card className="border-blue-200 bg-gradient-to-r from-blue-50 to-cyan-50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-blue-800">
-                <Bed className="w-6 h-6" />
-                Qualité du sommeil
-              </CardTitle>
-              <CardDescription>Comment as-tu dormi la nuit dernière ?</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Slider
-                value={[sleep]}
-                onValueChange={(value) => setSleep(value[0])}
-                max={10}
-                min={1}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-sm text-gray-600 mt-2">
-                <span>Très mal</span>
-                <span className="font-medium">{sleep}/10</span>
-                <span>Excellent</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Relations sociales */}
-          <Card className="border-green-200 bg-gradient-to-r from-green-50 to-emerald-50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-green-800">
-                <Users className="w-6 h-6" />
-                Relations sociales
-              </CardTitle>
-              <CardDescription>Comment ça se passe avec tes ami(e)s ?</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Slider
-                value={[social]}
-                onValueChange={(value) => setSocial(value[0])}
-                max={10}
-                min={1}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-sm text-gray-600 mt-2">
-                <span>Difficile</span>
-                <span className="font-medium">{social}/10</span>
-                <span>Génial</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Pression scolaire */}
-          <Card className="border-teal-200 bg-gradient-to-r from-teal-50 to-cyan-50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-teal-800">
-                <BookOpen className="w-6 h-6" />
-                Pression scolaire
-              </CardTitle>
-              <CardDescription>Comment tu vis l'école en ce moment ?</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Slider
-                value={[academic]}
-                onValueChange={(value) => setAcademic(value[0])}
-                max={10}
-                min={1}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-sm text-gray-600 mt-2">
-                <span>Très stressant</span>
-                <span className="font-medium">{academic}/10</span>
-                <span>Facile</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Relations familiales */}
-          <Card className="border-indigo-200 bg-gradient-to-r from-indigo-50 to-purple-50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-indigo-800">
-                <Home className="w-6 h-6" />
-                Relations familiales
-              </CardTitle>
-              <CardDescription>Comment ça se passe à la maison ?</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Slider
-                value={[family]}
-                onValueChange={(value) => setFamily(value[0])}
-                max={10}
-                min={1}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-sm text-gray-600 mt-2">
-                <span>Tendu</span>
-                <span className="font-medium">{family}/10</span>
-                <span>Harmonieux</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Notes personnelles */}
-          <Card className="border-gray-200">
-            <CardHeader>
-              <CardTitle className="text-gray-800">Notes personnelles</CardTitle>
-              <CardDescription>Veux-tu ajouter quelque chose sur ta journée ?</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Textarea
-                placeholder="Écris ici tout ce que tu as envie de partager..."
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                className="min-h-[100px]"
-              />
-            </CardContent>
-          </Card>
-
-          {/* Boutons d'action */}
           <div className="flex gap-4 justify-center">
             <Button 
               onClick={handleSubmit}

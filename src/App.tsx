@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,8 +13,6 @@ import AdminPanel from "./pages/AdminPanel";
 import AdminContentManager from "./pages/AdminContentManager";
 import AdminContentEditor from "./pages/AdminContentEditor";
 import Auth from "./pages/Auth";
-import CoachQVT from "./pages/CoachQVT";
-import CoachDashboard from "./pages/CoachDashboard";
 import ConceptQVT from "./pages/ConceptQVT";
 import Contact from "./pages/Contact";
 import Famille from "./pages/Famille";
@@ -86,8 +85,6 @@ const App = () => (
               <Route path="/admin-content-editor" element={<AdminContentEditor />} />
               
               <Route path="/auth" element={<Auth />} />
-              <Route path="/coach-qvt" element={<CoachQVT />} />
-              <Route path="/coach-dashboard" element={<CoachDashboard />} />
               <Route path="/concept-qvt" element={<ConceptQVT />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/payment" element={<Payment />} />

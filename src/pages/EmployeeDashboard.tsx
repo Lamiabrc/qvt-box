@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,424 +9,353 @@ import {
   User, 
   Heart, 
   Brain, 
-  Calendar, 
-  Target,
+  Users, 
+  Calendar,
   TrendingUp,
+  Award,
   MessageCircle,
-  Package,
+  Target,
+  Activity,
   Coffee,
-  Clock,
-  CheckCircle,
-  AlertTriangle,
-  BookOpen
+  Zap,
+  Bookmark,
+  Bell
 } from "lucide-react";
-import FloatingBubbles from "../components/FloatingBubbles";
-import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import FloatingBubbles from "../components/FloatingBubbles";
+import MoodWeather from "../components/MoodWeather";
 
 const EmployeeDashboard = () => {
-  const [wellbeingScore, setWellbeingScore] = useState(7.2);
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const { toast } = useToast();
+  const [currentMood, setCurrentMood] = useState(4);
 
-  const todayTasks = [
-    { task: "Évaluation bien-être quotidienne", completed: true, time: "09:00" },
-    { task: "Pause mindfulness", completed: true, time: "11:00" },
-    { task: "Check-in équipe", completed: false, time: "14:00" },
-    { task: "Exercice de respiration", completed: false, time: "16:00" },
-  ];
-
-  const weeklyGoals = [
-    { goal: "5 pauses bien-être", current: 3, target: 5, category: "Bien-être" },
-    { goal: "3 interactions positives", current: 2, target: 3, category: "Social" },
-    { goal: "2h de formation", current: 1.5, target: 2, category: "Développement" },
-  ];
-
-  const recentActivities = [
-    { title: "Session méditation guidée", date: "Hier", type: "Bien-être", impact: "Positif" },
-    { title: "Feedback manager", date: "Il y a 2 jours", type: "Communication", impact: "Neutre" },
-    { title: "Formation gestion stress", date: "Il y a 3 jours", type: "Apprentissage", impact: "Positif" },
-  ];
-
-  const handleQuickAction = (action: string) => {
-    toast({
-      title: "Action initiée",
-      description: `${action} en cours...`
-    });
+  const wellnessStats = {
+    overall: 78,
+    stress: 65,
+    motivation: 82,
+    workLife: 71,
+    teamSpirit: 88
   };
 
+  const todayActivities = [
+    { time: '09:00', activity: 'Check-in matinal', completed: true },
+    { time: '12:00', activity: 'Pause déjeuner zen', completed: true },
+    { time: '15:30', activity: 'Méditation 5 min', completed: false },
+    { time: '17:00', activity: 'Bilan de journée', completed: false }
+  ];
+
+  const achievements = [
+    { 
+      id: 1, 
+      title: 'Streak 7 jours', 
+      description: '7 jours consécutifs de check-in',
+      icon: Award,
+      color: 'text-yellow-600',
+      bgColor: 'bg-yellow-50',
+      progress: 100
+    },
+    { 
+      id: 2, 
+      title: 'Équilibre Pro/Perso', 
+      description: 'Maintien d\'un bon équilibre',
+      icon: Heart,
+      color: 'text-pink-600',
+      bgColor: 'bg-pink-50',
+      progress: 85
+    },
+    { 
+      id: 3, 
+      title: 'Team Player', 
+      description: 'Participation active équipe',
+      icon: Users,
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-50',
+      progress: 92
+    }
+  ];
+
+  const teamInsights = [
+    {
+      type: 'info',
+      title: 'Nouvelle formation disponible',
+      message: 'Formation "Gestion du Stress" maintenant accessible',
+      time: '2h',
+      priority: 'normal'
+    },
+    {
+      type: 'team',
+      title: 'Événement équipe',
+      message: 'Team building prévu vendredi 15h - Inscrivez-vous !',
+      time: '5h',
+      priority: 'high'
+    },
+    {
+      type: 'wellness',
+      title: 'Conseil bien-être',
+      message: 'Pensez à faire des pauses régulières aujourd\'hui',
+      time: '1j',
+      priority: 'low'
+    }
+  ];
+
+  const quickActions = [
+    {
+      title: 'Check-in Rapide',
+      description: 'État du jour en 2 min',
+      icon: Activity,
+      color: 'from-green-500 to-emerald-500',
+      link: '/employee-checkin'
+    },
+    {
+      title: 'Espace Équipe',
+      description: 'Voir les collègues',
+      icon: Users,
+      color: 'from-blue-500 to-cyan-500',
+      link: '/employee-team-space'
+    },
+    {
+      title: 'Activités Bien-être',
+      description: 'Exercices & conseils',
+      icon: Heart,
+      color: 'from-purple-500 to-pink-500',
+      link: '/employee-wellness-activities'
+    },
+    {
+      title: 'Mon Profil',
+      description: 'Personnaliser',
+      icon: User,
+      color: 'from-orange-500 to-red-500',
+      link: '/employee-personal-space'
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
       <FloatingBubbles />
       
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="container mx-auto px-4 py-6 relative z-10">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-teal-800 mb-2">
-            Mon Espace Bien-être
-          </h1>
-          <p className="text-teal-600">
-            Prenez soin de votre bien-être au travail au quotidien
-          </p>
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-blue-800">Mon Espace Salarié</h1>
+            <p className="text-blue-600">Tableau de bord bien-être professionnel</p>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" className="border-blue-300">
+              <Bell className="w-4 h-4 mr-2" />
+              Notifications
+            </Button>
+            <Button className="bg-blue-600 hover:bg-blue-700">
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Support
+            </Button>
+          </div>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="border-teal-200 bg-gradient-to-br from-teal-50 to-cyan-50">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-teal-600">Score Bien-être</p>
-                  <p className="text-3xl font-bold text-teal-800">{wellbeingScore}/10</p>
-                </div>
-                <Heart className="h-8 w-8 text-teal-500" />
-              </div>
-              <div className="mt-2">
-                <Progress value={wellbeingScore * 10} className="h-2" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-blue-600">Streak Quotidien</p>
-                  <p className="text-3xl font-bold text-blue-800">12 jours</p>
-                </div>
-                <Target className="h-8 w-8 text-blue-500" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-green-600">Objectifs Semaine</p>
-                  <p className="text-3xl font-bold text-green-800">7/10</p>
-                </div>
-                <CheckCircle className="h-8 w-8 text-green-500" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-orange-200 bg-gradient-to-br from-orange-50 to-yellow-50">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-orange-600">Prochaine Box</p>
-                  <p className="text-lg font-bold text-orange-800">Dans 3 jours</p>
-                </div>
-                <Package className="h-8 w-8 text-orange-500" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Main Content */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-            <TabsTrigger value="wellbeing">Bien-être</TabsTrigger>
-            <TabsTrigger value="goals">Objectifs</TabsTrigger>
-            <TabsTrigger value="activities">Activités</TabsTrigger>
-            <TabsTrigger value="resources">Ressources</TabsTrigger>
-          </TabsList>
-
-          {/* Dashboard */}
-          <TabsContent value="dashboard" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-blue-600" />
-                    Programme du Jour
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {todayTasks.map((task, index) => (
-                      <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                        <div className={`w-4 h-4 rounded-full ${task.completed ? 'bg-green-500' : 'bg-gray-300'}`} />
-                        <div className="flex-1">
-                          <p className={`text-sm ${task.completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>
-                            {task.task}
-                          </p>
-                          <p className="text-xs text-gray-500">{task.time}</p>
-                        </div>
-                        {!task.completed && (
-                          <Button 
-                            size="sm" 
-                            variant="outline"
-                            onClick={() => handleQuickAction(task.task)}
-                          >
-                            Faire
-                          </Button>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-green-600" />
-                    Évolution Cette Semaine
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span>Moral général</span>
-                        <span>+15%</span>
-                      </div>
-                      <Progress value={75} className="h-2" />
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span>Niveau de stress</span>
-                        <span>-20%</span>
-                      </div>
-                      <Progress value={40} className="h-2" />
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span>Satisfaction travail</span>
-                        <span>+10%</span>
-                      </div>
-                      <Progress value={80} className="h-2" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Actions Rapides */}
-            <Card>
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Left Column - Mood Weather & Quick Actions */}
+          <div className="space-y-6">
+            <MoodWeather userType="employee" currentMood={currentMood} />
+            
+            <Card className="soap-bubble-effect">
               <CardHeader>
-                <CardTitle>Actions Rapides</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-yellow-600" />
+                  Actions Rapides
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <Link to="/employee-checkin">
-                    <Button 
-                      variant="outline" 
-                      className="h-20 flex flex-col gap-2 w-full"
-                    >
-                      <Brain className="w-6 h-6" />
-                      <span className="text-sm">Check-in</span>
-                    </Button>
-                  </Link>
-                  
-                  <Link to="/employee-wellness-activities">
-                    <Button 
-                      variant="outline" 
-                      className="h-20 flex flex-col gap-2 w-full"
-                    >
-                      <Coffee className="w-6 h-6" />
-                      <span className="text-sm">Activités Bien-être</span>
-                    </Button>
-                  </Link>
-                  
-                  <Link to="/employee-team-space">
-                    <Button 
-                      variant="outline" 
-                      className="h-20 flex flex-col gap-2 w-full"
-                    >
-                      <MessageCircle className="w-6 h-6" />
-                      <span className="text-sm">Espace Équipe</span>
-                    </Button>
-                  </Link>
-                  
-                  <Link to="/employee-personal-space">
-                    <Button 
-                      variant="outline" 
-                      className="h-20 flex flex-col gap-2 w-full"
-                    >
-                      <User className="w-6 h-6" />
-                      <span className="text-sm">Espace Personnel</span>
-                    </Button>
-                  </Link>
+                <div className="grid grid-cols-2 gap-3">
+                  {quickActions.map((action, idx) => (
+                    <Link key={idx} to={action.link}>
+                      <Card className="hover:shadow-md transition-all duration-300 cursor-pointer">
+                        <CardContent className="p-4 text-center">
+                          <div className={`w-12 h-12 bg-gradient-to-br ${action.color} rounded-xl flex items-center justify-center mx-auto mb-2`}>
+                            <action.icon className="w-6 h-6 text-white" />
+                          </div>
+                          <h4 className="font-medium text-sm">{action.title}</h4>
+                          <p className="text-xs text-gray-500">{action.description}</p>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  ))}
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
+          </div>
 
-          {/* Bien-être */}
-          <TabsContent value="wellbeing" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Évaluation Quotidienne</CardTitle>
-                  <CardDescription>Comment vous sentez-vous aujourd'hui ?</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-5 gap-2">
-                      {[1, 2, 3, 4, 5].map((score) => (
-                        <Button
-                          key={score}
-                          variant={score <= Math.floor(wellbeingScore / 2) ? "default" : "outline"}
-                          className="h-12"
-                          onClick={() => setWellbeingScore(score * 2)}
-                        >
-                          {score}
-                        </Button>
+          {/* Center Column - Main Content */}
+          <div className="lg:col-span-2">
+            <Tabs defaultValue="overview" className="space-y-6">
+              <TabsList className="grid w-full grid-cols-4 bg-white/60 backdrop-blur-sm">
+                <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
+                <TabsTrigger value="wellness">Bien-être</TabsTrigger>
+                <TabsTrigger value="team">Équipe</TabsTrigger>
+                <TabsTrigger value="progress">Progrès</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="overview" className="space-y-6">
+                {/* Wellness Overview */}
+                <Card className="soap-bubble-effect">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Activity className="w-5 h-5 text-green-600" />
+                      Bilan Bien-être Global
+                    </CardTitle>
+                    <CardDescription>Votre score bien-être cette semaine</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-green-600 mb-2">{wellnessStats.overall}%</div>
+                        <Badge className="bg-green-100 text-green-800">Bon niveau</Badge>
+                      </div>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="text-center">
+                          <div className="text-sm text-gray-600">Stress</div>
+                          <div className="font-semibold">{wellnessStats.stress}%</div>
+                          <Progress value={wellnessStats.stress} className="h-2 mt-1" />
+                        </div>
+                        <div className="text-center">
+                          <div className="text-sm text-gray-600">Motivation</div>
+                          <div className="font-semibold">{wellnessStats.motivation}%</div>
+                          <Progress value={wellnessStats.motivation} className="h-2 mt-1" />
+                        </div>
+                        <div className="text-center">
+                          <div className="text-sm text-gray-600">Équilibre</div>
+                          <div className="font-semibold">{wellnessStats.workLife}%</div>
+                          <Progress value={wellnessStats.workLife} className="h-2 mt-1" />
+                        </div>
+                        <div className="text-center">
+                          <div className="text-sm text-gray-600">Équipe</div>
+                          <div className="font-semibold">{wellnessStats.teamSpirit}%</div>
+                          <Progress value={wellnessStats.teamSpirit} className="h-2 mt-1" />
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Today's Activities */}
+                <Card className="soap-bubble-effect">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Calendar className="w-5 h-5 text-blue-600" />
+                      Planning Bien-être du Jour
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {todayActivities.map((activity, idx) => (
+                        <div key={idx} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg soap-bubble-effect">
+                          <div>
+                            <div className="font-medium">{activity.time}</div>
+                            <div className="text-sm text-gray-600">{activity.activity}</div>
+                          </div>
+                          <Badge variant={activity.completed ? "default" : "secondary"} className={activity.completed ? "bg-green-600" : ""}>
+                            {activity.completed ? "Fait ✓" : "À faire"}
+                          </Badge>
+                        </div>
                       ))}
                     </div>
-                    <p className="text-sm text-gray-600">
-                      Score actuel: {wellbeingScore}/10
-                    </p>
-                    <Button className="w-full">
-                      Sauvegarder l'évaluation
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Exercices Recommandés</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <Button variant="outline" className="w-full justify-start" onClick={() => handleQuickAction("Respiration guidée")}>
-                      <Heart className="w-4 h-4 mr-2" />
-                      Respiration guidée (5 min)
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start" onClick={() => handleQuickAction("Méditation")}>
-                      <Brain className="w-4 h-4 mr-2" />
-                      Méditation express (3 min)
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start" onClick={() => handleQuickAction("Étirements")}>
-                      <Coffee className="w-4 h-4 mr-2" />
-                      Étirements bureau (2 min)
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          {/* Objectifs */}
-          <TabsContent value="goals" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Objectifs de la Semaine</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  {weeklyGoals.map((goal, index) => (
-                    <div key={index} className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="font-medium">{goal.goal}</span>
-                        <Badge variant="secondary">{goal.category}</Badge>
+              <TabsContent value="wellness" className="space-y-6">
+                <Card className="soap-bubble-effect">
+                  <CardHeader>
+                    <CardTitle>Activités Bien-être Personnalisées</CardTitle>
+                    <CardDescription>Basées sur votre profil et vos besoins</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid gap-4">
+                      <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                            <Brain className="w-5 h-5 text-purple-600" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium">Méditation guidée 10 min</h4>
+                            <p className="text-sm text-gray-600">Réduction du stress et concentration</p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex justify-between text-sm text-gray-600">
-                        <span>{goal.current}/{goal.target}</span>
-                        <span>{Math.round((goal.current / goal.target) * 100)}%</span>
+                      <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                            <Coffee className="w-5 h-5 text-green-600" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium">Pause active 5 min</h4>
+                            <p className="text-sm text-gray-600">Exercices de bureau et étirements</p>
+                          </div>
+                        </div>
                       </div>
-                      <Progress value={(goal.current / goal.target) * 100} className="h-2" />
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-          {/* Activités */}
-          <TabsContent value="activities" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Historique des Activités</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {recentActivities.map((activity, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div>
-                        <h4 className="font-medium">{activity.title}</h4>
-                        <p className="text-sm text-gray-600">{activity.date}</p>
-                        <Badge variant="outline" className="mt-1">{activity.type}</Badge>
-                      </div>
-                      <Badge 
-                        variant={activity.impact === 'Positif' ? 'default' : 'secondary'}
-                      >
-                        {activity.impact}
-                      </Badge>
+              <TabsContent value="team" className="space-y-6">
+                <Card className="soap-bubble-effect">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Users className="w-5 h-5 text-blue-600" />
+                      Actualités Équipe
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {teamInsights.map((insight, idx) => (
+                        <div key={idx} className="flex items-start gap-3 p-3 border rounded-lg">
+                          <div className={`w-2 h-2 rounded-full mt-2 ${
+                            insight.priority === 'high' ? 'bg-red-500' :
+                            insight.priority === 'normal' ? 'bg-yellow-500' : 'bg-green-500'
+                          }`}></div>
+                          <div className="flex-1">
+                            <h4 className="font-medium">{insight.title}</h4>
+                            <p className="text-sm text-gray-600">{insight.message}</p>
+                            <p className="text-xs text-gray-400 mt-1">Il y a {insight.time}</p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-          {/* Ressources */}
-          <TabsContent value="resources" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Link to="/employee-wellness-activities">
-                <Card className="hover:shadow-lg transition-shadow">
+              <TabsContent value="progress" className="space-y-6">
+                <Card className="soap-bubble-effect">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <BookOpen className="w-5 h-5 text-blue-600" />
-                      Activités Bien-être
+                      <Award className="w-5 h-5 text-yellow-600" />
+                      Mes Réussites
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Découvrez des activités pour améliorer votre bien-être
-                    </p>
-                    <Button variant="outline" size="sm">
-                      Accéder
-                    </Button>
+                    <div className="space-y-4">
+                      {achievements.map((achievement) => (
+                        <div key={achievement.id} className={`p-4 rounded-lg ${achievement.bgColor}`}>
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className={`w-10 h-10 ${achievement.bgColor} rounded-full flex items-center justify-center border-2 border-white`}>
+                              <achievement.icon className={`w-5 h-5 ${achievement.color}`} />
+                            </div>
+                            <div>
+                              <h4 className="font-medium">{achievement.title}</h4>
+                              <p className="text-sm text-gray-600">{achievement.description}</p>
+                            </div>
+                          </div>
+                          <Progress value={achievement.progress} className="h-2" />
+                          <p className="text-xs text-gray-500 mt-1">{achievement.progress}% complété</p>
+                        </div>
+                      ))}
+                    </div>
                   </CardContent>
                 </Card>
-              </Link>
-
-              <Link to="/employee-team-space">
-                <Card className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <MessageCircle className="w-5 h-5 text-green-600" />
-                      Espace Équipe
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Partagez avec vos collègues et renforcez les liens
-                    </p>
-                    <Button variant="outline" size="sm">
-                      Rejoindre
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-
-              <Link to="/employee-customization">
-                <Card className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Package className="w-5 h-5 text-purple-600" />
-                      Personnalisation
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Personnalisez votre expérience utilisateur
-                    </p>
-                    <Button variant="outline" size="sm">
-                      Configurer
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </div>
-          </TabsContent>
-        </Tabs>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </div>
       </div>
     </div>
   );

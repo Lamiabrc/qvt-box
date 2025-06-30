@@ -20,10 +20,29 @@ const AdminLogin = () => {
   const { user, signIn, isAdmin, loading } = useAuth();
   const navigate = useNavigate();
 
+  // Log admin access attempts for security monitoring
+  const logAdminAccess = async (successful: boolean, email: string) => {
+    try {
+      await fetch('/api/log-admin-access', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          successful,
+          email,
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+          ipAddress: 'client-side' // Will be replaced server-side
+        })
+      });
+    } catch (error) {
+      console.warn('Failed to log admin access attempt:', error);
+    }
+  };
+
   // Redirect if already authenticated and is admin
   useEffect(() => {
     if (!loading && user && isAdmin) {
-      navigate('/admin-panel');
+      navigate('/chat-admin');
     }
   }, [user, isAdmin, loading, navigate]);
 
@@ -46,9 +65,33 @@ const AdminLogin = () => {
     setIsLoading(true);
 
     try {
+      // Input validation
+      if (!email || !password) {
+        toast({
+          title: "Erreur de validation",
+          description: "Email et mot de passe requis",
+          variant: "destructive"
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      if (!email.includes('@')) {
+        toast({
+          title: "Erreur de validation",
+          description: "Format d'email invalide",
+          variant: "destructive"
+        });
+        setIsLoading(false);
+        return;
+      }
+
       const { error } = await signIn(email, password);
       
       if (error) {
+        // Log failed admin access attempt
+        await logAdminAccess(false, email);
+        
         toast({
           title: "Erreur de connexion",
           description: error.message || "Identifiants incorrects",
@@ -58,13 +101,17 @@ const AdminLogin = () => {
         return;
       }
 
-      // The useEffect will handle the redirect once auth state is updated
+      // Log successful admin access attempt
+      await logAdminAccess(true, email);
+
       toast({
         title: "Connexion réussie",
         description: "Vérification des permissions..."
       });
     } catch (error) {
       console.error('Admin login error:', error);
+      await logAdminAccess(false, email);
+      
       toast({
         title: "Erreur de connexion",
         description: "Une erreur inattendue s'est produite",
@@ -110,6 +157,7 @@ const AdminLogin = () => {
                     className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
                     placeholder="admin@qvtbox.com"
                     required
+                    disabled={isLoading}
                   />
                 </div>
                 
@@ -124,11 +172,13 @@ const AdminLogin = () => {
                       className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 pr-10"
                       placeholder="••••••••"
                       required
+                      disabled={isLoading}
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-200"
+                      disabled={isLoading}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>

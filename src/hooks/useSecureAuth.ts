@@ -63,12 +63,18 @@ export const useSecureAuth = () => {
         role: userData.role?.trim()?.toLowerCase()
       } : {};
 
-      const result = await signUp(email, password, sanitizedUserData);
+      // SECURITY FIX: Add emailRedirectTo to prevent auth bypass
+      const result = await signUp(email, password, {
+        ...sanitizedUserData,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`
+        }
+      });
       
       if (!result.error) {
         toast({
           title: "Compte créé avec succès",
-          description: "Vérifiez votre email pour confirmer votre compte"
+          description: "Vérifiez votre email pour confirmer votre compte. Le lien expire dans 24h."
         });
       }
 

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface Message {
   id: string;
@@ -44,6 +45,36 @@ const ChatAdminDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const { user, isAdmin } = useAuth();
+
+  // Security check - ensure user is admin
+  useEffect(() => {
+    if (!user || !isAdmin) {
+      toast({
+        title: "Accès non autorisé",
+        description: "Vous devez être administrateur pour accéder à cette section",
+        variant: "destructive"
+      });
+      return;
+    }
+  }, [user, isAdmin, toast]);
+
+  // Log admin activity for security monitoring
+  const logAdminActivity = async (action: string, resourceType: string, resourceId?: string) => {
+    if (!user || !isAdmin) return;
+    
+    try {
+      await supabase.from('admin_activity_log').insert([{
+        admin_user_id: user.id,
+        action,
+        resource_type: resourceType,
+        resource_id: resourceId,
+        user_agent: navigator.userAgent
+      }]);
+    } catch (error) {
+      console.warn('Failed to log admin activity:', error);
+    }
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -53,8 +84,10 @@ const ChatAdminDashboard = () => {
     scrollToBottom();
   }, [messages]);
 
-  // Load conversations
+  // Load conversations with security check
   const loadConversations = async () => {
+    if (!user || !isAdmin) return;
+    
     try {
       const { data, error } = await supabase
         .from('conversations')
@@ -63,6 +96,9 @@ const ChatAdminDashboard = () => {
 
       if (error) throw error;
       setConversations(data || []);
+      
+      // Log admin activity
+      await logAdminActivity('view_conversations', 'conversations');
     } catch (error) {
       console.error('Error loading conversations:', error);
       toast({
@@ -75,8 +111,10 @@ const ChatAdminDashboard = () => {
     }
   };
 
-  // Load messages for selected conversation
+  // Load messages for selected conversation with security check
   const loadMessages = async (conversationId: string) => {
+    if (!user || !isAdmin) return;
+    
     try {
       const { data, error } = await supabase
         .from('messages')
@@ -86,14 +124,17 @@ const ChatAdminDashboard = () => {
 
       if (error) throw error;
       setMessages(data || []);
+      
+      // Log admin activity
+      await logAdminActivity('view_messages', 'messages', conversationId);
     } catch (error) {
       console.error('Error loading messages:', error);
     }
   };
 
-  // Send admin response
+  // Send admin response with proper user attribution
   const sendAdminResponse = async () => {
-    if (!inputValue.trim() || !selectedConversation) return;
+    if (!inputValue.trim() || !selectedConversation || !user || !isAdmin) return;
 
     try {
       const { error } = await supabase
@@ -102,7 +143,7 @@ const ChatAdminDashboard = () => {
           conversation_id: selectedConversation.id,
           content: inputValue,
           is_from_visitor: false,
-          admin_user_id: null // You can set this to current admin user ID
+          admin_user_id: user.id // Proper admin user attribution
         }]);
 
       if (error) throw error;
@@ -115,6 +156,9 @@ const ChatAdminDashboard = () => {
         .update({ updated_at: new Date().toISOString() })
         .eq('id', selectedConversation.id);
 
+      // Log admin activity
+      await logAdminActivity('send_message', 'messages', selectedConversation.id);
+
     } catch (error) {
       console.error('Error sending admin response:', error);
       toast({
@@ -125,8 +169,10 @@ const ChatAdminDashboard = () => {
     }
   };
 
-  // Set up real-time subscriptions
+  // Set up real-time subscriptions with security checks
   useEffect(() => {
+    if (!user || !isAdmin) return;
+    
     loadConversations();
 
     // Subscribe to new conversations
@@ -173,20 +219,29 @@ const ChatAdminDashboard = () => {
       supabase.removeChannel(conversationsChannel);
       supabase.removeChannel(messagesChannel);
     };
-  }, [selectedConversation]);
+  }, [selectedConversation, user, isAdmin]);
 
   // Load messages when conversation is selected
   useEffect(() => {
-    if (selectedConversation) {
+    if (selectedConversation && user && isAdmin) {
       loadMessages(selectedConversation.id);
     }
-  }, [selectedConversation]);
+  }, [selectedConversation, user, isAdmin]);
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       sendAdminResponse();
     }
   };
+
+  // Security check - don't render if not admin
+  if (!user || !isAdmin) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="text-lg text-red-600">Accès non autorisé</div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (

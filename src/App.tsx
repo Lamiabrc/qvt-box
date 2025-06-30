@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Auth from "./pages/Auth";
 import Contact from "./pages/Contact";
 import ChatAdmin from "./pages/ChatAdmin";
+import AdminLogin from "./pages/AdminLogin";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import TeamLeaderDashboard from "./pages/TeamLeaderDashboard";
 import EmployeePersonalSpace from "./pages/EmployeePersonalSpace";
@@ -37,6 +38,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/admin-login" element={<AdminLogin />} />
                   <Route path="/register" element={<Auth />} />
                   <Route path="/account" element={<Auth />} />
                   <Route path="/contact" element={<Contact />} />

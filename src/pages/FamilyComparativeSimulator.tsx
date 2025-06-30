@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Users, Family } from "lucide-react";
+import { Users } from "lucide-react";
 import ComparativeSimulatorBase from '../components/simulators/ComparativeSimulatorBase';
 import ComparativeResults from '../components/simulators/ComparativeResults';
 
@@ -9,7 +9,6 @@ const familyComparativeQuestions = [
     id: 'communication',
     title: 'Communication familiale',
     question: 'Comment évaluez-vous la qualité de votre communication familiale ?',
-    perspective: 'both' as const,
     options: [
       { value: 1, label: 'Très difficile - Nous ne nous comprenons pas', color: 'bg-red-500' },
       { value: 2, label: 'Compliquée - Souvent des malentendus', color: 'bg-orange-500' },
@@ -21,7 +20,6 @@ const familyComparativeQuestions = [
     id: 'trust',
     title: 'Confiance mutuelle',
     question: 'Comment évaluez-vous le niveau de confiance dans votre relation ?',
-    perspective: 'both' as const,
     options: [
       { value: 1, label: 'Très faible - Beaucoup de méfiance', color: 'bg-red-500' },
       { value: 2, label: 'Limitée - Quelques doutes', color: 'bg-orange-500' },
@@ -33,7 +31,6 @@ const familyComparativeQuestions = [
     id: 'stress_level',
     title: 'Niveau de stress familial',
     question: 'Comment percevez-vous le niveau de stress dans votre famille ?',
-    perspective: 'both' as const,
     options: [
       { value: 1, label: 'Très élevé - Ambiance tendue', color: 'bg-red-500' },
       { value: 2, label: 'Élevé - Souvent stressant', color: 'bg-orange-500' },
@@ -45,7 +42,6 @@ const familyComparativeQuestions = [
     id: 'support',
     title: 'Soutien mutuel',
     question: 'Dans quelle mesure vous soutenez-vous mutuellement ?',
-    perspective: 'both' as const,
     options: [
       { value: 1, label: 'Très peu - Chacun pour soi', color: 'bg-red-500' },
       { value: 2, label: 'Occasionnellement - Selon l\'humeur', color: 'bg-orange-500' },
@@ -57,7 +53,6 @@ const familyComparativeQuestions = [
     id: 'understanding',
     title: 'Compréhension mutuelle',
     question: 'À quel point vous comprenez-vous l\'un l\'autre ?',
-    perspective: 'both' as const,
     options: [
       { value: 1, label: 'Très mal - Mondes différents', color: 'bg-red-500' },
       { value: 2, label: 'Difficilement - Efforts nécessaires', color: 'bg-orange-500' },
@@ -100,7 +95,7 @@ const FamilyComparativeSimulator = () => {
               onClick={() => setParticipantType('Enfant')}
               className="p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow border-2 border-pink-200 hover:border-pink-400"
             >
-              <Family className="w-16 h-16 text-pink-600 mx-auto mb-4" />
+              <Users className="w-16 h-16 text-pink-600 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-pink-800 mb-2">Je suis un Enfant/Ado</h3>
               <p className="text-gray-600">Analyser ma relation avec mes parents</p>
             </button>
@@ -150,7 +145,7 @@ const FamilyComparativeSimulator = () => {
         otherParticipantType={participantType === 'Parent' ? 'Enfant' : 'Parent'}
         backgroundColor="from-purple-50 via-pink-50 to-blue-50"
         accentColor="purple"
-        icon={<Family className="w-8 h-8 text-white" />}
+        icon={<Users className="w-8 h-8 text-white" />}
       />
     );
   }
@@ -175,7 +170,7 @@ const FamilyComparativeSimulator = () => {
       onBack={handleBack}
       backgroundColor="from-purple-50 via-pink-50 to-blue-50"
       accentColor="purple"
-      icon={<Family className="w-8 h-8 text-white" />}
+      icon={<Users className="w-8 h-8 text-white" />}
       currentPerspective={currentPhase}
       participantType={participantType}
       otherParticipantType={participantType === 'Parent' ? 'Enfant' : 'Parent'}

@@ -10,7 +10,6 @@ interface Question {
   id: string;
   title: string;
   question: string;
-  perspective: 'self' | 'other';
   options: {
     value: number;
     label: string;

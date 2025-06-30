@@ -9,7 +9,6 @@ const workplaceComparativeQuestions = [
     id: 'workload',
     title: 'Charge de travail',
     question: 'Comment évaluez-vous votre charge de travail actuelle ?',
-    perspective: 'both' as const,
     options: [
       { value: 1, label: 'Excessive - Intenable', color: 'bg-red-500' },
       { value: 2, label: 'Lourde - Difficile à gérer', color: 'bg-orange-500' },
@@ -21,7 +20,6 @@ const workplaceComparativeQuestions = [
     id: 'communication',
     title: 'Communication professionnelle',
     question: 'Comment évaluez-vous la qualité de la communication dans votre relation de travail ?',
-    perspective: 'both' as const,
     options: [
       { value: 1, label: 'Très mauvaise - Incompréhensions fréquentes', color: 'bg-red-500' },
       { value: 2, label: 'À améliorer - Quelques difficultés', color: 'bg-orange-500' },
@@ -33,7 +31,6 @@ const workplaceComparativeQuestions = [
     id: 'recognition',
     title: 'Reconnaissance du travail',
     question: 'Dans quelle mesure votre travail est-il reconnu et valorisé ?',
-    perspective: 'both' as const,
     options: [
       { value: 1, label: 'Pas du tout - Efforts ignorés', color: 'bg-red-500' },
       { value: 2, label: 'Rarement - Reconnaissance insuffisante', color: 'bg-orange-500' },
@@ -45,7 +42,6 @@ const workplaceComparativeQuestions = [
     id: 'autonomy',
     title: 'Autonomie professionnelle',
     question: 'Quel niveau d\'autonomie avez-vous dans votre travail ?',
-    perspective: 'both' as const,
     options: [
       { value: 1, label: 'Très faible - Tout est contrôlé', color: 'bg-red-500' },
       { value: 2, label: 'Limitée - Peu de marge de manœuvre', color: 'bg-orange-500' },
@@ -57,7 +53,6 @@ const workplaceComparativeQuestions = [
     id: 'support',
     title: 'Soutien professionnel',
     question: 'À quel point vous sentez-vous soutenu dans vos missions ?',
-    perspective: 'both' as const,
     options: [
       { value: 1, label: 'Pas du tout - Laissé seul', color: 'bg-red-500' },
       { value: 2, label: 'Peu - Aide insuffisante', color: 'bg-orange-500' },

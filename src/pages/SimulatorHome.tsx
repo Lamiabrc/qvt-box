@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,6 @@ import {
   Heart, 
   Users, 
   Briefcase, 
-  Family, 
   UserCheck, 
   Building2,
   CheckCircle,
@@ -222,7 +222,7 @@ const SimulatorHome = () => {
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-gray-200 hover:border-gray-400 bg-gradient-to-br from-gray-50 to-slate-50">
               <CardHeader className="text-center">
                 <div className="w-20 h-20 bg-gradient-to-br from-gray-500 to-slate-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Family className="w-10 h-10 text-white" />
+                  <Users className="w-10 h-10 text-white" />
                 </div>
                 <CardTitle className="text-xl text-gray-800 group-hover:text-gray-900">
                   Évaluation Générale

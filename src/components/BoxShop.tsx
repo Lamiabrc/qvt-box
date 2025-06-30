@@ -46,6 +46,36 @@ const BoxShop = ({ universe }: BoxShopProps) => {
     }
   };
 
+  const getBoxImage = (boxName: string, universe: string) => {
+    const enterpriseImages = {
+      'default': 'https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+      'stress': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+      'team': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+      'burnout': 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+      'remote': 'https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+    };
+
+    const familyImages = {
+      'default': 'https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+      'teen': 'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+      'parent': 'https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+      'family': 'https://images.unsplash.com/photo-1609220136736-443140cffec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+    };
+
+    if (universe === 'enterprise') {
+      if (boxName.toLowerCase().includes('stress')) return enterpriseImages.stress;
+      if (boxName.toLowerCase().includes('équipe') || boxName.toLowerCase().includes('cohésion')) return enterpriseImages.team;
+      if (boxName.toLowerCase().includes('burn-out') || boxName.toLowerCase().includes('burnout')) return enterpriseImages.burnout;
+      if (boxName.toLowerCase().includes('télétravail') || boxName.toLowerCase().includes('remote')) return enterpriseImages.remote;
+      return enterpriseImages.default;
+    } else {
+      if (boxName.toLowerCase().includes('teen') || boxName.toLowerCase().includes('ado')) return familyImages.teen;
+      if (boxName.toLowerCase().includes('parent')) return familyImages.parent;
+      if (boxName.toLowerCase().includes('famille')) return familyImages.family;
+      return familyImages.default;
+    }
+  };
+
   const boxes = getBoxesForUniverse().map((box, index) => ({
     id: index + 1,
     name: box.name,
@@ -55,6 +85,7 @@ const BoxShop = ({ universe }: BoxShopProps) => {
     gradient: box.gradient || "from-teal-500 to-cyan-500",
     bgColor: getBgColorForScale(box.evaluationScale),
     items: box.features,
+    image: getBoxImage(box.name, universe),
     rating: 4.5 + Math.random() * 0.4, // Random rating between 4.5-4.9
     users: Math.floor(200 + Math.random() * 800) // Random users between 200-1000
   }));
@@ -108,10 +139,19 @@ const BoxShop = ({ universe }: BoxShopProps) => {
       {/* Box Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {boxes.map((box) => (
-          <Card key={box.id} className={`group hover:shadow-xl transition-all duration-300 ${box.bgColor} hover:scale-105`}>
-            <CardHeader className="pb-4">
+          <Card key={box.id} className={`group hover:shadow-xl transition-all duration-300 ${box.bgColor} hover:scale-105 relative overflow-hidden`}>
+            {/* Box Image Background */}
+            <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
+              <img 
+                src={box.image}
+                alt={box.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            
+            <CardHeader className="pb-4 relative z-10">
               <div className="flex items-start justify-between">
-                <div className={`w-12 h-12 bg-gradient-to-br ${box.gradient} rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
+                <div className={`w-12 h-12 bg-gradient-to-br ${box.gradient} rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-lg`}>
                   <box.icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-right">
@@ -127,7 +167,7 @@ const BoxShop = ({ universe }: BoxShopProps) => {
               <CardDescription className="text-gray-600">{box.description}</CardDescription>
             </CardHeader>
             
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 relative z-10">
               {/* Items Preview */}
               <div className="space-y-2">
                 <p className="text-sm font-medium text-gray-700 mb-2">Contenu de la box :</p>
@@ -142,7 +182,7 @@ const BoxShop = ({ universe }: BoxShopProps) => {
               </div>
 
               {/* Delivery Info */}
-              <div className="flex items-center gap-2 text-sm text-gray-600 bg-white/60 p-2 rounded-lg">
+              <div className="flex items-center gap-2 text-sm text-gray-600 bg-white/60 p-2 rounded-lg backdrop-blur-sm">
                 <Clock className="w-4 h-4 text-teal-600" />
                 <span>Livraison mensuelle incluse</span>
               </div>
@@ -155,7 +195,7 @@ const BoxShop = ({ universe }: BoxShopProps) => {
                 </div>
                 <Button 
                   onClick={() => handleAddToCart(box.name)}
-                  className={`bg-gradient-to-r ${box.gradient} hover:scale-105 transition-transform text-white px-6`}
+                  className={`bg-gradient-to-r ${box.gradient} hover:scale-105 transition-transform text-white px-6 shadow-lg hover:shadow-xl`}
                 >
                   <Package className="w-4 h-4 mr-2" />
                   Commander

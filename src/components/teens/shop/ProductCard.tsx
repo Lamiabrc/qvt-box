@@ -34,10 +34,35 @@ const ProductCard = ({ product }: ProductCardProps) => {
     }
   };
 
+  const getRealProductImage = (productName: string, category: string) => {
+    // Mapping des produits avec de vraies images
+    const imageMap: { [key: string]: string } = {
+      'Casque Gaming RGB': 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'Kit Art Thérapie': 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'Livre': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'Playlist Premium': 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'Veilleuse Anti-Stress': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'T-shirt QVTeen': 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'Écouteurs Bluetooth': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+      'Jeu de Cartes Émotions': 'https://images.unsplash.com/photo-1541278107931-e006523892df?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+    };
+
+    // Recherche par nom exact ou par catégorie
+    return imageMap[productName] || imageMap[Object.keys(imageMap).find(key => productName.includes(key.split(' ')[0])) || ''] || 
+           `https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80`;
+  };
+
   return (
-    <Card className="hover:shadow-xl transition-all duration-300 border-emerald-200 soap-bubble-effect">
+    <Card className="hover:shadow-xl transition-all duration-300 border-emerald-200 soap-bubble-effect group">
       <CardHeader className="text-center pb-2">
-        <div className="text-6xl mb-3">{product.image}</div>
+        <div className="relative overflow-hidden rounded-lg mb-3 h-40">
+          <img 
+            src={getRealProductImage(product.name, product.category)}
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+        </div>
         <div className="flex flex-wrap justify-center gap-1 mb-2">
           {product.tags.map((tag, idx) => (
             <Badge key={idx} className={`text-xs ${getTagColor(tag)}`}>
@@ -64,11 +89,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
           )}
         </div>
         <div className="flex gap-2">
-          <Button className="flex-1 bg-emerald-600 hover:bg-emerald-700">
+          <Button className="flex-1 bg-emerald-600 hover:bg-emerald-700 shadow-lg hover:shadow-xl transition-all">
             <ShoppingBag className="w-4 h-4 mr-2" />
             Ajouter
           </Button>
-          <Button variant="outline" size="icon" className="border-emerald-300">
+          <Button variant="outline" size="icon" className="border-emerald-300 hover:bg-emerald-50 transition-all">
             <Heart className="w-4 h-4" />
           </Button>
         </div>

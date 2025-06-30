@@ -18,7 +18,7 @@ const Index = () => {
             <img 
               src="/lovable-uploads/bed0f5ad-cedc-4afa-8b5d-24f9bf8ec5ff.png" 
               alt="QVT Box - Sortez de votre bulle, on veille sur vous" 
-              className="h-24 w-24 object-cover rounded-full drop-shadow-2xl border-4 border-white/50"
+              className="h-32 w-32 object-cover rounded-full drop-shadow-2xl border-4 border-white/50 animate-pulse"
             />
           </div>
           
@@ -34,15 +34,54 @@ const Index = () => {
             La première solution phygitale qui transforme le bien-être en expérience tangible et mesurable
           </p>
           
+          {/* Hero Images Section */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
+            <div className="relative overflow-hidden rounded-xl shadow-xl">
+              <img 
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Équipe heureuse au travail"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-teal-900/70 via-transparent to-transparent"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <p className="font-semibold">Bien-être au travail</p>
+              </div>
+            </div>
+            
+            <div className="relative overflow-hidden rounded-xl shadow-xl">
+              <img 
+                src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Famille unie et souriante"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/70 via-transparent to-transparent"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <p className="font-semibold">Harmonie familiale</p>
+              </div>
+            </div>
+            
+            <div className="relative overflow-hidden rounded-xl shadow-xl">
+              <img 
+                src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Innovation et technologie"
+                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/70 via-transparent to-transparent"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <p className="font-semibold">Innovation phygitale</p>
+              </div>
+            </div>
+          </div>
+          
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link to="/famille">
-              <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 text-lg">
+              <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all">
                 <Heart className="w-5 h-5 mr-2" />
                 Espace Famille
               </Button>
             </Link>
             <Link to="/entreprise">
-              <Button className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white px-8 py-3 text-lg">
+              <Button className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all">
                 <Building2 className="w-5 h-5 mr-2" />
                 Espace Entreprise
               </Button>
@@ -50,7 +89,7 @@ const Index = () => {
           </div>
           
           <div className="flex justify-center gap-4 mb-8">
-            <Badge className="bg-green-500 text-white">Nouveau !</Badge>
+            <Badge className="bg-green-500 text-white animate-bounce">Nouveau !</Badge>
             <Badge className="bg-blue-500 text-white">Phygital</Badge>
             <Badge className="bg-purple-500 text-white">IA Intégrée</Badge>
           </div>
@@ -65,11 +104,11 @@ const Index = () => {
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-teal-200 hover:shadow-lg transition-shadow relative overflow-hidden">
-              <div className="absolute inset-0 opacity-10">
+            <Card className="border-teal-200 hover:shadow-lg transition-shadow relative overflow-hidden group">
+              <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
                 <img 
-                  src="/lovable-uploads/15bdba5d-c57a-47fa-b8a1-e9c2168b32fb.png" 
-                  alt="Bien-être" 
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Innovation phygitale" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -84,11 +123,11 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-purple-200 hover:shadow-lg transition-shadow relative overflow-hidden">
-              <div className="absolute inset-0 opacity-10">
+            <Card className="border-purple-200 hover:shadow-lg transition-shadow relative overflow-hidden group">
+              <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
                 <img 
-                  src="/lovable-uploads/777097df-f84d-4104-9ffc-695ed99931db.png" 
-                  alt="Prévention burn-out" 
+                  src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Prévention santé mentale" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -103,12 +142,19 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-cyan-200 hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <Card className="border-cyan-200 hover:shadow-lg transition-shadow relative overflow-hidden group">
+              <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
+                <img 
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Analytics et mesures" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardHeader className="relative z-10">
                 <TrendingUp className="w-12 h-12 text-cyan-600 mb-4" />
                 <CardTitle className="text-cyan-800">Mesure d'Impact</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="relative z-10">
                 <p className="text-gray-600">
                   Tableaux de bord temps réel pour mesurer concrètement l'amélioration du bien-être et de la performance.
                 </p>
@@ -127,10 +173,10 @@ const Index = () => {
           
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="border-purple-200 hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
-              <div className="absolute inset-0 opacity-20">
+              <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
                 <img 
-                  src="/lovable-uploads/99f6252d-1cb0-42a7-9b79-3930f5264417.png" 
-                  alt="Famille heureuse" 
+                  src="https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Famille heureuse ensemble" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -157,7 +203,7 @@ const Index = () => {
                   </li>
                 </ul>
                 <Link to="/famille" className="block">
-                  <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
+                  <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all">
                     Découvrir l'univers Famille
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -166,10 +212,10 @@ const Index = () => {
             </Card>
             
             <Card className="border-teal-200 hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
-              <div className="absolute inset-0 opacity-20">
+              <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
                 <img 
-                  src="/lovable-uploads/c06535ca-3da6-476e-8686-9908c0725a0f.png" 
-                  alt="Équipe dynamique" 
+                  src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Équipe professionnelle dynamique" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -196,11 +242,73 @@ const Index = () => {
                   </li>
                 </ul>
                 <Link to="/entreprise" className="block">
-                  <Button className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white">
+                  <Button className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white shadow-lg hover:shadow-xl transition-all">
                     Découvrir l'univers Entreprise
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+      
+      {/* Testimonials Section */}
+      <section className="relative z-10 px-4 py-16 bg-gradient-to-br from-teal-100/50 to-cyan-100/50">
+        <div className="container mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
+            Ils nous font confiance
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="border-none shadow-lg hover:shadow-xl transition-all bg-white/80 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1494790108755-2616b612b5bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                    alt="Sarah, RH"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <p className="text-gray-600 italic mb-4">
+                  "QVT Box a révolutionné notre approche du bien-être en entreprise. Les résultats sont mesurables !"
+                </p>
+                <p className="font-semibold text-teal-800">Sarah M.</p>
+                <p className="text-sm text-gray-500">Directrice RH</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-none shadow-lg hover:shadow-xl transition-all bg-white/80 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                    alt="Marc, Manager"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <p className="text-gray-600 italic mb-4">
+                  "Enfin une solution concrète pour prévenir le burn-out dans nos équipes. L'IA est bluffante !"
+                </p>
+                <p className="font-semibold text-teal-800">Marc L.</p>
+                <p className="text-sm text-gray-500">Manager</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-none shadow-lg hover:shadow-xl transition-all bg-white/80 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                    alt="Claire, Maman"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <p className="text-gray-600 italic mb-4">
+                  "La QVTeen Box a créé de vrais moments de complicité avec ma fille ado. Merci !"
+                </p>
+                <p className="font-semibold text-purple-800">Claire B.</p>
+                <p className="text-sm text-gray-500">Maman de 2 ados</p>
               </CardContent>
             </Card>
           </div>
@@ -214,17 +322,17 @@ const Index = () => {
             Prêt à sortir de votre bulle ?
           </h2>
           <p className="text-xl text-teal-100 mb-8 max-w-2xl mx-auto">
-            Rejoignez la révolution du bien-être phygital et transformez votre quotidien dès aujourd'hui.
+            Rejoignez la révolution du bien-être phygitale et transformez votre quotidien dès aujourd'hui.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/login">
-              <Button className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-3 text-lg">
+              <Button className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all">
                 Commencer maintenant
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
             <Link to="/concept-qvt">
-              <Button variant="outline" className="border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3 text-lg">
+              <Button variant="outline" className="border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all">
                 En savoir plus
               </Button>
             </Link>

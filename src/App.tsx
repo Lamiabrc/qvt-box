@@ -25,14 +25,24 @@ import IntelligentRecommendations from './pages/IntelligentRecommendations';
 import FamilyComparativeSimulator from './pages/FamilyComparativeSimulator';
 import WorkplaceComparativeSimulator from './pages/WorkplaceComparativeSimulator';
 import EnterpriseOrientation from './pages/EnterpriseOrientation';
+import FamilyOrientation from './pages/FamilyOrientation';
 import ConceptQVT from './pages/ConceptQVT';
 import EmployeeDashboard from './pages/EmployeeDashboard';
 import TeamLeaderDashboard from './pages/TeamLeaderDashboard';
 import QVTManagerDashboard from './pages/QVTManagerDashboard';
-import CoachDashboard from './pages/CoachDashboard';
 import ParentDashboard from './pages/ParentDashboard';
 import AdminPanel from './pages/AdminPanel';
 import DevenirPrestataire from './pages/DevenirPrestataire';
+import TeensCheckIn from './pages/TeensCheckIn';
+import TeensCalendar from './pages/TeensCalendar';
+import TeensJournal from './pages/TeensJournal';
+import TeensPlaylist from './pages/TeensPlaylist';
+import TeensFunSolutions from './pages/TeensFunSolutions';
+import TeensCustomization from './pages/TeensCustomization';
+import TeensPersonalSpace from './pages/TeensPersonalSpace';
+import TeensFamilySpace from './pages/TeensFamilySpace';
+import TeensParentalAccess from './pages/TeensParentalAccess';
+import TeensQuickAlert from './pages/TeensQuickAlert';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -53,6 +63,7 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/teens-home" element={<TeensHome />} />
               <Route path="/famille" element={<Famille />} />
+              <Route path="/family-orientation" element={<FamilyOrientation />} />
               <Route path="/entreprise" element={<EnterpriseOrientation />} />
               <Route path="/concept-qvt" element={<ConceptQVT />} />
               <Route path="/shop" element={<Shop />} />
@@ -72,9 +83,20 @@ function App() {
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/team-leader-dashboard" element={<TeamLeaderDashboard />} />
               <Route path="/qvt-manager-dashboard" element={<QVTManagerDashboard />} />
-              <Route path="/coach-dashboard" element={<CoachDashboard />} />
               <Route path="/parent-dashboard" element={<ParentDashboard />} />
               <Route path="/admin-panel" element={<AdminPanel />} />
+              
+              {/* Pages Teens */}
+              <Route path="/teens-checkin" element={<TeensCheckIn />} />
+              <Route path="/teens-calendar" element={<TeensCalendar />} />
+              <Route path="/teens-journal" element={<TeensJournal />} />
+              <Route path="/teens-playlist" element={<TeensPlaylist />} />
+              <Route path="/teens-fun-solutions" element={<TeensFunSolutions />} />
+              <Route path="/teens-customization" element={<TeensCustomization />} />
+              <Route path="/teens-personal-space" element={<TeensPersonalSpace />} />
+              <Route path="/teens-family-space" element={<TeensFamilySpace />} />
+              <Route path="/teens-parental-access" element={<TeensParentalAccess />} />
+              <Route path="/teens-quick-alert" element={<TeensQuickAlert />} />
               
               {/* 404 Route */}
               <Route path="*" element={<NotFound />} />

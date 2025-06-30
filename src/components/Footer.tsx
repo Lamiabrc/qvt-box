@@ -12,9 +12,9 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <img 
-                src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
+                src="/lovable-uploads/c3f540d3-2d74-4082-89bc-397cb4987770.png" 
                 alt="QVT Box Logo" 
-                className="h-8 w-auto"
+                className="h-8 w-8 rounded-full object-cover"
               />
               <span className="text-xl font-bold">QVT Box</span>
             </div>

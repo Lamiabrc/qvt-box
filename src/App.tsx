@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -7,7 +8,6 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import Index from "./pages/Index";
-import Dashboard from "./pages/Dashboard";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import ParentDashboard from "./pages/ParentDashboard";
 import TeensHome from "./pages/TeensHome";
@@ -24,34 +24,13 @@ import TeamLeaderDashboard from "./pages/TeamLeaderDashboard";
 import QVTManagerDashboard from "./pages/QVTManagerDashboard";
 import CoachDashboard from "./pages/CoachDashboard";
 import FamilySimulator from "./pages/FamilySimulator";
-import TeenCheckin from "./pages/TeenCheckin";
-import TeenMoodTracker from "./pages/TeenMoodTracker";
-import TeenActivities from "./pages/TeenActivities";
-import TeenSupport from "./pages/TeenSupport";
-import TeenProgress from "./pages/TeenProgress";
-import ParentInsights from "./pages/ParentInsights";
-import ParentCommunication from "./pages/ParentCommunication";
-import ParentResources from "./pages/ParentResources";
-import ParentSettings from "./pages/ParentSettings";
-import EmployeeWellness from "./pages/EmployeeWellness";
-import EmployeeActivities from "./pages/EmployeeActivities";
-import EmployeeSupport from "./pages/EmployeeSupport";
-import EmployeeProgress from "./pages/EmployeeProgress";
-import TeamManagement from "./pages/TeamManagement";
-import TeamAnalytics from "./pages/TeamAnalytics";
-import TeamActivities from "./pages/TeamActivities";
-import QVTAnalytics from "./pages/QVTAnalytics";
-import QVTPrograms from "./pages/QVTPrograms";
-import QVTReports from "./pages/QVTReports";
-import CoachClients from "./pages/CoachClients";
-import CoachSessions from "./pages/CoachSessions";
-import CoachResources from "./pages/CoachResources";
-import CoachAnalytics from "./pages/CoachAnalytics";
-import SocialTeam from "./pages/SocialTeam";
-import SocialFamily from "./pages/SocialFamily";
-import SocialFriends from "./pages/SocialFriends";
+import TeensCheckIn from "./pages/TeensCheckIn";
 import Login from "./pages/Login";
 import Unauthorized from "./pages/Unauthorized";
+import FamilyTeenSimulator from "./pages/FamilyTeenSimulator";
+import KidsHome from "./pages/KidsHome";
+import FriendsSpace from "./pages/FriendsSpace";
+import FamilySpace from "./pages/FamilySpace";
 
 const queryClient = new QueryClient();
 
@@ -75,12 +54,6 @@ function App() {
                 <Route path="/concept-qvt" element={<ConceptQVT />} />
                 <Route path="/famille" element={<Famille />} />
                 
-                <Route path="/dashboard" element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                } />
-                
                 <Route path="/employee-dashboard" element={
                   <ProtectedRoute>
                     <EmployeeDashboard />
@@ -96,6 +69,12 @@ function App() {
                 <Route path="/teens-home" element={
                   <ProtectedRoute>
                     <TeensHome />
+                  </ProtectedRoute>
+                } />
+
+                <Route path="/kids-home" element={
+                  <ProtectedRoute>
+                    <KidsHome />
                   </ProtectedRoute>
                 } />
                 
@@ -140,160 +119,28 @@ function App() {
                     <FamilySimulator />
                   </ProtectedRoute>
                 } />
+
+                <Route path="/family-teen-simulator" element={
+                  <ProtectedRoute>
+                    <FamilyTeenSimulator />
+                  </ProtectedRoute>
+                } />
                 
                 <Route path="/teen-checkin" element={
                   <ProtectedRoute>
-                    <TeenCheckin />
+                    <TeensCheckIn />
                   </ProtectedRoute>
                 } />
-                
-                <Route path="/teen-mood-tracker" element={
+
+                <Route path="/friends-space" element={
                   <ProtectedRoute>
-                    <TeenMoodTracker />
+                    <FriendsSpace />
                   </ProtectedRoute>
                 } />
-                
-                <Route path="/teen-activities" element={
+
+                <Route path="/family-space" element={
                   <ProtectedRoute>
-                    <TeenActivities />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/teen-support" element={
-                  <ProtectedRoute>
-                    <TeenSupport />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/teen-progress" element={
-                  <ProtectedRoute>
-                    <TeenProgress />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/parent-insights" element={
-                  <ProtectedRoute>
-                    <ParentInsights />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/parent-communication" element={
-                  <ProtectedRoute>
-                    <ParentCommunication />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/parent-resources" element={
-                  <ProtectedRoute>
-                    <ParentResources />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/parent-settings" element={
-                  <ProtectedRoute>
-                    <ParentSettings />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/employee-wellness" element={
-                  <ProtectedRoute>
-                    <EmployeeWellness />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/employee-activities" element={
-                  <ProtectedRoute>
-                    <EmployeeActivities />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/employee-support" element={
-                  <ProtectedRoute>
-                    <EmployeeSupport />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/employee-progress" element={
-                  <ProtectedRoute>
-                    <EmployeeProgress />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/team-management" element={
-                  <ProtectedRoute>
-                    <TeamManagement />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/team-analytics" element={
-                  <ProtectedRoute>
-                    <TeamAnalytics />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/team-activities" element={
-                  <ProtectedRoute>
-                    <TeamActivities />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/qvt-analytics" element={
-                  <ProtectedRoute>
-                    <QVTAnalytics />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/qvt-programs" element={
-                  <ProtectedRoute>
-                    <QVTPrograms />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/qvt-reports" element={
-                  <ProtectedRoute>
-                    <QVTReports />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/coach-clients" element={
-                  <ProtectedRoute>
-                    <CoachClients />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/coach-sessions" element={
-                  <ProtectedRoute>
-                    <CoachSessions />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/coach-resources" element={
-                  <ProtectedRoute>
-                    <CoachResources />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/coach-analytics" element={
-                  <ProtectedRoute>
-                    <CoachAnalytics />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/social-team" element={
-                  <ProtectedRoute>
-                    <SocialTeam />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/social-family" element={
-                  <ProtectedRoute>
-                    <SocialFamily />
-                  </ProtectedRoute>
-                } />
-                
-                <Route path="/social-friends" element={
-                  <ProtectedRoute>
-                    <SocialFriends />
+                    <FamilySpace />
                   </ProtectedRoute>
                 } />
               </Routes>

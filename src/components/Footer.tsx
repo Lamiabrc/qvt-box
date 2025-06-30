@@ -55,7 +55,7 @@ const Footer = () => {
               <li><Link to="/team-leader-dashboard" className="text-gray-400 hover:text-teal-400 transition-colors">Chef d'Équipe</Link></li>
               <li><Link to="/qvt-manager-dashboard" className="text-gray-400 hover:text-teal-400 transition-colors">Responsable QVT</Link></li>
               <li><Link to="/concept-qvt" className="text-gray-400 hover:text-teal-400 transition-colors">Concept QVT</Link></li>
-              <li><Link to="/coach-dashboard" className="text-gray-400 hover:text-teal-400 transition-colors">Dashboard Coach</Link></li>
+              <li><Link to="/devenir-prestataire" className="text-gray-400 hover:text-teal-400 transition-colors">Devenir Prestataire</Link></li>
             </ul>
           </div>
 

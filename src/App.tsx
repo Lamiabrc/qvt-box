@@ -32,6 +32,7 @@ import QVTManagerDashboard from './pages/QVTManagerDashboard';
 import CoachDashboard from './pages/CoachDashboard';
 import ParentDashboard from './pages/ParentDashboard';
 import AdminPanel from './pages/AdminPanel';
+import DevenirPrestataire from './pages/DevenirPrestataire';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
               <Route path="/entreprise" element={<EnterpriseOrientation />} />
               <Route path="/concept-qvt" element={<ConceptQVT />} />
               <Route path="/shop" element={<Shop />} />
+              <Route path="/devenir-prestataire" element={<DevenirPrestataire />} />
               <Route path="/enterprise-simulator" element={<EnterpriseSimulator />} />
               <Route path="/family-parent-simulator" element={<FamilyParentSimulator />} />
               <Route path="/family-teen-simulator" element={<FamilyTeenSimulator />} />

@@ -1,16 +1,15 @@
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from './contexts/AuthContext';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
-import Home from './pages/Home';
+import Index from './pages/Index';
 import SimulatorHome from './pages/SimulatorHome';
-import EnterpriseHome from './pages/EnterpriseHome';
 import Contact from './pages/Contact';
 import CGU from './pages/CGU';
 import MentionsLegales from './pages/MentionsLegales';
-import Confidentialite from './pages/Confidentialite';
-import Pricing from './pages/Pricing';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import Payment from './pages/Payment';
 import TeensHome from './pages/TeensHome';
 import Famille from './pages/Famille';
@@ -27,14 +26,12 @@ function App() {
           <Navigation />
           <main className="flex-1">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Index />} />
               <Route path="/simulator-home" element={<SimulatorHome />} />
-              <Route path="/enterprise-home" element={<EnterpriseHome />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/cgu" element={<CGU />} />
               <Route path="/mentions-legales" element={<MentionsLegales />} />
-              <Route path="/confidentialite" element={<Confidentialite />} />
-              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/confidentialite" element={<PrivacyPolicy />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/teens-home" element={<TeensHome />} />
               <Route path="/famille" element={<Famille />} />

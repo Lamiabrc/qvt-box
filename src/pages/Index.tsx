@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -56,7 +57,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Features Section */}
+      {/* Features Section avec images */}
       <section className="relative z-10 px-4 py-16 bg-white/60 backdrop-blur-sm">
         <div className="container mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
@@ -64,24 +65,38 @@ const Index = () => {
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-teal-200 hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <Card className="border-teal-200 hover:shadow-lg transition-shadow relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10">
+                <img 
+                  src="/lovable-uploads/15bdba5d-c57a-47fa-b8a1-e9c2168b32fb.png" 
+                  alt="Bien-être" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardHeader className="relative z-10">
                 <Sparkles className="w-12 h-12 text-teal-600 mb-4" />
                 <CardTitle className="text-teal-800">Phygital Unique</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="relative z-10">
                 <p className="text-gray-600">
                   Fusion parfaite entre digital intelligent et expérience physique tangible avec nos box mensuelles personnalisées.
                 </p>
               </CardContent>
             </Card>
             
-            <Card className="border-purple-200 hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <Card className="border-purple-200 hover:shadow-lg transition-shadow relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10">
+                <img 
+                  src="/lovable-uploads/777097df-f84d-4104-9ffc-695ed99931db.png" 
+                  alt="Prévention burn-out" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardHeader className="relative z-10">
                 <Shield className="w-12 h-12 text-purple-600 mb-4" />
                 <CardTitle className="text-purple-800">Prévention Active</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="relative z-10">
                 <p className="text-gray-600">
                   IA prédictive qui détecte les signaux faibles et prévient les risques avant qu'ils ne deviennent critiques.
                 </p>
@@ -103,7 +118,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Universes Section */}
+      {/* Universes Section avec images */}
       <section className="relative z-10 px-4 py-16">
         <div className="container mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
@@ -111,15 +126,22 @@ const Index = () => {
           </h2>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="border-purple-200 hover:shadow-xl transition-all duration-300 group">
-              <CardHeader className="text-center">
+            <Card className="border-purple-200 hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
+              <div className="absolute inset-0 opacity-20">
+                <img 
+                  src="/lovable-uploads/99f6252d-1cb0-42a7-9b79-3930f5264417.png" 
+                  alt="Famille heureuse" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardHeader className="text-center relative z-10">
                 <Heart className="w-16 h-16 text-purple-600 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                 <CardTitle className="text-2xl text-purple-800">QVTeen Box Famille</CardTitle>
                 <CardDescription className="text-purple-600">
                   Harmonie familiale entre ados et parents
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 relative z-10">
                 <ul className="space-y-2">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600" />
@@ -143,15 +165,22 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-teal-200 hover:shadow-xl transition-all duration-300 group">
-              <CardHeader className="text-center">
+            <Card className="border-teal-200 hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
+              <div className="absolute inset-0 opacity-20">
+                <img 
+                  src="/lovable-uploads/c06535ca-3da6-476e-8686-9908c0725a0f.png" 
+                  alt="Équipe dynamique" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardHeader className="text-center relative z-10">
                 <Building2 className="w-16 h-16 text-teal-600 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                 <CardTitle className="text-2xl text-teal-800">QVT Box Entreprise</CardTitle>
                 <CardDescription className="text-teal-600">
                   Prévention des risques psychosociaux au travail
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 relative z-10">
                 <ul className="space-y-2">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600" />

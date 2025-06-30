@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import { Building2, Users, Heart } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import SimulatorBase from '../components/simulators/SimulatorBase';
 import SimulatorResults from '../components/simulators/SimulatorResults';
+import { getRecommendedBoxes } from '../data/boxRecommendations';
 
 const FamilyEnterpriseSimulator = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -88,7 +88,6 @@ const FamilyEnterpriseSimulator = () => {
     let riskLevel = '';
     let riskColor = '';
     let recommendations: string[] = [];
-    let recommendedBoxes: any[] = [];
 
     if (percentage >= 80) {
       riskLevel = 'Excellent';
@@ -98,14 +97,6 @@ const FamilyEnterpriseSimulator = () => {
         'Continuez vos bonnes pratiques',
         'Partagez votre expérience avec d\'autres familles'
       ];
-      recommendedBoxes = [
-        {
-          name: 'Box Excellence Famille-Pro',
-          description: 'Maintenir votre équilibre optimal',
-          price: '49€/mois',
-          features: ['Activités famille premium', 'Coaching équilibre', 'Réseau d\'excellence']
-        }
-      ];
     } else if (percentage >= 60) {
       riskLevel = 'Bon équilibre';
       riskColor = 'text-yellow-600';
@@ -113,14 +104,6 @@ const FamilyEnterpriseSimulator = () => {
         'Quelques ajustements peuvent optimiser votre situation',
         'Renforcez la communication famille-travail',
         'Explorez les outils de gestion du temps'
-      ];
-      recommendedBoxes = [
-        {
-          name: 'Box Équilibre Famille-Pro',
-          description: 'Optimiser votre organisation',
-          price: '39€/mois',
-          features: ['Planning familial', 'Outils communication', 'Activités décompression']
-        }
       ];
     } else if (percentage >= 40) {
       riskLevel = 'Déséquilibre';
@@ -130,14 +113,6 @@ const FamilyEnterpriseSimulator = () => {
         'QVTeen Box Famille-Pro fortement recommandée',
         'Discussion avec votre employeur sur la QVT'
       ];
-      recommendedBoxes = [
-        {
-          name: 'Box Reconstruction Famille-Pro',
-          description: 'Retrouver l\'équilibre perdu',
-          price: '44€/mois',
-          features: ['Guide restructuration', 'Coaching intensif', 'Outils anti-stress']
-        }
-      ];
     } else {
       riskLevel = 'Situation critique';
       riskColor = 'text-red-600';
@@ -146,28 +121,49 @@ const FamilyEnterpriseSimulator = () => {
         'Consultez un professionnel de l\'accompagnement',
         'QVTeen Box Famille-Pro avec suivi prioritaire'
       ];
-      recommendedBoxes = [
-        {
-          name: 'Box Urgence Famille-Pro',
-          description: 'Intervention et accompagnement immédiat',
-          price: '54€/mois',
-          features: ['Accompagnement personnalisé', 'Ligne d\'urgence 24/7', 'Plan de reconstruction']
-        }
-      ];
     }
 
-    setResults({
-      score: percentage,
-      maxScore: 100,
-      riskLevel,
-      riskColor,
-      recommendations,
-      recommendedBoxes
-    });
+    // Obtenir les box recommandées intelligentes
+    const recommendedBoxes = getRecommendedBoxes('famille-enterprise', riskLevel, percentage).map(box => ({
+      name: box.name,
+      description: box.description,
+      price: box.price,
+      features: box.features
+    }));
+
+    // Si pas de box spécifiques, utiliser les recommandations par défaut
+    if (recommendedBoxes.length === 0) {
+      const defaultBoxes = [
+        {
+          name: 'Box Équilibre Famille-Pro',
+          description: 'Optimiser votre organisation famille-travail',
+          price: '39€/mois',
+          features: ['Planning familial', 'Outils communication', 'Activités décompression']
+        }
+      ];
+      
+      setResults({
+        score: percentage,
+        maxScore: 100,
+        riskLevel,
+        riskColor,
+        recommendations,
+        recommendedBoxes: defaultBoxes
+      });
+    } else {
+      setResults({
+        score: percentage,
+        maxScore: 100,
+        riskLevel,
+        riskColor,
+        recommendations,
+        recommendedBoxes
+      });
+    }
 
     toast({
       title: "Évaluation terminée",
-      description: "Voici votre bilan équilibre famille-entreprise"
+      description: "Voici votre bilan équilibre famille-entreprise avec recommandations personnalisées"
     });
   };
 

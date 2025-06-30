@@ -5,6 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import SimulatorBase from '../components/simulators/SimulatorBase';
 import SimulatorResults from '../components/simulators/SimulatorResults';
 import { familyParentQuestions } from '../data/simulatorQuestions';
+import { getRecommendedBoxes } from '../data/boxRecommendations';
 
 const FamilyParentSimulator = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -66,17 +67,26 @@ const FamilyParentSimulator = () => {
       ];
     }
 
+    // Obtenir les box recommandées basées sur les données
+    const recommendedBoxes = getRecommendedBoxes('parent', riskLevel, percentage).map(box => ({
+      name: box.name,
+      description: box.description,
+      price: box.price,
+      features: box.features
+    }));
+
     setResults({
       score: percentage,
       maxScore: 100,
       riskLevel,
       riskColor,
-      recommendations
+      recommendations,
+      recommendedBoxes
     });
 
     toast({
       title: "Évaluation terminée",
-      description: "Voici votre bilan familial parental"
+      description: "Voici votre bilan familial parental avec recommandations personnalisées"
     });
   };
 
@@ -89,6 +99,7 @@ const FamilyParentSimulator = () => {
         riskLevel={results.riskLevel}
         riskColor={results.riskColor}
         recommendations={results.recommendations}
+        recommendedBoxes={results.recommendedBoxes}
         backgroundColor="from-purple-50 via-pink-50 to-violet-50"
         accentColor="purple"
         icon={<Heart className="w-12 h-12 text-white" />}

@@ -3,284 +3,353 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
-  Brain, 
   Heart, 
   Users, 
+  Briefcase, 
+  Family, 
+  UserCheck, 
   Building2,
-  Home,
+  CheckCircle,
   ArrowRight,
-  Clock,
-  Target,
-  Star
+  Brain
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FloatingBubbles from "../components/FloatingBubbles";
 
 const SimulatorHome = () => {
-  const navigate = useNavigate();
-
-  const simulators = [
-    {
-      id: 'enterprise',
-      title: 'Simulateurs Entreprise',
-      description: 'Évaluations spécialisées pour managers et salariés',
-      icon: Building2,
-      color: 'from-teal-500 to-cyan-500',
-      bgColor: 'bg-teal-50 border-teal-200',
-      textColor: 'text-teal-800',
-      features: [
-        'Version Manager : Analyse d\'équipe complète',
-        'Version Salarié : Bien-être personnel + burnout',
-        'Détection précoce des RPS',
-        'Recommandations IA personnalisées',
-        'Rapport PDF détaillé',
-        'Suivi évolution dans le temps'
-      ],
-      duration: '3-5 min',
-      participants: 'Managers, RH, Salariés',
-      route: '/simulator-selector',
-      stats: { users: '2.3k+', satisfaction: '96%', accuracy: '94%' }
-    },
-    {
-      id: 'family',
-      title: 'Simulateurs Famille',
-      description: 'Évaluations adaptées pour parents et adolescents',
-      icon: Heart,
-      color: 'from-purple-500 to-pink-500',
-      bgColor: 'bg-purple-50 border-purple-200',
-      textColor: 'text-purple-800',
-      features: [
-        'Version Parent : Bien-être parental + stress',
-        'Version Ado : Check-up jeune + anxiété',
-        'Communication parent-enfant analysée',
-        'Gestion du temps d\'écran évaluée',
-        'Conseils famille personnalisés',
-        'Alerte si situation critique'
-      ],
-      duration: '2-4 min',
-      participants: 'Parents, Ados 11-18 ans',
-      route: '/simulator-selector',
-      stats: { users: '1.8k+', satisfaction: '98%', accuracy: '92%' }
-    }
-  ];
-
-  const testimonials = [
-    {
-      name: "Sarah M.",
-      role: "Manager RH",
-      avatar: "👩‍💼",
-      rating: 5,
-      comment: "Les simulateurs ont révolutionné notre approche QVT. Détection précoce des risques et solutions concrètes."
-    },
-    {
-      name: "Thomas L.",
-      role: "Papa de 2 ados",
-      avatar: "👨‍👧‍👦",
-      rating: 5,
-      comment: "Enfin un outil qui nous aide à mieux comprendre nos ados. Résultats très parlants et conseils utiles."
-    },
-    {
-      name: "Emma D.",
-      role: "Salariée",
-      avatar: "👩‍💻",
-      rating: 4,
-      comment: "Super simple à utiliser, résultats détaillés. J'ai pu identifier mes points de stress et agir."
-    }
-  ];
-
-  const handleSimulatorSelect = (route: string) => {
-    navigate(route);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
       <FloatingBubbles />
       
       <div className="container mx-auto px-4 py-12 relative z-10">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-blue-100 text-blue-800 soap-bubble-effect">Simulateurs QVT Box</Badge>
-          <h1 className="text-5xl font-bold text-slate-800 mb-6">
-            Évaluez votre bien-être en 2 minutes
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+            Centre d'Évaluation du Bien-être
           </h1>
-          <p className="text-xl text-slate-600 mb-8 max-w-4xl mx-auto">
-            Nos simulateurs intelligents analysent votre situation et vous proposent 
-            des solutions personnalisées. Plus de 4000 utilisateurs nous font confiance.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Découvrez votre niveau de bien-être selon votre profil et recevez des recommandations personnalisées
           </p>
-          <div className="flex justify-center items-center gap-8 text-sm text-slate-500 mb-8">
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4" />
-              <span>Rapide et gratuit</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Brain className="w-4 h-4" />
-              <span>IA émotionnelle avancée</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Target className="w-4 h-4" />
-              <span>Personnalisé par profil</span>
-            </div>
-          </div>
-          
-          {/* Global Stats */}
-          <div className="grid md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-12">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600">4.1k+</div>
-              <div className="text-sm text-gray-600">Évaluations réalisées</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600">97%</div>
-              <div className="text-sm text-gray-600">Satisfaction moyenne</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600">93%</div>
-              <div className="text-sm text-gray-600">Précision IA</div>
-            </div>
-          </div>
         </div>
 
-        {/* Simulators Grid */}
-        <div className="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto mb-16">
-          {simulators.map((simulator) => (
-            <Card key={simulator.id} className={`${simulator.bgColor} hover:shadow-2xl transition-all duration-300 hover:scale-105 soap-bubble-effect`}>
-              <CardHeader className="text-center pb-4">
-                <div className={`w-20 h-20 bg-gradient-to-br ${simulator.color} rounded-2xl flex items-center justify-center mx-auto mb-6 soap-bubble-effect`}>
-                  <simulator.icon className="w-10 h-10 text-white" />
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+          {/* Simulateur Famille Parent */}
+          <Link to="/family-parent-simulator">
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-pink-200 hover:border-pink-400 bg-gradient-to-br from-pink-50 to-rose-50">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <Heart className="w-10 h-10 text-white" />
                 </div>
-                <CardTitle className={`text-2xl ${simulator.textColor} mb-2`}>
-                  {simulator.title}
+                <CardTitle className="text-xl text-pink-800 group-hover:text-pink-900">
+                  Parent
                 </CardTitle>
-                <CardDescription className="text-base text-gray-600">
-                  {simulator.description}
+                <CardDescription className="text-pink-600">
+                  Évaluez votre bien-être parental et la dynamique familiale
                 </CardDescription>
-                
-                <div className="flex justify-center gap-4 mt-4 text-sm text-gray-500">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{simulator.duration}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Users className="w-4 h-4" />
-                    <span>{simulator.participants}</span>
-                  </div>
-                </div>
-
-                {/* Stats */}
-                <div className="grid grid-cols-3 gap-4 mt-4 text-center">
-                  <div>
-                    <div className="font-bold text-sm">{simulator.stats.users}</div>
-                    <div className="text-xs text-gray-500">Utilisateurs</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-sm">{simulator.stats.satisfaction}</div>
-                    <div className="text-xs text-gray-500">Satisfaction</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-sm">{simulator.stats.accuracy}</div>
-                    <div className="text-xs text-gray-500">Précision</div>
-                  </div>
-                </div>
               </CardHeader>
-              
-              <CardContent className="space-y-6">
-                {/* Features */}
-                <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Fonctionnalités avancées :</h4>
-                  <ul className="space-y-2">
-                    {simulator.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
-                        <ArrowRight className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+              <CardContent>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Stress parental</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Communication familiale</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Gestion des écrans</span>
+                  </div>
                 </div>
-                
-                {/* CTA Button */}
-                <Button 
-                  onClick={() => handleSimulatorSelect(simulator.route)}
-                  className={`w-full ${simulator.id === 'enterprise' ? 'bg-teal-600 hover:bg-teal-700' : 'bg-purple-600 hover:bg-purple-700'} soap-bubble-effect`}
-                  size="lg"
-                >
-                  Commencer l'évaluation gratuite
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                <div className="mt-4 flex items-center justify-between text-sm">
+                  <span className="text-pink-600 font-medium">5 questions</span>
+                  <Badge className="bg-pink-100 text-pink-800">Famille</Badge>
+                </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+          </Link>
 
-        {/* Testimonials */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-slate-800 mb-8">
-            Ce que disent nos utilisateurs
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {testimonials.map((testimonial, idx) => (
-              <Card key={idx} className="soap-bubble-effect hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-3xl">{testimonial.avatar}</div>
-                    <div>
-                      <div className="font-semibold">{testimonial.name}</div>
-                      <div className="text-sm text-gray-600">{testimonial.role}</div>
+          {/* Simulateur Famille Ado */}
+          <Link to="/family-teen-simulator">
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-purple-200 hover:border-purple-400 bg-gradient-to-br from-purple-50 to-violet-50">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <Users className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-xl text-purple-800 group-hover:text-purple-900">
+                  Adolescent
+                </CardTitle>
+                <CardDescription className="text-purple-600">
+                  Évaluez votre bien-être et vos relations familiales
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Humeur générale</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Relations familiales</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Pression scolaire</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center justify-between text-sm">
+                  <span className="text-purple-600 font-medium">5 questions</span>
+                  <Badge className="bg-purple-100 text-purple-800">Jeunes</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Simulateur Manager */}
+          <Link to="/enterprise-manager-simulator">
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-blue-200 hover:border-blue-400 bg-gradient-to-br from-blue-50 to-cyan-50">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <UserCheck className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-xl text-blue-800 group-hover:text-blue-900">
+                  Manager
+                </CardTitle>
+                <CardDescription className="text-blue-600">
+                  Évaluez le bien-être de votre équipe et votre style de management
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Stress d'équipe</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Communication interne</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Charge de travail</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center justify-between text-sm">
+                  <span className="text-blue-600 font-medium">5 questions</span>
+                  <Badge className="bg-blue-100 text-blue-800">Management</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Simulateur Employé */}
+          <Link to="/enterprise-employee-simulator">
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-green-200 hover:border-green-400 bg-gradient-to-br from-green-50 to-emerald-50">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <Briefcase className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-xl text-green-800 group-hover:text-green-900">
+                  Employé
+                </CardTitle>
+                <CardDescription className="text-green-600">
+                  Évaluez votre bien-être au travail et votre satisfaction professionnelle
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Stress personnel</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Équilibre vie pro/perso</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Reconnaissance</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center justify-between text-sm">
+                  <span className="text-green-600 font-medium">5 questions</span>
+                  <Badge className="bg-green-100 text-green-800">Travail</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Simulateur Famille-Entreprise */}
+          <Link to="/family-enterprise-simulator">
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-indigo-200 hover:border-indigo-400 bg-gradient-to-br from-indigo-50 to-blue-50">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <Building2 className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-xl text-indigo-800 group-hover:text-indigo-900">
+                  Famille-Entreprise
+                </CardTitle>
+                <CardDescription className="text-indigo-600">
+                  Évaluez l'équilibre entre vie familiale et professionnelle
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Équilibre global</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Impact professionnel</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Harmonie familiale</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center justify-between text-sm">
+                  <span className="text-indigo-600 font-medium">5 questions</span>
+                  <Badge className="bg-indigo-100 text-indigo-800">Hybride</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Simulateur Général */}
+          <Link to="/enterprise-simulator">
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-gray-200 hover:border-gray-400 bg-gradient-to-br from-gray-50 to-slate-50">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-gray-500 to-slate-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <Family className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-xl text-gray-800 group-hover:text-gray-900">
+                  Évaluation Générale
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Une évaluation complète adaptée à tous les profils
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Bien-être global</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Tous contextes</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>Recommandations larges</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center justify-between text-sm">
+                  <span className="text-gray-600 font-medium">5 questions</span>
+                  <Badge className="bg-gray-100 text-gray-800">Universel</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Nouvelle section pour les simulateurs comparatifs */}
+          <div className="lg:col-span-3 md:col-span-2">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+              Simulateurs Comparatifs - Analyse des Perceptions Croisées
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Famille Comparatif */}
+              <Link to="/family-comparative-simulator">
+                <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-purple-200 hover:border-purple-400 bg-gradient-to-br from-purple-50 to-pink-50">
+                  <CardHeader className="text-center">
+                    <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <Users className="w-10 h-10 text-white" />
                     </div>
-                  </div>
-                  <div className="flex mb-3">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-700 italic">"{testimonial.comment}"</p>
-                </CardContent>
-              </Card>
-            ))}
+                    <CardTitle className="text-xl text-purple-800 group-hover:text-purple-900">
+                      Famille - Perceptions Croisées
+                    </CardTitle>
+                    <CardDescription className="text-purple-600">
+                      Comparez les perceptions entre parents et enfants pour révéler les écarts et améliorer la compréhension mutuelle
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span>Analyse IA des écarts de perception</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span>Recommandations pour améliorer la communication</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span>Accessible aux parents et enfants</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between text-sm">
+                      <span className="text-purple-600 font-medium">Durée: 10-15 min</span>
+                      <Badge className="bg-purple-100 text-purple-800">Nouveauté</Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              {/* Entreprise Comparatif */}
+              <Link to="/workplace-comparative-simulator">
+                <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-blue-200 hover:border-blue-400 bg-gradient-to-br from-blue-50 to-indigo-50">
+                  <CardHeader className="text-center">
+                    <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <Briefcase className="w-10 h-10 text-white" />
+                    </div>
+                    <CardTitle className="text-xl text-blue-800 group-hover:text-blue-900">
+                      Entreprise - Perceptions Croisées
+                    </CardTitle>
+                    <CardDescription className="text-blue-600">
+                      Confrontez les visions manager/employé pour identifier les zones d'incompréhension et optimiser la collaboration
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span>Analyse IA des relations professionnelles</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span>Solutions pour améliorer la collaboration</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span>Pour managers et employés</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between text-sm">
+                      <span className="text-blue-600 font-medium">Durée: 10-15 min</span>
+                      <Badge className="bg-blue-100 text-blue-800">Nouveauté</Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </div>
           </div>
         </div>
 
-        {/* Process Overview */}
-        <Card className="max-w-4xl mx-auto bg-white/80 border-slate-200 soap-bubble-effect">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl text-slate-800">
-              Comment fonctionnent nos simulateurs ?
-            </CardTitle>
-            <CardDescription>
-              Un processus simple et efficace en 4 étapes, alimenté par l'IA
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold soap-bubble-effect">
-                  1
-                </div>
-                <h3 className="font-semibold mb-2">Questions ciblées</h3>
-                <p className="text-sm text-gray-600">10-15 questions adaptées à votre profil et situation</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold soap-bubble-effect">
-                  2
-                </div>
-                <h3 className="font-semibold mb-2">Analyse IA avancée</h3>
-                <p className="text-sm text-gray-600">Notre IA analyse 50+ indicateurs émotionnels et comportementaux</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold soap-bubble-effect">
-                  3
-                </div>
-                <h3 className="font-semibold mb-2">Score personnalisé</h3>
-                <p className="text-sm text-gray-600">Score détaillé avec niveau de risque et points d'attention</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold soap-bubble-effect">
-                  4
-                </div>
-                <h3 className="font-semibold mb-2">Plan d'action</h3>
-                <p className="text-sm text-gray-600">Recommandations concrètes et ressources personnalisées</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Call to action */}
+        <div className="text-center mt-12">
+          <p className="text-lg text-gray-600 mb-6">
+            Besoin d'aide pour choisir ? Notre IA vous orientera vers l'évaluation la plus adaptée.
+          </p>
+          <Link to="/intelligent-recommendations">
+            <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+              <Brain className="w-5 h-5 mr-2" />
+              Recommandations IA Personnalisées
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

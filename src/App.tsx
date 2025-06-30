@@ -14,6 +14,8 @@ import Payment from './pages/Payment';
 import TeensHome from './pages/TeensHome';
 import Famille from './pages/Famille';
 import Shop from './pages/Shop';
+import Login from './pages/Login';
+import Auth from './pages/Auth';
 import EnterpriseSimulator from './pages/EnterpriseSimulator';
 import FamilyParentSimulator from './pages/FamilyParentSimulator';
 import FamilyTeenSimulator from './pages/FamilyTeenSimulator';
@@ -70,6 +72,10 @@ function App() {
               <Route path="/concept-qvt" element={<ConceptQVT />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/devenir-prestataire" element={<DevenirPrestataire />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/auth" element={<Auth />} />
+              
+              {/* Simulators */}
               <Route path="/enterprise-simulator" element={<EnterpriseSimulator />} />
               <Route path="/family-parent-simulator" element={<FamilyParentSimulator />} />
               <Route path="/family-teen-simulator" element={<FamilyTeenSimulator />} />

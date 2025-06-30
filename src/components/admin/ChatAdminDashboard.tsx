@@ -18,6 +18,7 @@ import { useToast } from '@/hooks/use-toast';
 
 interface Message {
   id: string;
+  conversation_id: string;
   content: string;
   is_from_visitor: boolean;
   created_at: string;

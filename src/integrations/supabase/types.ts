@@ -1667,6 +1667,10 @@ export type Database = {
         Args: { manager_id: string; target_team_id: string }
         Returns: boolean
       }
+      current_user_has_role: {
+        Args: { check_role: string }
+        Returns: boolean
+      }
       get_user_enterprise_role: {
         Args: { target_user_id: string }
         Returns: string

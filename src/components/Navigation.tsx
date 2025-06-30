@@ -25,7 +25,7 @@ const Navigation = () => {
   };
 
   const getUserInitials = () => {
-    if (!user?.email) return 'U';
+    if (!user?.email) return 'Connexion';
     return user.email.charAt(0).toUpperCase();
   };
 

@@ -25,6 +25,14 @@ import IntelligentRecommendations from './pages/IntelligentRecommendations';
 import FamilyComparativeSimulator from './pages/FamilyComparativeSimulator';
 import WorkplaceComparativeSimulator from './pages/WorkplaceComparativeSimulator';
 import EnterpriseOrientation from './pages/EnterpriseOrientation';
+import ConceptQVT from './pages/ConceptQVT';
+import EmployeeDashboard from './pages/EmployeeDashboard';
+import TeamLeaderDashboard from './pages/TeamLeaderDashboard';
+import QVTManagerDashboard from './pages/QVTManagerDashboard';
+import CoachDashboard from './pages/CoachDashboard';
+import ParentDashboard from './pages/ParentDashboard';
+import AdminPanel from './pages/AdminPanel';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -40,10 +48,12 @@ function App() {
               <Route path="/cgu" element={<CGU />} />
               <Route path="/mentions-legales" element={<MentionsLegales />} />
               <Route path="/confidentialite" element={<PrivacyPolicy />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/teens-home" element={<TeensHome />} />
               <Route path="/famille" element={<Famille />} />
               <Route path="/entreprise" element={<EnterpriseOrientation />} />
+              <Route path="/concept-qvt" element={<ConceptQVT />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/enterprise-simulator" element={<EnterpriseSimulator />} />
               <Route path="/family-parent-simulator" element={<FamilyParentSimulator />} />
@@ -55,6 +65,17 @@ function App() {
               <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
               <Route path="/family-comparative-simulator" element={<FamilyComparativeSimulator />} />
               <Route path="/workplace-comparative-simulator" element={<WorkplaceComparativeSimulator />} />
+              
+              {/* Dashboards */}
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/team-leader-dashboard" element={<TeamLeaderDashboard />} />
+              <Route path="/qvt-manager-dashboard" element={<QVTManagerDashboard />} />
+              <Route path="/coach-dashboard" element={<CoachDashboard />} />
+              <Route path="/parent-dashboard" element={<ParentDashboard />} />
+              <Route path="/admin-panel" element={<AdminPanel />} />
+              
+              {/* 404 Route */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />

@@ -21,11 +21,11 @@ const MentionsLegales = () => {
               </CardHeader>
               <CardContent>
                 <p className="mb-2"><strong>Raison sociale :</strong> QVT Box SAS</p>
-                <p className="mb-2"><strong>Adresse :</strong> 123 Rue de l'Innovation, 75001 Paris, France</p>
-                <p className="mb-2"><strong>Téléphone :</strong> +33 1 23 45 67 89</p>
+                <p className="mb-2"><strong>Adresse :</strong> Rennes, France</p>
+                <p className="mb-2"><strong>Téléphone :</strong> 06 76 43 55 51</p>
                 <p className="mb-2"><strong>Email :</strong> contact@qvtbox.fr</p>
                 <p className="mb-2"><strong>SIRET :</strong> 123 456 789 00001</p>
-                <p className="mb-2"><strong>RCS :</strong> Paris B 123 456 789</p>
+                <p className="mb-2"><strong>RCS :</strong> Rennes B 123 456 789</p>
                 <p className="mb-2"><strong>Capital social :</strong> 100 000 €</p>
               </CardContent>
             </Card>

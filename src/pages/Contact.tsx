@@ -55,13 +55,13 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Téléphone",
-      details: ["+33 1 23 45 67 89", "Lun-Ven: 9h-18h"],
+      details: ["06 76 43 55 51", "Lun-Ven: 9h-18h"],
       color: "text-green-600"
     },
     {
       icon: MapPin,
       title: "Adresse",
-      details: ["123 Avenue de l'Innovation", "75001 Paris, France"],
+      details: ["Rennes, France"],
       color: "text-red-600"
     },
     {
@@ -167,7 +167,7 @@ const Contact = () => {
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        placeholder="+33 1 23 45 67 89"
+                        placeholder="06 76 43 55 51"
                       />
                     </div>
                     <div className="space-y-2">

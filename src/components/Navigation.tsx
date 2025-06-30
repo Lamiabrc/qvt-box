@@ -56,8 +56,14 @@ const Navigation = () => {
             <Link to="/concept-qvt" className="text-gray-700 hover:text-teal-600 transition-colors">
               Concept QVT
             </Link>
+            <Link to="/entreprise" className="text-gray-700 hover:text-teal-600 transition-colors">
+              Entreprise
+            </Link>
             <Link to="/famille" className="text-gray-700 hover:text-purple-600 transition-colors">
               Famille
+            </Link>
+            <Link to="/shop" className="text-gray-700 hover:text-blue-600 transition-colors">
+              Boutique
             </Link>
             <Link to="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
               Contact
@@ -142,11 +148,25 @@ const Navigation = () => {
               Concept QVT
             </Link>
             <Link 
+              to="/entreprise" 
+              className="block px-3 py-2 text-gray-700 hover:text-teal-600 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Entreprise
+            </Link>
+            <Link 
               to="/famille" 
               className="block px-3 py-2 text-gray-700 hover:text-purple-600 transition-colors"
               onClick={() => setIsOpen(false)}
             >
               Famille
+            </Link>
+            <Link 
+              to="/shop" 
+              className="block px-3 py-2 text-gray-700 hover:text-blue-600 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Boutique
             </Link>
             <Link 
               to="/contact" 

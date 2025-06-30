@@ -32,6 +32,8 @@ import FamilyTeenSimulator from "./pages/FamilyTeenSimulator";
 import KidsHome from "./pages/KidsHome";
 import FriendsSpace from "./pages/FriendsSpace";
 import FamilySpace from "./pages/FamilySpace";
+import EnterpriseOrientation from "./pages/EnterpriseOrientation";
+import Shop from "./pages/Shop";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +56,8 @@ function App() {
                 <Route path="/cgu" element={<CGU />} />
                 <Route path="/concept-qvt" element={<ConceptQVT />} />
                 <Route path="/famille" element={<Famille />} />
+                <Route path="/entreprise" element={<EnterpriseOrientation />} />
+                <Route path="/shop" element={<Shop />} />
                 
                 <Route path="/employee-dashboard" element={
                   <ProtectedRoute>

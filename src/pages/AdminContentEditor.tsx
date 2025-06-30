@@ -6,17 +6,32 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Save, ArrowLeft, Plus, Edit, Trash2, X, FileText, Palette } from "lucide-react";
+import { Save, ArrowLeft, Plus, Edit, Trash2, X, FileText, Palette, Package } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { useEditableContent } from "@/hooks/useEditableContent";
+import { shopProducts, Product } from "../data/shopProducts";
 
 const AdminContentEditor = () => {
   const [selectedContent, setSelectedContent] = useState('pages');
   const [selectedPage, setSelectedPage] = useState('all');
-  const [editingProduct, setEditingProduct] = useState<number | null>(null);
+  const [editingProduct, setEditingProduct] = useState<string | null>(null);
   const [editingContent, setEditingContent] = useState<string | null>(null);
-  const [productForm, setProductForm] = useState({ name: '', price: '', category: '', stock: '', status: 'active' });
+  const [showAddProduct, setShowAddProduct] = useState(false);
+  const [productForm, setProductForm] = useState({
+    id: '',
+    name: '',
+    price: '',
+    originalPrice: '',
+    category: '',
+    subcategory: '',
+    description: '',
+    image: '',
+    tags: '',
+    inStock: true,
+    madeInFrance: true,
+    isVirtual: false
+  });
   const [contentForm, setContentForm] = useState({ key: '', value: '', type: 'text', description: '' });
   const { toast } = useToast();
   
@@ -47,15 +62,14 @@ const AdminContentEditor = () => {
     ],
     'famille': [
       { id: '9', section: 'hero', key: 'title', value: 'QVTeen Box Famille', type: 'text', description: 'Titre de la page famille' },
-      { id: '10', section: 'hero', key: 'subtitle', value: 'Pour accompagner les familles', type: 'text', description: 'Sous-titre de la page famille' }
+      { id: '10', section: 'hero', key: 'subtitle', value: 'Pour accompagner les familles', type: 'textarea', description: 'Sous-titre de la page famille' }
     ]
   };
 
-  const products = [
-    { id: 1, name: "QVT Box Entreprise", price: "33", category: "Entreprise", stock: "150", status: "active" },
-    { id: 2, name: "QVTeen Box Famille", price: "25", category: "Famille", stock: "89", status: "active" },
-    { id: 3, name: "Box Anti-Stress", price: "49.90", category: "Entreprise", stock: "45", status: "inactive" },
-    { id: 4, name: "Teen Box Créativité", price: "35", category: "Famille", stock: "67", status: "active" }
+  const categories = [
+    'detente', 'bureau', 'nutrition', 'sante', 'aromatherapie', 'hygiene',
+    'bijoux', 'galets', 'grigri', 'porte-bonheur', 'attrape-reves', 'chocolat',
+    'cbd', 'plantes', 'virtuel', 'meditation', 'boissons', 'papeterie'
   ];
 
   const getFilteredContents = () => {
@@ -63,28 +77,6 @@ const AdminContentEditor = () => {
       return Object.values(pageContents).flat();
     }
     return pageContents[selectedPage as keyof typeof pageContents] || [];
-  };
-
-  const handleEditProduct = (productId: number) => {
-    const product = products.find(p => p.id === productId);
-    if (product) {
-      setProductForm({ 
-        name: product.name, 
-        price: product.price, 
-        category: product.category, 
-        stock: product.stock, 
-        status: product.status 
-      });
-      setEditingProduct(productId);
-    }
-  };
-
-  const handleSaveProduct = () => {
-    toast({
-      title: "Produit sauvegardé",
-      description: `Le produit "${productForm.name}" a été mis à jour avec succès`
-    });
-    setEditingProduct(null);
   };
 
   const handleEditContent = (contentId: string) => {
@@ -118,7 +110,71 @@ const AdminContentEditor = () => {
     }
   };
 
-  const handleDeleteProduct = (productId: number) => {
+  const handleAddProduct = () => {
+    if (!productForm.name || !productForm.price || !productForm.category) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez remplir tous les champs obligatoires",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Ici vous pourriez sauvegarder le produit dans votre base de données
+    toast({
+      title: "Produit ajouté",
+      description: `Le produit "${productForm.name}" a été ajouté avec succès`
+    });
+    
+    setShowAddProduct(false);
+    setProductForm({
+      id: '',
+      name: '',
+      price: '',
+      originalPrice: '',
+      category: '',
+      subcategory: '',
+      description: '',
+      image: '',
+      tags: '',
+      inStock: true,
+      madeInFrance: true,
+      isVirtual: false
+    });
+  };
+
+  const handleEditProduct = (productId: string) => {
+    const product = shopProducts.find(p => p.id === productId);
+    if (product) {
+      setProductForm({
+        id: product.id,
+        name: product.name,
+        price: product.price.toString(),
+        originalPrice: product.originalPrice?.toString() || '',
+        category: product.category,
+        subcategory: product.subcategory,
+        description: product.description,
+        image: product.image,
+        tags: product.tags.join(', '),
+        inStock: product.inStock,
+        madeInFrance: product.madeInFrance,
+        isVirtual: product.isVirtual || false
+      });
+      setEditingProduct(productId);
+    }
+  };
+
+  const handleSaveProduct = () => {
+    // Ici vous pourriez sauvegarder les modifications dans votre base de données
+    toast({
+      title: "Produit sauvegardé",
+      description: `Le produit "${productForm.name}" a été mis à jour avec succès`
+    });
+    setEditingProduct(null);
+  };
+
+  const handleDeleteProduct = (productId: string) => {
+    // Ici vous pourriez supprimer le produit de votre base de données
     toast({
       title: "Produit supprimé",
       description: "Le produit a été supprimé avec succès"
@@ -139,16 +195,17 @@ const AdminContentEditor = () => {
             </Link>
             <div>
               <h1 className="text-3xl font-bold text-gray-800">Éditeur de Contenu</h1>
-              <p className="text-gray-600">Gérez le contenu et les produits de votre site</p>
+              <p className="text-gray-600">Gérez le contenu, les produits et les thèmes de votre site</p>
             </div>
           </div>
         </div>
 
         <Tabs value={selectedContent} onValueChange={setSelectedContent}>
-          <TabsList className="grid w-full grid-cols-3 max-w-md">
+          <TabsList className="grid w-full grid-cols-4 max-w-lg">
             <TabsTrigger value="pages">Pages</TabsTrigger>
             <TabsTrigger value="products">Produits</TabsTrigger>
             <TabsTrigger value="theme">Thème</TabsTrigger>
+            <TabsTrigger value="stats">Stats</TabsTrigger>
           </TabsList>
 
           <TabsContent value="pages" className="space-y-6">
@@ -275,16 +332,149 @@ const AdminContentEditor = () => {
 
           <TabsContent value="products" className="space-y-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-semibold">Gestion des Produits</h2>
-              <Button className="bg-blue-600 hover:bg-blue-700">
+              <h2 className="text-2xl font-semibold flex items-center gap-2">
+                <Package className="w-6 h-6" />
+                Gestion des Produits ({shopProducts.length} produits)
+              </h2>
+              <Button 
+                onClick={() => setShowAddProduct(true)}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Nouveau Produit
               </Button>
             </div>
 
+            {/* Formulaire d'ajout de produit */}
+            {showAddProduct && (
+              <Card className="border-green-200 bg-green-50">
+                <CardHeader>
+                  <div className="flex justify-between items-center">
+                    <CardTitle>Ajouter un nouveau produit</CardTitle>
+                    <Button variant="ghost" size="sm" onClick={() => setShowAddProduct(false)}>
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Nom *</label>
+                      <Input 
+                        value={productForm.name}
+                        onChange={(e) => setProductForm({...productForm, name: e.target.value})}
+                        placeholder="Nom du produit"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Prix (€) *</label>
+                      <Input 
+                        type="number"
+                        value={productForm.price}
+                        onChange={(e) => setProductForm({...productForm, price: e.target.value})}
+                        placeholder="Prix"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Catégorie *</label>
+                      <Select value={productForm.category} onValueChange={(value) => setProductForm({...productForm, category: value})}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choisir une catégorie" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories.map((cat) => (
+                            <SelectItem key={cat} value={cat}>
+                              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Sous-catégorie</label>
+                      <Input 
+                        value={productForm.subcategory}
+                        onChange={(e) => setProductForm({...productForm, subcategory: e.target.value})}
+                        placeholder="Sous-catégorie"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Description</label>
+                    <Textarea 
+                      value={productForm.description}
+                      onChange={(e) => setProductForm({...productForm, description: e.target.value})}
+                      placeholder="Description du produit"
+                      rows={3}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Emoji/Image</label>
+                      <Input 
+                        value={productForm.image}
+                        onChange={(e) => setProductForm({...productForm, image: e.target.value})}
+                        placeholder="🎁"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Tags (séparés par des virgules)</label>
+                      <Input 
+                        value={productForm.tags}
+                        onChange={(e) => setProductForm({...productForm, tags: e.target.value})}
+                        placeholder="Made in France, Bio, Relaxant"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <label className="flex items-center gap-2">
+                      <input 
+                        type="checkbox"
+                        checked={productForm.inStock}
+                        onChange={(e) => setProductForm({...productForm, inStock: e.target.checked})}
+                      />
+                      En stock
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input 
+                        type="checkbox"
+                        checked={productForm.madeInFrance}
+                        onChange={(e) => setProductForm({...productForm, madeInFrance: e.target.checked})}
+                      />
+                      Made in France
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input 
+                        type="checkbox"
+                        checked={productForm.isVirtual}
+                        onChange={(e) => setProductForm({...productForm, isVirtual: e.target.checked})}
+                      />
+                      Produit virtuel
+                    </label>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Button onClick={handleAddProduct} className="bg-green-600 hover:bg-green-700">
+                      <Save className="w-4 h-4 mr-2" />
+                      Ajouter le produit
+                    </Button>
+                    <Button variant="outline" onClick={() => setShowAddProduct(false)}>
+                      Annuler
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
             {/* Formulaire d'édition de produit */}
             {editingProduct && (
-              <Card className="border-green-200 bg-green-50">
+              <Card className="border-blue-200 bg-blue-50">
                 <CardHeader>
                   <div className="flex justify-between items-center">
                     <CardTitle>Modifier le produit</CardTitle>
@@ -294,58 +484,112 @@ const AdminContentEditor = () => {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Nom</label>
-                    <Input 
-                      value={productForm.name}
-                      onChange={(e) => setProductForm({...productForm, name: e.target.value})}
-                      placeholder="Nom du produit"
-                    />
-                  </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2">Prix (€)</label>
-                      <Input 
+                      <label className="block text-sm font-medium mb-2">Nom *</label>
+                      <Input
+                        value={productForm.name}
+                        onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
+                        placeholder="Nom du produit"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Prix (€) *</label>
+                      <Input
+                        type="number"
                         value={productForm.price}
-                        onChange={(e) => setProductForm({...productForm, price: e.target.value})}
+                        onChange={(e) => setProductForm({ ...productForm, price: e.target.value })}
                         placeholder="Prix"
                       />
                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2">Stock</label>
-                      <Input 
-                        value={productForm.stock}
-                        onChange={(e) => setProductForm({...productForm, stock: e.target.value})}
-                        placeholder="Quantité en stock"
+                      <label className="block text-sm font-medium mb-2">Catégorie *</label>
+                      <Select value={productForm.category} onValueChange={(value) => setProductForm({ ...productForm, category: value })}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choisir une catégorie" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories.map((cat) => (
+                            <SelectItem key={cat} value={cat}>
+                              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Sous-catégorie</label>
+                      <Input
+                        value={productForm.subcategory}
+                        onChange={(e) => setProductForm({ ...productForm, subcategory: e.target.value })}
+                        placeholder="Sous-catégorie"
                       />
                     </div>
                   </div>
+
                   <div>
-                    <label className="block text-sm font-medium mb-2">Catégorie</label>
-                    <select 
-                      value={productForm.category}
-                      onChange={(e) => setProductForm({...productForm, category: e.target.value})}
-                      className="w-full p-2 border rounded-md"
-                    >
-                      <option value="Entreprise">Entreprise</option>
-                      <option value="Famille">Famille</option>
-                    </select>
+                    <label className="block text-sm font-medium mb-2">Description</label>
+                    <Textarea
+                      value={productForm.description}
+                      onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
+                      placeholder="Description du produit"
+                      rows={3}
+                    />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Statut</label>
-                    <select 
-                      value={productForm.status}
-                      onChange={(e) => setProductForm({...productForm, status: e.target.value})}
-                      className="w-full p-2 border rounded-md"
-                    >
-                      <option value="active">Actif</option>
-                      <option value="inactive">Inactif</option>
-                    </select>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Emoji/Image</label>
+                      <Input
+                        value={productForm.image}
+                        onChange={(e) => setProductForm({ ...productForm, image: e.target.value })}
+                        placeholder="🎁"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Tags (séparés par des virgules)</label>
+                      <Input
+                        value={productForm.tags}
+                        onChange={(e) => setProductForm({ ...productForm, tags: e.target.value })}
+                        placeholder="Made in France, Bio, Relaxant"
+                      />
+                    </div>
                   </div>
+
+                  <div className="flex gap-4">
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={productForm.inStock}
+                        onChange={(e) => setProductForm({ ...productForm, inStock: e.target.checked })}
+                      />
+                      En stock
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={productForm.madeInFrance}
+                        onChange={(e) => setProductForm({ ...productForm, madeInFrance: e.target.checked })}
+                      />
+                      Made in France
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={productForm.isVirtual}
+                        onChange={(e) => setProductForm({ ...productForm, isVirtual: e.target.checked })}
+                      />
+                      Produit virtuel
+                    </label>
+                  </div>
+
                   <div className="flex gap-2">
                     <Button onClick={handleSaveProduct} className="bg-green-600 hover:bg-green-700">
                       <Save className="w-4 h-4 mr-2" />
-                      Sauvegarder
+                      Sauvegarder le produit
                     </Button>
                     <Button variant="outline" onClick={() => setEditingProduct(null)}>
                       Annuler
@@ -355,22 +599,39 @@ const AdminContentEditor = () => {
               </Card>
             )}
 
-            <div className="grid gap-4">
-              {products.map((product) => (
+            {/* Liste des produits */}
+            <div className="grid gap-4 max-h-96 overflow-y-auto">
+              {shopProducts.slice(0, 20).map((product) => (
                 <Card key={product.id}>
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h3 className="font-semibold text-lg">{product.name}</h3>
-                        <div className="flex gap-2 mt-1">
-                          <Badge variant="outline">{product.category}</Badge>
-                          <Badge variant="secondary">Stock: {product.stock}</Badge>
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-start">
+                      <div className="flex gap-3">
+                        <span className="text-2xl">{product.image}</span>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-lg">{product.name}</h3>
+                          <p className="text-sm text-gray-600 mb-2">{product.description}</p>
+                          <div className="flex gap-2 mb-2">
+                            <Badge variant="outline">{product.category}</Badge>
+                            <Badge variant="secondary">{product.subcategory}</Badge>
+                            {product.madeInFrance && <Badge className="bg-blue-100 text-blue-800">Made in France</Badge>}
+                            {product.isVirtual && <Badge className="bg-purple-100 text-purple-800">Virtuel</Badge>}
+                          </div>
+                          <div className="flex gap-1">
+                            {product.tags.slice(0, 3).map((tag, idx) => (
+                              <Badge key={idx} variant="outline" className="text-xs">
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
                         </div>
                       </div>
                       <div className="flex items-center gap-4">
                         <div className="text-right">
                           <p className="text-lg font-bold text-green-600">{product.price}€</p>
-                          <p className="text-sm text-gray-600">{product.status === 'active' ? 'Actif' : 'Inactif'}</p>
+                          {product.originalPrice && (
+                            <p className="text-sm text-gray-500 line-through">{product.originalPrice}€</p>
+                          )}
+                          <p className="text-sm text-gray-600">{product.inStock ? 'En stock' : 'Rupture'}</p>
                         </div>
                         <div className="flex gap-1">
                           <Button 
@@ -384,6 +645,7 @@ const AdminContentEditor = () => {
                             variant="outline" 
                             size="sm"
                             onClick={() => handleDeleteProduct(product.id)}
+                            className="text-red-600 hover:text-red-700"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
@@ -393,6 +655,12 @@ const AdminContentEditor = () => {
                   </CardContent>
                 </Card>
               ))}
+              
+              {shopProducts.length > 20 && (
+                <div className="text-center py-4 text-gray-500">
+                  ... et {shopProducts.length - 20} autres produits
+                </div>
+              )}
             </div>
           </TabsContent>
 
@@ -450,6 +718,11 @@ const AdminContentEditor = () => {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          <TabsContent value="stats" className="space-y-6">
+            <h2 className="text-2xl font-semibold">Statistiques du Site</h2>
+            <p>Ici, vous pourrez visualiser les statistiques de votre site.</p>
           </TabsContent>
         </Tabs>
       </div>

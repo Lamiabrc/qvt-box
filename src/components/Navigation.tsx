@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, User, LogOut, Shield } from 'lucide-react';
+import { Menu, X, User, LogOut, Shield, ShoppingCart } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/contexts/AuthContext";
 import { useSecureAuth } from "@/hooks/useSecureAuth";
@@ -15,6 +16,9 @@ const Navigation = () => {
   const { secureSignOut } = useSecureAuth();
   const navigate = useNavigate();
 
+  // Mock cart items count - you can replace with real cart data
+  const cartItemsCount = 3;
+
   const handleSignOut = async () => {
     try {
       await secureSignOut();
@@ -25,16 +29,14 @@ const Navigation = () => {
   };
 
   const getUserInitials = () => {
-    if (!user?.email) return 'Connexion';
+    if (!user?.email) return 'U';
     return user.email.charAt(0).toUpperCase();
   };
 
   const getDashboardRoute = () => {
-    // Redirect to appropriate dashboard based on user role/context
     if (isAdmin) {
       return '/admin-panel';
     }
-    // Default dashboard routes - you can customize this logic based on user roles
     return '/employee-dashboard';
   };
 
@@ -69,16 +71,20 @@ const Navigation = () => {
               Contact
             </Link>
 
-            <AuthGuard
-              requireAuth={false}
-              fallback={
-                <Link to="/login">
-                  <Button variant="default" className="bg-teal-600 hover:bg-teal-700">
-                    Connexion
-                  </Button>
-                </Link>
-              }
-            >
+            {/* Cart Button */}
+            <Link to="/cart" className="relative">
+              <Button variant="ghost" size="sm" className="relative">
+                <ShoppingCart className="w-5 h-5" />
+                {cartItemsCount > 0 && (
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">
+                    {cartItemsCount}
+                  </Badge>
+                )}
+              </Button>
+            </Link>
+
+            {/* Auth Section */}
+            {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -123,7 +129,13 @@ const Navigation = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            </AuthGuard>
+            ) : (
+              <Link to="/login">
+                <Button variant="default" className="bg-teal-600 hover:bg-teal-700">
+                  Connexion
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -176,20 +188,23 @@ const Navigation = () => {
               Contact
             </Link>
             
-            <AuthGuard
-              requireAuth={false}
-              fallback={
-                <Link 
-                  to="/login" 
-                  className="block px-3 py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <Button className="w-full bg-teal-600 hover:bg-teal-700">
-                    Connexion
-                  </Button>
-                </Link>
-              }
+            <Link 
+              to="/cart" 
+              className="block px-3 py-2 text-gray-700 hover:text-blue-600 transition-colors relative"
+              onClick={() => setIsOpen(false)}
             >
+              <div className="flex items-center">
+                <ShoppingCart className="w-4 h-4 mr-2" />
+                Panier
+                {cartItemsCount > 0 && (
+                  <Badge className="ml-2 bg-red-500 text-white">
+                    {cartItemsCount}
+                  </Badge>
+                )}
+              </div>
+            </Link>
+            
+            {user ? (
               <div className="px-3 py-2 border-t">
                 <p className="text-sm font-medium text-gray-900 mb-2">
                   {user?.email}
@@ -222,7 +237,17 @@ const Navigation = () => {
                   </button>
                 </div>
               </div>
-            </AuthGuard>
+            ) : (
+              <Link 
+                to="/login" 
+                className="block px-3 py-2"
+                onClick={() => setIsOpen(false)}
+              >
+                <Button className="w-full bg-teal-600 hover:bg-teal-700">
+                  Connexion
+                </Button>
+              </Link>
+            )}
           </div>
         )}
       </div>

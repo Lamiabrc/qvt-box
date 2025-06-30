@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from './contexts/AuthContext';
@@ -14,6 +13,7 @@ import Payment from './pages/Payment';
 import TeensHome from './pages/TeensHome';
 import Famille from './pages/Famille';
 import Shop from './pages/Shop';
+import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Auth from './pages/Auth';
 import EnterpriseSimulator from './pages/EnterpriseSimulator';
@@ -71,6 +71,7 @@ function App() {
               <Route path="/entreprise" element={<EnterpriseOrientation />} />
               <Route path="/concept-qvt" element={<ConceptQVT />} />
               <Route path="/shop" element={<Shop />} />
+              <Route path="/cart" element={<Cart />} />
               <Route path="/devenir-prestataire" element={<DevenirPrestataire />} />
               <Route path="/login" element={<Login />} />
               <Route path="/auth" element={<Auth />} />

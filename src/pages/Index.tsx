@@ -18,7 +18,7 @@ const Index = () => {
             <img 
               src="/lovable-uploads/bed0f5ad-cedc-4afa-8b5d-24f9bf8ec5ff.png" 
               alt="QVT Box - Sortez de votre bulle, on veille sur vous" 
-              className="h-24 w-24 object-contain drop-shadow-2xl"
+              className="h-24 w-24 object-cover rounded-full drop-shadow-2xl border-4 border-white/50"
             />
           </div>
           

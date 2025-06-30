@@ -44,7 +44,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <img 
-              src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
+              src="/lovable-uploads/78366c32-9e56-4378-9668-a89bc6ff3a9d.png" 
               alt="QVT Box Logo" 
               className="h-8 w-auto"
             />

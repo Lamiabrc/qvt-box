@@ -6,41 +6,80 @@ const FloatingBubbles = () => {
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Enhanced soap bubble theme with new logo integration */}
       
-      {/* Large bubbles with QVT Box theme */}
+      {/* Large bubbles with QVT Box theme including images */}
       <div className="absolute top-20 left-10 w-24 h-24 bg-gradient-to-br from-cyan-200/40 to-teal-200/40 rounded-full animate-pulse overflow-hidden backdrop-blur-sm border border-cyan-300/20">
         <div className="w-full h-full bg-gradient-to-br from-cyan-400/20 to-teal-400/20 rounded-full flex items-center justify-center">
-          <div className="w-12 h-12 bg-gradient-to-br from-cyan-500/30 to-teal-500/30 rounded-full"></div>
+          <img 
+            src="/lovable-uploads/feb840e8-115f-4c8c-9f4d-ba3dba63932a.png" 
+            alt="Wellness" 
+            className="w-16 h-16 object-cover rounded-full opacity-70"
+          />
         </div>
       </div>
       
       <div className="absolute top-40 right-20 w-20 h-20 bg-gradient-to-br from-purple-200/50 to-pink-200/50 rounded-full animate-bounce overflow-hidden backdrop-blur-sm border border-purple-300/20" style={{ animationDelay: '1s' }}>
         <div className="w-full h-full bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full flex items-center justify-center">
-          <div className="w-8 h-8 bg-gradient-to-br from-purple-500/40 to-pink-500/40 rounded-full"></div>
+          <img 
+            src="/lovable-uploads/349eb6db-54e0-4a35-8c6f-87d6603c2f9e.png" 
+            alt="Happiness" 
+            className="w-14 h-14 object-cover rounded-full opacity-70"
+          />
         </div>
       </div>
       
       <div className="absolute bottom-40 left-20 w-28 h-28 bg-gradient-to-br from-teal-200/35 to-cyan-200/35 rounded-full animate-pulse overflow-hidden backdrop-blur-sm border border-teal-300/25" style={{ animationDelay: '2s' }}>
         <div className="w-full h-full bg-gradient-to-br from-teal-400/25 to-cyan-400/25 rounded-full flex items-center justify-center">
-          <div className="w-14 h-14 bg-gradient-to-br from-teal-500/35 to-cyan-500/35 rounded-full"></div>
+          <img 
+            src="/lovable-uploads/c3f540d3-2d74-4082-89bc-397cb4987770.png" 
+            alt="Joy" 
+            className="w-20 h-20 object-cover rounded-full opacity-70"
+          />
         </div>
       </div>
       
       <div className="absolute bottom-20 right-10 w-18 h-18 bg-gradient-to-br from-purple-200/45 to-cyan-200/45 rounded-full animate-bounce overflow-hidden backdrop-blur-sm border border-purple-300/30" style={{ animationDelay: '0.5s' }}>
-        <div className="w-full h-full bg-gradient-to-br from-purple-400/30 to-cyan-400/30 rounded-full"></div>
+        <div className="w-full h-full bg-gradient-to-br from-purple-400/30 to-cyan-400/30 rounded-full flex items-center justify-center">
+          <img 
+            src="/lovable-uploads/7f42c4c1-06c0-45a6-964a-713e71329ecf.png" 
+            alt="Gift" 
+            className="w-12 h-12 object-cover rounded-full opacity-70"
+          />
+        </div>
       </div>
       
-      {/* Medium bubbles with enhanced soap bubble effect */}
+      {/* Medium bubbles with enhanced soap bubble effect and images */}
       <div className="absolute top-60 left-1/3 w-16 h-16 bg-gradient-to-br from-cyan-300/50 to-teal-300/50 rounded-full animate-pulse overflow-hidden backdrop-blur-lg border border-cyan-400/40" style={{ animationDelay: '1.5s' }}>
+        <div className="w-full h-full flex items-center justify-center">
+          <img 
+            src="/lovable-uploads/14537b13-06d0-4815-b29e-b2046fe7109b.png" 
+            alt="Teen" 
+            className="w-10 h-10 object-cover rounded-full opacity-60"
+          />
+        </div>
         <div className="absolute top-2 left-3 w-4 h-4 bg-white/30 rounded-full blur-sm"></div>
         <div className="absolute bottom-3 right-2 w-2 h-2 bg-white/50 rounded-full"></div>
       </div>
       
       <div className="absolute top-80 right-1/3 w-14 h-14 bg-gradient-to-br from-purple-300/40 to-pink-300/40 rounded-full animate-bounce overflow-hidden backdrop-blur-lg border border-purple-400/35" style={{ animationDelay: '2.5s' }}>
+        <div className="w-full h-full flex items-center justify-center">
+          <img 
+            src="/lovable-uploads/7cb94890-211b-4eaa-ae99-d56440ee50a4.png" 
+            alt="Family" 
+            className="w-8 h-8 object-cover rounded-full opacity-60"
+          />
+        </div>
         <div className="absolute top-2 left-2 w-3 h-3 bg-white/40 rounded-full blur-sm"></div>
         <div className="absolute bottom-2 right-3 w-2 h-2 bg-white/60 rounded-full"></div>
       </div>
       
       <div className="absolute bottom-60 left-1/2 w-18 h-18 bg-gradient-to-br from-teal-300/45 to-cyan-300/45 rounded-full animate-pulse overflow-hidden backdrop-blur-lg border border-teal-400/40" style={{ animationDelay: '3s' }}>
+        <div className="w-full h-full flex items-center justify-center">
+          <img 
+            src="/lovable-uploads/f04ced40-ac30-432c-8fe3-01c631cb606f.png" 
+            alt="Comfort" 
+            className="w-12 h-12 object-cover rounded-full opacity-60"
+          />
+        </div>
         <div className="absolute top-3 left-4 w-3 h-3 bg-white/35 rounded-full blur-sm"></div>
         <div className="absolute bottom-4 right-2 w-2 h-2 bg-white/55 rounded-full"></div>
       </div>

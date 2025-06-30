@@ -3,8 +3,9 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, ArrowRight, Package } from "lucide-react";
+import { CheckCircle, ArrowRight, Package, Brain } from "lucide-react";
 import { Link } from "react-router-dom";
+import AIContributionConsent from "../AIContributionConsent";
 
 interface SimulatorResultsProps {
   title: string;
@@ -42,6 +43,17 @@ const SimulatorResults: React.FC<SimulatorResultsProps> = ({
   ctaButtons = [],
   recommendedBoxes = []
 }) => {
+  const handleAIConsentChange = (consent: boolean) => {
+    // Sauvegarder les données pour l'IA si consentement donné
+    if (consent) {
+      console.log('Données sauvegardées pour contribution IA:', {
+        score,
+        riskLevel,
+        timestamp: new Date().toISOString()
+      });
+    }
+  };
+
   return (
     <div className={`min-h-screen bg-gradient-to-br ${backgroundColor} p-6`}>
       <div className="max-w-4xl mx-auto">
@@ -120,7 +132,13 @@ const SimulatorResults: React.FC<SimulatorResultsProps> = ({
           </div>
         )}
 
-        <div className="text-center space-x-4">
+        {/* AI Contribution Section */}
+        <div className="mb-8">
+          <AIContributionConsent onConsentChange={handleAIConsentChange} />
+        </div>
+
+        {/* Enhanced CTA Section */}
+        <div className="text-center space-x-4 mb-6">
           {ctaButtons.map((button, idx) => (
             <Link key={idx} to={button.link}>
               <Button 
@@ -132,6 +150,17 @@ const SimulatorResults: React.FC<SimulatorResultsProps> = ({
               </Button>
             </Link>
           ))}
+        </div>
+
+        {/* Link to Intelligent Recommendations */}
+        <div className="text-center">
+          <Link to="/intelligent-recommendations">
+            <Button variant="outline" className={`border-${accentColor}-300 text-${accentColor}-700`}>
+              <Brain className="w-4 h-4 mr-2" />
+              Voir toutes mes recommandations IA
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

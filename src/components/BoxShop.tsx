@@ -11,12 +11,10 @@ import {
   Brain, 
   Coffee,
   Home,
-  Briefcase,
-  Gamepad2,
-  BookOpen,
-  Palette
+  Briefcase
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { getBoxesByCategory } from "../data/allBoxes";
 
 interface BoxShopProps {
   universe: 'enterprise' | 'family';
@@ -32,157 +30,58 @@ const BoxShop = ({ universe }: BoxShopProps) => {
     });
   };
 
-  const enterpriseBoxes = [
-    {
-      id: 1,
-      name: "Box Burn-out",
-      price: "33€/mois",
-      description: "Prévention et gestion du stress professionnel",
-      icon: Brain,
-      gradient: "from-red-500 to-orange-500",
-      bgColor: "bg-red-50 border-red-200",
-      items: ["Balle anti-stress ergonomique", "Infusion relaxation", "Guide micro-pauses", "Carnet de gratitude"],
-      rating: 4.8,
-      users: 1247
-    },
-    {
-      id: 2,
-      name: "Box Télétravail",
-      price: "33€/mois",
-      description: "Optimiser le travail à distance",
-      icon: Home,
-      gradient: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-50 border-blue-200",
-      items: ["Support ergonomique", "Éclairage d'ambiance", "Snacks healthy", "Planning productivité"],
-      rating: 4.6,
-      users: 892
-    },
-    {
-      id: 3,
-      name: "Box Cohésion Équipe",
-      price: "33€/mois",
-      description: "Renforcer les liens professionnels",
-      icon: Users,
-      gradient: "from-green-500 to-teal-500",
-      bgColor: "bg-green-50 border-green-200",
-      items: ["Jeux team-building", "Défis collaboratifs", "Cartes connexion", "Guide animation"],
-      rating: 4.9,
-      users: 654
-    },
-    {
-      id: 4,
-      name: "Box Pénibilité",
-      price: "33€/mois",
-      description: "Soulager les métiers exigeants",
-      icon: Briefcase,
-      gradient: "from-purple-500 to-pink-500",
-      bgColor: "bg-purple-50 border-purple-200",
-      items: ["Accessoires ergonomie", "Crèmes réparatrices", "Exercices étirement", "Nutrition adaptée"],
-      rating: 4.7,
-      users: 423
-    },
-    {
-      id: 5,
-      name: "Box Retraite",
-      price: "33€/mois",
-      description: "Accompagner la transition professionnelle",
-      icon: Coffee,
-      gradient: "from-amber-500 to-orange-500",
-      bgColor: "bg-amber-50 border-amber-200",
-      items: ["Carnet projets", "Activités créatives", "Guide bien-vieillir", "Tisanes bien-être"],
-      rating: 4.5,
-      users: 234
-    },
-    {
-      id: 6,
-      name: "Box Équilibre Vie Privée",
-      price: "33€/mois",
-      description: "Harmoniser pro et perso",
-      icon: Heart,
-      gradient: "from-pink-500 to-rose-500",
-      bgColor: "bg-pink-50 border-pink-200",
-      items: ["Planning famille-travail", "Activités détente", "Conseils organisation", "Moments mindfulness"],
-      rating: 4.8,
-      users: 1089
+  // Récupérer les box selon l'univers
+  const getBoxesForUniverse = () => {
+    if (universe === 'enterprise') {
+      return [
+        ...getBoxesByCategory('Salariés'),
+        ...getBoxesByCategory('Équipe')
+      ];
+    } else {
+      return [
+        ...getBoxesByCategory('Parents'),
+        ...getBoxesByCategory('Famille'),
+        ...getBoxesByCategory('Événement')
+      ];
     }
-  ];
+  };
 
-  const familyBoxes = [
-    {
-      id: 1,
-      name: "Teen Box Digital Detox",
-      price: "25€/mois",
-      description: "Réduire la dépendance numérique",
-      icon: Brain,
-      gradient: "from-purple-500 to-indigo-500",
-      bgColor: "bg-purple-50 border-purple-200",
-      items: ["Carnet créatif", "Jeux hors-ligne", "Défis 24h sans écran", "Stickers motivation"],
-      rating: 4.7,
-      users: 567
-    },
-    {
-      id: 2,
-      name: "Family Box Reconnexion",
-      price: "25€/mois",
-      description: "Renforcer les liens familiaux",
-      icon: Heart,
-      gradient: "from-pink-500 to-red-500",
-      bgColor: "bg-pink-50 border-pink-200",
-      items: ["Jeux coopératifs", "Cartes questions famille", "Activités DIY", "Livre gratitude partagé"],
-      rating: 4.9,
-      users: 743
-    },
-    {
-      id: 3,
-      name: "Teen Box Créativité",
-      price: "25€/mois",
-      description: "Stimuler l'expression artistique",
-      icon: Palette,
-      gradient: "from-teal-500 to-cyan-500",
-      bgColor: "bg-teal-50 border-teal-200",
-      items: ["Kit art-thérapie", "Carnet personnel", "Musique inspiration", "Défis créatifs"],
-      rating: 4.6,
-      users: 398
-    },
-    {
-      id: 4,
-      name: "Family Box Dialogue",
-      price: "25€/mois",
-      description: "Améliorer la communication",
-      icon: Users,
-      gradient: "from-blue-500 to-purple-500",
-      bgColor: "bg-blue-50 border-blue-200",
-      items: ["Cartes conversation", "Guide écoute active", "Activités empathie", "Temps parole rituels"],
-      rating: 4.8,
-      users: 621
-    },
-    {
-      id: 5,
-      name: "Teen Box Bien-être",
-      price: "25€/mois",
-      description: "Gestion des émotions adolescentes",
-      icon: BookOpen,
-      gradient: "from-green-500 to-emerald-500",
-      bgColor: "bg-green-50 border-green-200",
-      items: ["Journal émotions", "Techniques relaxation", "Huiles essentielles", "Guide auto-compassion"],
-      rating: 4.7,
-      users: 445
-    },
-    {
-      id: 6,
-      name: "Family Box Gratitude",
-      price: "25€/mois",
-      description: "Cultiver la reconnaissance",
-      icon: Star,
-      gradient: "from-yellow-500 to-orange-500",
-      bgColor: "bg-yellow-50 border-yellow-200",
-      items: ["Bocal gratitude famille", "Cartes remerciements", "Rituel reconnaissance", "Photos souvenirs"],
-      rating: 4.9,
-      users: 712
+  const boxes = getBoxesForUniverse().map((box, index) => ({
+    id: index + 1,
+    name: box.name,
+    price: box.price,
+    description: box.description,
+    icon: getIconForBox(box.name),
+    gradient: box.gradient || "from-teal-500 to-cyan-500",
+    bgColor: getBgColorForScale(box.evaluationScale),
+    items: box.features,
+    rating: 4.5 + Math.random() * 0.4, // Random rating between 4.5-4.9
+    users: Math.floor(200 + Math.random() * 800) // Random users between 200-1000
+  }));
+
+  function getIconForBox(name: string) {
+    if (name.includes('Télétravail') || name.includes('télétravailleur')) return Home;
+    if (name.includes('Équipe') || name.includes('cohésion')) return Users;
+    if (name.includes('Stress') || name.includes('burn-out')) return Brain;
+    if (name.includes('Détente') || name.includes('Pause')) return Coffee;
+    if (name.includes('Charge mentale') || name.includes('mental')) return Brain;
+    return Briefcase;
+  }
+
+  function getBgColorForScale(scale: string) {
+    switch (scale) {
+      case 'Stress élevé': return "bg-red-50 border-red-200";
+      case 'Anxiété / inquiétude': return "bg-orange-50 border-orange-200";
+      case 'Fatigue émotionnelle': return "bg-purple-50 border-purple-200";
+      case 'Charge mentale': return "bg-blue-50 border-blue-200";
+      case 'Isolement': return "bg-gray-50 border-gray-200";
+      case 'Manque de motivation': return "bg-yellow-50 border-yellow-200";
+      case 'Manque de concentration': return "bg-green-50 border-green-200";
+      case 'Besoin de reconnexion': return "bg-pink-50 border-pink-200";
+      case 'Tensions relationnelles': return "bg-indigo-50 border-indigo-200";
+      default: return "bg-teal-50 border-teal-200";
     }
-  ];
-
-  const boxes = universe === 'enterprise' ? enterpriseBoxes : familyBoxes;
+  }
 
   return (
     <div className="space-y-6">
@@ -218,7 +117,7 @@ const BoxShop = ({ universe }: BoxShopProps) => {
                 <div className="text-right">
                   <div className="flex items-center gap-1 text-sm text-amber-600 mb-1">
                     <Star className="w-4 h-4 fill-current" />
-                    <span className="font-medium">{box.rating}</span>
+                    <span className="font-medium">{box.rating.toFixed(1)}</span>
                   </div>
                   <p className="text-xs text-gray-600">{box.users} utilisateurs</p>
                 </div>
@@ -233,7 +132,7 @@ const BoxShop = ({ universe }: BoxShopProps) => {
               <div className="space-y-2">
                 <p className="text-sm font-medium text-gray-700 mb-2">Contenu de la box :</p>
                 <div className="space-y-1">
-                  {box.items.map((item, index) => (
+                  {box.items.slice(0, 4).map((item, index) => (
                     <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
                       <div className="w-1.5 h-1.5 bg-teal-500 rounded-full"></div>
                       <span>{item}</span>
@@ -266,24 +165,6 @@ const BoxShop = ({ universe }: BoxShopProps) => {
           </Card>
         ))}
       </div>
-
-      {/* Additional Products */}
-      <Card className="mt-12 border-2 border-dashed border-teal-300 bg-teal-50/50">
-        <CardContent className="text-center py-8">
-          <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Gamepad2 className="w-8 h-8 text-teal-600" />
-          </div>
-          <h3 className="text-xl font-bold text-teal-800 mb-2">
-            Produits à l'unité disponibles
-          </h3>
-          <p className="text-teal-600 mb-4 max-w-md mx-auto">
-            Découvrez notre sélection d'objets bien-être, vidéos, ateliers et bons cadeaux
-          </p>
-          <Button variant="outline" className="border-teal-300 text-teal-700 hover:bg-teal-50">
-            Explorer la boutique complète
-          </Button>
-        </CardContent>
-      </Card>
     </div>
   );
 };

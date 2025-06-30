@@ -6,8 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Package, 
-  Heart, 
-  Building2, 
   Star, 
   ShoppingCart,
   Plus,
@@ -15,74 +13,47 @@ import {
   Check,
   Truck,
   Shield,
-  RefreshCw
+  RefreshCw,
+  Building2,
+  Heart
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { useToast } from "@/hooks/use-toast";
+import { getBoxesByCategory } from "../data/allBoxes";
 
 const Shop = () => {
   const [cart, setCart] = useState<{[key: string]: number}>({});
   const { toast } = useToast();
 
+  // Récupérer les box par catégorie depuis la nouvelle base de données
   const enterpriseBoxes = [
-    {
-      id: 'stress-relief',
-      name: 'Box Anti-Stress Entreprise',
-      description: 'Kit complet pour gérer le stress au travail',
-      price: 49.90,
-      image: '/api/placeholder/300/200',
-      features: ['Balle anti-stress', 'Thé relaxant', 'Guide mindfulness', 'Huiles essentielles'],
-      category: 'Stress Management'
-    },
-    {
-      id: 'team-building',
-      name: 'Box Team Building',
-      description: 'Activités pour renforcer la cohésion d\'équipe',
-      price: 89.90,
-      image: '/api/placeholder/300/200',
-      features: ['Jeux collaboratifs', 'Défis créatifs', 'Guide animateur', 'Récompenses équipe'],
-      category: 'Team Building'
-    },
-    {
-      id: 'burnout-prevention',
-      name: 'Box Prévention Burn-out',
-      description: 'Outils préventifs contre l\'épuisement professionnel',
-      price: 69.90,
-      image: '/api/placeholder/300/200',
-      features: ['Carnet de suivi', 'Techniques de respiration', 'Planning équilibré', 'SOS contacts'],
-      category: 'Prevention'
-    }
-  ];
+    ...getBoxesByCategory('Salariés'),
+    ...getBoxesByCategory('Équipe')
+  ].map(box => ({
+    id: box.id,
+    name: box.name,
+    description: box.description,
+    price: parseFloat(box.price.replace('€/mois', '')),
+    image: box.icon || '📦',
+    features: box.features,
+    category: box.evaluationScale,
+    gradient: box.gradient || 'from-blue-500 to-cyan-500'
+  }));
 
   const familyBoxes = [
-    {
-      id: 'digital-detox-teen',
-      name: 'Teen Box Digital Detox',
-      description: 'Aide les ados à décrocher des écrans sainement',
-      price: 34.90,
-      image: '/api/placeholder/300/200',
-      features: ['Activités offline', 'Journal créatif', 'Jeux de société', 'Défis nature'],
-      category: 'Digital Detox'
-    },
-    {
-      id: 'communication-famille',
-      name: 'Family Box Communication',
-      description: 'Améliore le dialogue parents-ados',
-      price: 44.90,
-      image: '/api/placeholder/300/200',
-      features: ['Cartes conversation', 'Activités famille', 'Guide parents', 'Temps qualité'],
-      category: 'Communication'
-    },
-    {
-      id: 'emotions-ados',
-      name: 'Teen Box Gestion Émotions',
-      description: 'Outils pour comprendre et gérer ses émotions',
-      price: 39.90,
-      image: '/api/placeholder/300/200',
-      features: ['Roue des émotions', 'Techniques apaisement', 'Journal intime', 'SOS émotions'],
-      category: 'Emotions'
-    }
-  ];
+    ...getBoxesByCategory('Parents'),
+    ...getBoxesByCategory('Famille'),
+    ...getBoxesByCategory('Événement')
+  ].map(box => ({
+    id: box.id,
+    name: box.name,
+    description: box.description,
+    price: parseFloat(box.price.replace('€/mois', '')),
+    image: box.icon || '💝',
+    features: box.features,
+    category: box.evaluationScale,
+    gradient: box.gradient || 'from-purple-500 to-pink-500'
+  }));
 
   const addToCart = (boxId: string) => {
     setCart(prev => ({ ...prev, [boxId]: (prev[boxId] || 0) + 1 }));
@@ -108,7 +79,7 @@ const Shop = () => {
     <Card className="hover:shadow-xl transition-shadow group">
       <CardHeader>
         <div className="w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4 flex items-center justify-center">
-          <Package className={`w-16 h-16 ${type === 'enterprise' ? 'text-teal-600' : 'text-purple-600'}`} />
+          <span className="text-6xl">{box.image}</span>
         </div>
         <div className="flex justify-between items-start">
           <div>
@@ -117,7 +88,7 @@ const Shop = () => {
           </div>
           <div className="text-right">
             <p className="text-2xl font-bold text-green-600">{box.price}€</p>
-            <p className="text-sm text-gray-500">TVA incluse</p>
+            <p className="text-sm text-gray-500">par mois</p>
           </div>
         </div>
         <CardDescription className="mt-2">{box.description}</CardDescription>
@@ -182,7 +153,7 @@ const Shop = () => {
             Boutique QVT Box
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-6">
-            Découvrez nos box personnalisées pour améliorer le bien-être au travail et en famille
+            Découvrez notre collection complète de box bien-être pour tous les besoins
           </p>
           
           {cartItemsCount > 0 && (
@@ -238,7 +209,7 @@ const Shop = () => {
           <TabsContent value="enterprise" className="space-y-6">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-teal-800 mb-2">Box Entreprise</h2>
-              <p className="text-teal-600">Solutions professionnelles pour le bien-être au travail</p>
+              <p className="text-teal-600">Solutions pour le bien-être au travail et en équipe</p>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -251,7 +222,7 @@ const Shop = () => {
           <TabsContent value="family" className="space-y-6">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-purple-800 mb-2">Box Famille</h2>
-              <p className="text-purple-600">Outils pour améliorer le bien-être familial</p>
+              <p className="text-purple-600">Solutions pour le bien-être familial et parental</p>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

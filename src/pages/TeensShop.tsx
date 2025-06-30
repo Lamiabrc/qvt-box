@@ -20,6 +20,7 @@ import FloatingBubbles from "../components/FloatingBubbles";
 import ProductCard from "../components/teens/shop/ProductCard";
 import BoxOfferCard from "../components/teens/shop/BoxOfferCard";
 import CategoryTabs from "../components/teens/shop/CategoryTabs";
+import { getBoxesByCategory } from "../data/allBoxes";
 
 const TeensShop = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -130,32 +131,15 @@ const TeensShop = () => {
     }
   ];
 
-  const boxOffers = [
-    {
-      id: 'teen-box',
-      name: 'Teen Box Mensuelle',
-      price: 19,
-      description: 'Box personnalisée selon ton profil bien-être',
-      features: ['4-6 produits/mois', 'Personnalisation IA', 'Livraison gratuite'],
-      gradient: 'from-emerald-500 to-teal-500'
-    },
-    {
-      id: 'premium-box',
-      name: 'Premium Teen Box',
-      price: 35,
-      description: 'Version premium avec produits exclusifs',
-      features: ['6-8 produits/mois', 'Produits exclusifs', 'Consultation coach'],
-      gradient: 'from-purple-500 to-pink-500'
-    },
-    {
-      id: 'family-box',
-      name: 'Family Box Complète',
-      price: 49,
-      description: 'Box famille avec produits ados et parents',
-      features: ['Teen Box + Family Box', 'Activités communes', 'Support famille'],
-      gradient: 'from-blue-500 to-cyan-500'
-    }
-  ];
+  // Récupérer les box spécifiques aux adolescents
+  const teenBoxes = getBoxesByCategory('Adolescents').map(box => ({
+    id: box.id,
+    name: box.name,
+    price: parseInt(box.price.replace('€/mois', '')),
+    description: box.description,
+    features: box.features,
+    gradient: box.gradient || 'from-purple-500 to-pink-500'
+  }));
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -203,9 +187,9 @@ const TeensShop = () => {
 
         <TabsContent value={selectedCategory} className="mt-8">
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-emerald-800 mb-6 text-center">📦 Nos Box Mensuelles</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {boxOffers.map((box) => (
+            <h2 className="text-2xl font-bold text-emerald-800 mb-6 text-center">📦 Box Teen Spécialisées</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {teenBoxes.map((box) => (
                 <BoxOfferCard key={box.id} box={box} />
               ))}
             </div>

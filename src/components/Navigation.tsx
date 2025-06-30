@@ -1,229 +1,195 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Menu, X, User, LogOut, Shield } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Heart, Building2, ShoppingBag, Phone, User } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/contexts/AuthContext";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 const Navigation = () => {
-  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const { user, signOut, isAdmin } = useAuth();
+  const navigate = useNavigate();
 
-  const isActive = (path: string) => location.pathname === path;
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
+
+  const getUserInitials = () => {
+    if (!user?.email) return 'U';
+    return user.email.charAt(0).toUpperCase();
+  };
 
   return (
-    <nav className="bg-white/95 backdrop-blur-lg shadow-lg sticky top-0 z-50 border-b border-teal-100">
+    <nav className="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="relative">
-              <img 
-                src="/lovable-uploads/bed0f5ad-cedc-4afa-8b5d-24f9bf8ec5ff.png" 
-                alt="QVT Box - Sortez de votre bulle, on veille sur vous" 
-                className="h-12 w-12 object-contain drop-shadow-lg hover:scale-110 transition-transform duration-300"
-              />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full animate-pulse opacity-80"></div>
-            </div>
-            <div>
-              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                QVT BOX
-              </span>
-              <p className="text-xs text-teal-600 font-medium">Sortez de votre bulle</p>
-            </div>
+          <Link to="/" className="flex items-center space-x-2">
+            <img 
+              src="/lovable-uploads/eb868b40-9250-499c-b6ba-c0bc0a57c078.png" 
+              alt="QVT Box Logo" 
+              className="h-8 w-auto"
+            />
+            <span className="text-xl font-bold text-gray-900">QVT Box</span>
           </Link>
 
-          {/* Navigation Menu */}
-          <NavigationMenu>
-            <NavigationMenuList>
-              {/* Univers Famille */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-purple-700 hover:bg-purple-50 transition-colors duration-300">
-                  <Heart className="w-4 h-4 mr-2" />
-                  Famille
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="grid gap-3 p-6 w-80 bg-gradient-to-br from-purple-50 to-pink-50 backdrop-blur-lg border border-purple-200">
-                    <div className="row-span-3">
-                      <NavigationMenuLink asChild>
-                        <Link 
-                          to="/famille"
-                          className="flex h-full w-full select-none flex-col justify-end rounded-2xl bg-gradient-to-b from-purple-500/60 to-purple-700/60 p-6 no-underline outline-none focus:shadow-md hover:scale-105 transition-transform duration-300 backdrop-blur-sm"
-                        >
-                          <Heart className="h-6 w-6 text-white drop-shadow-lg" />
-                          <div className="mb-2 mt-4 text-lg font-medium text-white drop-shadow-md">
-                            QVTeen Box Famille
-                          </div>
-                          <p className="text-sm leading-tight text-white/90">
-                            Choisissez votre profil famille
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                    </div>
-                    
-                    {/* Keep existing navigation links with bubble styling */}
-                    <NavigationMenuLink asChild>
-                      <Link to="/teens-home" className="block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-purple-100/80 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground backdrop-blur-sm">
-                        <div className="text-sm font-medium leading-none">Espace Ados (11-18 ans)</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Interface dédiée aux adolescents avec zones étendues
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/parent-dashboard" className="block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-purple-100/80 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground backdrop-blur-sm">
-                        <div className="text-sm font-medium leading-none">Espace Parents</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Suivi et accès aux informations des ados
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/family-parent-simulator" className="block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-purple-100/80 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground backdrop-blur-sm">
-                        <div className="text-sm font-medium leading-none">Simulateur Parent</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Évaluation bien-être parental
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/family-teen-simulator" className="block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-purple-100/80 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground backdrop-blur-sm">
-                        <div className="text-sm font-medium leading-none">Simulateur Ado</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Évaluation bien-être adolescent
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              {/* Univers Entreprise */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-teal-700 hover:bg-teal-50 transition-colors duration-300">
-                  <Building2 className="w-4 h-4 mr-2" />
-                  Entreprise
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="grid gap-3 p-6 w-80 bg-gradient-to-br from-teal-50 to-cyan-50 backdrop-blur-lg border border-teal-200">
-                    <div className="row-span-3">
-                      <NavigationMenuLink asChild>
-                        <Link 
-                          to="/enterprise"
-                          className="flex h-full w-full select-none flex-col justify-end rounded-2xl bg-gradient-to-b from-teal-500/60 to-teal-700/60 p-6 no-underline outline-none focus:shadow-md hover:scale-105 transition-transform duration-300 backdrop-blur-sm"
-                        >
-                          <Building2 className="h-6 w-6 text-white drop-shadow-lg" />
-                          <div className="mb-2 mt-4 text-lg font-medium text-white drop-shadow-md">
-                            QVT Box Entreprise
-                          </div>
-                          <p className="text-sm leading-tight text-white/90">
-                            Choisissez votre profil entreprise
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                    </div>
-                    
-                    {/* Keep existing enterprise links with bubble styling */}
-                    <NavigationMenuLink asChild>
-                      <Link to="/employee-dashboard" className="block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-teal-100/80 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground backdrop-blur-sm">
-                        <div className="text-sm font-medium leading-none">Espace Salarié</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Dashboard personnel du salarié
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/team-leader-dashboard" className="block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-teal-100/80 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground backdrop-blur-sm">
-                        <div className="text-sm font-medium leading-none">Chef d'Équipe</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Gestion et suivi d'équipe
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/qvt-manager-dashboard" className="block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-teal-100/80 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground backdrop-blur-sm">
-                        <div className="text-sm font-medium leading-none">Responsable QVT</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Pilotage qualité de vie au travail
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/executive-dashboard" className="block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-teal-100/80 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground backdrop-blur-sm">
-                        <div className="text-sm font-medium leading-none">Direction</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Vue exécutive et KPI stratégiques
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/enterprise-manager-simulator" className="block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-teal-100/80 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground backdrop-blur-sm">
-                        <div className="text-sm font-medium leading-none">Simulateur Manager</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Évaluation QVT managériale
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/enterprise-employee-simulator" className="block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-teal-100/80 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground backdrop-blur-sm">
-                        <div className="text-sm font-medium leading-none">Simulateur Salarié</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                          Évaluation bien-être salarié
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              {/* Boutique */}
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link 
-                    to="/shop" 
-                    className={`group inline-flex h-10 w-max items-center justify-center rounded-full bg-background px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-cyan-50 hover:to-teal-50 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 hover:scale-105 ${isActive('/shop') ? 'bg-gradient-to-r from-cyan-100 to-teal-100 text-accent-foreground' : ''}`}
-                  >
-                    <ShoppingBag className="w-4 h-4 mr-2" />
-                    Boutique
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-
-              {/* Contact */}
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link 
-                    to="/contact" 
-                    className={`group inline-flex h-10 w-max items-center justify-center rounded-full bg-background px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-cyan-50 hover:to-teal-50 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 hover:scale-105 ${isActive('/contact') ? 'bg-gradient-to-r from-cyan-100 to-teal-100 text-accent-foreground' : ''}`}
-                  >
-                    <Phone className="w-4 h-4 mr-2" />
-                    Contact
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-
-          {/* Auth Buttons */}
-          <div className="flex items-center space-x-4">
-            <Link to="/login">
-              <Button variant="outline" size="sm" className="rounded-full border-2 border-teal-200 hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 hover:border-teal-300 transition-all duration-300 hover:scale-105">
-                <User className="w-4 h-4 mr-2" />
-                Connexion
-              </Button>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            <Link to="/concept-qvt" className="text-gray-700 hover:text-teal-600 transition-colors">
+              Concept QVT
             </Link>
-            <Link to="/admin-login">
-              <Button variant="outline" size="sm" className="rounded-full border-2 border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 hover:scale-105">
-                Admin
-              </Button>
+            <Link to="/famille" className="text-gray-700 hover:text-purple-600 transition-colors">
+              Famille
             </Link>
+            <Link to="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
+              Contact
+            </Link>
+
+            <AuthGuard
+              requireAuth={false}
+              fallback={
+                <Link to="/login">
+                  <Button variant="default" className="bg-teal-600 hover:bg-teal-700">
+                    Connexion
+                  </Button>
+                </Link>
+              }
+            >
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                    <Avatar className="h-8 w-8">
+                      <AvatarFallback className="bg-teal-600 text-white">
+                        {getUserInitials()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <div className="flex items-center justify-start gap-2 p-2">
+                    <div className="flex flex-col space-y-1 leading-none">
+                      <p className="font-medium">{user?.email}</p>
+                      {isAdmin && (
+                        <p className="text-xs text-teal-600">Administrateur</p>
+                      )}
+                    </div>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/dashboard" className="flex items-center">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Tableau de bord</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <AuthGuard requireAdmin>
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin-panel" className="flex items-center">
+                        <Shield className="mr-2 h-4 w-4" />
+                        <span>Administration</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  </AuthGuard>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem 
+                    className="cursor-pointer"
+                    onClick={handleSignOut}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Déconnexion</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </AuthGuard>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-700 hover:text-teal-600 focus:outline-none"
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden py-4 space-y-2">
+            <Link 
+              to="/concept-qvt" 
+              className="block px-3 py-2 text-gray-700 hover:text-teal-600 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Concept QVT
+            </Link>
+            <Link 
+              to="/famille" 
+              className="block px-3 py-2 text-gray-700 hover:text-purple-600 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Famille
+            </Link>
+            <Link 
+              to="/contact" 
+              className="block px-3 py-2 text-gray-700 hover:text-blue-600 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Contact
+            </Link>
+            
+            <AuthGuard
+              requireAuth={false}
+              fallback={
+                <Link 
+                  to="/login" 
+                  className="block px-3 py-2"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Button className="w-full bg-teal-600 hover:bg-teal-700">
+                    Connexion
+                  </Button>
+                </Link>
+              }
+            >
+              <div className="px-3 py-2 border-t">
+                <p className="text-sm font-medium text-gray-900 mb-2">
+                  {user?.email}
+                </p>
+                <div className="space-y-1">
+                  <Link 
+                    to="/dashboard" 
+                    className="block py-2 text-gray-700 hover:text-teal-600"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Tableau de bord
+                  </Link>
+                  <AuthGuard requireAdmin>
+                    <Link 
+                      to="/admin-panel" 
+                      className="block py-2 text-gray-700 hover:text-teal-600"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Administration
+                    </Link>
+                  </AuthGuard>
+                  <button
+                    onClick={() => {
+                      handleSignOut();
+                      setIsOpen(false);
+                    }}
+                    className="block w-full text-left py-2 text-red-600 hover:text-red-700"
+                  >
+                    Déconnexion
+                  </button>
+                </div>
+              </div>
+            </AuthGuard>
+          </div>
+        )}
       </div>
     </nav>
   );

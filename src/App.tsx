@@ -21,6 +21,7 @@ import FamilyEnterpriseSimulator from './pages/FamilyEnterpriseSimulator';
 import EnterpriseManagerSimulator from './pages/EnterpriseManagerSimulator';
 import EnterpriseEmployeeSimulator from './pages/EnterpriseEmployeeSimulator';
 import EnterpriseSolutions from './pages/EnterpriseSolutions';
+import IntelligentRecommendations from './pages/IntelligentRecommendations';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
               <Route path="/enterprise-manager-simulator" element={<EnterpriseManagerSimulator />} />
               <Route path="/enterprise-employee-simulator" element={<EnterpriseEmployeeSimulator />} />
               <Route path="/enterprise-solutions" element={<EnterpriseSolutions />} />
+              <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
             </Routes>
           </main>
           <Footer />

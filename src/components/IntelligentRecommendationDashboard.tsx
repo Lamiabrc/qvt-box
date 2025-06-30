@@ -13,36 +13,63 @@ import {
   Calendar,
   Brain,
   Package,
-  ArrowRight
+  ArrowRight,
+  Sparkles
 } from "lucide-react";
-import { recommendationEngine } from '../data/intelligentRecommendations';
 import { Link } from "react-router-dom";
+import { useAIRecommendations } from '../hooks/useAIRecommendations';
+import AIRecommendationCard from './AIRecommendationCard';
 
 interface RecommendationDashboardProps {
   userId: string;
 }
 
 const IntelligentRecommendationDashboard: React.FC<RecommendationDashboardProps> = ({ userId }) => {
-  const [analysis, setAnalysis] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const { loading, recommendations, error, generateRecommendations } = useAIRecommendations();
+  const [simulatedHistory, setSimulatedHistory] = useState<any[]>([]);
 
   useEffect(() => {
-    // Simuler l'analyse des données utilisateur
-    setTimeout(() => {
-      const userAnalysis = recommendationEngine.analyzeUserProgress(userId);
-      setAnalysis(userAnalysis);
-      setLoading(false);
-    }, 1000);
-  }, [userId]);
+    // Simuler un historique d'évaluations avec évolution
+    const mockHistory = [
+      {
+        date: '2024-12-15',
+        score: 45,
+        riskLevel: 'Élevé',
+        criticalAreas: ['stress', 'sommeil'],
+        improvements: []
+      },
+      {
+        date: '2024-12-22',
+        score: 52,
+        riskLevel: 'Modéré',
+        criticalAreas: ['stress'],
+        improvements: ['sommeil']
+      },
+      {
+        date: '2024-12-29',
+        score: 68,
+        riskLevel: 'Modéré',
+        criticalAreas: [],
+        improvements: ['stress', 'communication']
+      }
+    ];
 
-  if (loading) {
-    return (
-      <div className="space-y-4">
-        <div className="animate-pulse bg-gray-200 h-48 rounded-lg"></div>
-        <div className="animate-pulse bg-gray-200 h-32 rounded-lg"></div>
-      </div>
-    );
-  }
+    setSimulatedHistory(mockHistory);
+
+    // Générer automatiquement les recommandations IA
+    const userProfile = {
+      type: 'Manager',
+      context: 'Entreprise - Équipe de 8 personnes'
+    };
+
+    const currentScores = {
+      totalScore: 68,
+      riskLevel: 'Modéré',
+      trend: 'improving'
+    };
+
+    generateRecommendations(mockHistory, userProfile, currentScores);
+  }, [userId]);
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
@@ -62,7 +89,7 @@ const IntelligentRecommendationDashboard: React.FC<RecommendationDashboardProps>
 
   const getTrendLabel = (trend: string) => {
     switch (trend) {
-      case 'improving': return 'En amélioration';
+      case 'improving': return 'En amélioration continue';
       case 'declining': return 'À surveiller';
       default: return 'Stable';
     }
@@ -82,112 +109,149 @@ const IntelligentRecommendationDashboard: React.FC<RecommendationDashboardProps>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <h4 className="font-semibold mb-3">Tendance générale</h4>
-              <div className={`flex items-center gap-3 p-4 rounded-lg border ${getTrendColor(analysis.progressTrend)}`}>
-                {getTrendIcon(analysis.progressTrend)}
+              <div className={`flex items-center gap-3 p-4 rounded-lg border ${getTrendColor('improving')}`}>
+                {getTrendIcon('improving')}
                 <div>
-                  <p className="font-medium">{getTrendLabel(analysis.progressTrend)}</p>
-                  <p className="text-sm opacity-80">Basé sur vos dernières évaluations</p>
+                  <p className="font-medium">{getTrendLabel('improving')}</p>
+                  <p className="text-sm opacity-80">+23 points en 2 semaines</p>
                 </div>
               </div>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-3">Insights personnalisés</h4>
+              <h4 className="font-semibold mb-3">Évolution détectée</h4>
               <div className="space-y-2">
-                {analysis.keyInsights.map((insight: string, index: number) => (
-                  <div key={index} className="flex items-start gap-2 text-sm">
-                    <Lightbulb className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
-                    <span>{insight}</span>
-                  </div>
-                ))}
+                <div className="flex items-start gap-2 text-sm">
+                  <Lightbulb className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                  <span>Amélioration significative du sommeil</span>
+                </div>
+                <div className="flex items-start gap-2 text-sm">
+                  <Lightbulb className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                  <span>Gestion du stress en progression</span>
+                </div>
+                <div className="flex items-start gap-2 text-sm">
+                  <Lightbulb className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                  <span>Communication d'équipe renforcée</span>
+                </div>
               </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Recommandations personnalisées */}
-      {analysis.nextRecommendations.length > 0 && (
-        <div className="space-y-4">
-          <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+      {/* Recommandations IA personnalisées */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <h3 className="text-xl font-bold text-gray-800">Recommandations IA Évolutives</h3>
+          <Sparkles className="w-5 h-5 text-purple-600" />
+          <Badge className="bg-purple-100 text-purple-800">Basées sur votre historique</Badge>
+        </div>
+        
+        {recommendations ? (
+          <AIRecommendationCard
+            evolutionAnalysis={recommendations.evolutionAnalysis}
+            personalizedInsights={recommendations.personalizedInsights}
+            recommendedBoxes={recommendations.recommendedBoxes}
+            actionableAdvice={recommendations.actionableAdvice}
+            nextSteps={recommendations.nextSteps}
+            confidenceScore={recommendations.confidenceScore}
+            isLoading={loading}
+          />
+        ) : (
+          <AIRecommendationCard
+            evolutionAnalysis="Analyse en cours..."
+            personalizedInsights={[]}
+            recommendedBoxes={[]}
+            actionableAdvice={[]}
+            nextSteps={[]}
+            confidenceScore={0}
+            isLoading={loading}
+          />
+        )}
+
+        {error && (
+          <Card className="border-red-200 bg-red-50">
+            <CardContent className="p-4">
+              <p className="text-red-800 text-sm">
+                ⚠️ {error}
+              </p>
+              <p className="text-red-600 text-xs mt-1">
+                Les recommandations de base sont affichées en attendant la résolution du problème.
+              </p>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+
+      {/* Historique des évaluations */}
+      <Card className="border-gray-200 bg-white">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
             <Target className="w-5 h-5" />
-            Recommandations Personnalisées
-          </h3>
-          
-          {analysis.nextRecommendations.map((rec: any, index: number) => (
-            <Card key={index} className="border-teal-200 bg-gradient-to-br from-teal-50 to-cyan-50">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-lg text-teal-800">Recommandation #{index + 1}</CardTitle>
-                    <Badge className={`mt-1 ${
-                      rec.timeline === 'immediate' ? 'bg-red-100 text-red-800' :
-                      rec.timeline === 'short_term' ? 'bg-orange-100 text-orange-800' :
-                      'bg-blue-100 text-blue-800'
-                    }`}>
-                      {rec.timeline === 'immediate' ? 'Immédiat' :
-                       rec.timeline === 'short_term' ? 'Court terme' : 'Long terme'}
+            Historique des Évaluations
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            {simulatedHistory.map((assessment, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div>
+                  <p className="font-medium">{assessment.date}</p>
+                  <p className="text-sm text-gray-600">Score: {assessment.score}% - {assessment.riskLevel}</p>
+                </div>
+                <div className="text-right">
+                  {assessment.improvements.length > 0 && (
+                    <Badge className="bg-green-100 text-green-800 text-xs">
+                      +{assessment.improvements.length} améliorations
                     </Badge>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-600">Confiance</p>
-                    <div className="flex items-center gap-2">
-                      <Progress value={rec.confidenceScore * 100} className="w-16 h-2" />
-                      <span className="text-sm font-medium">{Math.round(rec.confidenceScore * 100)}%</span>
-                    </div>
-                  </div>
+                  )}
                 </div>
-              </CardHeader>
-              
-              <CardContent className="space-y-4">
-                <div>
-                  <h5 className="font-semibold text-gray-800 mb-2">Pourquoi cette recommandation ?</h5>
-                  <p className="text-sm text-gray-600">{rec.reasoning}</p>
-                </div>
-                
-                <div>
-                  <h5 className="font-semibold text-gray-800 mb-2">Box recommandées</h5>
-                  <div className="grid md:grid-cols-2 gap-3">
-                    {rec.recommendedBoxes.map((boxId: string, boxIndex: number) => (
-                      <div key={boxIndex} className="flex items-center gap-2 p-3 bg-white/60 rounded-lg">
-                        <Package className="w-4 h-4 text-teal-600" />
-                        <span className="text-sm font-medium">{boxId}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                {rec.followUpRecommendations.length > 0 && (
-                  <div>
-                    <h5 className="font-semibold text-gray-800 mb-2">Actions de suivi</h5>
-                    <ul className="space-y-1">
-                      {rec.followUpRecommendations.map((action: string, actionIndex: number) => (
-                        <li key={actionIndex} className="text-sm text-gray-600 flex items-center gap-2">
-                          <Calendar className="w-3 h-3 text-teal-600" />
-                          {action}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                
-                <div className="flex gap-3 pt-4 border-t border-teal-200">
-                  <Link to="/shop">
-                    <Button className="bg-teal-600 hover:bg-teal-700">
-                      <Package className="w-4 h-4 mr-2" />
-                      Voir les box
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </Link>
-                  <Button variant="outline" className="border-teal-300 text-teal-700">
-                    Plus d'options
-                  </Button>
-                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Actions rapides */}
+      <Card className="border-gray-200 bg-white">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Target className="w-5 h-5" />
+            Actions rapides
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid md:grid-cols-3 gap-4">
+            <Link to="/simulator-home">
+              <Card className="hover:shadow-md transition-shadow cursor-pointer border-blue-200 bg-blue-50">
+                <CardContent className="p-4 text-center">
+                  <TrendingUp className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+                  <h4 className="font-semibold">Nouvelle évaluation</h4>
+                  <p className="text-sm text-gray-600">Mettre à jour les recommandations</p>
+                </CardContent>
+              </Card>
+            </Link>
+            
+            <Link to="/shop">
+              <Card className="hover:shadow-md transition-shadow cursor-pointer border-green-200 bg-green-50">
+                <CardContent className="p-4 text-center">
+                  <Package className="w-8 h-8 text-green-600 mx-auto mb-2" />
+                  <h4 className="font-semibold">Explorer les box</h4>
+                  <p className="text-sm text-gray-600">Découvrir toutes les options</p>
+                </CardContent>
+              </Card>
+            </Link>
+            
+            <Card className="hover:shadow-md transition-shadow cursor-pointer border-purple-200 bg-purple-50">
+              <CardContent className="p-4 text-center">
+                <Brain className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                <h4 className="font-semibold">Historique complet</h4>
+                <p className="text-sm text-gray-600">Voir toute votre évolution</p>
               </CardContent>
             </Card>
-          ))}
-        </div>
-      )}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

@@ -97,12 +97,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signUp = async (email: string, password: string, userData?: any) => {
     try {
       console.log('Attempting sign up for:', email);
+      
+      // Use the current domain for email confirmation
+      const redirectUrl = `${window.location.origin}/auth/callback`;
+      console.log('Using redirect URL:', redirectUrl);
+      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: userData,
-          emailRedirectTo: `${window.location.origin}/`
+          emailRedirectTo: redirectUrl
         }
       });
       
@@ -110,6 +115,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         console.error('Sign up error:', error);
       } else {
         console.log('Sign up successful:', data.user?.email);
+        // User can now sign in even without email confirmation
+        if (data.user && !data.user.email_confirmed_at) {
+          console.log('User created but email not confirmed yet');
+        }
       }
       
       return { data, error };

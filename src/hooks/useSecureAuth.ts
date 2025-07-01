@@ -25,7 +25,6 @@ export const useSecureAuth = () => {
       const result = await signIn(email, password);
       
       if (result.error) {
-        // Log security event
         console.warn('Failed login attempt:', { email, timestamp: new Date().toISOString() });
       }
 
@@ -63,7 +62,8 @@ export const useSecureAuth = () => {
         role: userData.role?.trim()?.toLowerCase()
       } : {};
 
-      // SECURITY FIX: Add emailRedirectTo to prevent auth bypass
+      console.log('Attempting signup with proper redirect URL');
+      
       const result = await signUp(email, password, {
         ...sanitizedUserData,
         options: {
@@ -73,8 +73,8 @@ export const useSecureAuth = () => {
       
       if (!result.error) {
         toast({
-          title: "Compte créé avec succès",
-          description: "Vérifiez votre email pour confirmer votre compte. Le lien expire dans 24h."
+          title: "Inscription réussie !",
+          description: "Vérifiez votre email pour confirmer votre compte. Vous pouvez vous connecter dès maintenant.",
         });
       }
 

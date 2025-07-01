@@ -30,35 +30,50 @@ export const useRealtimeChat = (visitorId: string) => {
   // Create or get conversation
   const initializeConversation = async () => {
     try {
-      // Check if conversation already exists
-      const { data: existingConversation } = await supabase
+      console.log('Initializing conversation for visitor:', visitorId);
+      
+      // Try to get existing conversation first
+      const { data: existingConversation, error: fetchError } = await supabase
         .from('conversations')
         .select('*')
         .eq('visitor_id', visitorId)
         .eq('status', 'active')
-        .single();
+        .maybeSingle();
+
+      if (fetchError) {
+        console.error('Error fetching conversation:', fetchError);
+      }
 
       if (existingConversation) {
+        console.log('Found existing conversation:', existingConversation.id);
         setConversation(existingConversation);
-        loadMessages(existingConversation.id);
+        await loadMessages(existingConversation.id);
       } else {
         // Create new conversation
-        const { data: newConversation, error } = await supabase
+        console.log('Creating new conversation for visitor:', visitorId);
+        const { data: newConversation, error: createError } = await supabase
           .from('conversations')
-          .insert([{ visitor_id: visitorId }])
+          .insert([{ 
+            visitor_id: visitorId,
+            status: 'active'
+          }])
           .select()
           .single();
 
-        if (error) throw error;
+        if (createError) {
+          console.error('Error creating conversation:', createError);
+          throw createError;
+        }
         
+        console.log('Created new conversation:', newConversation.id);
         setConversation(newConversation);
-        loadMessages(newConversation.id);
+        await loadMessages(newConversation.id);
       }
     } catch (error) {
       console.error('Error initializing conversation:', error);
       toast({
         title: "Erreur",
-        description: "Impossible d'initialiser la conversation",
+        description: "Impossible d'initialiser la conversation. Veuillez réessayer.",
         variant: "destructive"
       });
     } finally {
@@ -69,13 +84,19 @@ export const useRealtimeChat = (visitorId: string) => {
   // Load messages for conversation
   const loadMessages = async (conversationId: string) => {
     try {
+      console.log('Loading messages for conversation:', conversationId);
       const { data, error } = await supabase
         .from('messages')
         .select('*')
         .eq('conversation_id', conversationId)
         .order('created_at', { ascending: true });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error loading messages:', error);
+        throw error;
+      }
+      
+      console.log('Loaded messages:', data?.length || 0);
       setMessages(data || []);
     } catch (error) {
       console.error('Error loading messages:', error);
@@ -84,9 +105,14 @@ export const useRealtimeChat = (visitorId: string) => {
 
   // Send message
   const sendMessage = async (content: string, isFromVisitor: boolean = true) => {
-    if (!conversation) return;
+    if (!conversation) {
+      console.error('No conversation available');
+      return;
+    }
 
     try {
+      console.log('Sending message:', { content, isFromVisitor, conversationId: conversation.id });
+      
       const { error } = await supabase
         .from('messages')
         .insert([{
@@ -96,7 +122,12 @@ export const useRealtimeChat = (visitorId: string) => {
           admin_user_id: isFromVisitor ? null : undefined
         }]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error sending message:', error);
+        throw error;
+      }
+      
+      console.log('Message sent successfully');
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
@@ -111,8 +142,10 @@ export const useRealtimeChat = (visitorId: string) => {
   useEffect(() => {
     if (!conversation) return;
 
+    console.log('Setting up realtime subscription for conversation:', conversation.id);
+    
     const channel = supabase
-      .channel('messages')
+      .channel(`messages:${conversation.id}`)
       .on(
         'postgres_changes',
         {
@@ -122,19 +155,24 @@ export const useRealtimeChat = (visitorId: string) => {
           filter: `conversation_id=eq.${conversation.id}`
         },
         (payload) => {
+          console.log('Received new message:', payload.new);
           const newMessage = payload.new as Message;
           setMessages(prev => [...prev, newMessage]);
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        console.log('Realtime subscription status:', status);
+      });
 
     return () => {
+      console.log('Cleaning up realtime subscription');
       supabase.removeChannel(channel);
     };
   }, [conversation]);
 
   // Initialize conversation on mount
   useEffect(() => {
+    console.log('useRealtimeChat: Initializing for visitor:', visitorId);
     initializeConversation();
   }, [visitorId]);
 

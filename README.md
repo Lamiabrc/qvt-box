@@ -1,73 +1,59 @@
-# Welcome to your Lovable project
 
-## Project info
+# QVT Box - Sortez de votre bulle, on veille sur vous
 
-**URL**: https://lovable.dev/projects/d0b4b43a-ed3f-4246-807f-bc69144dca57
+## À propos du projet
 
-## How can I edit this code?
+QVT Box est la première solution phygitale qui transforme le bien-être en expérience tangible et mesurable. Nous proposons des solutions innovantes pour les entreprises et les familles.
 
-There are several ways of editing your application.
+**Site web**: https://qvtbox.com
 
-**Use Lovable**
+## Nos univers
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d0b4b43a-ed3f-4246-807f-bc69144dca57) and start prompting.
+### QVT Box Entreprise
+- Prévention des risques psychosociaux au travail
+- Évaluateur bien-être IA (2 min)
+- Dashboard RH complet
+- Prédiction burn-out
 
-Changes made via Lovable will be committed automatically to this repo.
+### QVTeen Box Famille
+- Harmonie familiale entre ados et parents
+- Diagnostic familial rapide
+- Mood-tracker intergénérationnel
+- Teen Box & Family Box mensuelles
 
-**Use your preferred IDE**
+## Technologies utilisées
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
+Ce projet est construit avec :
 
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- Supabase
 
-## How can I deploy this project?
+## Installation et développement
 
-Simply open [Lovable](https://lovable.dev/projects/d0b4b43a-ed3f-4246-807f-bc69144dca57) and click on Share -> Publish.
+Pour lancer le projet en local :
 
-## Can I connect a custom domain to my Lovable project?
+```sh
+# Cloner le repository
+git clone <YOUR_GIT_URL>
 
-Yes, you can!
+# Naviguer dans le dossier du projet
+cd <YOUR_PROJECT_NAME>
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+# Installer les dépendances
+npm i
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+# Lancer le serveur de développement
+npm run dev
+```
+
+## Déploiement
+
+Le projet peut être déployé sur différentes plateformes d'hébergement web.
+
+## Contact
+
+Pour plus d'informations sur QVT Box, visitez notre site web ou contactez-nous directement.

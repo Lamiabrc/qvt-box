@@ -1,19 +1,18 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { CheckCircle, Users, Heart, Package, Crown, Zap } from 'lucide-react';
+import { CheckCircle, Users, Heart, Package, Crown } from 'lucide-react';
 import { useSubscription } from '@/hooks/useSubscription';
+import StripePaymentButton from './StripePaymentButton';
 
 interface SubscriptionPickerProps {
   type: 'enterprise' | 'family';
-  onSubscribe: (planId: string, userCount: number, withBox: boolean) => void;
 }
 
-const SubscriptionPicker: React.FC<SubscriptionPickerProps> = ({ type, onSubscribe }) => {
+const SubscriptionPicker: React.FC<SubscriptionPickerProps> = ({ type }) => {
   const { plans, calculatePrice } = useSubscription();
   const [userCounts, setUserCounts] = useState<{[key: string]: number}>({});
   const [boxSelections, setBoxSelections] = useState<{[key: string]: boolean}>({});
@@ -164,15 +163,14 @@ const SubscriptionPicker: React.FC<SubscriptionPickerProps> = ({ type, onSubscri
                   </ul>
                 </div>
 
-                {/* Bouton d'abonnement */}
-                <Button
-                  onClick={() => onSubscribe(plan.id, userCount, withBox)}
-                  className={`w-full bg-gradient-to-r ${colorScheme} hover:opacity-90 text-white py-3`}
-                  size="lg"
-                >
-                  <Zap className="w-4 h-4 mr-2" />
-                  Choisir ce plan - {totalPrice}€/mois
-                </Button>
+                {/* Bouton d'abonnement Stripe */}
+                <StripePaymentButton
+                  planId={plan.id}
+                  userCount={userCount}
+                  withBox={withBox}
+                  totalPrice={totalPrice}
+                  className={`bg-gradient-to-r ${colorScheme} hover:opacity-90 text-white`}
+                />
 
                 <div className="text-center text-xs text-gray-500">
                   ✅ 14 jours d'essai gratuit • 🔄 Résiliation facile

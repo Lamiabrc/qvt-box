@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -29,6 +28,7 @@ import EnterpriseOrientation from "./pages/EnterpriseOrientation";
 import FamilyOrientation from "./pages/FamilyOrientation";
 import TeensHome from "./pages/TeensHome";
 import NotFound from "./pages/NotFound";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +50,7 @@ function App() {
                   <Route path="/famille" element={<FamilyOrientation />} />
                   <Route path="/teens-home" element={<TeensHome />} />
                   <Route path="/payment" element={<Payment />} />
+                  <Route path="/payment-success" element={<PaymentSuccess />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/admin-login" element={<AdminLogin />} />
                   <Route path="/register" element={<Auth />} />

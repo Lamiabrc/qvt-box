@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -59,8 +58,8 @@ export const useUserConnections = (connectionType?: 'colleague' | 'friend' | 'fa
       const formatted = data?.map(req => ({
         connection_id: req.id,
         connected_user_id: req.requester_id,
-        connected_user_name: req.profiles?.full_name || '',
-        connected_user_email: req.profiles?.email || '',
+        connected_user_name: (req.profiles as any)?.full_name || '',
+        connected_user_email: (req.profiles as any)?.email || '',
         connection_status: req.status,
         emotional_state: {}
       })) || [];

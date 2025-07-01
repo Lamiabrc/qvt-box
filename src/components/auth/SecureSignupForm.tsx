@@ -23,6 +23,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [needsManualLogin, setNeedsManualLogin] = useState(false);
   const { signUp } = useAuth();
   const { toast } = useToast();
 
@@ -43,6 +44,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
     setIsLoading(true);
     setGeneralError(null);
     setSuccessMessage(null);
+    setNeedsManualLogin(false);
     
     try {
       console.log('Form submission started with data:', {
@@ -78,7 +80,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
       if (result.immediateLogin && result.data?.session) {
         console.log('Immediate login successful');
         
-        setSuccessMessage('Compte créé avec succès ! Vous êtes maintenant connecté.');
+        setSuccessMessage('Parfait ! Votre compte a été créé et vous êtes maintenant connecté.');
         
         toast({
           title: "Connexion réussie !",
@@ -91,13 +93,14 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
             onSuccess();
           }, 1500);
         }
-      } else if (result.needsConfirmation) {
-        // User needs email confirmation
-        setSuccessMessage('Compte créé ! Veuillez vérifier votre email pour activer votre compte, puis vous connecter.');
+      } else if (result.needsManualLogin) {
+        // Account created but needs manual login
+        setNeedsManualLogin(true);
+        setSuccessMessage('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
         
         toast({
-          title: "Vérification requise",
-          description: "Consultez votre email pour activer votre compte.",
+          title: "Compte créé !",
+          description: "Connectez-vous avec vos identifiants pour accéder à QVT Box.",
         });
       } else {
         // Fallback success message
@@ -105,7 +108,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         
         toast({
           title: "Compte créé !",
-          description: "Vous pouvez maintenant vous connecter avec vos identifiants.",
+          description: "Connectez-vous avec vos identifiants pour accéder à QVT Box.",
         });
       }
       
@@ -281,15 +284,20 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         )}
       </Button>
 
-      {successMessage && (
+      {needsManualLogin && (
+        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-md">
+          <p className="text-sm text-blue-800">
+            <strong>Dernière étape :</strong> Votre compte a été créé avec succès ! 
+            Cliquez sur "Connexion" dans la navigation pour vous connecter avec vos identifiants.
+          </p>
+        </div>
+      )}
+
+      {successMessage && !needsManualLogin && successMessage.includes('connecté') && (
         <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
           <p className="text-sm text-green-800">
-            <strong>Parfait !</strong> {successMessage.includes('connecté') ? 
-              'Votre compte a été créé et vous êtes maintenant connecté. Vous pouvez commencer à utiliser QVT Box immédiatement !' :
-              successMessage.includes('email') ?
-              'Consultez votre boîte email et cliquez sur le lien de confirmation pour activer votre compte.' :
-              'Utilisez vos identifiants pour vous connecter et accéder à QVT Box.'
-            }
+            <strong>Excellent !</strong> Vous pouvez maintenant utiliser QVT Box. 
+            Vous allez être redirigé automatiquement.
           </p>
         </div>
       )}

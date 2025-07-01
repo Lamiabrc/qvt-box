@@ -7,13 +7,13 @@ export const authService = {
       console.log('Attempting sign up for:', email);
       console.log('User data:', userData);
       
-      // First, try to sign up the user without email confirmation
+      // Try to sign up without email confirmation
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: userData || {},
-          // Remove email redirect to prevent confirmation page redirect
+          // Explicitly disable email confirmation
           emailRedirectTo: undefined,
         }
       });
@@ -61,28 +61,41 @@ export const authService = {
         return { data, error };
       }
 
-      // If signup was successful, try to sign in immediately
-      if (data.user) {
-        console.log('User created, attempting immediate sign in...');
+      // Si l'inscription réussit et qu'on a un utilisateur mais pas de session
+      // c'est que la confirmation email est requise
+      if (data.user && !data.session) {
+        console.log('User created but no session - email confirmation might be required');
         
-        // Try to sign in immediately without waiting
+        // Tenter une connexion immédiate
+        console.log('Attempting immediate sign in...');
         const signInResult = await this.signIn(email, password);
         
         if (!signInResult.error && signInResult.data?.session) {
-          console.log('Successfully signed in after signup');
+          console.log('Immediate sign in successful');
           return { 
             data: signInResult.data, 
             error: null,
             immediateLogin: true 
           };
         } else {
-          console.log('Immediate sign in failed, user may need email confirmation');
+          console.log('Immediate sign in failed, returning signup success without session');
           return { 
             data, 
             error: null,
-            needsConfirmation: true 
+            needsManualLogin: true,
+            message: 'Compte créé avec succès ! Veuillez vous connecter avec vos identifiants.'
           };
         }
+      }
+      
+      // Si on a une session directement, parfait !
+      if (data.session) {
+        console.log('Sign up successful with immediate session');
+        return { 
+          data, 
+          error: null,
+          immediateLogin: true 
+        };
       }
       
       console.log('Sign up completed:', data.user?.email);

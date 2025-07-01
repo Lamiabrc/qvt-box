@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff, User, Mail, Lock, AlertCircle, Loader2, Info } from 'lucide-react';
+import { Eye, EyeOff, User, Mail, Lock, AlertCircle, Loader2, CheckCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { signupSchema, type SignupFormData } from '@/lib/validations';
@@ -22,7 +21,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [generalError, setGeneralError] = useState<string | null>(null);
-  const [debugInfo, setDebugInfo] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const { signUp } = useAuth();
   const { toast } = useToast();
 
@@ -42,7 +41,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
   const onSubmit = async (data: SignupFormData) => {
     setIsLoading(true);
     setGeneralError(null);
-    setDebugInfo(null);
+    setSuccessMessage(null);
     
     try {
       console.log('Form submission started with data:', {
@@ -61,20 +60,13 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
       if (error) {
         console.error('Signup error:', error);
         
-        // Set debug info for troubleshooting
-        setDebugInfo(`Erreur technique: ${error.message}`);
-        
         // Handle specific error cases
         if (error.message.includes('already registered') || error.message.includes('déjà utilisée')) {
           setError('email', { message: 'Cet email est déjà utilisé' });
-        } else if (error.message.includes('captcha') || error.message.includes('CAPTCHA') || error.message.includes('sécurité')) {
-          setGeneralError('Problème de vérification de sécurité. Ceci peut être dû à la configuration Supabase. Veuillez contacter le support.');
         } else if (error.message.includes('Invalid email')) {
           setError('email', { message: 'Format d\'email invalide' });
         } else if (error.message.includes('Password')) {
           setError('password', { message: 'Le mot de passe doit contenir au moins 6 caractères' });
-        } else if (error.message.includes('Invalid')) {
-          setGeneralError('Données invalides. Vérifiez vos informations et réessayez.');
         } else {
           setGeneralError(error.message || 'Erreur lors de la création du compte. Veuillez réessayer.');
         }
@@ -84,18 +76,16 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
       // Success case
       console.log('Signup successful, user:', authData?.user?.email);
       
+      setSuccessMessage('Compte créé avec succès ! Redirection vers la page de connexion...');
+      
       toast({
         title: "Compte créé avec succès !",
-        description: "Vérifiez votre email pour confirmer votre compte.",
+        description: "Vous allez être redirigé vers la page de connexion.",
       });
-      
-      // Don't call onSuccess immediately, let the AuthContext handle the redirect
-      // onSuccess will be called after email confirmation
       
     } catch (error) {
       console.error('Unexpected signup error:', error);
       setGeneralError('Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.');
-      setDebugInfo(`Erreur inattendue: ${error}`);
     } finally {
       setIsLoading(false);
     }
@@ -110,12 +100,10 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         </Alert>
       )}
 
-      {debugInfo && (
-        <Alert>
-          <Info className="h-4 w-4" />
-          <AlertDescription className="text-xs">
-            <strong>Debug:</strong> {debugInfo}
-          </AlertDescription>
+      {successMessage && (
+        <Alert className="border-green-200 bg-green-50">
+          <CheckCircle className="h-4 w-4 text-green-600" />
+          <AlertDescription className="text-green-800">{successMessage}</AlertDescription>
         </Alert>
       )}
 
@@ -267,19 +255,10 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         )}
       </Button>
 
-      {(generalError || debugInfo) && (
-        <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
-          <p className="text-sm text-yellow-800">
-            <strong>Besoin d'aide ?</strong> Si vous rencontrez des problèmes répétés avec le CAPTCHA, 
-            cela peut être dû à la configuration Supabase. 
-            <br />
-            <strong>Solutions à essayer :</strong>
-            <br />
-            1. Vérifiez que l'URL du site est correctement configurée dans Supabase
-            <br />
-            2. Désactivez temporairement le CAPTCHA dans les paramètres d'authentification Supabase
-            <br />
-            3. Contactez le support pour obtenir de l'aide
+      {successMessage && (
+        <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
+          <p className="text-sm text-green-800">
+            <strong>Succès !</strong> Votre compte a été créé. Vous allez être redirigé vers la page de connexion où vous pourrez vous connecter immédiatement.
           </p>
         </div>
       )}

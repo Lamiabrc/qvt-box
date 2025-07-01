@@ -98,11 +98,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.log('Attempting sign up for:', email);
       console.log('User data:', userData);
       
-      // Use the current domain for email confirmation
-      const redirectUrl = `${window.location.origin}/auth/callback`;
+      // Redirection directe vers la page de connexion
+      const redirectUrl = `https://qvtbox.com/login`;
       console.log('Using redirect URL:', redirectUrl);
       
-      // Try a simpler signup first without extra options
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -122,16 +121,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
         
         // Handle specific error cases with user-friendly messages
-        if (error.message.includes('captcha') || error.message.includes('CAPTCHA')) {
-          return { 
-            data, 
-            error: { 
-              ...error, 
-              message: 'Vérification de sécurité requise. Ceci est un problème de configuration. Veuillez contacter le support.' 
-            }
-          };
-        }
-        
         if (error.message.includes('already registered') || error.message.includes('User already registered')) {
           return { 
             data, 
@@ -166,15 +155,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { data, error };
       } else {
         console.log('Sign up successful:', data.user?.email);
-        console.log('User confirmation required:', !data.user?.email_confirmed_at);
         
-        // Check if email confirmation is required
-        if (data.user && !data.user.email_confirmed_at) {
-          console.log('User created, redirecting to email confirmation');
-          setTimeout(() => {
-            window.location.href = '/email-confirmation';
-          }, 1000);
-        }
+        // Redirection immédiate vers la page de connexion
+        setTimeout(() => {
+          window.location.href = 'https://qvtbox.com/login';
+        }, 1000);
       }
       
       return { data, error };
@@ -200,18 +185,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (error) {
         console.error('Sign in error:', error.message);
         
-        // Handle CAPTCHA error for sign in
-        if (error.message.includes('captcha')) {
-          return { 
-            data, 
-            error: { 
-              ...error, 
-              message: 'La vérification de sécurité a échoué. Veuillez réessayer dans quelques instants.' 
-            }
-          };
-        }
-        
-        // Handle other common errors
+        // Handle common errors
         if (error.message.includes('Invalid login credentials')) {
           return { 
             data, 

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -50,49 +51,57 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         fullName: data.fullName
       });
 
-      const { data: authData, error } = await signUp(data.email, data.password, {
+      const result = await signUp(data.email, data.password, {
         full_name: data.fullName,
         role: data.role
       });
       
-      console.log('SignUp response:', { authData, error });
+      console.log('SignUp response:', result);
       
-      if (error) {
-        console.error('Signup error:', error);
+      if (result.error) {
+        console.error('Signup error:', result.error);
         
         // Handle specific error cases
-        if (error.message.includes('already registered') || error.message.includes('déjà utilisée')) {
+        if (result.error.message.includes('already registered') || result.error.message.includes('déjà utilisée')) {
           setError('email', { message: 'Cet email est déjà utilisé' });
-        } else if (error.message.includes('Invalid email')) {
+        } else if (result.error.message.includes('Invalid email')) {
           setError('email', { message: 'Format d\'email invalide' });
-        } else if (error.message.includes('Password')) {
+        } else if (result.error.message.includes('Password')) {
           setError('password', { message: 'Le mot de passe doit contenir au moins 6 caractères' });
         } else {
-          setGeneralError(error.message || 'Erreur lors de la création du compte. Veuillez réessayer.');
+          setGeneralError(result.error.message || 'Erreur lors de la création du compte. Veuillez réessayer.');
         }
         return;
       }
 
-      // Success case - check if user is logged in
-      if (authData?.user && authData?.session) {
-        console.log('Signup successful with immediate session:', authData.user.email);
+      // Check if immediate login was successful
+      if (result.immediateLogin && result.data?.session) {
+        console.log('Immediate login successful');
         
         setSuccessMessage('Compte créé avec succès ! Vous êtes maintenant connecté.');
         
         toast({
-          title: "Compte créé avec succès !",
-          description: "Vous êtes maintenant connecté et pouvez utiliser l'application.",
+          title: "Connexion réussie !",
+          description: "Votre compte a été créé et vous êtes maintenant connecté.",
         });
 
-        // Call onSuccess callback if provided
+        // Call onSuccess callback after a short delay
         if (onSuccess) {
           setTimeout(() => {
             onSuccess();
           }, 1500);
         }
-      } else if (authData?.user && !authData?.session) {
-        // User created but not logged in - provide instructions
-        setSuccessMessage('Compte créé ! Vous pouvez maintenant vous connecter avec vos identifiants.');
+      } else if (result.needsConfirmation) {
+        // User needs email confirmation
+        setSuccessMessage('Compte créé ! Veuillez vérifier votre email pour activer votre compte, puis vous connecter.');
+        
+        toast({
+          title: "Vérification requise",
+          description: "Consultez votre email pour activer votre compte.",
+        });
+      } else {
+        // Fallback success message
+        setSuccessMessage('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
         
         toast({
           title: "Compte créé !",
@@ -277,6 +286,8 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
           <p className="text-sm text-green-800">
             <strong>Parfait !</strong> {successMessage.includes('connecté') ? 
               'Votre compte a été créé et vous êtes maintenant connecté. Vous pouvez commencer à utiliser QVT Box immédiatement !' :
+              successMessage.includes('email') ?
+              'Consultez votre boîte email et cliquez sur le lien de confirmation pour activer votre compte.' :
               'Utilisez vos identifiants pour vous connecter et accéder à QVT Box.'
             }
           </p>

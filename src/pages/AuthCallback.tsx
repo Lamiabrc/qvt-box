@@ -10,39 +10,67 @@ import FloatingBubbles from "../components/FloatingBubbles";
 
 const AuthCallback = () => {
   const [searchParams] = useSearchParams();
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+  const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'redirect'>('loading');
   const [message, setMessage] = useState('');
   const { user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleEmailConfirmation = async () => {
+    const handleAuthCallback = async () => {
       try {
         const token = searchParams.get('token');
         const type = searchParams.get('type');
+        const error = searchParams.get('error');
         
-        if (!token || type !== 'signup') {
+        // If there's an error in the URL, show it
+        if (error) {
           setStatus('error');
-          setMessage('Lien de confirmation invalide');
+          setMessage('Erreur lors de la confirmation: ' + error);
           return;
         }
-
-        // Le token sera automatiquement traité par Supabase
-        // On attend un moment pour laisser le temps à l'auth de se mettre à jour
-        setTimeout(() => {
+        
+        // If no token, this might be a redirect from signup - check if user is already logged in
+        if (!token) {
           if (user) {
-            setStatus('success');
-            setMessage('Votre email a été confirmé avec succès !');
-            toast({
-              title: "Email confirmé !",
-              description: "Votre compte est maintenant actif. Bienvenue dans QVT Box !",
-            });
+            console.log('User already logged in, redirecting to home');
+            setStatus('redirect');
+            setTimeout(() => {
+              navigate('/');
+            }, 1000);
+            return;
           } else {
             setStatus('error');
-            setMessage('Erreur lors de la confirmation. Veuillez réessayer.');
+            setMessage('Lien de confirmation invalide ou expiré');
+            return;
           }
-        }, 2000);
+        }
+        
+        // If we have a token, it's an email confirmation
+        if (token && type === 'signup') {
+          // Wait for auth state to update
+          setTimeout(() => {
+            if (user) {
+              setStatus('success');
+              setMessage('Votre email a été confirmé avec succès !');
+              toast({
+                title: "Email confirmé !",
+                description: "Votre compte est maintenant actif. Bienvenue dans QVT Box !",
+              });
+              
+              // Redirect after success
+              setTimeout(() => {
+                navigate('/');
+              }, 2000);
+            } else {
+              setStatus('error');
+              setMessage('Erreur lors de la confirmation. Veuillez réessayer de vous connecter.');
+            }
+          }, 2000);
+        } else {
+          setStatus('error');
+          setMessage('Type de confirmation non reconnu');
+        }
 
       } catch (error) {
         console.error('Erreur lors de la confirmation:', error);
@@ -51,8 +79,8 @@ const AuthCallback = () => {
       }
     };
 
-    handleEmailConfirmation();
-  }, [searchParams, user, toast]);
+    handleAuthCallback();
+  }, [searchParams, user, toast, navigate]);
 
   const handleContinue = () => {
     if (status === 'success') {
@@ -75,6 +103,21 @@ const AuthCallback = () => {
             </CardTitle>
             <CardDescription className="text-teal-600 text-center">
               Nous confirmons votre email, veuillez patienter
+            </CardDescription>
+          </>
+        );
+        
+      case 'redirect':
+        return (
+          <>
+            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Check className="w-8 h-8 text-white" />
+            </div>
+            <CardTitle className="text-2xl text-green-800 text-center">
+              Déjà connecté !
+            </CardTitle>
+            <CardDescription className="text-green-600 text-center">
+              Redirection vers votre espace...
             </CardDescription>
           </>
         );
@@ -131,7 +174,7 @@ const AuthCallback = () => {
             </CardHeader>
             
             <CardContent>
-              {status !== 'loading' && (
+              {status !== 'loading' && status !== 'redirect' && (
                 <div className="space-y-4">
                   <Button 
                     onClick={handleContinue}

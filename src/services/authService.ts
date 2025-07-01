@@ -7,13 +7,13 @@ export const authService = {
       console.log('Attempting sign up for:', email);
       console.log('User data:', userData);
       
-      // First, try to sign up the user
+      // First, try to sign up the user without email confirmation
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: userData || {},
-          // Disable email confirmation to allow immediate login
+          // Remove email redirect to prevent confirmation page redirect
           emailRedirectTo: undefined,
         }
       });
@@ -61,22 +61,31 @@ export const authService = {
         return { data, error };
       }
 
-      // If signup was successful but user needs confirmation, try to sign in directly
-      if (data.user && !data.session) {
-        console.log('User created but no session, attempting direct sign in...');
+      // If signup was successful, try to sign in immediately
+      if (data.user) {
+        console.log('User created, attempting immediate sign in...');
         
-        // Wait a moment for the user to be fully created
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Try to sign in immediately
+        // Try to sign in immediately without waiting
         const signInResult = await this.signIn(email, password);
-        if (!signInResult.error) {
+        
+        if (!signInResult.error && signInResult.data?.session) {
           console.log('Successfully signed in after signup');
-          return { data: signInResult.data, error: null };
+          return { 
+            data: signInResult.data, 
+            error: null,
+            immediateLogin: true 
+          };
+        } else {
+          console.log('Immediate sign in failed, user may need email confirmation');
+          return { 
+            data, 
+            error: null,
+            needsConfirmation: true 
+          };
         }
       }
       
-      console.log('Sign up successful:', data.user?.email);
+      console.log('Sign up completed:', data.user?.email);
       return { data, error };
     } catch (error) {
       console.error('Unexpected sign up error:', error);

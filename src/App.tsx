@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import MobileWrapper from "./components/MobileWrapper";
 import RealtimeChatBot from "./components/RealtimeChatBot";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -39,43 +39,45 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <div className="min-h-screen flex flex-col">
-              <Navigation />
-              <main className="flex-1">
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/concept-qvt" element={<ConceptQVT />} />
-                  <Route path="/entreprise" element={<EnterpriseOrientation />} />
-                  <Route path="/famille" element={<FamilyOrientation />} />
-                  <Route path="/teens-home" element={<TeensHome />} />
-                  <Route path="/shop" element={<Shop />} />
-                  <Route path="/payment" element={<Payment />} />
-                  <Route path="/payment-success" element={<PaymentSuccess />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/admin-login" element={<AdminLogin />} />
-                  <Route path="/register" element={<Auth />} />
-                  <Route path="/account" element={<Auth />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/chat-admin" element={<ChatAdmin />} />
-                  <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-                  <Route path="/team-leader-dashboard" element={<TeamLeaderDashboard />} />
-                  <Route path="/employee-personal-space" element={<EmployeePersonalSpace />} />
-                  <Route path="/employee-team-space" element={<EmployeeTeamSpace />} />
-                  <Route path="/employee-wellness-activities" element={<EmployeeWellnessActivities />} />
-                  <Route path="/employee-checkin" element={<EmployeeCheckIn />} />
-                  <Route path="/employee-profile" element={<EmployeeProfile />} />
-                  <Route path="/my-colleagues" element={<MyColleagues />} />
-                  <Route path="/my-friends" element={<MyFriends />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              <Footer />
-              <RealtimeChatBot />
-            </div>
-          </BrowserRouter>
+          <MobileWrapper>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <div className="min-h-screen flex flex-col">
+                <Navigation />
+                <main className="flex-1">
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/concept-qvt" element={<ConceptQVT />} />
+                    <Route path="/entreprise" element={<EnterpriseOrientation />} />
+                    <Route path="/famille" element={<FamilyOrientation />} />
+                    <Route path="/teens-home" element={<TeensHome />} />
+                    <Route path="/shop" element={<Shop />} />
+                    <Route path="/payment" element={<Payment />} />
+                    <Route path="/payment-success" element={<PaymentSuccess />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/admin-login" element={<AdminLogin />} />
+                    <Route path="/register" element={<Auth />} />
+                    <Route path="/account" element={<Auth />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/chat-admin" element={<ChatAdmin />} />
+                    <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+                    <Route path="/team-leader-dashboard" element={<TeamLeaderDashboard />} />
+                    <Route path="/employee-personal-space" element={<EmployeePersonalSpace />} />
+                    <Route path="/employee-team-space" element={<EmployeeTeamSpace />} />
+                    <Route path="/employee-wellness-activities" element={<EmployeeWellnessActivities />} />
+                    <Route path="/employee-checkin" element={<EmployeeCheckIn />} />
+                    <Route path="/employee-profile" element={<EmployeeProfile />} />
+                    <Route path="/my-colleagues" element={<MyColleagues />} />
+                    <Route path="/my-friends" element={<MyFriends />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </main>
+                <Footer />
+                <RealtimeChatBot />
+              </div>
+            </BrowserRouter>
+          </MobileWrapper>
         </TooltipProvider>
       </AuthProvider>
     </QueryClientProvider>

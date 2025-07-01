@@ -1,0 +1,77 @@
+
+/* Mobile-specific styles */
+
+/* Safe area handling for iOS */
+.mobile-app {
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+}
+
+/* iOS specific styles */
+.ios {
+  padding-top: var(--safe-area-inset-top);
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+/* Navigation adjustments for mobile */
+.mobile-app nav {
+  padding-top: calc(1rem + var(--safe-area-inset-top));
+  padding-left: calc(1rem + var(--safe-area-inset-left));
+  padding-right: calc(1rem + var(--safe-area-inset-right));
+}
+
+/* Chat bot adjustments for mobile */
+.mobile-app .fixed.bottom-8.right-8 {
+  bottom: calc(2rem + var(--safe-area-inset-bottom));
+  right: calc(2rem + var(--safe-area-inset-right));
+}
+
+/* Keyboard handling */
+.keyboard-open {
+  padding-bottom: 0 !important;
+}
+
+.keyboard-open .fixed.bottom-8 {
+  bottom: 1rem !important;
+}
+
+/* Touch improvements */
+.mobile-app button {
+  min-height: 44px; /* iOS touch target minimum */
+  min-width: 44px;
+}
+
+.mobile-app input,
+.mobile-app textarea {
+  font-size: 16px; /* Prevent zoom on iOS */
+}
+
+/* Smooth scrolling */
+.mobile-app {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbars on mobile */
+.mobile-app::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-app {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Status bar color matching */
+.mobile-app {
+  background-color: #0f766e;
+}
+
+/* Full height for mobile */
+.native-app {
+  min-height: 100vh;
+  height: 100vh;
+  overflow-x: hidden;
+}

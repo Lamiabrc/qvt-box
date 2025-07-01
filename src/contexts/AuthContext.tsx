@@ -107,12 +107,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         password,
         options: {
           data: userData,
-          emailRedirectTo: redirectUrl
+          emailRedirectTo: redirectUrl,
+          // Disable CAPTCHA for now by using the skipConfirmation option
+          skipConfirmation: false
         }
       });
       
       if (error) {
         console.error('Sign up error:', error);
+        
+        // Handle specific CAPTCHA error
+        if (error.message.includes('captcha')) {
+          return { 
+            data, 
+            error: { 
+              ...error, 
+              message: 'La vérification de sécurité a échoué. Veuillez réessayer dans quelques instants.' 
+            }
+          };
+        }
+        
+        // Handle other common errors with user-friendly messages
+        if (error.message.includes('already registered')) {
+          return { 
+            data, 
+            error: { 
+              ...error, 
+              message: 'Cette adresse email est déjà utilisée. Essayez de vous connecter ou utilisez une autre adresse.' 
+            }
+          };
+        }
+        
         return { data, error };
       } else {
         console.log('Sign up successful:', data.user?.email);
@@ -126,7 +151,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return { data, error };
     } catch (error) {
       console.error('Unexpected sign up error:', error);
-      return { data: null, error };
+      return { 
+        data: null, 
+        error: { 
+          message: 'Une erreur inattendue s\'est produite. Veuillez réessayer.' 
+        }
+      };
     }
   };
 
@@ -140,6 +170,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       if (error) {
         console.error('Sign in error:', error.message);
+        
+        // Handle CAPTCHA error for sign in
+        if (error.message.includes('captcha')) {
+          return { 
+            data, 
+            error: { 
+              ...error, 
+              message: 'La vérification de sécurité a échoué. Veuillez réessayer dans quelques instants.' 
+            }
+          };
+        }
+        
+        // Handle other common errors
+        if (error.message.includes('Invalid login credentials')) {
+          return { 
+            data, 
+            error: { 
+              ...error, 
+              message: 'Email ou mot de passe incorrect.' 
+            }
+          };
+        }
       } else {
         console.log('Sign in successful:', data.user?.email);
       }
@@ -147,7 +199,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return { data, error };
     } catch (error) {
       console.error('Unexpected sign in error:', error);
-      return { data: null, error };
+      return { 
+        data: null, 
+        error: { 
+          message: 'Une erreur inattendue s\'est produite. Veuillez réessayer.' 
+        }
+      };
     }
   };
 

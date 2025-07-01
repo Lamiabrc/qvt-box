@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff, User, Mail, Lock, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, User, Mail, Lock, AlertCircle, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { signupSchema, type SignupFormData } from '@/lib/validations';
@@ -20,6 +21,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [generalError, setGeneralError] = useState<string | null>(null);
   const { signUp } = useAuth();
   const { toast } = useToast();
 
@@ -38,6 +40,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
 
   const onSubmit = async (data: SignupFormData) => {
     setIsLoading(true);
+    setGeneralError(null);
     
     try {
       const { error } = await signUp(data.email, data.password, {
@@ -46,19 +49,31 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
       });
       
       if (error) {
-        if (error.message.includes('already registered')) {
+        console.error('Signup error:', error);
+        
+        // Handle specific error cases
+        if (error.message.includes('already registered') || error.message.includes('déjà utilisée')) {
           setError('email', { message: 'Cet email est déjà utilisé' });
+        } else if (error.message.includes('captcha') || error.message.includes('sécurité')) {
+          setGeneralError('Problème de vérification de sécurité. Veuillez attendre quelques minutes et réessayer.');
+        } else if (error.message.includes('Invalid')) {
+          setGeneralError('Données invalides. Vérifiez vos informations et réessayez.');
         } else {
-          setError('root', { message: 'Erreur lors de la création du compte. Veuillez réessayer.' });
+          setGeneralError(error.message || 'Erreur lors de la création du compte. Veuillez réessayer.');
         }
         return;
       }
 
-      // Ne pas afficher de toast ici car la redirection va se faire automatiquement
+      // Success case - user will be redirected automatically by AuthContext
+      toast({
+        title: "Compte créé avec succès !",
+        description: "Vérifiez votre email pour confirmer votre compte.",
+      });
+      
       onSuccess?.();
     } catch (error) {
-      console.error('Signup error:', error);
-      setError('root', { message: 'Une erreur inattendue s\'est produite' });
+      console.error('Unexpected signup error:', error);
+      setGeneralError('Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.');
     } finally {
       setIsLoading(false);
     }
@@ -66,10 +81,10 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {errors.root && (
+      {generalError && (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{errors.root.message}</AlertDescription>
+          <AlertDescription>{generalError}</AlertDescription>
         </Alert>
       )}
 
@@ -83,6 +98,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
             className="pl-10"
             placeholder="Votre nom complet"
             autoComplete="name"
+            disabled={isLoading}
           />
         </div>
         {errors.fullName && (
@@ -101,6 +117,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
             className="pl-10"
             placeholder="votre@email.com"
             autoComplete="email"
+            disabled={isLoading}
           />
         </div>
         {errors.email && (
@@ -110,7 +127,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
 
       <div className="space-y-2">
         <Label htmlFor="role">Type de compte</Label>
-        <Select onValueChange={(value) => setValue('role', value as any)}>
+        <Select onValueChange={(value) => setValue('role', value as any)} disabled={isLoading}>
           <SelectTrigger>
             <SelectValue placeholder="Sélectionnez votre profil" />
           </SelectTrigger>
@@ -139,11 +156,13 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
             className="pl-10 pr-10"
             placeholder="••••••••"
             autoComplete="new-password"
+            disabled={isLoading}
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            disabled={isLoading}
           >
             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
           </button>
@@ -164,11 +183,13 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
             className="pl-10 pr-10"
             placeholder="••••••••"
             autoComplete="new-password"
+            disabled={isLoading}
           />
           <button
             type="button"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            disabled={isLoading}
           >
             {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
           </button>
@@ -183,6 +204,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
           id="acceptTerms"
           checked={acceptTerms}
           onCheckedChange={(checked) => setValue('acceptTerms', checked as boolean)}
+          disabled={isLoading}
         />
         <Label htmlFor="acceptTerms" className="text-sm">
           J'accepte les{' '}
@@ -204,8 +226,24 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         className="w-full"
         disabled={isLoading}
       >
-        {isLoading ? "Création du compte..." : "Créer mon compte"}
+        {isLoading ? (
+          <>
+            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            Création du compte...
+          </>
+        ) : (
+          "Créer mon compte"
+        )}
       </Button>
+
+      {generalError && (
+        <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+          <p className="text-sm text-yellow-800">
+            <strong>Astuce :</strong> Si vous rencontrez des problèmes répétés, 
+            essayez d'attendre quelques minutes avant de réessayer ou contactez le support.
+          </p>
+        </div>
+      )}
     </form>
   );
 };

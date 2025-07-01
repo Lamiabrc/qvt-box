@@ -120,7 +120,7 @@ const RealtimeChatBot = () => {
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-8 right-8 z-50">
         <Button
           onClick={() => {
             setIsOpen(true);
@@ -138,8 +138,8 @@ const RealtimeChatBot = () => {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <Card className={`w-80 shadow-xl border-teal-200 transition-all duration-300 ${isMinimized ? 'h-14' : 'h-96'}`}>
+    <div className="fixed bottom-8 right-8 z-50">
+      <Card className={`w-96 shadow-xl border-teal-200 transition-all duration-300 ${isMinimized ? 'h-14' : 'h-[500px]'}`}>
         <CardHeader className="p-3 bg-gradient-to-r from-teal-500 to-cyan-500 text-white rounded-t-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -184,7 +184,7 @@ const RealtimeChatBot = () => {
         {!isMinimized && (
           <CardContent className="p-0 h-full flex flex-col">
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-3 space-y-3">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
               {isLoading ? (
                 <div className="flex justify-center items-center h-32">
                   <div className="text-sm text-gray-500">Connexion en cours...</div>
@@ -212,19 +212,19 @@ const RealtimeChatBot = () => {
                       key={message.id}
                       className={`flex ${message.is_from_visitor ? 'justify-end' : 'justify-start'}`}
                     >
-                      <div className={`flex items-end gap-2 max-w-[80%] ${message.is_from_visitor ? 'flex-row-reverse' : 'flex-row'}`}>
-                        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${message.is_from_visitor ? 'bg-blue-100' : 'bg-teal-100'}`}>
+                      <div className={`flex items-end gap-2 max-w-[85%] ${message.is_from_visitor ? 'flex-row-reverse' : 'flex-row'}`}>
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${message.is_from_visitor ? 'bg-blue-100' : 'bg-teal-100'}`}>
                           {message.is_from_visitor ? <User className="w-3 h-3 text-blue-600" /> : <Bot className="w-3 h-3 text-teal-600" />}
                         </div>
                         <div
-                          className={`p-2 rounded-lg text-sm ${
+                          className={`p-3 rounded-xl text-sm leading-relaxed ${
                             message.is_from_visitor
-                              ? 'bg-teal-500 text-white'
-                              : 'bg-gray-100 text-gray-800'
+                              ? 'bg-teal-500 text-white rounded-br-md'
+                              : 'bg-white text-gray-800 rounded-bl-md shadow-sm border'
                           }`}
                         >
-                          <p className="whitespace-pre-line">{message.content}</p>
-                          <p className={`text-xs mt-1 ${message.is_from_visitor ? 'text-teal-100' : 'text-gray-500'}`}>
+                          <p className="whitespace-pre-line font-medium">{message.content}</p>
+                          <p className={`text-xs mt-2 ${message.is_from_visitor ? 'text-teal-100' : 'text-gray-500'}`}>
                             {new Date(message.created_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                           </p>
                         </div>
@@ -237,20 +237,20 @@ const RealtimeChatBot = () => {
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t border-gray-200">
+            <div className="p-4 border-t border-gray-200 bg-white">
               <div className="flex gap-2">
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder={isConnected ? "Tapez votre message..." : "Reconnexion..."}
-                  className="flex-1 text-sm border-teal-200 focus:border-teal-500"
+                  className="flex-1 text-sm border-teal-200 focus:border-teal-500 font-medium"
                   disabled={isLoading || !isConnected}
                 />
                 <Button
                   onClick={handleSendMessage}
                   size="sm"
-                  className="bg-teal-500 hover:bg-teal-600"
+                  className="bg-teal-500 hover:bg-teal-600 px-3"
                   disabled={!inputValue.trim() || isLoading || !isConnected}
                 >
                   <Send className="w-4 h-4" />

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -76,11 +77,11 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
       // Success case
       console.log('Signup successful, user:', authData?.user?.email);
       
-      setSuccessMessage('Compte créé avec succès ! Redirection vers la page de connexion...');
+      setSuccessMessage('Compte créé avec succès ! Vous êtes maintenant connecté.');
       
       toast({
         title: "Compte créé avec succès !",
-        description: "Vous allez être redirigé vers la page de connexion.",
+        description: "Vous êtes maintenant connecté et pouvez utiliser l'application.",
       });
       
     } catch (error) {
@@ -258,7 +259,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
       {successMessage && (
         <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
           <p className="text-sm text-green-800">
-            <strong>Succès !</strong> Votre compte a été créé. Vous allez être redirigé vers la page de connexion où vous pourrez vous connecter immédiatement.
+            <strong>Parfait !</strong> Votre compte a été créé et vous êtes maintenant connecté. Vous pouvez commencer à utiliser QVT Box immédiatement !
           </p>
         </div>
       )}

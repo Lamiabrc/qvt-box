@@ -98,16 +98,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.log('Attempting sign up for:', email);
       console.log('User data:', userData);
       
-      // Redirection directe vers la page de connexion
-      const redirectUrl = `https://qvtbox.com/login`;
-      console.log('Using redirect URL:', redirectUrl);
-      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: userData || {},
-          emailRedirectTo: redirectUrl
+          // Pas de redirection email, connexion directe après inscription
         }
       });
       
@@ -151,15 +147,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           };
         }
         
-        // Return the original error for other cases
         return { data, error };
       } else {
         console.log('Sign up successful:', data.user?.email);
-        
-        // Redirection immédiate vers la page de connexion
-        setTimeout(() => {
-          window.location.href = 'https://qvtbox.com/login';
-        }, 1000);
+        // L'utilisateur sera automatiquement connecté si l'inscription réussit
       }
       
       return { data, error };

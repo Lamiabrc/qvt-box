@@ -37,12 +37,30 @@ const SecureLoginForm: React.FC<SecureLoginFormProps> = ({ onSuccess }) => {
       const { error } = await signIn(data.email, data.password);
       
       if (error) {
+        console.error('Login error:', error);
+        
+        // Gestion spécifique des erreurs d'authentification
         if (error.message.includes('Invalid login credentials')) {
           setError('root', { message: 'Email ou mot de passe incorrect' });
         } else if (error.message.includes('Email not confirmed')) {
           setError('root', { message: 'Veuillez vérifier votre email avant de vous connecter' });
+        } else if (error.message.includes('captcha')) {
+          setError('root', { 
+            message: 'Vérification de sécurité requise. Veuillez réessayer dans quelques minutes.' 
+          });
+          toast({
+            title: "Problème de sécurité détecté",
+            description: "La protection anti-robots est activée. Contactez l'administrateur si le problème persiste.",
+            variant: "destructive"
+          });
+        } else if (error.message.includes('rate limit')) {
+          setError('root', { 
+            message: 'Trop de tentatives de connexion. Veuillez attendre quelques minutes.' 
+          });
         } else {
-          setError('root', { message: 'Erreur de connexion. Veuillez réessayer.' });
+          setError('root', { 
+            message: 'Erreur de connexion. Vérifiez vos identifiants et réessayez.' 
+          });
         }
         return;
       }
@@ -53,9 +71,17 @@ const SecureLoginForm: React.FC<SecureLoginFormProps> = ({ onSuccess }) => {
       });
 
       onSuccess?.();
-    } catch (error) {
-      console.error('Login error:', error);
-      setError('root', { message: 'Une erreur inattendue s\'est produite' });
+    } catch (error: any) {
+      console.error('Unexpected login error:', error);
+      setError('root', { 
+        message: 'Une erreur inattendue s\'est produite. Veuillez réessayer.' 
+      });
+      
+      toast({
+        title: "Erreur de connexion",
+        description: "Un problème technique est survenu. Veuillez réessayer.",
+        variant: "destructive"
+      });
     } finally {
       setIsLoading(false);
     }
@@ -81,6 +107,7 @@ const SecureLoginForm: React.FC<SecureLoginFormProps> = ({ onSuccess }) => {
             className="pl-10"
             placeholder="votre@email.com"
             autoComplete="email"
+            disabled={isLoading}
           />
         </div>
         {errors.email && (
@@ -99,11 +126,13 @@ const SecureLoginForm: React.FC<SecureLoginFormProps> = ({ onSuccess }) => {
             className="pl-10 pr-10"
             placeholder="••••••••"
             autoComplete="current-password"
+            disabled={isLoading}
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 disabled:opacity-50"
+            disabled={isLoading}
           >
             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
           </button>
@@ -118,8 +147,16 @@ const SecureLoginForm: React.FC<SecureLoginFormProps> = ({ onSuccess }) => {
         className="w-full"
         disabled={isLoading}
       >
-        {isLoading ? "Connexion..." : "Se connecter"}
+        {isLoading ? "Connexion en cours..." : "Se connecter"}
       </Button>
+
+      <div className="text-center text-sm text-gray-600">
+        <p>
+          En cas de problème de connexion persistant, 
+          <br />
+          contactez le support technique.
+        </p>
+      </div>
     </form>
   );
 };

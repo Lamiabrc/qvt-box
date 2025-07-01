@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
@@ -107,9 +106,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         password,
         options: {
           data: userData,
-          emailRedirectTo: redirectUrl,
-          // Disable CAPTCHA for now by using the skipConfirmation option
-          skipConfirmation: false
+          emailRedirectTo: redirectUrl
         }
       });
       

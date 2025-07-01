@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -23,6 +24,11 @@ import EmployeeProfile from "./pages/EmployeeProfile";
 import ConceptQVT from "./pages/ConceptQVT";
 import MyColleagues from "./pages/MyColleagues";
 import MyFriends from "./pages/MyFriends";
+import Payment from "./pages/Payment";
+import EnterpriseOrientation from "./pages/EnterpriseOrientation";
+import FamilyOrientation from "./pages/FamilyOrientation";
+import TeensHome from "./pages/TeensHome";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +46,10 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/concept-qvt" element={<ConceptQVT />} />
+                  <Route path="/entreprise" element={<EnterpriseOrientation />} />
+                  <Route path="/famille" element={<FamilyOrientation />} />
+                  <Route path="/teens-home" element={<TeensHome />} />
+                  <Route path="/payment" element={<Payment />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/admin-login" element={<AdminLogin />} />
                   <Route path="/register" element={<Auth />} />
@@ -55,6 +65,7 @@ function App() {
                   <Route path="/employee-profile" element={<EmployeeProfile />} />
                   <Route path="/my-colleagues" element={<MyColleagues />} />
                   <Route path="/my-friends" element={<MyFriends />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
               <Footer />

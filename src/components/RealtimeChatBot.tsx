@@ -9,7 +9,9 @@ import {
   Send, 
   User, 
   Bot,
-  Minimize2
+  Minimize2,
+  WifiOff,
+  Wifi
 } from "lucide-react";
 import { useRealtimeChat } from "@/hooks/useRealtimeChat";
 import { useToast } from "@/hooks/use-toast";
@@ -30,7 +32,7 @@ const RealtimeChatBot = () => {
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-  const { messages, conversation, isLoading, sendMessage } = useRealtimeChat(visitorId);
+  const { messages, conversation, isLoading, isConnected, sendMessage, refreshConversation } = useRealtimeChat(visitorId);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -57,7 +59,7 @@ const RealtimeChatBot = () => {
   }, [messages, isOpen]);
 
   const handleSendMessage = async () => {
-    if (!inputValue.trim() || isLoading) return;
+    if (!inputValue.trim() || isLoading || !isConnected) return;
 
     const messageText = inputValue;
     setInputValue('');
@@ -74,6 +76,11 @@ const RealtimeChatBot = () => {
       }, 1000);
     } catch (error) {
       console.error('Error sending message:', error);
+      toast({
+        title: "Erreur",
+        description: "Message non envoyé. Vérifiez votre connexion.",
+        variant: "destructive"
+      });
     }
   };
 
@@ -81,7 +88,7 @@ const RealtimeChatBot = () => {
     const message = userMessage.toLowerCase();
     
     if (message.includes('bonjour') || message.includes('salut') || message.includes('hello')) {
-      return "Bonjour ! Un de nos conseillers va bientôt vous répondre. En attendant, que puis-je faire pour vous ?";
+      return "Bonjour ! Je suis l'assistant QVT Box. Un de nos conseillers va bientôt vous répondre. En attendant, que puis-je faire pour vous ?";
     }
     
     if (message.includes('prix') || message.includes('tarif')) {
@@ -96,13 +103,14 @@ const RealtimeChatBot = () => {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
       handleSendMessage();
     }
   };
 
   const initializeChat = () => {
-    if (messages.length === 0 && !isLoading) {
+    if (messages.length === 0 && !isLoading && isConnected) {
       // Send welcome message
       setTimeout(() => {
         sendMessage("Bonjour ! Bienvenue sur QVT Box. Comment puis-je vous aider aujourd'hui ?", false);
@@ -139,8 +147,17 @@ const RealtimeChatBot = () => {
                 <Bot className="w-4 h-4" />
               </div>
               <div>
-                <CardTitle className="text-sm font-medium">Chat QVT Box</CardTitle>
-                <p className="text-xs opacity-90">Messagerie instantanée</p>
+                <CardTitle className="text-sm font-medium flex items-center gap-2">
+                  Chat QVT Box
+                  {isConnected ? (
+                    <Wifi className="w-3 h-3 text-green-200" />
+                  ) : (
+                    <WifiOff className="w-3 h-3 text-red-200" />
+                  )}
+                </CardTitle>
+                <p className="text-xs opacity-90">
+                  {isConnected ? 'En ligne' : 'Reconnexion...'}
+                </p>
               </div>
             </div>
             <div className="flex gap-1">
@@ -172,33 +189,51 @@ const RealtimeChatBot = () => {
                 <div className="flex justify-center items-center h-32">
                   <div className="text-sm text-gray-500">Connexion en cours...</div>
                 </div>
+              ) : !isConnected ? (
+                <div className="flex flex-col justify-center items-center h-32 space-y-2">
+                  <WifiOff className="w-8 h-8 text-gray-400" />
+                  <div className="text-sm text-gray-500 text-center">
+                    Connexion interrompue
+                    <br />
+                    <Button 
+                      variant="link" 
+                      size="sm" 
+                      onClick={refreshConversation}
+                      className="p-0 h-auto text-teal-600"
+                    >
+                      Reconnecter
+                    </Button>
+                  </div>
+                </div>
               ) : (
-                messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`flex ${message.is_from_visitor ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div className={`flex items-end gap-2 max-w-[80%] ${message.is_from_visitor ? 'flex-row-reverse' : 'flex-row'}`}>
-                      <div className={`w-6 h-6 rounded-full flex items-center justify-center ${message.is_from_visitor ? 'bg-blue-100' : 'bg-teal-100'}`}>
-                        {message.is_from_visitor ? <User className="w-3 h-3 text-blue-600" /> : <Bot className="w-3 h-3 text-teal-600" />}
-                      </div>
-                      <div
-                        className={`p-2 rounded-lg text-sm ${
-                          message.is_from_visitor
-                            ? 'bg-teal-500 text-white'
-                            : 'bg-gray-100 text-gray-800'
-                        }`}
-                      >
-                        <p className="whitespace-pre-line">{message.content}</p>
-                        <p className={`text-xs mt-1 ${message.is_from_visitor ? 'text-teal-100' : 'text-gray-500'}`}>
-                          {new Date(message.created_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
-                        </p>
+                <>
+                  {messages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.is_from_visitor ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div className={`flex items-end gap-2 max-w-[80%] ${message.is_from_visitor ? 'flex-row-reverse' : 'flex-row'}`}>
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center ${message.is_from_visitor ? 'bg-blue-100' : 'bg-teal-100'}`}>
+                          {message.is_from_visitor ? <User className="w-3 h-3 text-blue-600" /> : <Bot className="w-3 h-3 text-teal-600" />}
+                        </div>
+                        <div
+                          className={`p-2 rounded-lg text-sm ${
+                            message.is_from_visitor
+                              ? 'bg-teal-500 text-white'
+                              : 'bg-gray-100 text-gray-800'
+                          }`}
+                        >
+                          <p className="whitespace-pre-line">{message.content}</p>
+                          <p className={`text-xs mt-1 ${message.is_from_visitor ? 'text-teal-100' : 'text-gray-500'}`}>
+                            {new Date(message.created_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))
+                  ))}
+                  <div ref={messagesEndRef} />
+                </>
               )}
-              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}
@@ -208,15 +243,15 @@ const RealtimeChatBot = () => {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Tapez votre message..."
+                  placeholder={isConnected ? "Tapez votre message..." : "Reconnexion..."}
                   className="flex-1 text-sm border-teal-200 focus:border-teal-500"
-                  disabled={isLoading}
+                  disabled={isLoading || !isConnected}
                 />
                 <Button
                   onClick={handleSendMessage}
                   size="sm"
                   className="bg-teal-500 hover:bg-teal-600"
-                  disabled={!inputValue.trim() || isLoading}
+                  disabled={!inputValue.trim() || isLoading || !isConnected}
                 >
                   <Send className="w-4 h-4" />
                 </Button>

@@ -9,6 +9,59 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      active_subscriptions: {
+        Row: {
+          box_subscription: boolean | null
+          created_at: string | null
+          current_period_end: string | null
+          current_period_start: string | null
+          id: string
+          plan_id: string | null
+          status: string
+          stripe_subscription_id: string | null
+          total_price: number
+          updated_at: string | null
+          user_count: number
+          user_id: string | null
+        }
+        Insert: {
+          box_subscription?: boolean | null
+          created_at?: string | null
+          current_period_end?: string | null
+          current_period_start?: string | null
+          id?: string
+          plan_id?: string | null
+          status?: string
+          stripe_subscription_id?: string | null
+          total_price: number
+          updated_at?: string | null
+          user_count?: number
+          user_id?: string | null
+        }
+        Update: {
+          box_subscription?: boolean | null
+          created_at?: string | null
+          current_period_end?: string | null
+          current_period_start?: string | null
+          id?: string
+          plan_id?: string | null
+          status?: string
+          stripe_subscription_id?: string | null
+          total_price?: number
+          updated_at?: string | null
+          user_count?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "active_subscriptions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       admin_activity_log: {
         Row: {
           action: string
@@ -533,6 +586,44 @@ export type Database = {
             columns: ["family_id"]
             isOneToOne: false
             referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      feature_access: {
+        Row: {
+          created_at: string | null
+          current_usage: number | null
+          feature_name: string
+          id: string
+          is_enabled: boolean | null
+          subscription_id: string | null
+          usage_limit: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          current_usage?: number | null
+          feature_name: string
+          id?: string
+          is_enabled?: boolean | null
+          subscription_id?: string | null
+          usage_limit?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          current_usage?: number | null
+          feature_name?: string
+          id?: string
+          is_enabled?: boolean | null
+          subscription_id?: string | null
+          usage_limit?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feature_access_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "active_subscriptions"
             referencedColumns: ["id"]
           },
         ]
@@ -1085,6 +1176,45 @@ export type Database = {
         }
         Relationships: []
       }
+      subscription_plans: {
+        Row: {
+          base_price: number
+          box_included: boolean | null
+          box_price: number | null
+          created_at: string | null
+          features: Json
+          id: string
+          max_users: number | null
+          name: string
+          price_per_user: number
+          type: string
+        }
+        Insert: {
+          base_price: number
+          box_included?: boolean | null
+          box_price?: number | null
+          created_at?: string | null
+          features?: Json
+          id?: string
+          max_users?: number | null
+          name: string
+          price_per_user?: number
+          type: string
+        }
+        Update: {
+          base_price?: number
+          box_included?: boolean | null
+          box_price?: number | null
+          created_at?: string | null
+          features?: Json
+          id?: string
+          max_users?: number | null
+          name?: string
+          price_per_user?: number
+          type?: string
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           created_at: string
@@ -1580,6 +1710,72 @@ export type Database = {
         }
         Relationships: []
       }
+      user_connections: {
+        Row: {
+          addressee_id: string | null
+          connection_type: string
+          created_at: string | null
+          id: string
+          requester_id: string | null
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          addressee_id?: string | null
+          connection_type: string
+          created_at?: string | null
+          id?: string
+          requester_id?: string | null
+          status?: string
+          updated_at?: string | null
+        }
+        Update: {
+          addressee_id?: string | null
+          connection_type?: string
+          created_at?: string | null
+          id?: string
+          requester_id?: string | null
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_emotional_states: {
+        Row: {
+          created_at: string | null
+          energy_level: number | null
+          id: string
+          is_visible_to_connections: boolean | null
+          mood: string
+          notes: string | null
+          stress_level: number | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          energy_level?: number | null
+          id?: string
+          is_visible_to_connections?: boolean | null
+          mood: string
+          notes?: string | null
+          stress_level?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          energy_level?: number | null
+          id?: string
+          is_visible_to_connections?: boolean | null
+          mood?: string
+          notes?: string | null
+          stress_level?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_feedback: {
         Row: {
           burnout_risk: string | null
@@ -1671,6 +1867,17 @@ export type Database = {
         Args: { check_role: string }
         Returns: boolean
       }
+      get_user_connections: {
+        Args: { connection_type?: string; user_id?: string }
+        Returns: {
+          connection_id: string
+          connected_user_id: string
+          connected_user_name: string
+          connected_user_email: string
+          connection_status: string
+          emotional_state: Json
+        }[]
+      }
       get_user_enterprise_role: {
         Args: { target_user_id: string }
         Returns: string
@@ -1678,6 +1885,10 @@ export type Database = {
       get_user_role: {
         Args: { user_uuid: string }
         Returns: string
+      }
+      has_feature_access: {
+        Args: { feature_name: string; user_id?: string }
+        Returns: boolean
       }
       is_admin: {
         Args: Record<PropertyKey, never> | { user_uuid: string }

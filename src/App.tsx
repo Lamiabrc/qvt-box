@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,6 +21,8 @@ import EmployeeWellnessActivities from "./pages/EmployeeWellnessActivities";
 import EmployeeCheckIn from "./pages/EmployeeCheckIn";
 import EmployeeProfile from "./pages/EmployeeProfile";
 import ConceptQVT from "./pages/ConceptQVT";
+import MyColleagues from "./pages/MyColleagues";
+import MyFriends from "./pages/MyFriends";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,8 @@ function App() {
                   <Route path="/employee-wellness-activities" element={<EmployeeWellnessActivities />} />
                   <Route path="/employee-checkin" element={<EmployeeCheckIn />} />
                   <Route path="/employee-profile" element={<EmployeeProfile />} />
+                  <Route path="/my-colleagues" element={<MyColleagues />} />
+                  <Route path="/my-friends" element={<MyFriends />} />
                 </Routes>
               </main>
               <Footer />

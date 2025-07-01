@@ -1,201 +1,193 @@
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { 
-  Brain, 
-  Heart, 
-  Users, 
-  Sparkles, 
-  Target, 
-  Shield,
-  Lightbulb,
-  ArrowRight,
-  CheckCircle,
-  Package
-} from "lucide-react";
-import FloatingBubbles from "../components/FloatingBubbles";
+import BrandedPageHeader from '@/components/layout/BrandedPageHeader';
+import { BrandedCard, BrandedCardContent, BrandedCardHeader, BrandedCardTitle, BrandedCardDescription } from '@/components/ui/branded-card';
+import { BrandedButton } from '@/components/ui/branded-button';
+import { Building2, Users, Heart, Brain, Target, Award, ArrowRight } from 'lucide-react';
 
 const ConceptQVT = () => {
-  const principles = [
-    {
-      icon: Brain,
-      title: "IA Émotionnelle Éthique",
-      description: "Intelligence artificielle respectueuse qui détecte les signaux faibles sans intrusion",
-      features: ["Prédiction des risques", "Recommandations personnalisées", "Respect RGPD total"]
-    },
+  const pillars = [
     {
       icon: Heart,
-      title: "Vision Interconnectée",
-      description: "Connecte bien-être professionnel et personnel sans cloisonnement",
-      features: ["Double impact pro/perso", "Accompagnement holistique", "Continuité dans le soin"]
+      title: "Bien-être au travail",
+      description: "Favoriser l'épanouissement personnel et professionnel de chaque collaborateur",
+      color: "text-red-500"
     },
     {
-      icon: Package,
-      title: "Solution Phygitale",
-      description: "Combine numérique et objets physiques pour un impact concret",
-      features: ["Box mensuelles", "App intelligente", "Accompagnement humain"]
+      icon: Users,
+      title: "Cohésion d'équipe", 
+      description: "Renforcer les liens sociaux et la collaboration entre les équipes",
+      color: "text-blue-500"
     },
     {
-      icon: Shield,
-      title: "Transparence & Éthique",
-      description: "Fonctionnement transparent avec contrôle total des données",
-      features: ["Algorithmes explicables", "Consentement éclairé", "Sécurité maximale"]
+      icon: Brain,
+      title: "Santé mentale",
+      description: "Accompagner la prévention et la gestion du stress et des RPS",
+      color: "text-purple-500"
+    },
+    {
+      icon: Target,
+      title: "Performance durable",
+      description: "Concilier efficacité organisationnelle et qualité de vie",
+      color: "text-green-500"
     }
   ];
 
   const benefits = [
-    { icon: Target, title: "Prévention précoce", desc: "Détection avant la crise" },
-    { icon: Users, title: "Cohésion renforcée", desc: "Équipes et familles soudées" },
-    { icon: Lightbulb, title: "Solutions adaptées", desc: "Personnalisation intelligente" },
-    { icon: Sparkles, title: "Bien-être durable", desc: "Impact long terme prouvé" }
+    {
+      title: "Pour l'entreprise",
+      items: [
+        "Réduction de l'absentéisme",
+        "Amélioration de la productivité", 
+        "Attraction et rétention des talents",
+        "Renforcement de la marque employeur"
+      ]
+    },
+    {
+      title: "Pour les collaborateurs",
+      items: [
+        "Amélioration du bien-être",
+        "Meilleur équilibre vie pro/perso",
+        "Développement des compétences",
+        "Reconnaissance et valorisation"
+      ]
+    }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 relative overflow-hidden">
-      <FloatingBubbles />
-      
-      <div className="container mx-auto px-4 py-12 relative z-10">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-teal-100 text-teal-800">Innovation QVT</Badge>
-          <h1 className="text-5xl font-bold text-teal-800 mb-6">
-            Le Concept QVT Box
-          </h1>
-          <p className="text-xl text-teal-600 mb-8 max-w-4xl mx-auto">
-            Une révolution dans l'approche du bien-être : une solution phygitale qui réconcilie 
-            vie professionnelle et personnelle grâce à l'intelligence artificielle éthique.
+    <div className="min-h-screen">
+      <BrandedPageHeader
+        variant="entreprise"
+        title="Concept QVT"
+        subtitle="La Qualité de Vie au Travail au cœur de votre stratégie d'entreprise"
+      >
+        <BrandedButton variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white hover:text-teal-600">
+          Découvrir nos solutions
+          <ArrowRight className="ml-2 w-5 h-5" />
+        </BrandedButton>
+      </BrandedPageHeader>
+
+      <div className="container mx-auto px-4 py-16">
+        {/* Introduction */}
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            Qu'est-ce que la QVT ?
+          </h2>
+          <p className="text-lg text-gray-600 leading-relaxed">
+            La Qualité de Vie au Travail (QVT) désigne les conditions dans lesquelles les salariés 
+            exercent leur travail et leur capacité à s'exprimer et à agir sur le contenu de celui-ci. 
+            Elle vise à concilier amélioration des conditions de travail et performance de l'entreprise.
           </p>
-          <div className="flex justify-center gap-4">
-            <Button className="bg-teal-600 hover:bg-teal-700">
-              Découvrir nos solutions
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-            <Button variant="outline" className="border-teal-300 text-teal-700">
-              Voir la démo
-            </Button>
+        </div>
+
+        {/* Les 4 Piliers */}
+        <div className="mb-20">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+            Les 4 piliers de notre approche QVT
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {pillars.map((pillar, index) => (
+              <BrandedCard key={index} variant="gradient" className="text-center h-full">
+                <BrandedCardHeader>
+                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-white shadow-lg flex items-center justify-center`}>
+                    <pillar.icon className={`w-8 h-8 ${pillar.color}`} />
+                  </div>
+                  <BrandedCardTitle className="text-xl font-bold text-gray-900">
+                    {pillar.title}
+                  </BrandedCardTitle>
+                </BrandedCardHeader>
+                <BrandedCardContent>
+                  <BrandedCardDescription className="text-gray-600">
+                    {pillar.description}
+                  </BrandedCardDescription>
+                </BrandedCardContent>
+              </BrandedCard>
+            ))}
           </div>
         </div>
 
-        {/* Core Principles */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-teal-800 mb-12">
-            Les 4 Piliers de Notre Approche
+        {/* Bénéfices */}
+        <div className="mb-20">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+            Les bénéfices de la QVT
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {principles.map((principle, index) => (
-              <Card key={index} className="hover:shadow-xl transition-all duration-300 border-teal-200">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mb-4">
-                    <principle.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <CardTitle className="text-xl text-teal-800">{principle.title}</CardTitle>
-                  <CardDescription className="text-gray-600">
-                    {principle.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {principle.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2 text-sm text-gray-700">
-                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                        <span>{feature}</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {benefits.map((benefit, index) => (
+              <BrandedCard key={index} variant="entreprise" className="h-full">
+                <BrandedCardHeader>
+                  <BrandedCardTitle className="text-2xl font-bold text-teal-700 flex items-center">
+                    <Building2 className="w-6 h-6 mr-3" />
+                    {benefit.title}
+                  </BrandedCardTitle>
+                </BrandedCardHeader>
+                <BrandedCardContent>
+                  <ul className="space-y-3">
+                    {benefit.items.map((item, itemIndex) => (
+                      <li key={itemIndex} className="flex items-center text-gray-700">
+                        <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
+                        {item}
                       </li>
                     ))}
                   </ul>
-                </CardContent>
-              </Card>
+                </BrandedCardContent>
+              </BrandedCard>
             ))}
           </div>
         </div>
 
-        {/* Benefits */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-teal-800 mb-12">
-            Bénéfices Mesurables
-          </h2>
-          <div className="grid md:grid-cols-4 gap-6">
-            {benefits.map((benefit, index) => (
-              <Card key={index} className="text-center hover:scale-105 transition-transform">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="w-8 h-8 text-teal-600" />
-                  </div>
-                  <h3 className="font-semibold text-teal-800 mb-2">{benefit.title}</h3>
-                  <p className="text-sm text-gray-600">{benefit.desc}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Timeline */}
-        <Card className="mb-16">
-          <CardHeader>
-            <CardTitle className="text-2xl text-teal-800 text-center">
-              Comment ça fonctionne ?
-            </CardTitle>
-            <CardDescription className="text-center">
-              Un parcours en 4 étapes simples pour transformer votre bien-être
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
-                  1
-                </div>
-                <h3 className="font-semibold mb-2">Évaluation Express</h3>
-                <p className="text-sm text-gray-600">2 minutes pour analyser votre état émotionnel</p>
+        {/* Notre approche */}
+        <BrandedCard variant="gradient" className="mb-20">
+          <BrandedCardHeader className="text-center">
+            <BrandedCardTitle className="text-3xl font-bold text-gray-900 mb-4">
+              Notre approche phygitale unique
+            </BrandedCardTitle>
+            <BrandedCardDescription className="text-lg text-gray-600 max-w-3xl mx-auto">
+              QVT Box propose une solution innovante combinant intelligence artificielle, 
+              accompagnement humain et objets physiques pour créer un écosystème complet 
+              de bien-être au travail.
+            </BrandedCardDescription>
+          </BrandedCardHeader>
+          <BrandedCardContent className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Brain className="w-8 h-8 text-white" />
               </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
-                  2
-                </div>
-                <h3 className="font-semibold mb-2">IA Prédictive</h3>
-                <p className="text-sm text-gray-600">Analyse intelligente et recommandations personnalisées</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
-                  3
-                </div>
-                <h3 className="font-semibold mb-2">Box Personnalisée</h3>
-                <p className="text-sm text-gray-600">Objets bien-être adaptés à vos besoins</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
-                  4
-                </div>
-                <h3 className="font-semibold mb-2">Suivi Continu</h3>
-                <p className="text-sm text-gray-600">Accompagnement et ajustement en temps réel</p>
-              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">IA & Digital</h3>
+              <p className="text-gray-600">Analyse prédictive et recommandations personnalisées</p>
             </div>
-          </CardContent>
-        </Card>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Accompagnement</h3>
+              <p className="text-gray-600">Coaching et suivi par des experts QVT</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Objets Physiques</h3>
+              <p className="text-gray-600">Box et accessoires pour matérialiser le bien-être</p>
+            </div>
+          </BrandedCardContent>
+        </BrandedCard>
 
-        {/* Impact Statement */}
-        <div className="text-center bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-2xl p-12">
-          <h2 className="text-3xl font-bold mb-4">
-            Une Vision Révolutionnaire
+        {/* Call to Action */}
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            Prêt à transformer votre QVT ?
           </h2>
-          <p className="text-xl mb-6 max-w-3xl mx-auto opacity-90">
-            QVT Box ne se contente pas d'améliorer le bien-être au travail ou en famille. 
-            Nous créons un écosystème interconnecté où chaque sphère de vie se renforce mutuellement.
+          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Découvrez comment QVT Box peut accompagner votre entreprise vers une démarche 
+            QVT durable et impactante.
           </p>
-          <div className="grid md:grid-cols-3 gap-8 mt-8">
-            <div>
-              <p className="text-3xl font-bold mb-2">94%</p>
-              <p className="opacity-90">Satisfaction utilisateurs</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold mb-2">67%</p>
-              <p className="opacity-90">Réduction du stress</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold mb-2">89%</p>
-              <p className="opacity-90">Amélioration relations</p>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <BrandedButton variant="entreprise" size="lg">
+              Demander une démonstration
+            </BrandedButton>
+            <BrandedButton variant="outline" size="lg">
+              Télécharger notre brochure
+            </BrandedButton>
           </div>
         </div>
       </div>

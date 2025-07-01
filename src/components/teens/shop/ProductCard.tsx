@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, ShoppingBag, Heart } from "lucide-react";
+import { getProductImage } from "@/data/productImages";
 
 interface Product {
   id: number;
@@ -34,9 +35,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
     }
   };
 
-  const getRealProductImage = (productName: string, category: string) => {
-    // Mapping des produits avec de vraies images
-    const imageMap: { [key: string]: string } = {
+  // Utiliser les vraies images à la place des émojis
+  const getTeenProductImage = (productName: string) => {
+    // Mapping spécifique pour les produits teen
+    const teenImageMap: { [key: string]: string } = {
       'Casque Gaming RGB': 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       'Kit Art Thérapie': 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
       'Livre': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
@@ -47,9 +49,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       'Jeu de Cartes Émotions': 'https://images.unsplash.com/photo-1541278107931-e006523892df?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
     };
 
-    // Recherche par nom exact ou par catégorie
-    return imageMap[productName] || imageMap[Object.keys(imageMap).find(key => productName.includes(key.split(' ')[0])) || ''] || 
-           `https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80`;
+    return teenImageMap[productName] || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
   };
 
   return (
@@ -57,9 +57,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <CardHeader className="text-center pb-2">
         <div className="relative overflow-hidden rounded-lg mb-3 h-40">
           <img 
-            src={getRealProductImage(product.name, product.category)}
+            src={getTeenProductImage(product.name)}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+            onError={(e) => {
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
         </div>

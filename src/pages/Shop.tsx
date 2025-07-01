@@ -1,30 +1,27 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { 
   Package, 
-  Star, 
   ShoppingCart,
-  Plus,
-  Minus,
   Check,
   Truck,
   Shield,
   RefreshCw,
-  Building2,
-  Heart,
   Search,
   Filter,
   Gift
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { useToast } from "@/hooks/use-toast";
-import { shopProducts, subscriptionBoxes, Product, SubscriptionBox } from "../data/shopProducts";
+import { shopProducts, subscriptionBoxes } from "../data/shopProducts";
 import { Link } from "react-router-dom";
+import ProductImageCard from "../components/shop/ProductImageCard";
+import SubscriptionBoxImageCard from "../components/shop/SubscriptionBoxImageCard";
 
 const Shop = () => {
   const [cart, setCart] = useState<{[key: string]: number}>({});
@@ -84,138 +81,6 @@ const Shop = () => {
     const matchesCategory = selectedCategory === 'all' || box.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
-
-  const ProductCard = ({ product }: { product: Product }) => (
-    <Card className="hover:shadow-xl transition-shadow group h-full">
-      <CardHeader className="pb-3">
-        <div className="w-full h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-3 flex items-center justify-center">
-          <span className="text-4xl">{product.image}</span>
-        </div>
-        <div className="flex flex-wrap gap-1 mb-2">
-          {product.tags.slice(0, 2).map((tag, idx) => (
-            <Badge key={idx} variant="outline" className="text-xs">
-              {tag}
-            </Badge>
-          ))}
-        </div>
-        <CardTitle className="text-base line-clamp-2">{product.name}</CardTitle>
-        <CardDescription className="text-sm line-clamp-2">{product.description}</CardDescription>
-      </CardHeader>
-      
-      <CardContent className="space-y-3 pt-0">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xl font-bold text-green-600">{product.price}€</p>
-            {product.originalPrice && (
-              <p className="text-sm text-gray-500 line-through">{product.originalPrice}€</p>
-            )}
-          </div>
-          <div className="text-right">
-            <div className="flex items-center gap-1 text-sm text-amber-600">
-              <Star className="w-3 h-3 fill-current" />
-              <span>4.{Math.floor(Math.random() * 9) + 1}</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          {cart[product.id] ? (
-            <div className="flex items-center gap-2 flex-1">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => removeFromCart(product.id)}
-              >
-                <Minus className="w-3 h-3" />
-              </Button>
-              <span className="font-medium min-w-[2rem] text-center">{cart[product.id]}</span>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => addToCart(product.id)}
-              >
-                <Plus className="w-3 h-3" />
-              </Button>
-            </div>
-          ) : (
-            <Button 
-              onClick={() => addToCart(product.id)}
-              className="flex-1 bg-teal-600 hover:bg-teal-700 text-sm"
-              size="sm"
-            >
-              <ShoppingCart className="w-3 h-3 mr-1" />
-              Ajouter
-            </Button>
-          )}
-        </div>
-      </CardContent>
-    </Card>
-  );
-
-  const BoxCard = ({ box }: { box: SubscriptionBox }) => (
-    <Card className="hover:shadow-xl transition-shadow group">
-      <CardHeader>
-        <div className={`w-full h-40 bg-gradient-to-br ${box.gradient} rounded-lg mb-4 flex items-center justify-center`}>
-          <span className="text-5xl">{box.image}</span>
-        </div>
-        <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="text-lg">{box.name}</CardTitle>
-            <Badge variant="outline" className="mt-1">{box.targetAudience}</Badge>
-          </div>
-          <div className="text-right">
-            <p className="text-2xl font-bold text-green-600">{box.price}€</p>
-            <p className="text-sm text-gray-500">/{box.duration}</p>
-          </div>
-        </div>
-        <CardDescription className="mt-2">{box.description}</CardDescription>
-      </CardHeader>
-      
-      <CardContent className="space-y-4">
-        <div>
-          <h4 className="font-semibold mb-2">Contenu de la box:</h4>
-          <ul className="space-y-1 max-h-32 overflow-y-auto">
-            {box.features.map((feature: string, idx: number) => (
-              <li key={idx} className="flex items-start gap-2 text-sm">
-                <Check className="w-3 h-3 text-green-600 mt-0.5 flex-shrink-0" />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        
-        <div className="flex items-center gap-2 pt-4">
-          {cart[box.id] ? (
-            <div className="flex items-center gap-2 flex-1">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => removeFromCart(box.id)}
-              >
-                <Minus className="w-4 h-4" />
-              </Button>
-              <span className="font-medium">{cart[box.id]}</span>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => addToCart(box.id, 'box')}
-              >
-                <Plus className="w-4 h-4" />
-              </Button>
-            </div>
-          ) : (
-            <Button 
-              onClick={() => addToCart(box.id, 'box')}
-              className={`flex-1 bg-gradient-to-r ${box.gradient} hover:opacity-90`}
-            >
-              <Gift className="w-4 h-4 mr-2" />
-              S'abonner
-            </Button>
-          )}
-        </div>
-      </CardContent>
-    </Card>
-  );
 
   const cartItemsCount = Object.values(cart).reduce((sum, count) => sum + count, 0);
 
@@ -323,7 +188,13 @@ const Shop = () => {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductImageCard 
+                  key={product.id} 
+                  product={product}
+                  cart={cart}
+                  onAddToCart={addToCart}
+                  onRemoveFromCart={removeFromCart}
+                />
               ))}
             </div>
             
@@ -357,7 +228,13 @@ const Shop = () => {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredBoxes.map((box) => (
-                <BoxCard key={box.id} box={box} />
+                <SubscriptionBoxImageCard 
+                  key={box.id} 
+                  box={box}
+                  cart={cart}
+                  onAddToCart={addToCart}
+                  onRemoveFromCart={removeFromCart}
+                />
               ))}
             </div>
             

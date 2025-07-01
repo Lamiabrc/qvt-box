@@ -96,36 +96,43 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signUp = async (email: string, password: string, userData?: any) => {
     try {
       console.log('Attempting sign up for:', email);
+      console.log('User data:', userData);
       
       // Use the current domain for email confirmation
       const redirectUrl = `${window.location.origin}/auth/callback`;
       console.log('Using redirect URL:', redirectUrl);
       
+      // Try a simpler signup first without extra options
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          data: userData,
+          data: userData || {},
           emailRedirectTo: redirectUrl
         }
       });
       
+      console.log('Signup response:', { data, error });
+      
       if (error) {
-        console.error('Sign up error:', error);
+        console.error('Sign up error details:', {
+          message: error.message,
+          status: error.status,
+          name: error.name
+        });
         
-        // Handle specific CAPTCHA error
-        if (error.message.includes('captcha')) {
+        // Handle specific error cases with user-friendly messages
+        if (error.message.includes('captcha') || error.message.includes('CAPTCHA')) {
           return { 
             data, 
             error: { 
               ...error, 
-              message: 'La vérification de sécurité a échoué. Veuillez réessayer dans quelques instants.' 
+              message: 'Vérification de sécurité requise. Ceci est un problème de configuration. Veuillez contacter le support.' 
             }
           };
         }
         
-        // Handle other common errors with user-friendly messages
-        if (error.message.includes('already registered')) {
+        if (error.message.includes('already registered') || error.message.includes('User already registered')) {
           return { 
             data, 
             error: { 
@@ -135,13 +142,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           };
         }
         
+        if (error.message.includes('Invalid email')) {
+          return { 
+            data, 
+            error: { 
+              ...error, 
+              message: 'Adresse email invalide. Veuillez vérifier votre email.' 
+            }
+          };
+        }
+        
+        if (error.message.includes('Password')) {
+          return { 
+            data, 
+            error: { 
+              ...error, 
+              message: 'Le mot de passe doit contenir au moins 6 caractères.' 
+            }
+          };
+        }
+        
+        // Return the original error for other cases
         return { data, error };
       } else {
         console.log('Sign up successful:', data.user?.email);
-        // Rediriger vers la page de confirmation d'email
+        console.log('User confirmation required:', !data.user?.email_confirmed_at);
+        
+        // Check if email confirmation is required
         if (data.user && !data.user.email_confirmed_at) {
           console.log('User created, redirecting to email confirmation');
-          window.location.href = '/email-confirmation';
+          setTimeout(() => {
+            window.location.href = '/email-confirmation';
+          }, 1000);
         }
       }
       

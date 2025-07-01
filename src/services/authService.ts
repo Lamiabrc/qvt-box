@@ -7,12 +7,14 @@ export const authService = {
       console.log('Attempting sign up for:', email);
       console.log('User data:', userData);
       
+      // First, try to sign up the user
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: userData || {},
-          // Pas de redirection email, connexion directe après inscription
+          // Disable email confirmation to allow immediate login
+          emailRedirectTo: undefined,
         }
       });
       
@@ -57,11 +59,24 @@ export const authService = {
         }
         
         return { data, error };
-      } else {
-        console.log('Sign up successful:', data.user?.email);
-        // L'utilisateur sera automatiquement connecté si l'inscription réussit
+      }
+
+      // If signup was successful but user needs confirmation, try to sign in directly
+      if (data.user && !data.session) {
+        console.log('User created but no session, attempting direct sign in...');
+        
+        // Wait a moment for the user to be fully created
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Try to sign in immediately
+        const signInResult = await this.signIn(email, password);
+        if (!signInResult.error) {
+          console.log('Successfully signed in after signup');
+          return { data: signInResult.data, error: null };
+        }
       }
       
+      console.log('Sign up successful:', data.user?.email);
       return { data, error };
     } catch (error) {
       console.error('Unexpected sign up error:', error);
@@ -92,6 +107,18 @@ export const authService = {
             error: { 
               ...error, 
               message: 'Email ou mot de passe incorrect.' 
+            }
+          };
+        }
+        
+        if (error.message.includes('Email not confirmed')) {
+          // If email not confirmed, this might be a newly created user
+          // Let's provide a helpful message
+          return { 
+            data, 
+            error: { 
+              ...error, 
+              message: 'Compte créé mais non confirmé. Veuillez vérifier votre email ou contacter le support.' 
             }
           };
         }

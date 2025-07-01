@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -74,15 +73,32 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         return;
       }
 
-      // Success case
-      console.log('Signup successful, user:', authData?.user?.email);
-      
-      setSuccessMessage('Compte créé avec succès ! Vous êtes maintenant connecté.');
-      
-      toast({
-        title: "Compte créé avec succès !",
-        description: "Vous êtes maintenant connecté et pouvez utiliser l'application.",
-      });
+      // Success case - check if user is logged in
+      if (authData?.user && authData?.session) {
+        console.log('Signup successful with immediate session:', authData.user.email);
+        
+        setSuccessMessage('Compte créé avec succès ! Vous êtes maintenant connecté.');
+        
+        toast({
+          title: "Compte créé avec succès !",
+          description: "Vous êtes maintenant connecté et pouvez utiliser l'application.",
+        });
+
+        // Call onSuccess callback if provided
+        if (onSuccess) {
+          setTimeout(() => {
+            onSuccess();
+          }, 1500);
+        }
+      } else if (authData?.user && !authData?.session) {
+        // User created but not logged in - provide instructions
+        setSuccessMessage('Compte créé ! Vous pouvez maintenant vous connecter avec vos identifiants.');
+        
+        toast({
+          title: "Compte créé !",
+          description: "Vous pouvez maintenant vous connecter avec vos identifiants.",
+        });
+      }
       
     } catch (error) {
       console.error('Unexpected signup error:', error);
@@ -259,7 +275,10 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
       {successMessage && (
         <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
           <p className="text-sm text-green-800">
-            <strong>Parfait !</strong> Votre compte a été créé et vous êtes maintenant connecté. Vous pouvez commencer à utiliser QVT Box immédiatement !
+            <strong>Parfait !</strong> {successMessage.includes('connecté') ? 
+              'Votre compte a été créé et vous êtes maintenant connecté. Vous pouvez commencer à utiliser QVT Box immédiatement !' :
+              'Utilisez vos identifiants pour vous connecter et accéder à QVT Box.'
+            }
           </p>
         </div>
       )}

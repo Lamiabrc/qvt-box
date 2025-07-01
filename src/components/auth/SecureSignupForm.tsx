@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -55,11 +54,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         return;
       }
 
-      toast({
-        title: "Compte créé avec succès",
-        description: "Vérifiez votre email pour confirmer votre compte"
-      });
-
+      // Ne pas afficher de toast ici car la redirection va se faire automatiquement
       onSuccess?.();
     } catch (error) {
       console.error('Signup error:', error);

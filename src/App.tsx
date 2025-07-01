@@ -11,6 +11,8 @@ import RealtimeChatBot from "./components/RealtimeChatBot";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Auth from "./pages/Auth";
+import AuthCallback from "./pages/AuthCallback";
+import EmailConfirmation from "./pages/EmailConfirmation";
 import Contact from "./pages/Contact";
 import ChatAdmin from "./pages/ChatAdmin";
 import AdminLogin from "./pages/AdminLogin";
@@ -48,6 +50,8 @@ function App() {
                 <main className="flex-1">
                   <Routes>
                     <Route path="/" element={<Index />} />
+                    <Route path="/auth/callback" element={<AuthCallback />} />
+                    <Route path="/email-confirmation" element={<EmailConfirmation />} />
                     <Route path="/concept-qvt" element={<ConceptQVT />} />
                     <Route path="/entreprise" element={<EnterpriseOrientation />} />
                     <Route path="/famille" element={<FamilyOrientation />} />

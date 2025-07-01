@@ -113,11 +113,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       if (error) {
         console.error('Sign up error:', error);
+        return { data, error };
       } else {
         console.log('Sign up successful:', data.user?.email);
-        // User can now sign in even without email confirmation
+        // Rediriger vers la page de confirmation d'email
         if (data.user && !data.user.email_confirmed_at) {
-          console.log('User created but email not confirmed yet');
+          console.log('User created, redirecting to email confirmation');
+          window.location.href = '/email-confirmation';
         }
       }
       

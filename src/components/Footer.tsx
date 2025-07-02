@@ -23,10 +23,15 @@ const Footer = () => {
               Intelligence artificielle, accompagnement humain et objets physiques pour le bien-être.
             </p>
             <div className="flex space-x-4">
-              <Facebook className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
-              <Twitter className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
-              <Linkedin className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
-              <Instagram className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
+              <a href="https://www.facebook.com/QVTBOX" target="_blank" rel="noopener noreferrer">
+                <Facebook className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
+              </a>
+              <a href="https://www.instagram.com/qvtbox/" target="_blank" rel="noopener noreferrer">
+                <Instagram className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
+              </a>
+              <a href="https://www.linkedin.com/company/qvt-box/" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
+              </a>
             </div>
           </div>
 

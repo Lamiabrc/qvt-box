@@ -34,6 +34,20 @@ import TeensHome from "./pages/TeensHome";
 import NotFound from "./pages/NotFound";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Shop from "./pages/Shop";
+import Cart from "./pages/Cart";
+import SimulatorHome from "./pages/SimulatorHome";
+import SimulatorHub from "./pages/SimulatorHub";
+import SimulatorSelector from "./pages/SimulatorSelector";
+import EnterpriseSimulator from "./pages/EnterpriseSimulator";
+import EnterpriseManagerSimulator from "./pages/EnterpriseManagerSimulator";
+import EnterpriseEmployeeSimulator from "./pages/EnterpriseEmployeeSimulator";
+import FamilySimulator from "./pages/FamilySimulator";
+import FamilyParentSimulator from "./pages/FamilyParentSimulator";
+import FamilyTeenSimulator from "./pages/FamilyTeenSimulator";
+import FamilyEnterpriseSimulator from "./pages/FamilyEnterpriseSimulator";
+import FamilyComparativeSimulator from "./pages/FamilyComparativeSimulator";
+import WorkplaceComparativeSimulator from "./pages/WorkplaceComparativeSimulator";
+import IntelligentRecommendations from "./pages/IntelligentRecommendations";
 
 const queryClient = new QueryClient();
 
@@ -58,8 +72,22 @@ function App() {
                     <Route path="/famille" element={<FamilyOrientation />} />
                     <Route path="/teens-home" element={<TeensHome />} />
                     <Route path="/shop" element={<Shop />} />
+                    <Route path="/cart" element={<Cart />} />
                     <Route path="/payment" element={<Payment />} />
                     <Route path="/payment-success" element={<PaymentSuccess />} />
+                    <Route path="/simulator-home" element={<SimulatorHome />} />
+                    <Route path="/simulator-hub" element={<SimulatorHub />} />
+                    <Route path="/simulator-selector" element={<SimulatorSelector />} />
+                    <Route path="/enterprise-simulator" element={<EnterpriseSimulator />} />
+                    <Route path="/enterprise-manager-simulator" element={<EnterpriseManagerSimulator />} />
+                    <Route path="/enterprise-employee-simulator" element={<EnterpriseEmployeeSimulator />} />
+                    <Route path="/family-simulator" element={<FamilySimulator />} />
+                    <Route path="/family-parent-simulator" element={<FamilyParentSimulator />} />
+                    <Route path="/family-teen-simulator" element={<FamilyTeenSimulator />} />
+                    <Route path="/family-enterprise-simulator" element={<FamilyEnterpriseSimulator />} />
+                    <Route path="/family-comparative-simulator" element={<FamilyComparativeSimulator />} />
+                    <Route path="/workplace-comparative-simulator" element={<WorkplaceComparativeSimulator />} />
+                    <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/admin-login" element={<AdminLogin />} />
                     <Route path="/register" element={<Auth />} />

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Building2, Heart, Users, Sparkles, Shield, TrendingUp, ArrowRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import FloatingBubbles from "../components/FloatingBubbles";
+import sarahPhoto from "../assets/sarah-rh-director.jpg";
 
 const Index = () => {
   return (
@@ -263,13 +264,13 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="border-none shadow-lg hover:shadow-xl transition-all bg-white/80 backdrop-blur-sm">
               <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1494790108755-2616b612b5bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
-                    alt="Sarah, RH"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                 <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden">
+                   <img 
+                     src={sarahPhoto}
+                     alt="Sarah, Directrice RH"
+                     className="w-full h-full object-cover"
+                   />
+                 </div>
                 <p className="text-gray-600 italic mb-4">
                   "QVT Box a révolutionné notre approche du bien-être en entreprise. Les résultats sont mesurables !"
                 </p>

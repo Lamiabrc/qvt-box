@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { Building2, Users, AlertTriangle, CheckCircle, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import CommentSpace from "@/components/simulators/CommentSpace";
 
 const EnterpriseSimulator = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -106,7 +107,7 @@ const EnterpriseSimulator = () => {
           <div className="text-center">
             <Link to="/simulator-home">
               <Button className="mr-4 bg-teal-600 hover:bg-teal-700">
-                Autres simulateurs
+                Autres évaluations
               </Button>
             </Link>
             <Link to="/payment">
@@ -157,19 +158,10 @@ const EnterpriseSimulator = () => {
             </div>
             
             {/* Espace de réponse libre */}
-            <div className="border-t pt-4">
-              <label className="text-sm font-medium text-gray-700 mb-2 block">
-                💭 Souhaitez-vous partager quelque chose de plus ? (facultatif)
-              </label>
-              <textarea 
-                className="w-full p-3 border border-gray-200 rounded-lg resize-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                rows={3}
-                placeholder="Exprimez-vous librement... Comment vous sentez-vous par rapport à cette question ?"
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                Vos commentaires nous aident à mieux vous accompagner
-              </p>
-            </div>
+            <CommentSpace 
+              placeholder="Comment vous sentez-vous au travail aujourd'hui ? Qu'est-ce qui vous préoccupe ou vous fait du bien ?"
+              questionNumber={currentStep + 1}
+            />
           </CardContent>
         </Card>
 
@@ -177,7 +169,7 @@ const EnterpriseSimulator = () => {
           <Link to="/simulator-home">
             <Button variant="outline">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Retour aux simulateurs
+              Retour aux évaluations
             </Button>
           </Link>
         </div>

@@ -126,9 +126,9 @@ const EnterpriseSimulator = () => {
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 p-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <Badge className="mb-4 bg-teal-100 text-teal-800">Évaluation Entreprise</Badge>
+          <Badge className="mb-4 bg-teal-100 text-teal-800">Bilan Bien-être</Badge>
           <h1 className="text-4xl font-bold text-teal-800 mb-4">
-            Simulateur QVT Entreprise
+            Comment ça se passe au travail ?
           </h1>
           <p className="text-xl text-teal-600">
             Question {currentStep + 1} sur {questions.length}
@@ -143,7 +143,7 @@ const EnterpriseSimulator = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-3">
+            <div className="grid gap-3 mb-6">
               {[1, 2, 3, 4, 5].map((score) => (
                 <Button
                   key={score}
@@ -154,6 +154,21 @@ const EnterpriseSimulator = () => {
                   {score} - {score === 1 ? 'Très mauvais' : score === 2 ? 'Mauvais' : score === 3 ? 'Moyen' : score === 4 ? 'Bon' : 'Excellent'}
                 </Button>
               ))}
+            </div>
+            
+            {/* Espace de réponse libre */}
+            <div className="border-t pt-4">
+              <label className="text-sm font-medium text-gray-700 mb-2 block">
+                💭 Souhaitez-vous partager quelque chose de plus ? (facultatif)
+              </label>
+              <textarea 
+                className="w-full p-3 border border-gray-200 rounded-lg resize-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                rows={3}
+                placeholder="Exprimez-vous librement... Comment vous sentez-vous par rapport à cette question ?"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Vos commentaires nous aident à mieux vous accompagner
+              </p>
             </div>
           </CardContent>
         </Card>

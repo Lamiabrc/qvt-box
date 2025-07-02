@@ -24,10 +24,10 @@ const SimulatorHome = () => {
       <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            Centre d'Évaluation du Bien-être
+            Comment allez-vous aujourd'hui ?
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Découvrez votre niveau de bien-être selon votre profil et recevez des recommandations personnalisées
+            Prenons quelques minutes ensemble pour faire le point sur votre bien-être et vous proposer un accompagnement personnalisé
           </p>
         </div>
 
@@ -40,10 +40,10 @@ const SimulatorHome = () => {
                   <Heart className="w-10 h-10 text-white" />
                 </div>
                 <CardTitle className="text-xl text-pink-800 group-hover:text-pink-900">
-                  Parent
+                  Espace Parents
                 </CardTitle>
                 <CardDescription className="text-pink-600">
-                  Évaluez votre bien-être parental et la dynamique familiale
+                  Comment vous sentez-vous dans votre rôle de parent ? Faisons le point ensemble
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -77,10 +77,10 @@ const SimulatorHome = () => {
                   <Users className="w-10 h-10 text-white" />
                 </div>
                 <CardTitle className="text-xl text-purple-800 group-hover:text-purple-900">
-                  Adolescent
+                  Espace Ados
                 </CardTitle>
                 <CardDescription className="text-purple-600">
-                  Évaluez votre bien-être et vos relations familiales
+                  Comment ça va pour toi ? Parlons de ce que tu ressens en toute confidentialité
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -114,10 +114,10 @@ const SimulatorHome = () => {
                   <UserCheck className="w-10 h-10 text-white" />
                 </div>
                 <CardTitle className="text-xl text-blue-800 group-hover:text-blue-900">
-                  Manager
+                  Espace Managers
                 </CardTitle>
                 <CardDescription className="text-blue-600">
-                  Évaluez le bien-être de votre équipe et votre style de management
+                  Comment se porte votre équipe ? Prenons des nouvelles de l'ambiance au travail
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -151,10 +151,10 @@ const SimulatorHome = () => {
                   <Briefcase className="w-10 h-10 text-white" />
                 </div>
                 <CardTitle className="text-xl text-green-800 group-hover:text-green-900">
-                  Employé
+                  Espace Collaborateurs
                 </CardTitle>
                 <CardDescription className="text-green-600">
-                  Évaluez votre bien-être au travail et votre satisfaction professionnelle
+                  Comment vous sentez-vous au travail ? Faisons le point sur votre bien-être professionnel
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -188,10 +188,10 @@ const SimulatorHome = () => {
                   <Building2 className="w-10 h-10 text-white" />
                 </div>
                 <CardTitle className="text-xl text-indigo-800 group-hover:text-indigo-900">
-                  Famille-Entreprise
+                  Espace Vie Pro-Perso
                 </CardTitle>
                 <CardDescription className="text-indigo-600">
-                  Évaluez l'équilibre entre vie familiale et professionnelle
+                  Comment conciliez-vous famille et travail ? Parlons de votre équilibre de vie
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -225,10 +225,10 @@ const SimulatorHome = () => {
                   <Users className="w-10 h-10 text-white" />
                 </div>
                 <CardTitle className="text-xl text-gray-800 group-hover:text-gray-900">
-                  Évaluation Générale
+                  Bilan Général
                 </CardTitle>
                 <CardDescription className="text-gray-600">
-                  Une évaluation complète adaptée à tous les profils
+                  Comment allez-vous dans l'ensemble ? Un moment pour faire le point sur tout
                 </CardDescription>
               </CardHeader>
               <CardContent>

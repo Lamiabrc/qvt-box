@@ -202,32 +202,84 @@ export const getRecommendedBoxes = (category: string, riskLevel: string, score: 
     'Bon': ['Manque de motivation', 'Besoin de reconnexion'],
     'À améliorer': ['Anxiété / inquiétude', 'Stress élevé', 'Charge mentale'],
     'Priorité': ['Stress élevé', 'Fatigue émotionnelle', 'Isolement'],
-    'Situation critique': ['Stress élevé', 'Fatigue émotionnelle', 'Tensions relationnelles']
+    'Situation critique': ['Stress élevé', 'Fatigue émotionnelle', 'Tensions relationnelles'],
+    'Élevé': ['Stress élevé', 'Fatigue émotionnelle', 'Tensions relationnelles'],
+    'Modéré': ['Anxiété / inquiétude', 'Charge mentale'],
+    'Faible': ['Besoin de reconnexion', 'Manque de motivation']
   };
 
   // Obtenir les échelles d'évaluation recommandées pour ce niveau de risque
   const recommendedScales = riskToEvaluationMap[riskLevel] || ['Stress élevé'];
 
-  // Filtrer les box selon la catégorie et les échelles recommandées
+  // Filtrer les box selon la catégorie et les échelles recommandées avec plus de spécificité
   let categoryFilter = '';
+  let specificRecommendations: BoxRecommendation[] = [];
+
   if (category.includes('parent') || category.includes('famille')) {
     categoryFilter = 'Parents';
+    
+    // Recommandations spécifiques selon le score pour les parents
+    if (score < 40) {
+      specificRecommendations = boxRecommendations.filter(box => 
+        box.category === 'Parents' && 
+        (box.evaluationScale === 'Stress élevé' || box.evaluationScale === 'Fatigue émotionnelle')
+      );
+    } else if (score < 70) {
+      specificRecommendations = boxRecommendations.filter(box => 
+        box.category === 'Parents' && 
+        (box.evaluationScale === 'Charge mentale' || box.evaluationScale === 'Anxiété / inquiétude')
+      );
+    } else {
+      specificRecommendations = boxRecommendations.filter(box => 
+        box.category === 'Parents' && 
+        box.evaluationScale === 'Besoin de reconnexion'
+      );
+    }
   } else if (category.includes('teen') || category.includes('adolescent')) {
     categoryFilter = 'Adolescents';
-  } else if (category.includes('enterprise') || category.includes('employee')) {
+    
+    // Recommandations spécifiques selon le score pour les ados
+    if (score < 40) {
+      specificRecommendations = boxRecommendations.filter(box => 
+        box.category === 'Adolescents' && 
+        (box.evaluationScale === 'Stress élevé' || box.evaluationScale === 'Isolement')
+      );
+    } else if (score < 70) {
+      specificRecommendations = boxRecommendations.filter(box => 
+        box.category === 'Adolescents' && 
+        (box.evaluationScale === 'Anxiété / inquiétude' || box.evaluationScale === 'Manque de motivation')
+      );
+    } else {
+      specificRecommendations = boxRecommendations.filter(box => 
+        box.category === 'Adolescents' && 
+        box.evaluationScale === 'Besoin de reconnexion'
+      );
+    }
+  } else if (category.includes('enterprise') || category.includes('employee') || category.includes('manager')) {
     categoryFilter = 'Salariés';
+    
+    // Pour l'instant, utiliser le système existant pour les salariés
+    // (on peut étendre plus tard avec des box spécifiques entreprise)
+    specificRecommendations = boxRecommendations.filter(box => 
+      box.category === 'Parents' && // Utiliser temporairement les box parents
+      recommendedScales.includes(box.evaluationScale)
+    );
   }
 
-  const recommendedBoxes = boxRecommendations.filter(box => 
-    box.category === categoryFilter && 
-    recommendedScales.includes(box.evaluationScale)
-  );
-
-  // Si pas de correspondance exacte, retourner les box de la catégorie
-  if (recommendedBoxes.length === 0) {
-    return boxRecommendations.filter(box => box.category === categoryFilter).slice(0, 2);
+  // Si pas de correspondance spécifique, utiliser le système général
+  if (specificRecommendations.length === 0) {
+    const recommendedBoxes = boxRecommendations.filter(box => 
+      box.category === categoryFilter && 
+      recommendedScales.includes(box.evaluationScale)
+    );
+    
+    if (recommendedBoxes.length === 0) {
+      return boxRecommendations.filter(box => box.category === categoryFilter).slice(0, 2);
+    }
+    
+    return recommendedBoxes.slice(0, 2);
   }
 
-  // Retourner jusqu'à 2 box recommandées
-  return recommendedBoxes.slice(0, 2);
+  // Retourner jusqu'à 2 box recommandées spécifiques
+  return specificRecommendations.slice(0, 2);
 };

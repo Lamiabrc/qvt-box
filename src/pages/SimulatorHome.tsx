@@ -27,7 +27,7 @@ const SimulatorHome = () => {
             Comment allez-vous aujourd'hui ?
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Prenons quelques minutes ensemble pour faire le point sur votre bien-être et vous proposer un accompagnement personnalisé
+            Prenons quelques minutes ensemble pour prendre de vos nouvelles et vous proposer un accompagnement personnalisé
           </p>
         </div>
 

@@ -19,24 +19,7 @@ interface CartItem {
 
 const Cart = () => {
   const { toast } = useToast();
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: '1',
-      name: 'QVT Box Entreprise',
-      price: 33,
-      quantity: 1,
-      image: '/public/images/placeholder-enterprise.jpg',
-      category: 'Entreprise'
-    },
-    {
-      id: '2',
-      name: 'QVTeen Box Famille',
-      price: 25,
-      quantity: 2,
-      image: '/public/images/placeholder-family.jpg',
-      category: 'Famille'
-    }
-  ]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const updateQuantity = (id: string, newQuantity: number) => {
     if (newQuantity <= 0) {

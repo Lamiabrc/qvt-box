@@ -32,7 +32,7 @@ const SimulatorHome = () => {
         </div>
 
         <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          {/* Simulateur Famille Parent */}
+          {/* Bilan Famille Parent */}
           <Link to="/family-parent-simulator">
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-pink-200 hover:border-pink-400 bg-gradient-to-br from-pink-50 to-rose-50">
               <CardHeader className="text-center">
@@ -69,7 +69,7 @@ const SimulatorHome = () => {
             </Card>
           </Link>
 
-          {/* Simulateur Famille Ado */}
+          {/* Bilan Famille Ado */}
           <Link to="/family-teen-simulator">
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-purple-200 hover:border-purple-400 bg-gradient-to-br from-purple-50 to-violet-50">
               <CardHeader className="text-center">
@@ -106,7 +106,7 @@ const SimulatorHome = () => {
             </Card>
           </Link>
 
-          {/* Simulateur Manager */}
+          {/* Bilan Manager */}
           <Link to="/enterprise-manager-simulator">
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-blue-200 hover:border-blue-400 bg-gradient-to-br from-blue-50 to-cyan-50">
               <CardHeader className="text-center">
@@ -143,7 +143,7 @@ const SimulatorHome = () => {
             </Card>
           </Link>
 
-          {/* Simulateur Employé */}
+          {/* Bilan Employé */}
           <Link to="/enterprise-employee-simulator">
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-green-200 hover:border-green-400 bg-gradient-to-br from-green-50 to-emerald-50">
               <CardHeader className="text-center">
@@ -180,7 +180,7 @@ const SimulatorHome = () => {
             </Card>
           </Link>
 
-          {/* Simulateur Famille-Entreprise */}
+          {/* Bilan Famille-Entreprise */}
           <Link to="/family-enterprise-simulator">
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-indigo-200 hover:border-indigo-400 bg-gradient-to-br from-indigo-50 to-blue-50">
               <CardHeader className="text-center">
@@ -217,7 +217,7 @@ const SimulatorHome = () => {
             </Card>
           </Link>
 
-          {/* Simulateur Général */}
+          {/* Bilan Général */}
           <Link to="/enterprise-simulator">
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-gray-200 hover:border-gray-400 bg-gradient-to-br from-gray-50 to-slate-50">
               <CardHeader className="text-center">
@@ -254,10 +254,10 @@ const SimulatorHome = () => {
             </Card>
           </Link>
 
-          {/* Nouvelle section pour les simulateurs comparatifs */}
+          {/* Nouvelle section pour les bilans comparatifs */}
           <div className="lg:col-span-3 md:col-span-2">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-              Simulateurs Comparatifs - Analyse des Perceptions Croisées
+              Bilans Comparatifs - Analyse des Perceptions Croisées
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
               {/* Famille Comparatif */}

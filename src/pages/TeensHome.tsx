@@ -27,8 +27,16 @@ import NavigationCard from "../components/teens/home/NavigationCard";
 
 const TeensHome = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 via-blue-100 to-cyan-100 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 via-blue-100 to-cyan-100 relative overflow-hidden animate-gradient-x">
       <FloatingBubbles />
+      
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-pink-300/20 rounded-full blur-xl animate-float"></div>
+        <div className="absolute top-60 right-20 w-24 h-24 bg-purple-300/20 rounded-full blur-xl animate-float-delayed"></div>
+        <div className="absolute bottom-40 left-1/3 w-40 h-40 bg-blue-300/20 rounded-full blur-xl animate-float-slow"></div>
+        <div className="absolute top-1/3 right-10 w-20 h-20 bg-cyan-300/20 rounded-full blur-xl animate-bounce-slow"></div>
+      </div>
       
       <div className="container mx-auto px-4 py-8 relative z-10">
         <HeroSection />
@@ -229,7 +237,7 @@ const TeensHome = () => {
               <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer group border-0 bg-gradient-to-br from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 transform hover:scale-105">
                 <CardContent className="p-8 text-center">
                   <Brain className="w-16 h-16 text-purple-600 mx-auto mb-6 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-bold text-2xl text-purple-800 mb-3">Simulateur Ado</h3>
+                  <h3 className="font-bold text-2xl text-purple-800 mb-3">Bilan Ado</h3>
                   <p className="text-purple-700 text-lg">Évalue ton bien-être global</p>
                 </CardContent>
               </Card>

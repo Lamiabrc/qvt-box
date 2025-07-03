@@ -102,7 +102,7 @@ const EnterpriseManagerSimulator = () => {
 
   return (
     <SimulatorBase
-      title="Simulateur Manager"
+      title="Bilan Manager"
       badge="Évaluation Management"
       description="Évaluez le bien-être et les risques psychosociaux de votre équipe"
       questions={enterpriseManagerQuestions}

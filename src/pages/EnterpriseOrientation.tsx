@@ -52,7 +52,7 @@ const EnterpriseOrientation = () => {
         <div className="mb-16">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-teal-800 mb-4">
-              Testez nos Simulateurs QVT
+              Testez nos Bilans QVT
             </h2>
             <p className="text-lg text-teal-600">
               Évaluations rapides avec recommandations de box personnalisées
@@ -73,7 +73,7 @@ const EnterpriseOrientation = () => {
                 <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mb-4">
                   <Users className="w-6 h-6 text-white" />
                 </div>
-                <CardTitle className="text-xl text-teal-800">Simulateur Manager</CardTitle>
+                <CardTitle className="text-xl text-teal-800">Bilan Manager</CardTitle>
                 <CardDescription className="text-gray-600">
                   Évaluez le bien-être de votre équipe en 2 minutes
                 </CardDescription>
@@ -115,7 +115,7 @@ const EnterpriseOrientation = () => {
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mb-4">
                   <Brain className="w-6 h-6 text-white" />
                 </div>
-                <CardTitle className="text-xl text-blue-800">Simulateur Salarié</CardTitle>
+                <CardTitle className="text-xl text-blue-800">Bilan Salarié</CardTitle>
                 <CardDescription className="text-gray-600">
                   Auto-évaluation de votre bien-être professionnel
                 </CardDescription>

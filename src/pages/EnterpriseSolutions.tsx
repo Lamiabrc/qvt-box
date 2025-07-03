@@ -56,7 +56,7 @@ const EnterpriseSolutions = () => {
                 <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-500 rounded-xl flex items-center justify-center mb-4">
                   <Users className="w-6 h-6 text-white" />
                 </div>
-                <CardTitle className="text-xl text-teal-800">Simulateur Manager</CardTitle>
+                <CardTitle className="text-xl text-teal-800">Bilan Manager</CardTitle>
                 <CardDescription className="text-gray-600">
                   Évaluez le bien-être de votre équipe
                 </CardDescription>
@@ -91,7 +91,7 @@ const EnterpriseSolutions = () => {
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mb-4">
                   <Building2 className="w-6 h-6 text-white" />
                 </div>
-                <CardTitle className="text-xl text-blue-800">Simulateur Salarié</CardTitle>
+                <CardTitle className="text-xl text-blue-800">Bilan Salarié</CardTitle>
                 <CardDescription className="text-gray-600">
                   Auto-évaluation de votre bien-être professionnel
                 </CardDescription>
@@ -129,7 +129,7 @@ const EnterpriseSolutions = () => {
               Nos Solutions QVT Entreprise
             </h3>
             <p className="text-cyan-600">
-              Box personnalisées selon les besoins identifiés par nos simulateurs
+              Box personnalisées selon les besoins identifiés par nos bilans
             </p>
           </div>
 

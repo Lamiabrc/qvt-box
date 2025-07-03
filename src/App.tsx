@@ -48,6 +48,7 @@ import FamilyEnterpriseSimulator from "./pages/FamilyEnterpriseSimulator";
 import FamilyComparativeSimulator from "./pages/FamilyComparativeSimulator";
 import WorkplaceComparativeSimulator from "./pages/WorkplaceComparativeSimulator";
 import IntelligentRecommendations from "./pages/IntelligentRecommendations";
+import ManagerTeamEvaluation from "./pages/ManagerTeamEvaluation";
 
 const queryClient = new QueryClient();
 
@@ -88,6 +89,7 @@ function App() {
                     <Route path="/family-comparative-simulator" element={<FamilyComparativeSimulator />} />
                     <Route path="/workplace-comparative-simulator" element={<WorkplaceComparativeSimulator />} />
                     <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
+                    <Route path="/manager-team-evaluation" element={<ManagerTeamEvaluation />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/admin-login" element={<AdminLogin />} />
                     <Route path="/register" element={<Auth />} />

@@ -102,7 +102,7 @@ const EnterpriseEmployeeSimulator = () => {
 
   return (
     <SimulatorBase
-      title="Simulateur Salarié"
+      title="Bilan Salarié"
       badge="Évaluation Personnelle"
       description="Évaluez votre bien-être et votre satisfaction au travail"
       questions={enterpriseEmployeeQuestions}

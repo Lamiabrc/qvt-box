@@ -31,6 +31,7 @@ import Payment from "./pages/Payment";
 import EnterpriseOrientation from "./pages/EnterpriseOrientation";
 import FamilyOrientation from "./pages/FamilyOrientation";
 import TeensHome from "./pages/TeensHome";
+import ParentDashboard from "./pages/ParentDashboard";
 import NotFound from "./pages/NotFound";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Shop from "./pages/Shop";
@@ -72,6 +73,7 @@ function App() {
                     <Route path="/entreprise" element={<EnterpriseOrientation />} />
                     <Route path="/famille" element={<FamilyOrientation />} />
                     <Route path="/teens-home" element={<TeensHome />} />
+                    <Route path="/parent-dashboard" element={<ParentDashboard />} />
                     <Route path="/shop" element={<Shop />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/payment" element={<Payment />} />

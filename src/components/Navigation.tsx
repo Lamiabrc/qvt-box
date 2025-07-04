@@ -16,8 +16,8 @@ const Navigation = () => {
   const { secureSignOut } = useSecureAuth();
   const navigate = useNavigate();
 
-  // Mock cart items count - you can replace with real cart data
-  const cartItemsCount = 3;
+  // Cart is now empty by default
+  const cartItemsCount = 0;
 
   const handleSignOut = async () => {
     try {
@@ -46,7 +46,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <img 
-              src="/lovable-uploads/bed0f5ad-cedc-4afa-8b5d-24f9bf8ec5ff.png" 
+              src="/lovable-uploads/1ea4d5d2-05fb-40cb-9814-0782d53376dd.png" 
               alt="QVT Box Logo" 
               className="h-8 w-auto"
             />

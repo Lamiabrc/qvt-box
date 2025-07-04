@@ -7,14 +7,12 @@ export const authService = {
       console.log('Attempting sign up for:', email);
       console.log('User data:', userData);
       
-      // Try to sign up without email confirmation
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: userData || {},
-          // Explicitly disable email confirmation
-          emailRedirectTo: undefined,
+          emailRedirectTo: `${window.location.origin}/auth/callback`
         }
       });
       
@@ -122,7 +120,7 @@ export const authService = {
       if (error) {
         console.error('Sign in error:', error.message);
         
-        // Handle common errors
+        // Handle common errors with better French messages
         if (error.message.includes('Invalid login credentials')) {
           return { 
             data, 
@@ -134,13 +132,21 @@ export const authService = {
         }
         
         if (error.message.includes('Email not confirmed')) {
-          // If email not confirmed, this might be a newly created user
-          // Let's provide a helpful message
           return { 
             data, 
             error: { 
               ...error, 
-              message: 'Compte créé mais non confirmé. Veuillez vérifier votre email ou contacter le support.' 
+              message: 'Veuillez confirmer votre email avant de vous connecter.' 
+            }
+          };
+        }
+
+        if (error.message.includes('Email logins are disabled')) {
+          return { 
+            data, 
+            error: { 
+              ...error, 
+              message: 'Les connexions par email sont temporairement désactivées. Veuillez contacter le support.' 
             }
           };
         }

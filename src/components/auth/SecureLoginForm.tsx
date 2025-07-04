@@ -34,6 +34,7 @@ const SecureLoginForm: React.FC<SecureLoginFormProps> = ({ onSuccess }) => {
     setIsLoading(true);
     
     try {
+      console.log('Attempting login with:', data.email);
       const { error } = await signIn(data.email, data.password);
       
       if (error) {
@@ -44,6 +45,15 @@ const SecureLoginForm: React.FC<SecureLoginFormProps> = ({ onSuccess }) => {
           setError('root', { message: 'Email ou mot de passe incorrect' });
         } else if (error.message.includes('Email not confirmed')) {
           setError('root', { message: 'Veuillez vérifier votre email avant de vous connecter' });
+        } else if (error.message.includes('Email logins are disabled')) {
+          setError('root', { 
+            message: 'Les connexions par email sont temporairement désactivées. Contactez le support technique.' 
+          });
+          toast({
+            title: "Service temporairement indisponible",
+            description: "Les connexions sont actuellement désactivées. Veuillez contacter le support.",
+            variant: "destructive"
+          });
         } else if (error.message.includes('captcha')) {
           setError('root', { 
             message: 'Vérification de sécurité requise. Veuillez réessayer dans quelques minutes.' 
@@ -65,6 +75,7 @@ const SecureLoginForm: React.FC<SecureLoginFormProps> = ({ onSuccess }) => {
         return;
       }
 
+      console.log('Login successful');
       toast({
         title: "Connexion réussie",
         description: "Bienvenue dans votre espace QVT Box"

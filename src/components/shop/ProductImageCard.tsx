@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, ShoppingCart, Plus, Minus } from "lucide-react";
 import { Product } from "@/data/shopProducts";
-import { getProductImage } from "@/data/productImages";
+import { getProductImage } from "@/data/realProductImages";
 
 interface ProductImageCardProps {
   product: Product;
@@ -22,6 +22,8 @@ const ProductImageCard = ({ product, cart, onAddToCart, onRemoveFromCart }: Prod
       case 'promo': return 'bg-red-100 text-red-800';
       case 'nouveau': return 'bg-purple-100 text-purple-800';
       case 'populaire': return 'bg-orange-100 text-orange-800';
+      case 'artisanal': return 'bg-amber-100 text-amber-800';
+      case 'exclusif': return 'bg-indigo-100 text-indigo-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };

@@ -67,6 +67,9 @@ const Navigation = () => {
             <Link to="/shop" className="text-gray-700 hover:text-blue-600 transition-colors">
               Boutique
             </Link>
+            <Link to="/intelligent-recommendations" className="text-gray-700 hover:text-purple-600 transition-colors">
+              IA Recommandations
+            </Link>
             <Link to="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
               Contact
             </Link>
@@ -179,6 +182,13 @@ const Navigation = () => {
               onClick={() => setIsOpen(false)}
             >
               Boutique
+            </Link>
+            <Link 
+              to="/intelligent-recommendations" 
+              className="block px-3 py-2 text-gray-700 hover:text-purple-600 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              IA Recommandations
             </Link>
             <Link 
               to="/contact" 

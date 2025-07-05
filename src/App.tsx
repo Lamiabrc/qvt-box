@@ -50,6 +50,9 @@ import FamilyComparativeSimulator from "./pages/FamilyComparativeSimulator";
 import WorkplaceComparativeSimulator from "./pages/WorkplaceComparativeSimulator";
 import IntelligentRecommendations from "./pages/IntelligentRecommendations";
 import ManagerTeamEvaluation from "./pages/ManagerTeamEvaluation";
+import TeensQuickAlert from "./pages/TeensQuickAlert";
+import EnterprisePortal from "./pages/EnterprisePortal";
+import FamilyPortal from "./pages/FamilyPortal";
 
 const queryClient = new QueryClient();
 
@@ -70,9 +73,12 @@ function App() {
                     <Route path="/auth/callback" element={<AuthCallback />} />
                     <Route path="/email-confirmation" element={<EmailConfirmation />} />
                     <Route path="/concept-qvt" element={<ConceptQVT />} />
-                    <Route path="/entreprise" element={<EnterpriseOrientation />} />
-                    <Route path="/famille" element={<FamilyOrientation />} />
+                    <Route path="/entreprise" element={<EnterprisePortal />} />
+                    <Route path="/famille" element={<FamilyPortal />} />
+                    <Route path="/entreprise-orientation" element={<EnterpriseOrientation />} />
+                    <Route path="/famille-orientation" element={<FamilyOrientation />} />
                     <Route path="/teens-home" element={<TeensHome />} />
+                    <Route path="/teens-quick-alert" element={<TeensQuickAlert />} />
                     <Route path="/parent-dashboard" element={<ParentDashboard />} />
                     <Route path="/shop" element={<Shop />} />
                     <Route path="/cart" element={<Cart />} />

@@ -241,7 +241,7 @@ const EnterpriseSolutions = () => {
             <p className="text-sm text-cyan-600 mb-4">
               💼 Solutions recommandées automatiquement selon vos évaluations QVT
             </p>
-            <Link to="/shop">
+            <Link to="/shop?tab=enterprise">
               <Button className="bg-cyan-600 hover:bg-cyan-700">
                 <Package className="w-4 h-4 mr-2" />
                 Découvrir toutes nos solutions entreprise

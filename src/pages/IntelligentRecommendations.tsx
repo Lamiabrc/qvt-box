@@ -25,7 +25,7 @@ const IntelligentRecommendations = () => {
   const [userId] = useState('user-demo-123');
   const { loading, recommendations, error, generateRecommendations } = useAIRecommendations();
 
-  // Box recommandées avec vraies recommandations
+  // Box recommandées avec vraies recommendations
   const [recommendedBoxes, setRecommendedBoxes] = useState([
     {
       name: "Box Décompression Manager",

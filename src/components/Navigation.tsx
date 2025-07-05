@@ -58,7 +58,7 @@ const Navigation = () => {
             <Link to="/concept-qvt" className="text-gray-700 hover:text-teal-600 transition-colors">
               Concept QVT
             </Link>
-            <Link to="/enterprise-solutions" className="text-gray-700 hover:text-teal-600 transition-colors">
+            <Link to="/entreprise" className="text-gray-700 hover:text-teal-600 transition-colors">
               Entreprise
             </Link>
             <Link to="/famille" className="text-gray-700 hover:text-purple-600 transition-colors">
@@ -69,9 +69,6 @@ const Navigation = () => {
             </Link>
             <Link to="/intelligent-recommendations" className="text-gray-700 hover:text-purple-600 transition-colors">
               IA Recommandations
-            </Link>
-            <Link to="/devenir-prestataire" className="text-gray-700 hover:text-orange-600 transition-colors">
-              Devenir Prestataire
             </Link>
             <Link to="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
               Contact
@@ -166,7 +163,7 @@ const Navigation = () => {
               Concept QVT
             </Link>
             <Link 
-              to="/enterprise-solutions" 
+              to="/entreprise" 
               className="block px-3 py-2 text-gray-700 hover:text-teal-600 transition-colors"
               onClick={() => setIsOpen(false)}
             >
@@ -192,13 +189,6 @@ const Navigation = () => {
               onClick={() => setIsOpen(false)}
             >
               IA Recommandations
-            </Link>
-            <Link 
-              to="/devenir-prestataire" 
-              className="block px-3 py-2 text-gray-700 hover:text-orange-600 transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Devenir Prestataire
             </Link>
             <Link 
               to="/contact" 

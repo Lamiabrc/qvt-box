@@ -19,7 +19,7 @@ const ShopHeader = () => {
         
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-          <Link to="/concept-qvt">
+          <Link to="/enterprise-solutions">
             <Button className="bg-teal-600 hover:bg-teal-700 px-6 py-3">
               <ArrowRight className="w-4 h-4 mr-2" />
               Découvrir nos solutions

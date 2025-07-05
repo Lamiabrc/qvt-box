@@ -116,7 +116,7 @@ const IntelligentRecommendations = () => {
             Recommandations Intelligentes
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
-            Notre IA analyseSes évolutions et vous propose des solutions personnalisées qui s'adaptent à votre progression
+            Notre IA analyse vos évolutions et vous propose des solutions personnalisées qui s'adaptent à votre progression
           </p>
           
           <div className="flex justify-center gap-4 mb-8">

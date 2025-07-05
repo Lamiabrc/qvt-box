@@ -1,7 +1,9 @@
 
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Truck, Shield, RefreshCw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Truck, Shield, RefreshCw, ArrowRight, Play } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ShopHeader = () => {
   return (
@@ -14,6 +16,22 @@ const ShopHeader = () => {
         <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-6">
           Découvrez notre collection complète de produits bien-être 100% Made in France
         </p>
+        
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <Link to="/concept-qvt">
+            <Button className="bg-teal-600 hover:bg-teal-700 px-6 py-3">
+              <ArrowRight className="w-4 h-4 mr-2" />
+              Découvrir nos solutions
+            </Button>
+          </Link>
+          <Link to="/simulator-home">
+            <Button variant="outline" className="border-teal-600 text-teal-600 hover:bg-teal-50 px-6 py-3">
+              <Play className="w-4 h-4 mr-2" />
+              Voir démo
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* Features */}

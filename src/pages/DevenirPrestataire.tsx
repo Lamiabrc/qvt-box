@@ -29,8 +29,11 @@ import {
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const DevenirPrestataire = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
@@ -50,10 +53,41 @@ const DevenirPrestataire = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Candidature prestataire:', formData);
-    // Ici vous pourrez ajouter la logique d'envoi du formulaire
+    setIsSubmitting(true);
+    
+    try {
+      // Simuler l'envoi du formulaire
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      console.log('Candidature prestataire:', formData);
+      
+      toast({
+        title: "Candidature envoyée !",
+        description: "Votre candidature a été transmise avec succès. Nous vous recontacterons sous 48h.",
+      });
+      
+      // Réinitialiser le formulaire
+      setFormData({
+        nom: '',
+        prenom: '',
+        email: '',
+        telephone: '',
+        specialite: '',
+        experience: '',
+        certifications: '',
+        motivation: ''
+      });
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Une erreur s'est produite lors de l'envoi. Veuillez réessayer.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const avantages = [
@@ -260,6 +294,7 @@ const DevenirPrestataire = () => {
                     onChange={handleInputChange}
                     required
                     className="w-full"
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div>
@@ -273,6 +308,7 @@ const DevenirPrestataire = () => {
                     onChange={handleInputChange}
                     required
                     className="w-full"
+                    disabled={isSubmitting}
                   />
                 </div>
               </div>
@@ -289,6 +325,7 @@ const DevenirPrestataire = () => {
                     onChange={handleInputChange}
                     required
                     className="w-full"
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div>
@@ -301,6 +338,7 @@ const DevenirPrestataire = () => {
                     value={formData.telephone}
                     onChange={handleInputChange}
                     className="w-full"
+                    disabled={isSubmitting}
                   />
                 </div>
               </div>
@@ -317,6 +355,7 @@ const DevenirPrestataire = () => {
                   required
                   placeholder="Ex: Psychologue du travail, Coach QVT..."
                   className="w-full"
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -332,6 +371,7 @@ const DevenirPrestataire = () => {
                   required
                   placeholder="Ex: 5 ans"
                   className="w-full"
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -346,6 +386,7 @@ const DevenirPrestataire = () => {
                   placeholder="Listez vos principales certifications et diplômes..."
                   className="w-full"
                   rows={3}
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -361,13 +402,27 @@ const DevenirPrestataire = () => {
                   placeholder="Expliquez pourquoi vous souhaitez rejoindre notre réseau..."
                   className="w-full"
                   rows={4}
+                  disabled={isSubmitting}
                 />
               </div>
 
               <div className="text-center">
-                <Button type="submit" className="bg-teal-600 hover:bg-teal-700 px-8 py-3">
-                  <Send className="w-5 h-5 mr-2" />
-                  Envoyer ma candidature
+                <Button 
+                  type="submit" 
+                  className="bg-teal-600 hover:bg-teal-700 px-8 py-3"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Envoi en cours...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5 mr-2" />
+                      Envoyer ma candidature
+                    </>
+                  )}
                 </Button>
               </div>
             </form>
@@ -383,11 +438,13 @@ const DevenirPrestataire = () => {
             Ensemble, créons un impact positif sur le bien-être des entreprises et des familles.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-3 text-lg">
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Discuter avec notre équipe
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <Link to="/contact">
+              <Button className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-3 text-lg">
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Discuter avec notre équipe
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
             <Link to="/contact">
               <Button variant="outline" className="border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3 text-lg">
                 Nous contacter

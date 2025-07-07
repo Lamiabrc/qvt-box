@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Building2, Heart, Users, Sparkles, Shield, TrendingUp, ArrowRight, CheckCircle } from "lucide-react";
+import { Building2, Heart, Users, Sparkles, Shield, TrendingUp, ArrowRight, CheckCircle, Play, Target } from "lucide-react";
 import { Link } from "react-router-dom";
 import FloatingBubbles from "../components/FloatingBubbles";
 import sarahPhoto from "../assets/sarah-rh-director.jpg";
@@ -93,6 +93,104 @@ const Index = () => {
             <Badge className="bg-green-500 text-white animate-bounce">Nouveau !</Badge>
             <Badge className="bg-blue-500 text-white">Phygital</Badge>
             <Badge className="bg-purple-500 text-white">IA Intégrée</Badge>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Test Section - Nouveau */}
+      <section className="relative z-10 px-4 py-16 bg-white/60 backdrop-blur-sm">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              Tests Rapides Gratuits
+            </h2>
+            <p className="text-lg text-gray-600">
+              Découvrez nos solutions en 5 minutes - Aucune inscription requise
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Test Entreprise */}
+            <Card className="border-teal-200 hover:shadow-xl transition-all duration-300 group">
+              <CardHeader className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <Building2 className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-xl text-teal-800">Test Manager/Salarié</CardTitle>
+                <CardDescription className="text-teal-600">
+                  Diagnostic QVT entreprise en 5 min
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Détection risques psychosociaux</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Évaluation bien-être équipe</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Recommandations personnalisées</span>
+                  </div>
+                </div>
+                <Link to="/entreprise-solutions" className="block">
+                  <Button className="w-full bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white">
+                    <Play className="w-4 h-4 mr-2" />
+                    Tester maintenant - Gratuit
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Test Famille */}
+            <Card className="border-purple-200 hover:shadow-xl transition-all duration-300 group">
+              <CardHeader className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <Heart className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-xl text-purple-800">Test Famille/Ado</CardTitle>
+                <CardDescription className="text-purple-600">
+                  Diagnostic harmonie familiale en 5 min
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Climat familial</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Communication parent-ado</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">Solutions adaptées</span>
+                  </div>
+                </div>
+                <Link to="/family-simulator" className="block">
+                  <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
+                    <Play className="w-4 h-4 mr-2" />
+                    Tester maintenant - Gratuit
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center mt-8">
+            <p className="text-sm text-gray-600 mb-4">
+              💡 Pour accéder aux solutions complètes, connectez-vous avec votre code famille ou entreprise
+            </p>
+            <Link to="/login">
+              <Button variant="outline" className="border-teal-600 text-teal-600 hover:bg-teal-50">
+                Se connecter avec un code
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

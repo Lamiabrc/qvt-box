@@ -53,6 +53,8 @@ import ManagerTeamEvaluation from "./pages/ManagerTeamEvaluation";
 import TeensQuickAlert from "./pages/TeensQuickAlert";
 import EnterprisePortal from "./pages/EnterprisePortal";
 import FamilyPortal from "./pages/FamilyPortal";
+import EnterpriseSolutions from "./pages/EnterpriseSolutions";
+import DevenirPrestataire from "./pages/DevenirPrestataire";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +76,7 @@ function App() {
                     <Route path="/email-confirmation" element={<EmailConfirmation />} />
                     <Route path="/concept-qvt" element={<ConceptQVT />} />
                     <Route path="/entreprise" element={<EnterprisePortal />} />
+                    <Route path="/entreprise-solutions" element={<EnterpriseSolutions />} />
                     <Route path="/famille" element={<FamilyPortal />} />
                     <Route path="/entreprise-orientation" element={<EnterpriseOrientation />} />
                     <Route path="/famille-orientation" element={<FamilyOrientation />} />
@@ -98,6 +101,7 @@ function App() {
                     <Route path="/workplace-comparative-simulator" element={<WorkplaceComparativeSimulator />} />
                     <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
                     <Route path="/manager-team-evaluation" element={<ManagerTeamEvaluation />} />
+                    <Route path="/devenir-prestataire" element={<DevenirPrestataire />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/admin-login" element={<AdminLogin />} />
                     <Route path="/register" element={<Auth />} />

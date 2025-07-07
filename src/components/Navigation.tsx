@@ -70,6 +70,9 @@ const Navigation = () => {
             <Link to="/intelligent-recommendations" className="text-gray-700 hover:text-purple-600 transition-colors">
               IA Recommandations
             </Link>
+            <Link to="/devenir-prestataire" className="text-gray-700 hover:text-green-600 transition-colors">
+              Devenir prestataire
+            </Link>
             <Link to="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
               Contact
             </Link>
@@ -189,6 +192,13 @@ const Navigation = () => {
               onClick={() => setIsOpen(false)}
             >
               IA Recommandations
+            </Link>
+            <Link 
+              to="/devenir-prestataire" 
+              className="block px-3 py-2 text-gray-700 hover:text-green-600 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Devenir prestataire
             </Link>
             <Link 
               to="/contact" 

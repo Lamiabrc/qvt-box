@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -8,7 +9,9 @@ import {
   Bell,
   MessageCircle,
   Activity,
-  Award
+  Award,
+  Brain,
+  Target
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import MoodWeather from "../components/MoodWeather";
@@ -18,6 +21,8 @@ import QuickActions from "../components/employee/QuickActions";
 import TeamInsights from "../components/employee/TeamInsights";
 import Achievements from "../components/employee/Achievements";
 import WellnessActivities from "../components/employee/WellnessActivities";
+import PersonalWellnessInsights from "../components/employee/PersonalWellnessInsights";
+import SmartSuggestions from "../components/employee/SmartSuggestions";
 
 const EmployeeDashboard = () => {
   const [currentMood, setCurrentMood] = useState(4);
@@ -28,6 +33,22 @@ const EmployeeDashboard = () => {
     motivation: 82,
     workLife: 71,
     teamSpirit: 88
+  };
+
+  const personalWellnessData = {
+    overallScore: 78,
+    stressLevel: 65,
+    energyLevel: 72,
+    workLifeBalance: 71,
+    jobSatisfaction: 85,
+    trend: 'improving' as const
+  };
+
+  const userProfile = {
+    role: 'Développeur',
+    department: 'IT',
+    stressLevel: 65,
+    workload: 75
   };
 
   const todayActivities = [
@@ -115,7 +136,7 @@ const EmployeeDashboard = () => {
     },
     {
       title: 'Mon Profil',
-      description: 'Spécificités & événements',
+      description: 'Paramètres & préférences',
       icon: User,
       color: 'from-orange-500 to-red-500',
       link: '/employee-profile'
@@ -150,14 +171,19 @@ const EmployeeDashboard = () => {
           <div className="space-y-6">
             <MoodWeather userType="employee" currentMood={currentMood} />
             <QuickActions actions={quickActions} />
+            <SmartSuggestions userProfile={userProfile} />
           </div>
 
           {/* Center Column - Main Content */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="overview" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-4 bg-white/60 backdrop-blur-sm">
+              <TabsList className="grid w-full grid-cols-5 bg-white/60 backdrop-blur-sm">
                 <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
                 <TabsTrigger value="wellness">Bien-être</TabsTrigger>
+                <TabsTrigger value="insights">
+                  <Brain className="w-4 h-4 mr-1" />
+                  Insights
+                </TabsTrigger>
                 <TabsTrigger value="team">Équipe</TabsTrigger>
                 <TabsTrigger value="progress">Progrès</TabsTrigger>
               </TabsList>
@@ -169,6 +195,10 @@ const EmployeeDashboard = () => {
 
               <TabsContent value="wellness" className="space-y-6">
                 <WellnessActivities />
+              </TabsContent>
+
+              <TabsContent value="insights" className="space-y-6">
+                <PersonalWellnessInsights wellnessData={personalWellnessData} />
               </TabsContent>
 
               <TabsContent value="team" className="space-y-6">

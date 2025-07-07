@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -48,7 +47,6 @@ import FamilyTeenSimulator from "./pages/FamilyTeenSimulator";
 import FamilyEnterpriseSimulator from "./pages/FamilyEnterpriseSimulator";
 import FamilyComparativeSimulator from "./pages/FamilyComparativeSimulator";
 import WorkplaceComparativeSimulator from "./pages/WorkplaceComparativeSimulator";
-import IntelligentRecommendations from "./pages/IntelligentRecommendations";
 import ManagerTeamEvaluation from "./pages/ManagerTeamEvaluation";
 import TeensQuickAlert from "./pages/TeensQuickAlert";
 import EnterprisePortal from "./pages/EnterprisePortal";
@@ -99,7 +97,6 @@ function App() {
                     <Route path="/family-enterprise-simulator" element={<FamilyEnterpriseSimulator />} />
                     <Route path="/family-comparative-simulator" element={<FamilyComparativeSimulator />} />
                     <Route path="/workplace-comparative-simulator" element={<WorkplaceComparativeSimulator />} />
-                    <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
                     <Route path="/manager-team-evaluation" element={<ManagerTeamEvaluation />} />
                     <Route path="/devenir-prestataire" element={<DevenirPrestataire />} />
                     <Route path="/login" element={<Login />} />

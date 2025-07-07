@@ -16,7 +16,6 @@ const Navigation = () => {
   const { secureSignOut } = useSecureAuth();
   const navigate = useNavigate();
 
-  // Cart is now empty by default
   const cartItemsCount = 0;
 
   const handleSignOut = async () => {
@@ -67,11 +66,8 @@ const Navigation = () => {
             <Link to="/shop" className="text-gray-700 hover:text-blue-600 transition-colors">
               Boutique
             </Link>
-            <Link to="/intelligent-recommendations" className="text-gray-700 hover:text-purple-600 transition-colors">
-              IA Recommandations
-            </Link>
             <Link to="/devenir-prestataire" className="text-gray-700 hover:text-green-600 transition-colors">
-              Devenir prestataire
+              Devenir partenaire
             </Link>
             <Link to="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
               Contact
@@ -187,18 +183,11 @@ const Navigation = () => {
               Boutique
             </Link>
             <Link 
-              to="/intelligent-recommendations" 
-              className="block px-3 py-2 text-gray-700 hover:text-purple-600 transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              IA Recommandations
-            </Link>
-            <Link 
               to="/devenir-prestataire" 
               className="block px-3 py-2 text-gray-700 hover:text-green-600 transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              Devenir prestataire
+              Devenir partenaire
             </Link>
             <Link 
               to="/contact" 

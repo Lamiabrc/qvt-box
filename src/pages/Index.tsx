@@ -108,14 +108,22 @@ const Index = () => {
             <Badge className="bg-purple-500 text-white">IA Intégrée</Badge>
           </div>
 
-          {/* Bouton pour ouvrir le popup d'étude de marché */}
-          <div className="mb-8">
+          {/* Boutons pour les questionnaires et l'étude de marché */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <Link to="/questionnaires">
+              <Button 
+                className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 text-lg shadow-lg hover:shadow-xl transition-all"
+              >
+                <CheckCircle className="w-5 h-5 mr-2" />
+                Questionnaires Express (5 min)
+              </Button>
+            </Link>
             <Button 
               onClick={() => setShowMarketResearchPopup(true)}
               className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-3 text-lg shadow-lg hover:shadow-xl transition-all"
             >
               <Sparkles className="w-5 h-5 mr-2" />
-              Participer à notre étude de marché
+              Étude de marché complète
             </Button>
           </div>
         </div>

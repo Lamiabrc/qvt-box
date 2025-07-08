@@ -20,7 +20,8 @@ import {
   Eye,
   FileText,
   ShoppingCart,
-  Globe
+  Globe,
+  Search
 } from "lucide-react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import { useToast } from "@/hooks/use-toast";
@@ -144,8 +145,9 @@ const AdminPanel = () => {
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
+            <TabsTrigger value="market-research">Étude Marché</TabsTrigger>
             <TabsTrigger value="pages">Pages</TabsTrigger>
             <TabsTrigger value="shop">Boutique</TabsTrigger>
             <TabsTrigger value="users">Utilisateurs</TabsTrigger>
@@ -224,6 +226,36 @@ const AdminPanel = () => {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          <TabsContent value="market-research" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <div>
+                <h2 className="text-xl font-semibold">Étude de Marché</h2>
+                <p className="text-gray-600">Analyse des préinscriptions et données collectées</p>
+              </div>
+              <Link to="/admin-market-research">
+                <Button className="bg-blue-600 hover:bg-blue-700">
+                  <Search className="w-4 h-4 mr-2" />
+                  Voir l'analyse complète
+                </Button>
+              </Link>
+            </div>
+
+            <Card>
+              <CardContent className="p-6">
+                <div className="text-center">
+                  <Search className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Analyse des Préinscriptions</h3>
+                  <p className="text-gray-600 mb-4">
+                    Consultez les données complètes de l'étude de marché, analysez les tendances et exportez les résultats.
+                  </p>
+                  <Link to="/admin-market-research">
+                    <Button>Accéder à l'analyse</Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="pages" className="space-y-6">

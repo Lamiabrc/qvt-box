@@ -674,6 +674,69 @@ export type Database = {
           },
         ]
       }
+      market_research_submissions: {
+        Row: {
+          budget_range: string | null
+          company_name: string | null
+          company_size: string | null
+          consent_data: boolean | null
+          consent_marketing: boolean | null
+          created_at: string
+          current_solutions: string | null
+          email: string
+          full_name: string | null
+          id: string
+          interest_level: number | null
+          phone: string | null
+          role: string | null
+          source: string | null
+          specific_needs: string | null
+          target_audience: string[] | null
+          timeline: string | null
+          updated_at: string
+        }
+        Insert: {
+          budget_range?: string | null
+          company_name?: string | null
+          company_size?: string | null
+          consent_data?: boolean | null
+          consent_marketing?: boolean | null
+          created_at?: string
+          current_solutions?: string | null
+          email: string
+          full_name?: string | null
+          id?: string
+          interest_level?: number | null
+          phone?: string | null
+          role?: string | null
+          source?: string | null
+          specific_needs?: string | null
+          target_audience?: string[] | null
+          timeline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          budget_range?: string | null
+          company_name?: string | null
+          company_size?: string | null
+          consent_data?: boolean | null
+          consent_marketing?: boolean | null
+          created_at?: string
+          current_solutions?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+          interest_level?: number | null
+          phone?: string | null
+          role?: string | null
+          source?: string | null
+          specific_needs?: string | null
+          target_audience?: string[] | null
+          timeline?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           admin_user_id: string | null

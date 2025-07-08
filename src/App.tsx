@@ -53,6 +53,9 @@ import EnterprisePortal from "./pages/EnterprisePortal";
 import FamilyPortal from "./pages/FamilyPortal";
 import EnterpriseSolutions from "./pages/EnterpriseSolutions";
 import DevenirPrestataire from "./pages/DevenirPrestataire";
+import MarketResearchLanding from "./pages/MarketResearchLanding";
+import AdminPanel from "./pages/AdminPanel";
+import AdminMarketResearch from "./pages/AdminMarketResearch";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +73,9 @@ function App() {
                 <main className="flex-1">
                   <Routes>
                     <Route path="/" element={<Index />} />
+                    <Route path="/market-research" element={<MarketResearchLanding />} />
+                    <Route path="/admin-panel" element={<AdminPanel />} />
+                    <Route path="/admin-market-research" element={<AdminMarketResearch />} />
                     <Route path="/auth/callback" element={<AuthCallback />} />
                     <Route path="/email-confirmation" element={<EmailConfirmation />} />
                     <Route path="/concept-qvt" element={<ConceptQVT />} />

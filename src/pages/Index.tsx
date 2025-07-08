@@ -4,10 +4,23 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Building2, Heart, Users, Sparkles, Shield, TrendingUp, ArrowRight, CheckCircle, Play, Target } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import FloatingBubbles from "../components/FloatingBubbles";
+import MarketResearchPopup from "../components/MarketResearchPopup";
 import sarahPhoto from "../assets/sarah-rh-director.jpg";
 
 const Index = () => {
+  const [showMarketResearchPopup, setShowMarketResearchPopup] = useState(false);
+
+  useEffect(() => {
+    // Afficher le popup après 3 secondes sur la page d'accueil
+    const timer = setTimeout(() => {
+      setShowMarketResearchPopup(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 relative overflow-hidden">
       <FloatingBubbles />
@@ -93,6 +106,17 @@ const Index = () => {
             <Badge className="bg-green-500 text-white animate-bounce">Nouveau !</Badge>
             <Badge className="bg-blue-500 text-white">Phygital</Badge>
             <Badge className="bg-purple-500 text-white">IA Intégrée</Badge>
+          </div>
+
+          {/* Bouton pour ouvrir le popup d'étude de marché */}
+          <div className="mb-8">
+            <Button 
+              onClick={() => setShowMarketResearchPopup(true)}
+              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-3 text-lg shadow-lg hover:shadow-xl transition-all"
+            >
+              <Sparkles className="w-5 h-5 mr-2" />
+              Participer à notre étude de marché
+            </Button>
           </div>
         </div>
       </section>
@@ -438,6 +462,12 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Popup d'étude de marché */}
+      <MarketResearchPopup 
+        isOpen={showMarketResearchPopup}
+        onClose={() => setShowMarketResearchPopup(false)}
+      />
     </div>
   );
 };

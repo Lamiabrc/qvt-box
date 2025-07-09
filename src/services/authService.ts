@@ -5,7 +5,6 @@ export const authService = {
   async signUp(email: string, password: string, userData?: any) {
     try {
       console.log('Attempting sign up for:', email);
-      console.log('User data:', userData);
       
       const { data, error } = await supabase.auth.signUp({
         email,

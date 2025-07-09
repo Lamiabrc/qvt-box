@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ShieldX, Home, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import FloatingBubbles from "../components/FloatingBubbles";
 
 const Unauthorized = () => {
   const { signOut } = useAuth();
@@ -18,8 +17,6 @@ const Unauthorized = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 relative overflow-hidden">
-      <FloatingBubbles />
-      
       <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="flex items-center justify-center min-h-screen">
           <Card className="w-full max-w-md border-red-200 bg-white/90 backdrop-blur-sm">

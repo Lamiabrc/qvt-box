@@ -26,9 +26,9 @@ const FamilyQuestionnaire = ({ onComplete }: FamilyQuestionnaireProps) => {
       question: "En ce moment, diriez-vous que votre charge mentale familiale est :",
       subtitle: "Soyez honnête avec vous-même 💭",
       options: [
-        { value: "supportable", label: "😌 Supportable", emoji: "😌", description: "Je gère plutôt bien" },
-        { value: "moyenne", label: "😐 Moyenne", emoji: "😐", description: "Parfois difficile" },
-        { value: "trop_lourde", label: "😫 Trop lourde", emoji: "😫", description: "Je sature souvent" }
+        { value: "supportable", label: "😌 Supportable", description: "Je gère plutôt bien" },
+        { value: "moyenne", label: "😐 Moyenne", description: "Parfois difficile" },
+        { value: "trop_lourde", label: "😫 Trop lourde", description: "Je sature souvent" }
       ],
       tip: "💡 Astuce : Reconnaître sa charge mentale est le premier pas vers le bien-être !"
     },
@@ -160,7 +160,7 @@ const FamilyQuestionnaire = ({ onComplete }: FamilyQuestionnaireProps) => {
           target_audience: ['famille'],
           specific_needs: JSON.stringify(questionnaire_data),
           consent_data: true,
-          email: 'questionnaire@temp.com' // Temporary email
+          email: 'questionnaire@temp.com'
         }]);
 
       if (error) throw error;
@@ -296,9 +296,6 @@ const FamilyQuestionnaire = ({ onComplete }: FamilyQuestionnaireProps) => {
                     <p className="text-sm text-gray-600 mt-1">{option.description}</p>
                   )}
                 </div>
-                {option.emoji && (
-                  <span className="text-2xl">{option.emoji}</span>
-                )}
               </div>
             ))}
           </RadioGroup>

@@ -100,7 +100,7 @@ const EnterpriseQuestionnaire = ({ onComplete }: EnterpriseQuestionnaireProps) =
 
     let recommendation = '';
     let priority = 'medium';
-    let nextSteps = [];
+    let nextSteps: string[] = [];
 
     if (urgencyLevel >= 4 && readinessLevel >= 4) {
       recommendation = 'Profil idéal ! Votre entreprise a un besoin urgent et vous êtes prêt pour l\'innovation.';
@@ -164,7 +164,7 @@ const EnterpriseQuestionnaire = ({ onComplete }: EnterpriseQuestionnaireProps) =
           target_audience: ['entreprise'],
           specific_needs: JSON.stringify(questionnaire_data),
           consent_data: true,
-          email: 'questionnaire@temp.com' // Temporary email
+          email: 'questionnaire@temp.com'
         }]);
 
       if (error) throw error;

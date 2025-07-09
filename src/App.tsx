@@ -12,7 +12,7 @@ import Payment from "./pages/Payment";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Faq from "./pages/Faq";
 import LegalMentions from "./pages/LegalMentions";
-import Cgu from "./pages/Cgu";
+import CGU from "./pages/CGU";
 import Confidentiality from "./pages/Confidentiality";
 import Error404 from "./pages/Error404";
 import Dashboard from "./pages/Dashboard";
@@ -38,7 +38,7 @@ function App() {
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/legal-mentions" element={<LegalMentions />} />
-            <Route path="/cgu" element={<Cgu />} />
+            <Route path="/cgu" element={<CGU />} />
             <Route path="/confidentiality" element={<Confidentiality />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/shop" element={<Shop />} />

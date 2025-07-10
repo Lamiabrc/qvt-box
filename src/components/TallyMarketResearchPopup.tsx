@@ -17,9 +17,6 @@ const TallyMarketResearchPopup = ({ isOpen, onClose }: TallyMarketResearchPopupP
           <DialogHeader className="p-6 pb-0">
             <DialogTitle className="flex items-center justify-between">
               Étude de Marché - QVT Box
-              <button onClick={onClose} className="hover:bg-gray-100 p-1 rounded">
-                <X className="w-5 h-5" />
-              </button>
             </DialogTitle>
           </DialogHeader>
           

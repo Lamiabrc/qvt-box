@@ -97,7 +97,7 @@ const MarketResearchLanding = () => {
                 </div>
                 
                 <iframe
-                  data-tally-src="https://tally.so/embed/mRebOK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                  data-tally-src="https://tally.so/embed/mYBqaz?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
                   loading="lazy"
                   width="100%"
                   height="400"
@@ -138,7 +138,7 @@ const MarketResearchLanding = () => {
                 </div>
                 
                 <iframe
-                  data-tally-src="https://tally.so/embed/mRebOK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                  data-tally-src="https://tally.so/embed/3EVaQ2?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
                   loading="lazy"
                   width="100%"
                   height="400"

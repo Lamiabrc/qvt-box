@@ -5,7 +5,7 @@ import { Building2, Heart, Users, Sparkles, Shield, TrendingUp, ArrowRight, Chec
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import FloatingBubbles from "../components/FloatingBubbles";
-import MarketResearchPopup from "../components/MarketResearchPopup";
+import TallyMarketResearchPopup from "../components/TallyMarketResearchPopup";
 import sarahPhoto from "../assets/sarah-rh-director.jpg";
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -474,8 +474,8 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Popup d'étude de marché */}
-        <MarketResearchPopup 
+        {/* Popup d'étude de marché Tally */}
+        <TallyMarketResearchPopup 
           isOpen={showMarketResearchPopup}
           onClose={() => setShowMarketResearchPopup(false)}
         />

@@ -1,6 +1,8 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Users, Building2, GraduationCap, Target } from "lucide-react";
 
 interface TallyMarketResearchPopupProps {
   isOpen: boolean;
@@ -8,46 +10,81 @@ interface TallyMarketResearchPopupProps {
 }
 
 const TallyMarketResearchPopup = ({ isOpen, onClose }: TallyMarketResearchPopupProps) => {
-  useEffect(() => {
-    if (isOpen) {
-      // Charger le script Tally quand le popup s'ouvre
-      const script = document.createElement('script');
-      script.src = 'https://tally.so/widgets/embed.js';
-      script.async = true;
-      document.head.appendChild(script);
-
-      return () => {
-        // Nettoyer le script quand le popup se ferme
-        const existingScript = document.querySelector('script[src="https://tally.so/widgets/embed.js"]');
-        if (existingScript) {
-          document.head.removeChild(existingScript);
-        }
-      };
-    }
-  }, [isOpen]);
+  const handleFormAccess = (url: string) => {
+    window.open(url, '_blank');
+    onClose();
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden p-0">
-        <DialogHeader className="p-6 pb-0">
-          <DialogTitle>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-2xl text-center">
+            <Target className="w-6 h-6 text-teal-600" />
             Étude de Marché - QVT Box
           </DialogTitle>
+          <p className="text-gray-600 text-center mt-2">
+            Choisissez l'étude qui correspond le mieux à votre profil
+          </p>
         </DialogHeader>
         
-        <div className="p-6 pt-0">
-          <iframe
-            data-tally-src="https://tally.so/embed/mRebOK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-            loading="lazy"
-            width="100%"
-            height="600"
-            frameBorder="0"
-            marginHeight={0}
-            marginWidth={0}
-            title="Étude de Marché QVT Box"
-            className="rounded-lg border"
-            style={{ minHeight: '600px', backgroundColor: '#f9fafb' }}
-          ></iframe>
+        <div className="space-y-4 p-6">
+          {/* Étude Générale */}
+          <div className="border-2 border-teal-200 rounded-lg p-6 hover:shadow-lg transition-all">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                <Target className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-teal-800">Étude Générale</h3>
+                <p className="text-teal-600 text-sm">Pour tous les profils</p>
+              </div>
+            </div>
+            <Button 
+              onClick={() => handleFormAccess('https://tally.so/r/mRebOK')}
+              className="w-full bg-teal-600 hover:bg-teal-700"
+            >
+              Participer à l'étude générale
+            </Button>
+          </div>
+
+          {/* Étude Parents Salariés */}
+          <div className="border-2 border-purple-200 rounded-lg p-6 hover:shadow-lg transition-all">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                <Building2 className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-purple-800">Parents Salariés</h3>
+                <p className="text-purple-600 text-sm">Équilibre vie pro/perso</p>
+              </div>
+            </div>
+            <Button 
+              onClick={() => handleFormAccess('https://tally.so/r/mYBqaz')}
+              className="w-full bg-purple-600 hover:bg-purple-700"
+            >
+              Participer à l'étude parents
+            </Button>
+          </div>
+
+          {/* Étude Adolescents */}
+          <div className="border-2 border-blue-200 rounded-lg p-6 hover:shadow-lg transition-all">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                <GraduationCap className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-blue-800">Adolescents</h3>
+                <p className="text-blue-600 text-sm">Bien-être des jeunes</p>
+              </div>
+            </div>
+            <Button 
+              onClick={() => handleFormAccess('https://tally.so/r/3EVaQ2')}
+              className="w-full bg-blue-600 hover:bg-blue-700"
+            >
+              Participer à l'étude ados
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

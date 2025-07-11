@@ -21,6 +21,7 @@ import Cart from "./pages/Cart";
 import TeensShop from "./pages/TeensShop";
 import EnterpriseSolutions from "./pages/EnterpriseSolutions";
 import NotFound from "./pages/NotFound";
+import AuthCallback from "./pages/AuthCallback";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/family-simulator" element={<FamilySimulator />} />
             <Route path="/questionnaires" element={<QuestionnaireSelector />} />
             <Route path="/pricing" element={<Pricing />} />

@@ -58,44 +58,16 @@ export const authService = {
         return { data, error };
       }
 
-      // Si l'inscription réussit et qu'on a un utilisateur mais pas de session
-      // c'est que la confirmation email est requise
-      if (data.user && !data.session) {
-        console.log('User created but no session - email confirmation might be required');
-        
-        // Tenter une connexion immédiate
-        console.log('Attempting immediate sign in...');
-        const signInResult = await this.signIn(email, password);
-        
-        if (!signInResult.error && signInResult.data?.session) {
-          console.log('Immediate sign in successful');
-          return { 
-            data: signInResult.data, 
-            error: null,
-            immediateLogin: true 
-          };
-        } else {
-          console.log('Immediate sign in failed, returning signup success without session');
-          return { 
-            data, 
-            error: null,
-            needsManualLogin: true,
-            message: 'Compte créé avec succès ! Veuillez vous connecter avec vos identifiants.'
-          };
-        }
-      }
-      
-      // Si on a une session directement, parfait !
-      if (data.session) {
-        console.log('Sign up successful with immediate session');
+      // Si l'inscription réussit, on retourne directement le résultat
+      if (data.user) {
+        console.log('Sign up successful for user:', data.user.email);
         return { 
           data, 
           error: null,
-          immediateLogin: true 
+          message: 'Compte créé avec succès ! Vous pouvez maintenant vous connecter.'
         };
       }
       
-      console.log('Sign up completed:', data.user?.email);
       return { data, error };
     } catch (error) {
       console.error('Unexpected sign up error:', error);

@@ -23,7 +23,6 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [needsManualLogin, setNeedsManualLogin] = useState(false);
   const { signUp } = useAuth();
   const { toast } = useToast();
 
@@ -44,7 +43,6 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
     setIsLoading(true);
     setGeneralError(null);
     setSuccessMessage(null);
-    setNeedsManualLogin(false);
     
     try {
       console.log('Form submission started with data:', {
@@ -76,41 +74,13 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         return;
       }
 
-      // Check if immediate login was successful
-      if (result.immediateLogin && result.data?.session) {
-        console.log('Immediate login successful');
-        
-        setSuccessMessage('Parfait ! Votre compte a été créé et vous êtes maintenant connecté.');
-        
-        toast({
-          title: "Connexion réussie !",
-          description: "Votre compte a été créé et vous êtes maintenant connecté.",
-        });
-
-        // Call onSuccess callback after a short delay
-        if (onSuccess) {
-          setTimeout(() => {
-            onSuccess();
-          }, 1500);
-        }
-      } else if (result.needsManualLogin) {
-        // Account created but needs manual login
-        setNeedsManualLogin(true);
-        setSuccessMessage('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
-        
-        toast({
-          title: "Compte créé !",
-          description: "Connectez-vous avec vos identifiants pour accéder à QVT Box.",
-        });
-      } else {
-        // Fallback success message
-        setSuccessMessage('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
-        
-        toast({
-          title: "Compte créé !",
-          description: "Connectez-vous avec vos identifiants pour accéder à QVT Box.",
-        });
-      }
+      // Success case
+      setSuccessMessage('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
+      
+      toast({
+        title: "Compte créé !",
+        description: "Connectez-vous avec vos identifiants pour accéder à QVT Box.",
+      });
       
     } catch (error) {
       console.error('Unexpected signup error:', error);
@@ -284,20 +254,11 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         )}
       </Button>
 
-      {needsManualLogin && (
-        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-md">
-          <p className="text-sm text-blue-800">
-            <strong>Dernière étape :</strong> Votre compte a été créé avec succès ! 
-            Cliquez sur "Connexion" dans la navigation pour vous connecter avec vos identifiants.
-          </p>
-        </div>
-      )}
-
-      {successMessage && !needsManualLogin && successMessage.includes('connecté') && (
-        <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
+      {successMessage && (
+        <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-md">
           <p className="text-sm text-green-800">
-            <strong>Excellent !</strong> Vous pouvez maintenant utiliser QVT Box. 
-            Vous allez être redirigé automatiquement.
+            <strong>Succès !</strong> Votre compte a été créé. 
+            Cliquez sur "Se connecter" pour vous connecter avec vos identifiants.
           </p>
         </div>
       )}

@@ -18,20 +18,55 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const { user, session, loading, isAdmin, setIsAdmin } = useAuthState();
 
   const signUp = async (email: string, password: string, userData?: any) => {
-    return await authService.signUp(email, password, userData);
+    try {
+      return await authService.signUp(email, password, userData);
+    } catch (error) {
+      console.error('SignUp error in AuthContext:', error);
+      return { 
+        data: null, 
+        error: { 
+          message: 'Une erreur est survenue lors de la création du compte. Veuillez réessayer.' 
+        } 
+      };
+    }
   };
 
   const signIn = async (email: string, password: string) => {
-    return await authService.signIn(email, password);
+    try {
+      return await authService.signIn(email, password);
+    } catch (error) {
+      console.error('SignIn error in AuthContext:', error);
+      return { 
+        data: null, 
+        error: { 
+          message: 'Une erreur est survenue lors de la connexion. Veuillez réessayer.' 
+        } 
+      };
+    }
   };
 
   const signOut = async () => {
-    await authService.signOut();
-    setIsAdmin(false);
+    try {
+      await authService.signOut();
+      setIsAdmin(false);
+    } catch (error) {
+      console.error('SignOut error in AuthContext:', error);
+      throw error;
+    }
   };
 
   const resetPassword = async (email: string) => {
-    return await authService.resetPassword(email);
+    try {
+      return await authService.resetPassword(email);
+    } catch (error) {
+      console.error('ResetPassword error in AuthContext:', error);
+      return { 
+        data: null, 
+        error: { 
+          message: 'Une erreur est survenue lors de la réinitialisation. Veuillez réessayer.' 
+        } 
+      };
+    }
   };
 
   return (

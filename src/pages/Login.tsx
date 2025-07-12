@@ -16,14 +16,14 @@ const Login = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-teal-600"></div>
       </div>
     );
   }
 
   if (user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   return (
@@ -31,8 +31,8 @@ const Login = () => {
       <FloatingBubbles />
       
       <div className="container mx-auto px-4 py-12 relative z-10">
-        <div className="flex items-center justify-center min-h-screen">
-          <Card className="w-full max-w-md border-teal-200 bg-white/90 backdrop-blur-sm">
+        <div className="flex items-center justify-center min-h-[80vh]">
+          <Card className="w-full max-w-md border-teal-200 bg-white/90 backdrop-blur-sm shadow-xl">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 {mode === 'login' ? (
@@ -52,11 +52,11 @@ const Login = () => {
               </CardDescription>
             </CardHeader>
             
-            <CardContent>
+            <CardContent className="space-y-4">
               {mode === 'login' ? (
-                <SecureLoginForm />
+                <SecureLoginForm onSuccess={() => console.log('Login successful')} />
               ) : (
-                <SecureSignupForm />
+                <SecureSignupForm onSuccess={() => setMode('login')} />
               )}
               
               <Separator className="my-4" />

@@ -1,84 +1,110 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, ArrowRight } from "lucide-react";
-import { useNavigate } from 'react-router-dom';
+import { CheckCircle, AlertCircle, Mail } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import FloatingBubbles from "../components/FloatingBubbles";
 
 const EmailConfirmation = () => {
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleEmailConfirmation = async () => {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        
+        if (error) {
+          setStatus('error');
+          setMessage('Erreur lors de la confirmation de votre email.');
+          return;
+        }
+
+        if (data.session) {
+          setStatus('success');
+          setMessage('Votre email a été confirmé avec succès !');
+          
+          // Rediriger vers le dashboard après 3 secondes
+          setTimeout(() => {
+            navigate('/dashboard');
+          }, 3000);
+        } else {
+          setStatus('error');
+          setMessage('Lien de confirmation invalide ou expiré.');
+        }
+      } catch (error) {
+        console.error('Error confirming email:', error);
+        setStatus('error');
+        setMessage('Une erreur inattendue s\'est produite.');
+      }
+    };
+
+    handleEmailConfirmation();
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 relative overflow-hidden">
       <FloatingBubbles />
       
       <div className="container mx-auto px-4 py-12 relative z-10">
-        <div className="flex items-center justify-center min-h-screen">
-          <Card className="w-full max-w-md border-teal-200 bg-white/90 backdrop-blur-sm">
+        <div className="flex items-center justify-center min-h-[80vh]">
+          <Card className="w-full max-w-md border-teal-200 bg-white/90 backdrop-blur-sm shadow-xl">
             <CardHeader className="text-center">
-              <img 
-                src="/lovable-uploads/bed0f5ad-cedc-4afa-8b5d-24f9bf8ec5ff.png" 
-                alt="QVT Box Logo" 
-                className="h-20 w-20 mx-auto mb-4 rounded-full shadow-lg"
-              />
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-8 h-8 text-white" />
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
+                status === 'success' 
+                  ? 'bg-gradient-to-br from-green-500 to-emerald-500' 
+                  : status === 'error'
+                  ? 'bg-gradient-to-br from-red-500 to-rose-500'
+                  : 'bg-gradient-to-br from-teal-500 to-cyan-500'
+              }`}>
+                {status === 'loading' && <Mail className="w-8 h-8 text-white animate-pulse" />}
+                {status === 'success' && <CheckCircle className="w-8 h-8 text-white" />}
+                {status === 'error' && <AlertCircle className="w-8 h-8 text-white" />}
               </div>
+              
               <CardTitle className="text-2xl text-teal-800">
-                Vérifiez votre email
+                {status === 'loading' && 'Confirmation en cours...'}
+                {status === 'success' && 'Email confirmé !'}
+                {status === 'error' && 'Erreur de confirmation'}
               </CardTitle>
+              
               <CardDescription className="text-teal-600">
-                Nous avons envoyé un lien de confirmation à votre adresse email
+                {message}
               </CardDescription>
             </CardHeader>
             
-            <CardContent>
-              <div className="space-y-4">
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h3 className="font-semibold text-blue-900 mb-2">
-                    Étapes suivantes :
-                  </h3>
-                  <ol className="text-sm text-blue-800 space-y-1">
-                    <li className="flex items-start">
-                      <span className="font-bold mr-2">1.</span>
-                      Consultez votre boîte de réception
-                    </li>
-                    <li className="flex items-start">
-                      <span className="font-bold mr-2">2.</span>
-                      Cliquez sur le lien de confirmation
-                    </li>
-                    <li className="flex items-start">
-                      <span className="font-bold mr-2">3.</span>
-                      Votre compte sera activé automatiquement
-                    </li>
-                  </ol>
-                </div>
-                
-                <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-4">
-                    Vous ne voyez pas l'email ? Vérifiez vos spams ou contactez-nous.
+            <CardContent className="text-center space-y-4">
+              {status === 'success' && (
+                <div className="space-y-2">
+                  <p className="text-sm text-gray-600">
+                    Redirection automatique vers votre dashboard...
                   </p>
-                  
-                  <div className="flex flex-col gap-2">
-                    <Button 
-                      onClick={() => navigate('/login')}
-                      className="w-full bg-teal-600 hover:bg-teal-700 shadow-lg"
-                    >
-                      Aller à la connexion
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                  <Link to="/dashboard">
+                    <Button className="w-full">
+                      Accéder au dashboard
                     </Button>
-                    
-                    <Button 
-                      variant="outline" 
-                      onClick={() => navigate('/contact')}
-                      className="w-full border-teal-200 hover:bg-teal-50"
-                    >
-                      Contacter le support
-                    </Button>
-                  </div>
+                  </Link>
                 </div>
-              </div>
+              )}
+              
+              {status === 'error' && (
+                <div className="space-y-2">
+                  <Link to="/login">
+                    <Button className="w-full">
+                      Retour à la connexion
+                    </Button>
+                  </Link>
+                </div>
+              )}
+              
+              {status === 'loading' && (
+                <div className="animate-pulse">
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mx-auto"></div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

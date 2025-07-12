@@ -54,7 +54,7 @@ const Footer = () => {
               <li><Link to="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
               <li><Link to="/contact" className="hover:text-white transition-colors">Nous contacter</Link></li>
               <li><Link to="/pricing" className="hover:text-white transition-colors">Tarifs</Link></li>
-              <li><a href="mailto:support@qvtbox.com" className="hover:text-white transition-colors">Support technique</a></li>
+              <li><a href="mailto:contact@qvtbox.com" className="hover:text-white transition-colors">Support technique</a></li>
             </ul>
           </div>
 
@@ -64,21 +64,21 @@ const Footer = () => {
             <div className="space-y-3 text-slate-300">
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <a href="mailto:contact@qvtbox.com" className="hover:text-white transition-colors">
-                  contact@qvtbox.com
+                <a href="mailto:lamia.brechet@outlook.fr" className="hover:text-white transition-colors">
+                  lamia.brechet@outlook.fr
                 </a>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="w-4 h-4" />
-                <a href="tel:+33123456789" className="hover:text-white transition-colors">
-                  01 23 45 67 89
+                <a href="tel:+33647851507" className="hover:text-white transition-colors">
+                  06 47 85 15 07
                 </a>
               </div>
               <div className="flex items-start space-x-2">
                 <MapPin className="w-4 h-4 mt-1" />
                 <span className="text-sm">
-                  123 Avenue de l'Innovation<br />
-                  75001 Paris, France
+                  QVT Box<br />
+                  Normandie, France
                 </span>
               </div>
             </div>
@@ -98,6 +98,9 @@ const Footer = () => {
               </Link>
               <Link to="/confidentiality" className="hover:text-white transition-colors">
                 Confidentialité
+              </Link>
+              <Link to="/admin-login" className="hover:text-teal-400 transition-colors">
+                Administration
               </Link>
             </div>
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Users, Building2, GraduationCap, Target, X } from "lucide-react";
+import { Users, Building2, GraduationCap, Target } from "lucide-react";
 
 interface TallyMarketResearchPopupProps {
   isOpen: boolean;
@@ -15,42 +15,28 @@ const TallyMarketResearchPopup = ({ isOpen, onClose }: TallyMarketResearchPopupP
     onClose();
   };
 
-  const handleClose = () => {
-    onClose();
-  };
-
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <div className="flex justify-between items-center">
-            <DialogTitle className="flex items-center gap-2 text-2xl">
-              <Target className="w-6 h-6 text-teal-600" />
-              Étude de Marché - QVT Box
-            </DialogTitle>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={handleClose}
-              className="h-6 w-6 p-0"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
+          <DialogTitle className="flex items-center gap-2 text-2xl">
+            <Target className="w-6 h-6 text-teal-600" />
+            Étude RH responsable QVT - QVT Box
+          </DialogTitle>
           <p className="text-gray-600 text-center mt-2">
             Choisissez l'étude qui correspond le mieux à votre profil
           </p>
         </DialogHeader>
         
         <div className="space-y-4 p-6">
-          {/* Étude Générale */}
+          {/* Étude RH responsable QVT */}
           <div className="border-2 border-teal-200 rounded-lg p-6 hover:shadow-lg transition-all">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center">
                 <Target className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-teal-800">Étude Générale</h3>
+                <h3 className="text-lg font-semibold text-teal-800">Étude RH responsable QVT</h3>
                 <p className="text-teal-600 text-sm">Pour tous les profils</p>
               </div>
             </div>
@@ -58,7 +44,7 @@ const TallyMarketResearchPopup = ({ isOpen, onClose }: TallyMarketResearchPopupP
               onClick={() => handleFormAccess('https://tally.so/r/mRebOK')}
               className="w-full bg-teal-600 hover:bg-teal-700"
             >
-              Participer à l'étude générale
+              Participer à l'étude RH
             </Button>
           </div>
 

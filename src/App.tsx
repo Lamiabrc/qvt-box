@@ -22,6 +22,8 @@ import TeensShop from "./pages/TeensShop";
 import EnterpriseSolutions from "./pages/EnterpriseSolutions";
 import NotFound from "./pages/NotFound";
 import AuthCallback from "./pages/AuthCallback";
+import PasswordReset from "./pages/PasswordReset";
+import EmailConfirmation from "./pages/EmailConfirmation";
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/auth/callback" element={<AuthCallback />} />
+            <Route path="/password-reset" element={<PasswordReset />} />
+            <Route path="/email-confirmation" element={<EmailConfirmation />} />
             <Route path="/family-simulator" element={<FamilySimulator />} />
             <Route path="/questionnaires" element={<QuestionnaireSelector />} />
             <Route path="/pricing" element={<Pricing />} />

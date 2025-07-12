@@ -10,55 +10,17 @@ export const authService = {
         email,
         password,
         options: {
-          data: userData || {},
-          emailRedirectTo: `${window.location.origin}/auth/callback`
+          data: userData || {}
         }
       });
       
       console.log('Signup response:', { data, error });
       
       if (error) {
-        console.error('Sign up error details:', {
-          message: error.message,
-          status: error.status,
-          name: error.name
-        });
-        
-        // Handle specific error cases with user-friendly messages
-        if (error.message.includes('already registered') || error.message.includes('User already registered')) {
-          return { 
-            data, 
-            error: { 
-              ...error, 
-              message: 'Cette adresse email est déjà utilisée. Essayez de vous connecter ou utilisez une autre adresse.' 
-            }
-          };
-        }
-        
-        if (error.message.includes('Invalid email')) {
-          return { 
-            data, 
-            error: { 
-              ...error, 
-              message: 'Adresse email invalide. Veuillez vérifier votre email.' 
-            }
-          };
-        }
-        
-        if (error.message.includes('Password')) {
-          return { 
-            data, 
-            error: { 
-              ...error, 
-              message: 'Le mot de passe doit contenir au moins 6 caractères.' 
-            }
-          };
-        }
-        
+        console.error('Sign up error details:', error);
         return { data, error };
       }
 
-      // Si l'inscription réussit, on retourne directement le résultat
       if (data.user) {
         console.log('Sign up successful for user:', data.user.email);
         return { 
@@ -74,7 +36,7 @@ export const authService = {
       return { 
         data: null, 
         error: { 
-          message: 'Une erreur inattendue s\'est produite. Veuillez réessayer.' 
+          message: 'Une erreur s\'est produite. Veuillez réessayer.' 
         }
       };
     }
@@ -90,37 +52,7 @@ export const authService = {
       
       if (error) {
         console.error('Sign in error:', error.message);
-        
-        // Handle common errors with better French messages
-        if (error.message.includes('Invalid login credentials')) {
-          return { 
-            data, 
-            error: { 
-              ...error, 
-              message: 'Email ou mot de passe incorrect.' 
-            }
-          };
-        }
-        
-        if (error.message.includes('Email not confirmed')) {
-          return { 
-            data, 
-            error: { 
-              ...error, 
-              message: 'Veuillez confirmer votre email avant de vous connecter.' 
-            }
-          };
-        }
-
-        if (error.message.includes('Email logins are disabled')) {
-          return { 
-            data, 
-            error: { 
-              ...error, 
-              message: 'Les connexions par email sont temporairement désactivées. Veuillez contacter le support.' 
-            }
-          };
-        }
+        return { data, error };
       } else {
         console.log('Sign in successful:', data.user?.email);
       }
@@ -131,7 +63,7 @@ export const authService = {
       return { 
         data: null, 
         error: { 
-          message: 'Une erreur inattendue s\'est produite. Veuillez réessayer.' 
+          message: 'Une erreur s\'est produite. Veuillez réessayer.' 
         }
       };
     }
@@ -155,9 +87,7 @@ export const authService = {
   async resetPassword(email: string) {
     try {
       console.log('Attempting password reset for:', email);
-      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`
-      });
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email);
       
       if (error) {
         console.error('Password reset error:', error);

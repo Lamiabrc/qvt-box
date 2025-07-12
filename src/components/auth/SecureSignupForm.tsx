@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff, User, Mail, Lock, AlertCircle, Loader2, CheckCircle } from 'lucide-react';
+import { Eye, EyeOff, User, Mail, Lock, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { signupSchema, type SignupFormData } from '@/lib/validations';
@@ -45,46 +45,36 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
     setSuccessMessage(null);
     
     try {
-      console.log('Form submission started with data:', {
-        email: data.email,
-        role: data.role,
-        fullName: data.fullName
-      });
+      console.log('Creating account for:', data.email);
 
       const result = await signUp(data.email, data.password, {
         full_name: data.fullName,
         role: data.role
       });
       
-      console.log('SignUp response:', result);
-      
       if (result.error) {
         console.error('Signup error:', result.error);
         
-        // Handle specific error cases
-        if (result.error.message.includes('already registered') || result.error.message.includes('déjà utilisée')) {
+        if (result.error.message.includes('already registered')) {
           setError('email', { message: 'Cet email est déjà utilisé' });
         } else if (result.error.message.includes('Invalid email')) {
           setError('email', { message: 'Format d\'email invalide' });
-        } else if (result.error.message.includes('Password')) {
-          setError('password', { message: 'Le mot de passe doit contenir au moins 6 caractères' });
         } else {
-          setGeneralError(result.error.message || 'Erreur lors de la création du compte. Veuillez réessayer.');
+          setGeneralError('Erreur lors de la création du compte. Veuillez réessayer.');
         }
         return;
       }
 
-      // Success case
       setSuccessMessage('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
       
       toast({
         title: "Compte créé !",
-        description: "Connectez-vous avec vos identifiants pour accéder à QVT Box.",
+        description: "Vous pouvez maintenant vous connecter avec vos identifiants.",
       });
       
     } catch (error) {
       console.error('Unexpected signup error:', error);
-      setGeneralError('Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.');
+      setGeneralError('Une erreur s\'est produite. Veuillez réessayer.');
     } finally {
       setIsLoading(false);
     }
@@ -228,10 +218,6 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
           J'accepte les{' '}
           <a href="/cgu" className="text-teal-600 hover:underline">
             conditions d'utilisation
-          </a>{' '}
-          et la{' '}
-          <a href="/privacy-policy" className="text-teal-600 hover:underline">
-            politique de confidentialité
           </a>
         </Label>
       </div>
@@ -244,24 +230,8 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         className="w-full"
         disabled={isLoading}
       >
-        {isLoading ? (
-          <>
-            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            Création du compte...
-          </>
-        ) : (
-          "Créer mon compte"
-        )}
+        {isLoading ? "Création du compte..." : "Créer mon compte"}
       </Button>
-
-      {successMessage && (
-        <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-md">
-          <p className="text-sm text-green-800">
-            <strong>Succès !</strong> Votre compte a été créé. 
-            Cliquez sur "Se connecter" pour vous connecter avec vos identifiants.
-          </p>
-        </div>
-      )}
     </form>
   );
 };

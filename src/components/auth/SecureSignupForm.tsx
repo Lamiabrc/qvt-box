@@ -2,15 +2,13 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff, User, Mail, Lock, AlertCircle, CheckCircle } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, AlertCircle, Building2, Heart } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { signupSchema, type SignupFormData } from '@/lib/validations';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface SecureSignupFormProps {
@@ -21,8 +19,7 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [generalError, setGeneralError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [accountType, setAccountType] = useState<'individual' | 'enterprise'>('individual');
   const { signUp } = useAuth();
   const { toast } = useToast();
 
@@ -31,50 +28,49 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
     handleSubmit,
     formState: { errors },
     setError,
-    setValue,
     watch
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema)
   });
 
-  const acceptTerms = watch('acceptTerms');
+  const password = watch('password');
 
   const onSubmit = async (data: SignupFormData) => {
     setIsLoading(true);
-    setGeneralError(null);
-    setSuccessMessage(null);
     
     try {
-      console.log('Creating account for:', data.email);
-
-      const result = await signUp(data.email, data.password, {
-        full_name: data.fullName,
-        role: data.role
-      });
+      console.log('Signup form: Attempting signup with:', data.email);
       
-      if (result.error) {
-        console.error('Signup error:', result.error);
-        
-        if (result.error.message.includes('already registered')) {
-          setError('email', { message: 'Cet email est déjà utilisé' });
-        } else if (result.error.message.includes('Invalid email')) {
-          setError('email', { message: 'Format d\'email invalide' });
-        } else {
-          setGeneralError('Erreur lors de la création du compte. Veuillez réessayer.');
-        }
+      const userData = {
+        full_name: `${data.firstName} ${data.lastName}`,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        account_type: accountType,
+        role: accountType === 'enterprise' ? 'employee' : 'user'
+      };
+
+      const { error, message } = await signUp(data.email, data.password, userData);
+      
+      if (error) {
+        console.error('Signup form: Signup error:', error);
+        setError('root', { 
+          message: error.message || 'Une erreur s\'est produite lors de la création du compte.' 
+        });
         return;
       }
 
-      setSuccessMessage('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
-      
+      console.log('Signup form: Signup successful');
       toast({
-        title: "Compte créé !",
-        description: "Vous pouvez maintenant vous connecter avec vos identifiants.",
+        title: "Compte créé avec succès !",
+        description: message || "Vous pouvez maintenant vous connecter avec vos identifiants.",
       });
-      
-    } catch (error) {
-      console.error('Unexpected signup error:', error);
-      setGeneralError('Une erreur s\'est produite. Veuillez réessayer.');
+
+      onSuccess?.();
+    } catch (error: any) {
+      console.error('Signup form: Unexpected signup error:', error);
+      setError('root', { 
+        message: 'Une erreur inattendue s\'est produite. Veuillez réessayer.' 
+      });
     } finally {
       setIsLoading(false);
     }
@@ -82,36 +78,65 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {generalError && (
+      {errors.root && (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{generalError}</AlertDescription>
-        </Alert>
-      )}
-
-      {successMessage && (
-        <Alert className="border-green-200 bg-green-50">
-          <CheckCircle className="h-4 w-4 text-green-600" />
-          <AlertDescription className="text-green-800">{successMessage}</AlertDescription>
+          <AlertDescription>{errors.root.message}</AlertDescription>
         </Alert>
       )}
 
       <div className="space-y-2">
-        <Label htmlFor="fullName">Nom complet</Label>
-        <div className="relative">
-          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+        <Label>Type de compte</Label>
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant={accountType === 'individual' ? 'default' : 'outline'}
+            onClick={() => setAccountType('individual')}
+            className="flex-1"
+          >
+            <Heart className="w-4 h-4 mr-2" />
+            Famille
+          </Button>
+          <Button
+            type="button"
+            variant={accountType === 'enterprise' ? 'default' : 'outline'}
+            onClick={() => setAccountType('enterprise')}
+            className="flex-1"
+          >
+            <Building2 className="w-4 h-4 mr-2" />
+            Entreprise
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2">
+        <div className="space-y-2">
+          <Label htmlFor="firstName">Prénom</Label>
           <Input
-            id="fullName"
-            {...register('fullName')}
-            className="pl-10"
-            placeholder="Votre nom complet"
-            autoComplete="name"
+            id="firstName"
+            {...register('firstName')}
+            placeholder="John"
+            autoComplete="given-name"
             disabled={isLoading}
           />
+          {errors.firstName && (
+            <p className="text-sm text-red-600">{errors.firstName.message}</p>
+          )}
         </div>
-        {errors.fullName && (
-          <p className="text-sm text-red-600">{errors.fullName.message}</p>
-        )}
+
+        <div className="space-y-2">
+          <Label htmlFor="lastName">Nom</Label>
+          <Input
+            id="lastName"
+            {...register('lastName')}
+            placeholder="Doe"
+            autoComplete="family-name"
+            disabled={isLoading}
+          />
+          {errors.lastName && (
+            <p className="text-sm text-red-600">{errors.lastName.message}</p>
+          )}
+        </div>
       </div>
 
       <div className="space-y-2">
@@ -130,26 +155,6 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         </div>
         {errors.email && (
           <p className="text-sm text-red-600">{errors.email.message}</p>
-        )}
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="role">Type de compte</Label>
-        <Select onValueChange={(value) => setValue('role', value as any)} disabled={isLoading}>
-          <SelectTrigger>
-            <SelectValue placeholder="Sélectionnez votre profil" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="user">Utilisateur</SelectItem>
-            <SelectItem value="parent">Parent</SelectItem>
-            <SelectItem value="teen">Adolescent</SelectItem>
-            <SelectItem value="employee">Employé</SelectItem>
-            <SelectItem value="manager">Manager</SelectItem>
-            <SelectItem value="hr">RH</SelectItem>
-          </SelectContent>
-        </Select>
-        {errors.role && (
-          <p className="text-sm text-red-600">{errors.role.message}</p>
         )}
       </div>
 
@@ -207,30 +212,12 @@ const SecureSignupForm: React.FC<SecureSignupFormProps> = ({ onSuccess }) => {
         )}
       </div>
 
-      <div className="flex items-center space-x-2">
-        <Checkbox
-          id="acceptTerms"
-          checked={acceptTerms}
-          onCheckedChange={(checked) => setValue('acceptTerms', checked as boolean)}
-          disabled={isLoading}
-        />
-        <Label htmlFor="acceptTerms" className="text-sm">
-          J'accepte les{' '}
-          <a href="/cgu" className="text-teal-600 hover:underline">
-            conditions d'utilisation
-          </a>
-        </Label>
-      </div>
-      {errors.acceptTerms && (
-        <p className="text-sm text-red-600">{errors.acceptTerms.message}</p>
-      )}
-
       <Button 
         type="submit" 
         className="w-full"
         disabled={isLoading}
       >
-        {isLoading ? "Création du compte..." : "Créer mon compte"}
+        {isLoading ? "Création en cours..." : "Créer mon compte"}
       </Button>
     </form>
   );

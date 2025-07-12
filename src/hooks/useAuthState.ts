@@ -11,6 +11,7 @@ export const useAuthState = () => {
 
   const checkAdminStatus = async (userId: string) => {
     try {
+      console.log('Checking admin status for user:', userId);
       const { data, error } = await supabase
         .from('user_roles')
         .select('role')
@@ -19,8 +20,10 @@ export const useAuthState = () => {
         .single();
       
       if (!error && data) {
+        console.log('User is admin:', userId);
         setIsAdmin(true);
       } else {
+        console.log('User is not admin:', userId, error?.message);
         setIsAdmin(false);
       }
     } catch (error) {
@@ -30,6 +33,8 @@ export const useAuthState = () => {
   };
 
   useEffect(() => {
+    console.log('Setting up auth state listener');
+    
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
@@ -50,10 +55,12 @@ export const useAuthState = () => {
     // Get initial session
     const getInitialSession = async () => {
       try {
+        console.log('Getting initial session');
         const { data: { session }, error } = await supabase.auth.getSession();
         if (error) {
           console.error('Error getting initial session:', error);
         } else {
+          console.log('Initial session:', session?.user?.email);
           setSession(session);
           setUser(session?.user ?? null);
           
@@ -70,7 +77,10 @@ export const useAuthState = () => {
 
     getInitialSession();
 
-    return () => subscription.unsubscribe();
+    return () => {
+      console.log('Cleaning up auth state listener');
+      subscription.unsubscribe();
+    };
   }, []);
 
   return {

@@ -1,63 +1,50 @@
 
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from '@/contexts/AuthContext';
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
-import Contact from "./pages/Contact";
-import Login from "./pages/Login";
-import FamilySimulator from "./pages/FamilySimulator";
-import QuestionnaireSelector from "./pages/QuestionnaireSelector";
-import Pricing from "./pages/Pricing";
-import Payment from "./pages/Payment";
-import PaymentSuccess from "./pages/PaymentSuccess";
-import Faq from "./pages/Faq";
-import LegalMentions from "./pages/LegalMentions";
-import CGU from "./pages/CGU";
-import Confidentiality from "./pages/Confidentiality";
-import Error404 from "./pages/Error404";
 import Dashboard from "./pages/Dashboard";
-import Shop from "./pages/Shop";
-import Cart from "./pages/Cart";
-import TeensShop from "./pages/TeensShop";
-import EnterpriseSolutions from "./pages/EnterpriseSolutions";
-import NotFound from "./pages/NotFound";
-import AuthCallback from "./pages/AuthCallback";
-import PasswordReset from "./pages/PasswordReset";
+import ProfileSelection from "./pages/ProfileSelection";
+import Login from "./pages/Login";
 import EmailConfirmation from "./pages/EmailConfirmation";
+import NotFound from "./pages/NotFound";
+import Unauthorized from "./pages/Unauthorized";
+import AdminLogin from "./pages/AdminLogin";
+import EmployeeDashboard from "./pages/EmployeeDashboard";
+import TeamLeaderDashboard from "./pages/TeamLeaderDashboard";
+import EnterprisePortal from "./pages/EnterprisePortal";
+import IntelligentRecommendations from "./pages/IntelligentRecommendations";
 
-function App() {
-  return (
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <Router>
-        <div className="App">
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/auth/callback" element={<AuthCallback />} />
-            <Route path="/password-reset" element={<PasswordReset />} />
-            <Route path="/email-confirmation" element={<EmailConfirmation />} />
-            <Route path="/family-simulator" element={<FamilySimulator />} />
-            <Route path="/questionnaires" element={<QuestionnaireSelector />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/payment-success" element={<PaymentSuccess />} />
-            <Route path="/faq" element={<Faq />} />
-            <Route path="/legal-mentions" element={<LegalMentions />} />
-            <Route path="/cgu" element={<CGU />} />
-            <Route path="/confidentiality" element={<Confidentiality />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/teens-shop" element={<TeensShop />} />
-            <Route path="/enterprise-solutions" element={<EnterpriseSolutions />} />
-            <Route path="/404" element={<Error404 />} />
+            <Route path="/profile-selection" element={<ProfileSelection />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/email-confirmation" element={<EmailConfirmation />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+            <Route path="/team-leader-dashboard" element={<TeamLeaderDashboard />} />
+            <Route path="/entreprise" element={<EnterprisePortal />} />
+            <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </div>
-      </Router>
+        </BrowserRouter>
+      </TooltipProvider>
     </AuthProvider>
-  );
-}
+  </QueryClientProvider>
+);
 
 export default App;

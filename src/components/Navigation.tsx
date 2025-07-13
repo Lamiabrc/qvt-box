@@ -1,128 +1,138 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, Heart, Zap, Users, ShoppingBag, HelpCircle, FileText } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
+import { 
+  Heart, 
+  Building2, 
+  User, 
+  ShoppingBag,
+  Brain,
+  Menu,
+  X
+} from "lucide-react";
+import { useState } from 'react';
 
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navigationItems = [
-    { name: 'Accueil', href: '/', icon: Heart },
-    { name: 'Solutions', href: '/enterprise-solutions', icon: Users },
-    { name: 'Questionnaires', href: '/questionnaires', icon: Zap },
-    { name: 'Boutique', href: '/shop', icon: ShoppingBag },
-    { name: 'Tarifs', href: '/pricing', icon: FileText },
-    { name: 'FAQ', href: '/faq', icon: HelpCircle },
-    { name: 'Contact', href: '/contact', icon: Users }
+  const navItems = [
+    { label: 'Accueil', path: '/', icon: null },
+    { label: 'Famille', path: '/famille', icon: Heart },
+    { label: 'Entreprise', path: '/entreprise', icon: Building2 },
+    { label: 'Simulateurs', path: '/simulator-home', icon: Brain },
+    { label: 'Boutique', path: '/shop', icon: ShoppingBag },
   ];
 
-  const isActivePath = (path: string) => {
-    return location.pathname === path;
-  };
-
   return (
-    <nav className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
+    <nav className="bg-white/90 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-teal-600 to-blue-600 rounded-lg flex items-center justify-center">
-              <Heart className="w-5 h-5 text-white" />
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
+              <Heart className="w-4 h-4 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">QVT Box</span>
+            <span className="font-bold text-xl text-blue-800">QVT Box</span>
+            <Badge className="bg-green-100 text-green-800 text-xs">Phygital</Badge>
           </Link>
 
           {/* Navigation desktop */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item) => {
+          <div className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => {
               const Icon = item.icon;
+              const isActive = location.pathname === item.path;
+              
               return (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActivePath(item.href)
-                      ? 'text-teal-600 bg-teal-50'
-                      : 'text-gray-700 hover:text-teal-600 hover:bg-gray-50'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{item.name}</span>
+                <Link key={item.path} to={item.path}>
+                  <Button 
+                    variant={isActive ? "default" : "ghost"}
+                    size="sm"
+                    className={`${isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:text-blue-600'}`}
+                  >
+                    {Icon && <Icon className="w-4 h-4 mr-2" />}
+                    {item.label}
+                  </Button>
                 </Link>
               );
             })}
           </div>
 
-          {/* Boutons d'action desktop */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link to="/login">
-              <Button variant="outline">Connexion</Button>
+          {/* Actions */}
+          <div className="hidden md:flex items-center gap-2">
+            <Link to="/profile-selection">
+              <Button variant="outline" size="sm">
+                <User className="w-4 h-4 mr-2" />
+                Mon Profil
+              </Button>
             </Link>
-            <Link to="/pricing">
-              <Button className="bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700">
-                Commencer
+            <Link to="/login">
+              <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                Connexion
               </Button>
             </Link>
           </div>
 
-          {/* Menu mobile */}
-          <div className="md:hidden">
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="sm">
-                  <Menu className="w-6 h-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-80">
-                <div className="flex items-center justify-between mb-8">
-                  <Link to="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
-                    <div className="w-8 h-8 bg-gradient-to-r from-teal-600 to-blue-600 rounded-lg flex items-center justify-center">
-                      <Heart className="w-5 h-5 text-white" />
-                    </div>
-                    <span className="text-xl font-bold text-gray-900">QVT Box</span>
-                  </Link>
-                </div>
-
-                <div className="space-y-4">
-                  {navigationItems.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        onClick={() => setIsOpen(false)}
-                        className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                          isActivePath(item.href)
-                            ? 'text-teal-600 bg-teal-50'
-                            : 'text-gray-700 hover:text-teal-600 hover:bg-gray-50'
-                        }`}
-                      >
-                        <Icon className="w-5 h-5" />
-                        <span>{item.name}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
-
-                <div className="mt-8 space-y-4">
-                  <Link to="/login" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full">
-                      Connexion
-                    </Button>
-                  </Link>
-                  <Link to="/pricing" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700">
-                      Commencer
-                    </Button>
-                  </Link>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+          {/* Mobile menu button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
+          </Button>
         </div>
+
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden py-4 border-t border-gray-200">
+            <div className="space-y-2">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = location.pathname === item.path;
+                
+                return (
+                  <Link 
+                    key={item.path} 
+                    to={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <Button 
+                      variant={isActive ? "default" : "ghost"}
+                      className={`w-full justify-start ${
+                        isActive ? 'bg-blue-600 text-white' : 'text-gray-700'
+                      }`}
+                    >
+                      {Icon && <Icon className="w-4 h-4 mr-2" />}
+                      {item.label}
+                    </Button>
+                  </Link>
+                );
+              })}
+              
+              <div className="pt-4 space-y-2">
+                <Link to="/profile-selection" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full justify-start">
+                    <User className="w-4 h-4 mr-2" />
+                    Mon Profil
+                  </Button>
+                </Link>
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button className="w-full justify-start bg-blue-600 hover:bg-blue-700">
+                    Connexion
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -171,7 +171,7 @@ const Index = () => {
                       <span className="text-sm">Recommandations personnalisées</span>
                     </div>
                   </div>
-                  <Link to="/enterprise-solutions" className="block">
+                  <Link to="/entreprise-solutions" className="block">
                     <Button className="w-full bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white">
                       <Play className="w-4 h-4 mr-2" />
                       Tester maintenant - Gratuit
@@ -475,7 +475,10 @@ const Index = () => {
         </section>
 
         {/* Popup d'étude de marché Tally */}
-        <TallyMarketResearchPopup />
+        <TallyMarketResearchPopup 
+          isOpen={showMarketResearchPopup}
+          onClose={() => setShowMarketResearchPopup(false)}
+        />
       </div>
       <Footer />
     </>

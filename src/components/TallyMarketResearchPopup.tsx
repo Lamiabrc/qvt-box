@@ -1,90 +1,52 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Users, Building2, GraduationCap, Target } from "lucide-react";
+import { X } from "lucide-react";
 
-interface TallyMarketResearchPopupProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+const TallyMarketResearchPopup = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-const TallyMarketResearchPopup = ({ isOpen, onClose }: TallyMarketResearchPopupProps) => {
-  const handleFormAccess = (url: string) => {
-    window.open(url, '_blank');
-    onClose();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleClose = () => {
+    setIsOpen(false);
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-2xl">
-            <Target className="w-6 h-6 text-teal-600" />
-            Étude RH responsable QVT - QVT Box
-          </DialogTitle>
-          <p className="text-gray-600 text-center mt-2">
-            Choisissez l'étude qui correspond le mieux à votre profil
-          </p>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogContent className="max-w-4xl w-full max-h-[90vh] overflow-hidden p-0 gap-0">
+        <DialogHeader className="sr-only">
+          <DialogTitle>Étude de marché QVT Box</DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-4 p-6">
-          {/* Étude RH responsable QVT */}
-          <div className="border-2 border-teal-200 rounded-lg p-6 hover:shadow-lg transition-all">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                <Target className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-teal-800">Étude RH responsable QVT</h3>
-                <p className="text-teal-600 text-sm">Pour tous les profils</p>
-              </div>
-            </div>
-            <Button 
-              onClick={() => handleFormAccess('https://tally.so/r/mRebOK')}
-              className="w-full bg-teal-600 hover:bg-teal-700"
-            >
-              Participer à l'étude RH
-            </Button>
-          </div>
+        {/* Close button - visible on mobile */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute right-2 top-2 z-50 h-8 w-8 rounded-full bg-white/80 hover:bg-white shadow-md"
+          onClick={handleClose}
+        >
+          <X className="h-4 w-4" />
+        </Button>
 
-          {/* Étude Parents Salariés */}
-          <div className="border-2 border-purple-200 rounded-lg p-6 hover:shadow-lg transition-all">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-purple-800">Parents Salariés</h3>
-                <p className="text-purple-600 text-sm">Équilibre vie pro/perso</p>
-              </div>
-            </div>
-            <Button 
-              onClick={() => handleFormAccess('https://tally.so/r/mYBqaz')}
-              className="w-full bg-purple-600 hover:bg-purple-700"
-            >
-              Participer à l'étude parents
-            </Button>
-          </div>
-
-          {/* Étude Adolescents */}
-          <div className="border-2 border-blue-200 rounded-lg p-6 hover:shadow-lg transition-all">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
-                <GraduationCap className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-blue-800">Adolescents</h3>
-                <p className="text-blue-600 text-sm">Bien-être des jeunes</p>
-              </div>
-            </div>
-            <Button 
-              onClick={() => handleFormAccess('https://tally.so/r/3EVaQ2')}
-              className="w-full bg-blue-600 hover:bg-blue-700"
-            >
-              Participer à l'étude ados
-            </Button>
-          </div>
+        <div className="w-full h-[600px] max-h-[80vh]">
+          <iframe
+            src="https://tally.so/r/w2jbQD"
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            marginHeight={0}
+            marginWidth={0}
+            title="Étude de marché QVT Box"
+            className="rounded-lg"
+          />
         </div>
       </DialogContent>
     </Dialog>

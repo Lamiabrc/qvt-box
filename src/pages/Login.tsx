@@ -27,11 +27,11 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 relative overflow-hidden pt-16">
       <FloatingBubbles />
       
       <div className="container mx-auto px-4 py-12 relative z-10">
-        <div className="flex items-center justify-center min-h-[80vh]">
+        <div className="flex items-center justify-center min-h-[70vh]">
           <Card className="w-full max-w-md border-teal-200 bg-white/90 backdrop-blur-sm shadow-xl">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">

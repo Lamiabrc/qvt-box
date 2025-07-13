@@ -17,6 +17,12 @@ import EmployeeDashboard from "./pages/EmployeeDashboard";
 import TeamLeaderDashboard from "./pages/TeamLeaderDashboard";
 import EnterprisePortal from "./pages/EnterprisePortal";
 import IntelligentRecommendations from "./pages/IntelligentRecommendations";
+import SimulatorHub from "./pages/SimulatorHub";
+import SimulatorSelector from "./pages/SimulatorSelector";
+import EnterpriseSimulator from "./pages/EnterpriseSimulator";
+import EnterpriseManagerSimulator from "./pages/EnterpriseManagerSimulator";
+import EnterpriseEmployeeSimulator from "./pages/EnterpriseEmployeeSimulator";
+import WorkplaceComparativeSimulator from "./pages/WorkplaceComparativeSimulator";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +44,12 @@ const App = () => (
             <Route path="/team-leader-dashboard" element={<TeamLeaderDashboard />} />
             <Route path="/entreprise" element={<EnterprisePortal />} />
             <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
+            <Route path="/simulator-hub" element={<SimulatorHub />} />
+            <Route path="/simulator-home" element={<SimulatorSelector />} />
+            <Route path="/enterprise-simulator" element={<EnterpriseSimulator />} />
+            <Route path="/enterprise-manager-simulator" element={<EnterpriseManagerSimulator />} />
+            <Route path="/enterprise-employee-simulator" element={<EnterpriseEmployeeSimulator />} />
+            <Route path="/workplace-comparative-simulator" element={<WorkplaceComparativeSimulator />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

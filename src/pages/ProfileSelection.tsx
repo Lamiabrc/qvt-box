@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,8 @@ import {
   ArrowRight,
   Sparkles,
   Shield,
-  CheckCircle
+  CheckCircle,
+  LogIn
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import FloatingBubbles from '@/components/FloatingBubbles';
@@ -103,6 +103,19 @@ const ProfileSelection = () => {
       
       <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="max-w-6xl mx-auto">
+          {/* Header avec bouton de connexion */}
+          <div className="flex justify-between items-center mb-8">
+            <Link to="/" className="text-blue-600 hover:text-blue-800 text-sm">
+              ← Retour à l'accueil
+            </Link>
+            <Link to="/login">
+              <Button variant="outline" className="gap-2">
+                <LogIn className="w-4 h-4" />
+                Se connecter
+              </Button>
+            </Link>
+          </div>
+
           <div className="text-center mb-12">
             <Badge className="mb-4 bg-blue-100 text-blue-800">Configuration Profile</Badge>
             <h1 className="text-4xl md:text-5xl font-bold text-blue-800 mb-6">
@@ -226,11 +239,22 @@ const ProfileSelection = () => {
             )}
           </div>
 
-          {/* Lien de retour */}
-          <div className="text-center mt-6">
-            <Link to="/" className="text-blue-600 hover:text-blue-800 text-sm">
-              ← Retour à l'accueil
-            </Link>
+          {/* Actions supplémentaires */}
+          <div className="text-center mt-8 space-y-4">
+            <div className="flex justify-center gap-4">
+              <Link to="/login">
+                <Button variant="outline" className="gap-2">
+                  <LogIn className="w-4 h-4" />
+                  J'ai déjà un compte
+                </Button>
+              </Link>
+              <Link to="/simulator-home">
+                <Button variant="ghost" className="gap-2">
+                  <Sparkles className="w-4 h-4" />
+                  Tester sans compte
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

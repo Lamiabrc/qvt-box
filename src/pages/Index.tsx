@@ -113,7 +113,7 @@ const Index = () => {
 
             {/* Boutons pour les questionnaires et l'étude de marché */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Link to="/questionnaires">
+              <Link to="/simulator-home">
                 <Button 
                   className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 text-lg shadow-lg hover:shadow-xl transition-all"
                 >

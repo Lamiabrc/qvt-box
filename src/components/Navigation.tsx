@@ -10,7 +10,9 @@ import {
   ShoppingBag,
   Brain,
   Menu,
-  X
+  X,
+  Home,
+  Users
 } from "lucide-react";
 import { useState } from 'react';
 
@@ -19,10 +21,11 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: 'Accueil', path: '/', icon: null },
+    { label: 'Accueil', path: '/', icon: Home },
     { label: 'Famille', path: '/famille', icon: Heart },
     { label: 'Entreprise', path: '/entreprise', icon: Building2 },
     { label: 'Simulateurs', path: '/simulator-home', icon: Brain },
+    { label: 'Hub Simulateurs', path: '/simulator-hub', icon: Users },
     { label: 'Boutique', path: '/shop', icon: ShoppingBag },
   ];
 

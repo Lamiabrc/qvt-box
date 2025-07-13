@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -74,7 +73,7 @@ const FamilyPortal = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <MoodWeather userType="family" />
+              <MoodWeather userType={selectedRole === 'manager' ? 'manager' : selectedRole === 'teen' ? 'teen' : 'parent'} />
               
               <Card className="border-purple-200">
                 <CardHeader>

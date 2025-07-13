@@ -475,11 +475,7 @@ const Index = () => {
         </section>
 
         {/* Popup d'étude de marché Tally */}
-        {showMarketResearchPopup && (
-          <TallyMarketResearchPopup 
-            onClose={() => setShowMarketResearchPopup(false)}
-          />
-        )}
+        <TallyMarketResearchPopup />
       </div>
       <Footer />
     </>

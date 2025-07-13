@@ -1990,10 +1990,6 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
-      user_confirm_password_reset: {
-        Args: { email: string; password: string }
-        Returns: undefined
-      }
       validate_user_access: {
         Args: { target_user_id: string }
         Returns: boolean

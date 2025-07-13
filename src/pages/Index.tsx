@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import TallyMarketResearchPopup from "../components/TallyMarketResearchPopup";
 import sarahPhoto from "../assets/sarah-rh-director.jpg";
+import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -23,6 +24,7 @@ const Index = () => {
 
   return (
     <>
+      <Navigation />
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
         <FloatingBubbles />
         
@@ -111,7 +113,7 @@ const Index = () => {
 
             {/* Boutons pour les questionnaires et l'étude de marché */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Link to="/simulator-home">
+              <Link to="/questionnaires">
                 <Button 
                   className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 text-lg shadow-lg hover:shadow-xl transition-all"
                 >
@@ -473,9 +475,10 @@ const Index = () => {
         </section>
 
         {/* Popup d'étude de marché Tally */}
-        {showMarketResearchPopup && (
-          <TallyMarketResearchPopup />
-        )}
+        <TallyMarketResearchPopup 
+          isOpen={showMarketResearchPopup}
+          onClose={() => setShowMarketResearchPopup(false)}
+        />
       </div>
       <Footer />
     </>

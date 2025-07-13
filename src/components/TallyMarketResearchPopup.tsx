@@ -2,7 +2,7 @@
 import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Users, Building2, GraduationCap, Target, X } from "lucide-react";
+import { Users, Building2, GraduationCap, Target } from "lucide-react";
 
 interface TallyMarketResearchPopupProps {
   isOpen: boolean;
@@ -19,20 +19,10 @@ const TallyMarketResearchPopup = ({ isOpen, onClose }: TallyMarketResearchPopupP
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <div className="flex items-center justify-between">
-            <DialogTitle className="flex items-center gap-2 text-2xl">
-              <Target className="w-6 h-6 text-teal-600" />
-              Étude RH responsable QVT - QVT Box
-            </DialogTitle>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="h-6 w-6 p-0"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
+          <DialogTitle className="flex items-center gap-2 text-2xl">
+            <Target className="w-6 h-6 text-teal-600" />
+            Étude RH responsable QVT - QVT Box
+          </DialogTitle>
           <p className="text-gray-600 text-center mt-2">
             Choisissez l'étude qui correspond le mieux à votre profil
           </p>

@@ -74,7 +74,7 @@ const FamilyPortal = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <MoodWeather userType="family" />
+              <MoodWeather userType="parent" />
               
               <Card className="border-purple-200">
                 <CardHeader>

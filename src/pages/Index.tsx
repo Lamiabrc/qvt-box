@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import TallyMarketResearchPopup from "../components/TallyMarketResearchPopup";
 import sarahPhoto from "../assets/sarah-rh-director.jpg";
-import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -24,7 +23,6 @@ const Index = () => {
 
   return (
     <>
-      <Navigation />
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
         <FloatingBubbles />
         
@@ -475,10 +473,9 @@ const Index = () => {
         </section>
 
         {/* Popup d'étude de marché Tally */}
-        <TallyMarketResearchPopup 
-          isOpen={showMarketResearchPopup}
-          onClose={() => setShowMarketResearchPopup(false)}
-        />
+        {showMarketResearchPopup && (
+          <TallyMarketResearchPopup />
+        )}
       </div>
       <Footer />
     </>

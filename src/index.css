@@ -4,10 +4,23 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* Design system inspired by chromatic circle with emotional well-being colors */
 
 @layer base {
   :root {
+    /* Primary chromatic palette - emotional wellness spectrum */
+    --primary-passion: 15 86% 48%;        /* Red-orange - Passion/Energy */
+    --primary-creativity: 30 89% 55%;     /* Orange - Creativity */
+    --primary-joy: 45 92% 60%;           /* Yellow-orange - Joy */
+    --primary-serenity: 85 65% 55%;      /* Yellow-green - Serenity */
+    --primary-harmony: 120 45% 48%;       /* Green - Harmony/Balance */
+    --primary-trust: 180 55% 52%;        /* Cyan - Trust/Communication */
+    --primary-calm: 210 75% 58%;         /* Blue - Calm/Focus */
+    --primary-intuition: 250 68% 62%;     /* Blue-violet - Intuition */
+    --primary-wisdom: 280 65% 58%;        /* Violet - Wisdom */
+    --primary-compassion: 320 58% 62%;    /* Magenta - Compassion */
+
+    /* Contextual colors */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -17,7 +30,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: var(--primary-harmony);
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -26,7 +39,7 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
+    --accent: var(--primary-serenity);
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -34,9 +47,18 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: var(--primary-trust);
 
     --radius: 0.5rem;
+
+    /* Emotional states colors */
+    --burnout: 0 65% 45%;           /* Deep red */
+    --stress: 15 75% 50%;           /* Red-orange */
+    --tension: 30 70% 55%;          /* Orange */
+    --neutral: 45 35% 65%;          /* Muted yellow */
+    --content: 120 40% 55%;         /* Green */
+    --fulfilled: 180 50% 50%;       /* Cyan */
+    --passionate: 250 65% 60%;      /* Blue-violet */
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -58,7 +80,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
+    --primary: var(--primary-trust);
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -67,7 +89,7 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
+    --accent: var(--primary-intuition);
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -76,6 +98,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -97,6 +120,43 @@
     font-family: 'Inter', sans-serif;
   }
 }
+
+/* Chromatic emotional gradients */
+.gradient-passion {
+  background: linear-gradient(135deg, hsl(var(--primary-passion)), hsl(var(--primary-creativity)));
+}
+
+.gradient-serenity {
+  background: linear-gradient(135deg, hsl(var(--primary-serenity)), hsl(var(--primary-harmony)));
+}
+
+.gradient-wisdom {
+  background: linear-gradient(135deg, hsl(var(--primary-intuition)), hsl(var(--primary-wisdom)));
+}
+
+.gradient-trust {
+  background: linear-gradient(135deg, hsl(var(--primary-trust)), hsl(var(--primary-calm)));
+}
+
+.gradient-compassion {
+  background: linear-gradient(135deg, hsl(var(--primary-compassion)), hsl(var(--primary-passion)));
+}
+
+/* Emotional state backgrounds */
+.bg-burnout { background-color: hsl(var(--burnout)); }
+.bg-stress { background-color: hsl(var(--stress)); }
+.bg-tension { background-color: hsl(var(--tension)); }
+.bg-neutral { background-color: hsl(var(--neutral)); }
+.bg-content { background-color: hsl(var(--content)); }
+.bg-fulfilled { background-color: hsl(var(--fulfilled)); }
+.bg-passionate { background-color: hsl(var(--passionate)); }
+
+/* Text colors */
+.text-passion { color: hsl(var(--primary-passion)); }
+.text-serenity { color: hsl(var(--primary-serenity)); }
+.text-wisdom { color: hsl(var(--primary-wisdom)); }
+.text-trust { color: hsl(var(--primary-trust)); }
+.text-compassion { color: hsl(var(--primary-compassion)); }
 
 /* Animations personnalisées pour l'effet WAOU */
 @keyframes fade-in {

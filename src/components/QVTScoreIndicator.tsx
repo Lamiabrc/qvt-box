@@ -3,7 +3,9 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { TrendingUp, TrendingDown, AlertTriangle, Heart, Brain } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { TrendingUp, TrendingDown, AlertTriangle, Heart, Brain, Package } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface QVTScoreIndicatorProps {
   score: number;
@@ -13,52 +15,49 @@ interface QVTScoreIndicatorProps {
 
 const QVTScoreIndicator = ({ score, previousScore, userType = 'independent' }: QVTScoreIndicatorProps) => {
   const getScoreLevel = (score: number) => {
-    if (score <= 3) return { level: 'Critique', color: 'bg-red-500', textColor: 'text-red-700', bgColor: 'bg-red-50' };
-    if (score <= 6) return { level: 'Préoccupant', color: 'bg-orange-500', textColor: 'text-orange-700', bgColor: 'bg-orange-50' };
-    if (score <= 9) return { level: 'Modéré', color: 'bg-yellow-500', textColor: 'text-yellow-700', bgColor: 'bg-yellow-50' };
-    if (score <= 12) return { level: 'Bon', color: 'bg-green-500', textColor: 'text-green-700', bgColor: 'bg-green-50' };
-    return { level: 'Excellent', color: 'bg-blue-500', textColor: 'text-blue-700', bgColor: 'bg-blue-50' };
+    if (score <= 3) return { 
+      level: 'Burn-out', 
+      color: 'bg-burnout', 
+      textColor: 'text-red-700', 
+      bgColor: 'bg-red-50',
+      emotion: 'burnout'
+    };
+    if (score <= 6) return { 
+      level: 'Stress élevé', 
+      color: 'bg-stress', 
+      textColor: 'text-orange-700', 
+      bgColor: 'bg-orange-50',
+      emotion: 'stress'
+    };
+    if (score <= 9) return { 
+      level: 'Équilibre fragile', 
+      color: 'bg-tension', 
+      textColor: 'text-yellow-700', 
+      bgColor: 'bg-yellow-50',
+      emotion: 'tension'
+    };
+    if (score <= 12) return { 
+      level: 'Bien-être satisfaisant', 
+      color: 'bg-content', 
+      textColor: 'text-green-700', 
+      bgColor: 'bg-green-50',
+      emotion: 'content'
+    };
+    return { 
+      level: 'État optimal', 
+      color: 'bg-passionate', 
+      textColor: 'text-blue-700', 
+      bgColor: 'bg-blue-50',
+      emotion: 'passionate'
+    };
   };
 
   const getScoreDescription = (score: number) => {
     if (score <= 3) return 'Burn-out - Intervention urgente nécessaire';
-    if (score <= 6) return 'Fatigue importante - Mesures préventives requises';
+    if (score <= 6) return 'Stress important - Mesures préventives requises';
     if (score <= 9) return 'Équilibre fragile - Vigilance recommandée';
     if (score <= 12) return 'Bien-être satisfaisant - Maintenir les bonnes pratiques';
     return 'État optimal - Passion et épanouissement';
-  };
-
-  const getRecommendation = (score: number, userType: string) => {
-    const recommendations = {
-      employee: {
-        low: 'Parlez-en à votre manager ou RH. Une pause s\'impose.',
-        medium: 'Prenez du temps pour vous. Explorez nos box détente.',
-        high: 'Continuez vos bonnes habitudes. Partagez vos astuces !'
-      },
-      manager: {
-        low: 'Revoyez la charge de travail de votre équipe.',
-        medium: 'Organisez un team building ou des pauses collectives.',
-        high: 'Votre équipe est épanouie. Maintenez cette dynamique !'
-      },
-      parent: {
-        low: 'Demandez de l\'aide. Votre famille a besoin de vous en forme.',
-        medium: 'Prenez du temps pour vous. La famille box peut aider.',
-        high: 'Vous êtes un modèle pour votre famille !'
-      },
-      teen: {
-        low: 'Parle à tes parents ou un adulte de confiance.',
-        medium: 'Prends soin de toi. Regarde nos conseils teen.',
-        high: 'Tu es sur la bonne voie ! Continue comme ça !'
-      },
-      independent: {
-        low: 'Priorisez votre bien-être. Nos box peuvent vous accompagner.',
-        medium: 'Équilibrez travail et détente. Explorez nos recommandations.',
-        high: 'Vous maîtrisez votre bien-être. Bravo !'
-      }
-    };
-
-    const level = score <= 6 ? 'low' : score <= 12 ? 'medium' : 'high';
-    return recommendations[userType][level];
   };
 
   const scoreInfo = getScoreLevel(score);
@@ -66,7 +65,7 @@ const QVTScoreIndicator = ({ score, previousScore, userType = 'independent' }: Q
   const percentage = (score / 15) * 100;
 
   return (
-    <Card className={`${scoreInfo.bgColor} border-2`}>
+    <Card className={`${scoreInfo.bgColor} border-2 hover:shadow-lg transition-all duration-300`}>
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <span className="flex items-center gap-2">
@@ -114,9 +113,21 @@ const QVTScoreIndicator = ({ score, previousScore, userType = 'independent' }: Q
           <div className={`p-3 rounded-lg ${scoreInfo.bgColor} border`}>
             <div className="flex items-start gap-2">
               <Heart className={`w-4 h-4 ${scoreInfo.textColor} mt-0.5 flex-shrink-0`} />
-              <p className="text-sm font-medium">
-                {getRecommendation(score, userType)}
-              </p>
+              <div className="flex-1">
+                <p className="text-sm font-medium mb-2">
+                  Nous avons sélectionné des box adaptées à votre état émotionnel
+                </p>
+                <Link 
+                  to="/my-box" 
+                  state={{ score, userType }}
+                  className="w-full"
+                >
+                  <Button className="w-full gradient-trust text-white hover:scale-105 transition-transform">
+                    <Package className="w-4 h-4 mr-2" />
+                    Voir ma box personnalisée
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
 

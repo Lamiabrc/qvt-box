@@ -7,279 +7,173 @@ export interface BoxRecommendation {
   price: string;
   description: string;
   features: string[];
+  scoreRange: {
+    min: number;
+    max: number;
+  };
+  emotionalState: 'burnout' | 'stress' | 'tension' | 'neutral' | 'content' | 'fulfilled' | 'passionate';
+  gradient: string;
 }
 
 export const boxRecommendations: BoxRecommendation[] = [
-  // Parents
+  // Score 1-3: Burn-out - Intervention urgente
   {
-    id: 'parent-01',
-    name: 'Box Reconnexion',
-    category: 'Parents',
-    evaluationScale: 'Manque de concentration',
-    price: '39€/mois',
-    description: 'Retrouvez la connexion avec votre adolescent',
-    features: ['Activités de reconnexion', 'Guide communication', 'Outils parentalité']
+    id: 'urgence-01',
+    name: 'Box SOS Burn-out',
+    category: 'Salariés',
+    evaluationScale: 'Burn-out critique',
+    price: '59€/mois',
+    description: 'Intervention d\'urgence pour sortir du burn-out',
+    features: ['Consultation psychologue', 'Kit de survie émotionnelle', 'Plan d\'action immédiat', 'Suivi hebdomadaire'],
+    scoreRange: { min: 1, max: 3 },
+    emotionalState: 'burnout',
+    gradient: 'gradient-passion'
   },
   {
-    id: 'parent-02',
-    name: 'Box Charge mentale',
+    id: 'urgence-02',
+    name: 'Box Répit Parents',
     category: 'Parents',
-    evaluationScale: 'Manque de motivation',
-    price: '42€/mois',
-    description: 'Allégez votre charge mentale parentale',
-    features: ['Planning organisationnel', 'Techniques délégation', 'Outils anti-stress']
-  },
-  {
-    id: 'parent-03',
-    name: 'Box Sommeil réparateur',
-    category: 'Parents',
-    evaluationScale: 'Stress élevé',
-    price: '45€/mois',
-    description: 'Retrouvez un sommeil de qualité',
-    features: ['Routine sommeil', 'Relaxation guidée', 'Environnement optimal']
-  },
-  {
-    id: 'parent-04',
-    name: 'Box Parentalité solo',
-    category: 'Parents',
-    evaluationScale: 'Charge mentale',
-    price: '44€/mois',
-    description: 'Soutien spécialisé pour parents solo',
-    features: ['Réseau entraide', 'Gestion autonome', 'Support émotionnel']
-  },
-  {
-    id: 'parent-05',
-    name: 'Box Parentalité en couple',
-    category: 'Parents',
-    evaluationScale: 'Fatigue émotionnelle',
-    price: '47€/mois',
-    description: 'Renforcez votre équipe parentale',
-    features: ['Communication couple', 'Cohésion familiale', 'Partage des tâches']
-  },
-  {
-    id: 'parent-06',
-    name: 'Box Parent télétravailleur',
-    category: 'Parents',
-    evaluationScale: 'Fatigue émotionnelle',
-    price: '41€/mois',
-    description: 'Équilibrez travail et famille à domicile',
-    features: ['Organisation télétravail', 'Séparation espaces', 'Routine familiale']
-  },
-  {
-    id: 'parent-07',
-    name: 'Box Décompression',
-    category: 'Parents',
-    evaluationScale: 'Anxiété / inquiétude',
-    price: '38€/mois',
-    description: 'Moments de détente pour parents',
-    features: ['Techniques relaxation', 'Pause personnelle', 'Anti-stress naturel']
-  },
-  {
-    id: 'parent-08',
-    name: 'Box Pause sensorielle',
-    category: 'Parents',
-    evaluationScale: 'Stress élevé',
-    price: '43€/mois',
-    description: 'Apaisement par les sens',
-    features: ['Aromathérapie', 'Textures apaisantes', 'Sons relaxants']
-  },
-  {
-    id: 'parent-09',
-    name: 'Box Expression parentale',
-    category: 'Parents',
-    evaluationScale: 'Stress élevé',
-    price: '40€/mois',
-    description: 'Exprimez vos émotions parentales',
-    features: ['Journal émotionnel', 'Art-thérapie', 'Partage expériences']
-  },
-  {
-    id: 'parent-10',
-    name: 'Box Rentrée scolaire sereine',
-    category: 'Parents',
-    evaluationScale: 'Besoin de reconnexion',
-    price: '36€/mois',
-    description: 'Préparez une rentrée apaisée',
-    features: ['Planning rentrée', 'Gestion stress scolaire', 'Accompagnement changement']
+    evaluationScale: 'Épuisement parental',
+    price: '52€/mois',
+    description: 'Pause d\'urgence pour parents épuisés',
+    features: ['Respiration guidée', 'Baby-sitting de secours', 'Kit auto-soin', 'Réseau d\'entraide'],
+    scoreRange: { min: 1, max: 3 },
+    emotionalState: 'burnout',
+    gradient: 'gradient-compassion'
   },
 
-  // Adolescents
+  // Score 4-6: Stress élevé - Action préventive
   {
-    id: 'teen-01',
-    name: 'Box Confiance en soi',
-    category: 'Adolescents',
-    evaluationScale: 'Anxiété / inquiétude',
-    price: '29€/mois',
-    description: 'Développe ta confiance et ton estime',
-    features: ['Exercices confiance', 'Affirmations positives', 'Défis personnels']
-  },
-  {
-    id: 'teen-02',
-    name: 'Box Gestion du stress scolaire',
-    category: 'Adolescents',
-    evaluationScale: 'Besoin de reconnexion',
-    price: '32€/mois',
-    description: 'Gère ton stress à l\'école',
-    features: ['Techniques anti-stress', 'Organisation scolaire', 'Relaxation express']
-  },
-  {
-    id: 'teen-03',
-    name: 'Box Concentration & examens',
-    category: 'Adolescents',
-    evaluationScale: 'Besoin de reconnexion',
-    price: '34€/mois',
-    description: 'Optimise ta concentration pour réussir',
-    features: ['Méthodes concentration', 'Planning révisions', 'Gestion du trac']
-  },
-  {
-    id: 'teen-04',
-    name: 'Box Harcèlement scolaire',
-    category: 'Adolescents',
+    id: 'prevention-01',
+    name: 'Box Anti-Stress',
+    category: 'Salariés',
     evaluationScale: 'Stress élevé',
+    price: '45€/mois',
+    description: 'Outils pour gérer le stress quotidien',
+    features: ['Techniques de relaxation', 'Plantes déstressantes', 'Huiles essentielles', 'Exercices de cohérence cardiaque'],
+    scoreRange: { min: 4, max: 6 },
+    emotionalState: 'stress',
+    gradient: 'gradient-trust'
+  },
+  {
+    id: 'prevention-02',
+    name: 'Box Zen Ado',
+    category: 'Adolescents',
+    evaluationScale: 'Anxiété scolaire',
+    price: '38€/mois',
+    description: 'Retrouve ton calme face au stress',
+    features: ['Fidget toys', 'Journal émotionnel', 'Playlist relaxante', 'Techniques anti-stress'],
+    scoreRange: { min: 4, max: 6 },
+    emotionalState: 'stress',
+    gradient: 'gradient-serenity'
+  },
+
+  // Score 7-9: Équilibre fragile - Vigilance
+  {
+    id: 'equilibre-01',
+    name: 'Box Équilibre Pro',
+    category: 'Salariés',
+    evaluationScale: 'Équilibre fragile',
+    price: '42€/mois',
+    description: 'Maintiens ton équilibre vie pro/perso',
+    features: ['Planning bien-être', 'Pauses énergisantes', 'Snacks sains', 'Conseils organisation'],
+    scoreRange: { min: 7, max: 9 },
+    emotionalState: 'neutral',
+    gradient: 'gradient-serenity'
+  },
+  {
+    id: 'equilibre-02',
+    name: 'Box Harmonie Famille',
+    category: 'Famille',
+    evaluationScale: 'Tensions familiales',
+    price: '48€/mois',
+    description: 'Renforcez vos liens familiaux',
+    features: ['Activités famille', 'Jeux coopératifs', 'Moments partage', 'Communication bienveillante'],
+    scoreRange: { min: 7, max: 9 },
+    emotionalState: 'neutral',
+    gradient: 'gradient-compassion'
+  },
+
+  // Score 10-12: Bon niveau - Maintenir
+  {
+    id: 'maintien-01',
+    name: 'Box Vitalité',
+    category: 'Salariés',
+    evaluationScale: 'Bien-être satisfaisant',
+    price: '39€/mois',
+    description: 'Garde ton niveau de bien-être optimal',
+    features: ['Compléments naturels', 'Sport doux', 'Méditation', 'Développement personnel'],
+    scoreRange: { min: 10, max: 12 },
+    emotionalState: 'content',
+    gradient: 'gradient-serenity'
+  },
+  {
+    id: 'maintien-02',
+    name: 'Box Épanouissement Teen',
+    category: 'Adolescents',
+    evaluationScale: 'Développement personnel',
     price: '35€/mois',
-    description: 'Soutien face au harcèlement',
-    features: ['Stratégies défense', 'Renforcement personnel', 'Réseau soutien']
+    description: 'Continue à grandir et t\'épanouir',
+    features: ['Livres inspirants', 'Activités créatives', 'Défis personnels', 'Réseau positif'],
+    scoreRange: { min: 10, max: 12 },
+    emotionalState: 'content',
+    gradient: 'gradient-wisdom'
+  },
+
+  // Score 13-15: Excellence - Passion
+  {
+    id: 'excellence-01',
+    name: 'Box Leadership',
+    category: 'Salariés',
+    evaluationScale: 'État optimal',
+    price: '55€/mois',
+    description: 'Développe ton potentiel de leader',
+    features: ['Coaching leadership', 'Outils management', 'Vision stratégique', 'Influence positive'],
+    scoreRange: { min: 13, max: 15 },
+    emotionalState: 'passionate',
+    gradient: 'gradient-passion'
   },
   {
-    id: 'teen-05',
-    name: 'Box Rythme & sommeil',
+    id: 'excellence-02',
+    name: 'Box Passion Créative',
     category: 'Adolescents',
-    evaluationScale: 'Charge mentale',
-    price: '30€/mois',
-    description: 'Retrouve un rythme de sommeil sain',
-    features: ['Routine sommeil', 'Hygiène du sommeil', 'Relaxation nocturne']
-  },
-  {
-    id: 'teen-06',
-    name: 'Box Créativité & émotions',
-    category: 'Adolescents',
-    evaluationScale: 'Anxiété / inquiétude',
-    price: '31€/mois',
-    description: 'Exprime tes émotions par la créativité',
-    features: ['Art-thérapie', 'Expression créative', 'Gestion émotionnelle']
-  },
-  {
-    id: 'teen-07',
-    name: 'Box Sport & équilibre',
-    category: 'Adolescents',
-    evaluationScale: 'Isolement',
-    price: '33€/mois',
-    description: 'Trouve ton équilibre par le sport',
-    features: ['Activités sportives', 'Bien-être physique', 'Confiance corporelle']
-  },
-  {
-    id: 'teen-08',
-    name: 'Box Copains & solitude',
-    category: 'Adolescents',
-    evaluationScale: 'Manque de motivation',
-    price: '28€/mois',
-    description: 'Crée et maintiens des amitiés',
-    features: ['Compétences sociales', 'Gestion solitude', 'Création liens']
-  },
-  {
-    id: 'teen-09',
-    name: 'Box Préparation oraux',
-    category: 'Adolescents',
-    evaluationScale: 'Tensions relationnelles',
-    price: '36€/mois',
-    description: 'Réussis tes présentations orales',
-    features: ['Techniques présentation', 'Gestion du trac', 'Communication efficace']
-  },
-  {
-    id: 'teen-10',
-    name: 'Box Transition collège-lycée',
-    category: 'Adolescents',
-    evaluationScale: 'Isolement',
-    price: '27€/mois',
-    description: 'Réussis ta transition scolaire',
-    features: ['Adaptation changement', 'Nouvelles relations', 'Organisation lycée']
+    evaluationScale: 'Épanouissement total',
+    price: '45€/mois',
+    description: 'Exprime pleinement ta créativité',
+    features: ['Matériel artistique', 'Masterclass créatives', 'Projets inspirants', 'Communauté créative'],
+    scoreRange: { min: 13, max: 15 },
+    emotionalState: 'passionate',
+    gradient: 'gradient-passion'
   }
 ];
 
-export const getRecommendedBoxes = (category: string, riskLevel: string, score: number): BoxRecommendation[] => {
-  // Mapping des niveaux de risque vers les échelles d'évaluation
-  const riskToEvaluationMap: { [key: string]: string[] } = {
-    'Excellent': ['Besoin de reconnexion'],
-    'Bon': ['Manque de motivation', 'Besoin de reconnexion'],
-    'À améliorer': ['Anxiété / inquiétude', 'Stress élevé', 'Charge mentale'],
-    'Priorité': ['Stress élevé', 'Fatigue émotionnelle', 'Isolement'],
-    'Situation critique': ['Stress élevé', 'Fatigue émotionnelle', 'Tensions relationnelles'],
-    'Élevé': ['Stress élevé', 'Fatigue émotionnelle', 'Tensions relationnelles'],
-    'Modéré': ['Anxiété / inquiétude', 'Charge mentale'],
-    'Faible': ['Besoin de reconnexion', 'Manque de motivation']
-  };
+export const getRecommendedBoxes = (score: number, userType: string): BoxRecommendation[] => {
+  // Filtrer par score d'abord
+  const scoreBasedBoxes = boxRecommendations.filter(box => 
+    score >= box.scoreRange.min && score <= box.scoreRange.max
+  );
 
-  // Obtenir les échelles d'évaluation recommandées pour ce niveau de risque
-  const recommendedScales = riskToEvaluationMap[riskLevel] || ['Stress élevé'];
-
-  // Filtrer les box selon la catégorie et les échelles recommandées avec plus de spécificité
-  let categoryFilter = '';
-  let specificRecommendations: BoxRecommendation[] = [];
-
-  if (category.includes('parent') || category.includes('famille')) {
-    categoryFilter = 'Parents';
-    
-    // Recommandations spécifiques selon le score pour les parents
-    if (score < 40) {
-      specificRecommendations = boxRecommendations.filter(box => 
-        box.category === 'Parents' && 
-        (box.evaluationScale === 'Stress élevé' || box.evaluationScale === 'Fatigue émotionnelle')
-      );
-    } else if (score < 70) {
-      specificRecommendations = boxRecommendations.filter(box => 
-        box.category === 'Parents' && 
-        (box.evaluationScale === 'Charge mentale' || box.evaluationScale === 'Anxiété / inquiétude')
-      );
-    } else {
-      specificRecommendations = boxRecommendations.filter(box => 
-        box.category === 'Parents' && 
-        box.evaluationScale === 'Besoin de reconnexion'
-      );
-    }
-  } else if (category.includes('teen') || category.includes('adolescent')) {
-    categoryFilter = 'Adolescents';
-    
-    // Recommandations spécifiques selon le score pour les ados
-    if (score < 40) {
-      specificRecommendations = boxRecommendations.filter(box => 
-        box.category === 'Adolescents' && 
-        (box.evaluationScale === 'Stress élevé' || box.evaluationScale === 'Isolement')
-      );
-    } else if (score < 70) {
-      specificRecommendations = boxRecommendations.filter(box => 
-        box.category === 'Adolescents' && 
-        (box.evaluationScale === 'Anxiété / inquiétude' || box.evaluationScale === 'Manque de motivation')
-      );
-    } else {
-      specificRecommendations = boxRecommendations.filter(box => 
-        box.category === 'Adolescents' && 
-        box.evaluationScale === 'Besoin de reconnexion'
-      );
-    }
-  } else if (category.includes('enterprise') || category.includes('employee') || category.includes('manager')) {
-    categoryFilter = 'Salariés';
-    
-    // Pour l'instant, utiliser le système existant pour les salariés
-    // (on peut étendre plus tard avec des box spécifiques entreprise)
-    specificRecommendations = boxRecommendations.filter(box => 
-      box.category === 'Parents' && // Utiliser temporairement les box parents
-      recommendedScales.includes(box.evaluationScale)
+  // Adapter selon le type d'utilisateur
+  let filteredBoxes = scoreBasedBoxes;
+  
+  if (userType.includes('teen') || userType.includes('adolescent')) {
+    filteredBoxes = scoreBasedBoxes.filter(box => 
+      box.category === 'Adolescents' || box.category === 'Famille'
+    );
+  } else if (userType.includes('parent') || userType.includes('famille')) {
+    filteredBoxes = scoreBasedBoxes.filter(box => 
+      box.category === 'Parents' || box.category === 'Famille'
+    );
+  } else if (userType.includes('enterprise') || userType.includes('salarié')) {
+    filteredBoxes = scoreBasedBoxes.filter(box => 
+      box.category === 'Salariés' || box.category === 'Équipe'
     );
   }
 
-  // Si pas de correspondance spécifique, utiliser le système général
-  if (specificRecommendations.length === 0) {
-    const recommendedBoxes = boxRecommendations.filter(box => 
-      box.category === categoryFilter && 
-      recommendedScales.includes(box.evaluationScale)
-    );
-    
-    if (recommendedBoxes.length === 0) {
-      return boxRecommendations.filter(box => box.category === categoryFilter).slice(0, 2);
-    }
-    
-    return recommendedBoxes.slice(0, 2);
+  // Si pas de correspondance spécifique, utiliser les box générales
+  if (filteredBoxes.length === 0) {
+    filteredBoxes = scoreBasedBoxes.slice(0, 2);
   }
 
-  // Retourner jusqu'à 2 box recommandées spécifiques
-  return specificRecommendations.slice(0, 2);
+  return filteredBoxes.slice(0, 2);
 };

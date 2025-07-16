@@ -19,6 +19,7 @@ import MyBox from "./pages/MyBox";
 import ParentDashboard from "./pages/ParentDashboard";
 import ConceptQVT from "./pages/ConceptQVT";
 import Error404 from "./pages/Error404";
+import IntelligentRecommendations from "./pages/IntelligentRecommendations";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,7 @@ function App() {
               <Route path="/my-box" element={<MyBox />} />
               <Route path="/parent-dashboard" element={<ParentDashboard />} />
               <Route path="/concept-qvt" element={<ConceptQVT />} />
+              <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
               <Route path="*" element={<Error404 />} />
             </Routes>
           </div>

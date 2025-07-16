@@ -20,6 +20,8 @@ import ParentDashboard from "./pages/ParentDashboard";
 import ConceptQVT from "./pages/ConceptQVT";
 import Error404 from "./pages/Error404";
 import IntelligentRecommendations from "./pages/IntelligentRecommendations";
+import HREmotionalHeatmap from "./components/HREmotionalHeatmap";
+import TeensInterface from "./components/TeensInterface";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +40,7 @@ function App() {
               <Route path="/enterprise-portal" element={<EnterprisePortal />} />
               <Route path="/family-portal" element={<FamilyPortal />} />
               <Route path="/teens-home" element={<TeensHome />} />
+              <Route path="/teens-interface" element={<TeensInterface />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/teens-shop" element={<TeensShop />} />
               <Route path="/cart" element={<Cart />} />
@@ -45,6 +48,7 @@ function App() {
               <Route path="/box-shop/family" element={<BoxShop universe="family" />} />
               <Route path="/my-box" element={<MyBox />} />
               <Route path="/parent-dashboard" element={<ParentDashboard />} />
+              <Route path="/hr-heatmap" element={<HREmotionalHeatmap />} />
               <Route path="/concept-qvt" element={<ConceptQVT />} />
               <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
               <Route path="*" element={<Error404 />} />

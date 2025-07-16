@@ -24,6 +24,10 @@ import NotFound from "./pages/NotFound";
 import AuthCallback from "./pages/AuthCallback";
 import PasswordReset from "./pages/PasswordReset";
 import EmailConfirmation from "./pages/EmailConfirmation";
+import IntelligentRecommendations from "./pages/IntelligentRecommendations";
+import EnterprisePortal from "./pages/EnterprisePortal";
+import FamilyPortal from "./pages/FamilyPortal";
+import IndependentPortal from "./pages/IndependentPortal";
 
 function App() {
   return (
@@ -51,6 +55,10 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/teens-shop" element={<TeensShop />} />
             <Route path="/enterprise-solutions" element={<EnterpriseSolutions />} />
+            <Route path="/intelligent-recommendations" element={<IntelligentRecommendations />} />
+            <Route path="/enterprise-portal" element={<EnterprisePortal />} />
+            <Route path="/family-portal" element={<FamilyPortal />} />
+            <Route path="/independent-portal" element={<IndependentPortal />} />
             <Route path="/404" element={<Error404 />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

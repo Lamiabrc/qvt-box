@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Heart, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -67,7 +66,7 @@ const FamilyParentSimulator = () => {
       ];
     }
 
-    // Obtenir les box recommandées basées sur les données - fix: use only 2 arguments
+    // Obtenir les box recommandées basées sur les données - maintenant avec riskLevel string
     const recommendedBoxes = getRecommendedBoxes('parent', riskLevel).map(box => ({
       name: box.name,
       description: box.description,

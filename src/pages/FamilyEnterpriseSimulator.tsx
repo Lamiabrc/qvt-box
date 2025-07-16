@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Building2, Users, Heart } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -124,7 +123,7 @@ const FamilyEnterpriseSimulator = () => {
       ];
     }
 
-    // Obtenir les box recommandées intelligentes - fix: use only 2 arguments
+    // Obtenir les box recommandées intelligentes - maintenant avec riskLevel string
     const recommendedBoxes = getRecommendedBoxes('famille-enterprise', riskLevel).map(box => ({
       name: box.name,
       description: box.description,

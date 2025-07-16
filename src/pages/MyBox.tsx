@@ -16,12 +16,13 @@ import {
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { getRecommendedBoxes } from "../data/boxRecommendations";
+import type { Box } from "../data/boxRecommendations";
 
 const MyBox = () => {
   const location = useLocation();
   const { score = 8, userType = 'independent' } = location.state || {};
   
-  const [selectedBox, setSelectedBox] = useState(null);
+  const [selectedBox, setSelectedBox] = useState<Box | null>(null);
   const [customizations, setCustomizations] = useState({
     aromatherapy: false,
     tea: true,
@@ -30,7 +31,7 @@ const MyBox = () => {
     snacks: false
   });
 
-  const recommendedBoxes = getRecommendedBoxes(score, userType);
+  const recommendedBoxes = getRecommendedBoxes(userType, score);
   
   const availableCustomizations = [
     { id: 'aromatherapy', name: 'Aromathérapie', price: 8, icon: '🌿' },
@@ -42,7 +43,7 @@ const MyBox = () => {
     { id: 'music', name: 'Playlist bien-être', price: 4, icon: '🎵' }
   ];
 
-  const getScoreColor = (score) => {
+  const getScoreColor = (score: number) => {
     if (score <= 3) return 'text-red-600 bg-red-50';
     if (score <= 6) return 'text-orange-600 bg-orange-50';
     if (score <= 9) return 'text-yellow-600 bg-yellow-50';
@@ -50,7 +51,7 @@ const MyBox = () => {
     return 'text-blue-600 bg-blue-50';
   };
 
-  const calculateTotalPrice = (basePrice) => {
+  const calculateTotalPrice = (basePrice: string) => {
     const customizationPrice = Object.entries(customizations)
       .filter(([_, selected]) => selected)
       .reduce((total, [id, _]) => {
@@ -99,7 +100,7 @@ const MyBox = () => {
               {recommendedBoxes.map((box) => (
                 <Card key={box.id} className={`hover:shadow-xl transition-all duration-300 border-2 ${selectedBox?.id === box.id ? 'border-blue-500 ring-2 ring-blue-200' : 'border-gray-200'}`}>
                   <CardHeader>
-                    <div className={`w-16 h-16 ${box.gradient} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
+                    <div className={`w-16 h-16 ${box.gradient || 'bg-gradient-to-r from-blue-500 to-purple-500'} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
                       <Package className="w-8 h-8 text-white" />
                     </div>
                     <CardTitle className="text-gray-800 text-center">{box.name}</CardTitle>
@@ -107,8 +108,8 @@ const MyBox = () => {
                     <div className="text-center">
                       <span className="text-3xl font-bold text-gray-700">{box.price}</span>
                     </div>
-                    <Badge className={`mx-auto bg-${box.emotionalState}`}>
-                      {box.evaluationScale}
+                    <Badge className={`mx-auto bg-${box.emotionalState || 'blue-100'}`}>
+                      {box.evaluationScale || 'Équilibre recommandé'}
                     </Badge>
                   </CardHeader>
                   <CardContent>
@@ -121,7 +122,7 @@ const MyBox = () => {
                       ))}
                     </ul>
                     <Button 
-                      className={`w-full ${box.gradient} text-white`}
+                      className={`w-full ${box.gradient || 'bg-gradient-to-r from-blue-500 to-purple-500'} text-white`}
                       onClick={() => setSelectedBox(box)}
                     >
                       {selectedBox?.id === box.id ? 'Sélectionnée' : 'Sélectionner cette box'}
@@ -152,22 +153,22 @@ const MyBox = () => {
                 <CardContent>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                     {availableCustomizations.map((item) => (
-                      <Card key={item.id} className={`cursor-pointer transition-all ${customizations[item.id] ? 'ring-2 ring-blue-500 bg-blue-50' : ''}`}>
+                      <Card key={item.id} className={`cursor-pointer transition-all ${customizations[item.id as keyof typeof customizations] ? 'ring-2 ring-blue-500 bg-blue-50' : ''}`}>
                         <CardContent className="p-4">
                           <div className="text-center">
                             <div className="text-2xl mb-2">{item.icon}</div>
                             <h3 className="font-medium mb-1">{item.name}</h3>
                             <p className="text-sm text-gray-600 mb-2">+{item.price}€</p>
                             <Button
-                              variant={customizations[item.id] ? "default" : "outline"}
+                              variant={customizations[item.id as keyof typeof customizations] ? "default" : "outline"}
                               size="sm"
                               onClick={() => setCustomizations(prev => ({
                                 ...prev,
-                                [item.id]: !prev[item.id]
+                                [item.id]: !prev[item.id as keyof typeof prev]
                               }))}
                               className="w-full"
                             >
-                              {customizations[item.id] ? (
+                              {customizations[item.id as keyof typeof customizations] ? (
                                 <>
                                   <Minus className="w-4 h-4 mr-1" />
                                   Retirer

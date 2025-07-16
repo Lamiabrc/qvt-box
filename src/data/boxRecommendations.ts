@@ -1,3 +1,4 @@
+
 export interface Box {
   id: string;
   name: string;
@@ -7,6 +8,9 @@ export interface Box {
   minScore: number;
   maxScore: number;
   features: string[];
+  gradient?: string;
+  emotionalState?: string;
+  evaluationScale?: string;
 }
 
 export const allBoxes: Box[] = [
@@ -18,7 +22,10 @@ export const allBoxes: Box[] = [
     targetUsers: ['teen', 'all'],
     minScore: 1,
     maxScore: 7,
-    features: ['Journal de bord', 'Exercices de relaxation', 'Conseils personnalisés']
+    features: ['Journal de bord', 'Exercices de relaxation', 'Conseils personnalisés'],
+    gradient: 'from-blue-500 to-purple-500',
+    emotionalState: 'blue-100',
+    evaluationScale: 'Situation équilibrée'
   },
   {
     id: 'box-ado-2',
@@ -28,7 +35,10 @@ export const allBoxes: Box[] = [
     targetUsers: ['teen', 'all'],
     minScore: 8,
     maxScore: 15,
-    features: ['Box Essentielle', 'Séances de coaching en ligne', 'Accès à des ateliers thématiques']
+    features: ['Box Essentielle', 'Séances de coaching en ligne', 'Accès à des ateliers thématiques'],
+    gradient: 'from-purple-500 to-pink-500',
+    emotionalState: 'purple-100',
+    evaluationScale: 'Excellent équilibre'
   },
   {
     id: 'box-famille-1',
@@ -38,7 +48,10 @@ export const allBoxes: Box[] = [
     targetUsers: ['parent', 'all'],
     minScore: 1,
     maxScore: 7,
-    features: ['Jeux de société', 'Défis à relever en famille', 'Guides de conversation']
+    features: ['Jeux de société', 'Défis à relever en famille', 'Guides de conversation'],
+    gradient: 'from-green-500 to-emerald-500',
+    emotionalState: 'green-100',
+    evaluationScale: 'Bon équilibre'
   },
   {
     id: 'box-famille-2',
@@ -48,7 +61,10 @@ export const allBoxes: Box[] = [
     targetUsers: ['parent', 'all'],
     minScore: 8,
     maxScore: 15,
-    features: ['Box Découverte', 'Ateliers de parentalité positive', 'Accompagnement personnalisé']
+    features: ['Box Découverte', 'Ateliers de parentalité positive', 'Accompagnement personnalisé'],
+    gradient: 'from-emerald-500 to-teal-500',
+    emotionalState: 'emerald-100',
+    evaluationScale: 'Excellent équilibre'
   },
   {
     id: 'box-entreprise-1',
@@ -58,7 +74,10 @@ export const allBoxes: Box[] = [
     targetUsers: ['famille-entreprise', 'all'],
     minScore: 1,
     maxScore: 7,
-    features: ['Accès à une plateforme de ressources', 'Webinaires thématiques', 'Bilans individuels']
+    features: ['Accès à une plateforme de ressources', 'Webinaires thématiques', 'Bilans individuels'],
+    gradient: 'from-orange-500 to-red-500',
+    emotionalState: 'orange-100',
+    evaluationScale: 'À améliorer'
   },
   {
     id: 'box-entreprise-2',
@@ -68,7 +87,10 @@ export const allBoxes: Box[] = [
     targetUsers: ['famille-entreprise', 'all'],
     minScore: 8,
     maxScore: 15,
-    features: ['Box Starter', 'Séances de coaching en équipe', 'Événements de team building']
+    features: ['Box Starter', 'Séances de coaching en équipe', 'Événements de team building'],
+    gradient: 'from-red-500 to-pink-500',
+    emotionalState: 'red-100',
+    evaluationScale: 'Bon équilibre'
   },
   {
     id: 'box-perso-1',
@@ -78,7 +100,10 @@ export const allBoxes: Box[] = [
     targetUsers: ['personal', 'all'],
     minScore: 1,
     maxScore: 7,
-    features: ['Sélection de produits bien-être', 'Challenges personnalisés', 'Suivi de vos progrès']
+    features: ['Sélection de produits bien-être', 'Challenges personnalisés', 'Suivi de vos progrès'],
+    gradient: 'from-indigo-500 to-blue-500',
+    emotionalState: 'indigo-100',
+    evaluationScale: 'Situation équilibrée'
   },
   {
     id: 'box-perso-2',
@@ -88,7 +113,10 @@ export const allBoxes: Box[] = [
     targetUsers: ['personal', 'all'],
     minScore: 8,
     maxScore: 15,
-    features: ['Box Essentielle', 'Consultations avec des experts', 'Programmes de développement personnel']
+    features: ['Box Essentielle', 'Consultations avec des experts', 'Programmes de développement personnel'],
+    gradient: 'from-blue-500 to-cyan-500',
+    emotionalState: 'blue-100',
+    evaluationScale: 'Excellent équilibre'
   },
   {
     id: 'box-ado-garcon',
@@ -98,7 +126,10 @@ export const allBoxes: Box[] = [
     targetUsers: ['teen-boy'],
     minScore: 5,
     maxScore: 12,
-    features: ['Produits de soins', 'Accessoires de sport', 'Livres inspirants']
+    features: ['Produits de soins', 'Accessoires de sport', 'Livres inspirants'],
+    gradient: 'from-cyan-500 to-blue-500',
+    emotionalState: 'cyan-100',
+    evaluationScale: 'Bon équilibre'
   },
   {
     id: 'box-ado-fille',
@@ -108,7 +139,10 @@ export const allBoxes: Box[] = [
     targetUsers: ['teen-girl'],
     minScore: 5,
     maxScore: 12,
-    features: ['Cosmétiques naturels', 'Bijoux tendance', 'Magazines féminins']
+    features: ['Cosmétiques naturels', 'Bijoux tendance', 'Magazines féminins'],
+    gradient: 'from-pink-500 to-rose-500',
+    emotionalState: 'pink-100',
+    evaluationScale: 'Bon équilibre'
   }
 ];
 

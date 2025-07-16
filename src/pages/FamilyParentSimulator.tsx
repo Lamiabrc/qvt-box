@@ -67,8 +67,8 @@ const FamilyParentSimulator = () => {
       ];
     }
 
-    // Obtenir les box recommandées basées sur les données
-    const recommendedBoxes = getRecommendedBoxes('parent', riskLevel, percentage).map(box => ({
+    // Obtenir les box recommandées basées sur les données - fix: use only 2 arguments
+    const recommendedBoxes = getRecommendedBoxes('parent', riskLevel).map(box => ({
       name: box.name,
       description: box.description,
       price: box.price,

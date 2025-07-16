@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { QueryClient } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './contexts/AuthContext';
-import Home from './pages/Home';
+import Index from './pages/Index';
 import Simulator from './pages/Simulator';
 import SimulatorResults from './pages/SimulatorResults';
 import IndependentPortal from './pages/IndependentPortal';
@@ -15,14 +16,16 @@ import Cart from './pages/Cart';
 import BoxShop from './components/BoxShop';
 import MyBox from "./pages/MyBox";
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <QueryClient>
+    <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Router>
           <div className="min-h-screen bg-background">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Index />} />
               <Route path="/simulator" element={<Simulator />} />
               <Route path="/simulator-results" element={<SimulatorResults />} />
               <Route path="/independent-portal" element={<IndependentPortal />} />
@@ -32,15 +35,14 @@ function App() {
               <Route path="/shop" element={<Shop />} />
               <Route path="/teens-shop" element={<TeensShop />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/box-shop/:universe" element={<BoxShop />} />
-              
+              <Route path="/box-shop/enterprise" element={<BoxShop universe="enterprise" />} />
+              <Route path="/box-shop/family" element={<BoxShop universe="family" />} />
               <Route path="/my-box" element={<MyBox />} />
-              
             </Routes>
           </div>
         </Router>
       </AuthProvider>
-    </QueryClient>
+    </QueryClientProvider>
   );
 }
 

@@ -80,77 +80,80 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Router>
-          <Navigation />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/admincontenteditor" element={<AdminContentEditor />} />
-            <Route path="/admincontentmanager" element={<AdminContentManager />} />
-            <Route path="/adminlogin" element={<AdminLogin />} />
-            <Route path="/adminmarketresearch" element={<AdminMarketResearch />} />
-            <Route path="/adminpanel" element={<AdminPanel />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/authcallback" element={<AuthCallback />} />
-            <Route path="/chatadmin" element={<ChatAdmin />} />
-            <Route path="/coachdashboard" element={<CoachDashboard />} />
-            <Route path="/confidentiality" element={<Confidentiality />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/devenirprestataire" element={<DevenirPrestataire />} />
-            <Route path="/emailconfirmation" element={<EmailConfirmation />} />
-            <Route path="/employeecheckin" element={<EmployeeCheckIn />} />
-            <Route path="/employeecustomization" element={<EmployeeCustomization />} />
-            <Route path="/employeedashboard" element={<EmployeeDashboard />} />
-            <Route path="/employeepersonalspace" element={<EmployeePersonalSpace />} />
-            <Route path="/employeeprofile" element={<EmployeeProfile />} />
-            <Route path="/employeeteamspace" element={<EmployeeTeamSpace />} />
-            <Route path="/employeewellnessactivities" element={<EmployeeWellnessActivities />} />
-            <Route path="/enterpriseemployeesimulator" element={<EnterpriseEmployeeSimulator />} />
-            <Route path="/enterprisemanagersimulator" element={<EnterpriseManagerSimulator />} />
-            <Route path="/enterpriseorientation" element={<EnterpriseOrientation />} />
-            <Route path="/executivedashboard" element={<ExecutiveDashboard />} />
-            <Route path="/famille" element={<Famille />} />
-            <Route path="/familycomparativesimulator" element={<FamilyComparativeSimulator />} />
-            <Route path="/familyenterprisesimulator" element={<FamilyEnterpriseSimulator />} />
-            <Route path="/familyorientation" element={<FamilyOrientation />} />
-            <Route path="/familyparentsimulator" element={<FamilyParentSimulator />} />
-            <Route path="/familysimulator" element={<FamilySimulator />} />
-            <Route path="/familyspace" element={<FamilySpace />} />
-            <Route path="/familyteensimulator" element={<FamilyTeenSimulator />} />
-            <Route path="/friendsspace" element={<FriendsSpace />} />
-            <Route path="/index" element={<Index />} />
-            <Route path="/kidshome" element={<KidsHome />} />
-            <Route path="/legalmentions" element={<LegalMentions />} />
-            <Route path="/managerteamevaluation" element={<ManagerTeamEvaluation />} />
-            <Route path="/marketresearchlanding" element={<MarketResearchLanding />} />
-            <Route path="/mentionslegales" element={<MentionsLegales />} />
-            <Route path="/mycolleagues" element={<MyColleagues />} />
-            <Route path="/myfriends" element={<MyFriends />} />
-            <Route path="/notfound" element={<NotFound />} />
-            <Route path="/passwordreset" element={<PasswordReset />} />
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/paymentsuccess" element={<PaymentSuccess />} />
-            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-            <Route path="/qvtmanagerdashboard" element={<QVTManagerDashboard />} />
-            <Route path="/simulatorhome" element={<SimulatorHome />} />
-            <Route path="/simulatorhub" element={<SimulatorHub />} />
-            <Route path="/simulatorselector" element={<SimulatorSelector />} />
-            <Route path="/teamleaderdashboard" element={<TeamLeaderDashboard />} />
-            <Route path="/teamspace" element={<TeamSpace />} />
-            <Route path="/teensaievaluation" element={<TeensAIEvaluation />} />
-            <Route path="/teenscalendar" element={<TeensCalendar />} />
-            <Route path="/teenscheckin" element={<TeensCheckIn />} />
-            <Route path="/teenscustomization" element={<TeensCustomization />} />
-            <Route path="/teensfamilyspace" element={<TeensFamilySpace />} />
-            <Route path="/teensfunsolutions" element={<TeensFunSolutions />} />
-            <Route path="/teensjournal" element={<TeensJournal />} />
-            <Route path="/teensparentalaccess" element={<TeensParentalAccess />} />
-            <Route path="/teenspersonalspace" element={<TeensPersonalSpace />} />
-            <Route path="/teensplaylist" element={<TeensPlaylist />} />
-            <Route path="/teensquickalert" element={<TeensQuickAlert />} />
-            <Route path="/unauthorized" element={<Unauthorized />} />
-            <Route path="/workplacecomparativesimulator" element={<WorkplaceComparativeSimulator />} />
-            <Route path="*" element={<Home />} />
-          </Routes>
-          <Footer />
+          <div className="min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/admincontenteditor" element={<AdminContentEditor />} />
+                <Route path="/admincontentmanager" element={<AdminContentManager />} />
+                <Route path="/adminlogin" element={<AdminLogin />} />
+                <Route path="/adminmarketresearch" element={<AdminMarketResearch />} />
+                <Route path="/adminpanel" element={<AdminPanel />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/authcallback" element={<AuthCallback />} />
+                <Route path="/chatadmin" element={<ChatAdmin />} />
+                <Route path="/coachdashboard" element={<CoachDashboard />} />
+                <Route path="/confidentiality" element={<Confidentiality />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/devenirprestataire" element={<DevenirPrestataire />} />
+                <Route path="/emailconfirmation" element={<EmailConfirmation />} />
+                <Route path="/employeecheckin" element={<EmployeeCheckIn />} />
+                <Route path="/employeecustomization" element={<EmployeeCustomization />} />
+                <Route path="/employeedashboard" element={<EmployeeDashboard />} />
+                <Route path="/employeepersonalspace" element={<EmployeePersonalSpace />} />
+                <Route path="/employeeprofile" element={<EmployeeProfile />} />
+                <Route path="/employeeteamspace" element={<EmployeeTeamSpace />} />
+                <Route path="/employeewellnessactivities" element={<EmployeeWellnessActivities />} />
+                <Route path="/enterpriseemployeesimulator" element={<EnterpriseEmployeeSimulator />} />
+                <Route path="/enterprisemanagersimulator" element={<EnterpriseManagerSimulator />} />
+                <Route path="/enterpriseorientation" element={<EnterpriseOrientation />} />
+                <Route path="/executivedashboard" element={<ExecutiveDashboard />} />
+                <Route path="/famille" element={<Famille />} />
+                <Route path="/familycomparativesimulator" element={<FamilyComparativeSimulator />} />
+                <Route path="/familyenterprisesimulator" element={<FamilyEnterpriseSimulator />} />
+                <Route path="/familyorientation" element={<FamilyOrientation />} />
+                <Route path="/familyparentsimulator" element={<FamilyParentSimulator />} />
+                <Route path="/familysimulator" element={<FamilySimulator />} />
+                <Route path="/familyspace" element={<FamilySpace />} />
+                <Route path="/familyteensimulator" element={<FamilyTeenSimulator />} />
+                <Route path="/friendsspace" element={<FriendsSpace />} />
+                <Route path="/index" element={<Index />} />
+                <Route path="/kidshome" element={<KidsHome />} />
+                <Route path="/legalmentions" element={<LegalMentions />} />
+                <Route path="/managerteamevaluation" element={<ManagerTeamEvaluation />} />
+                <Route path="/marketresearchlanding" element={<MarketResearchLanding />} />
+                <Route path="/mentionslegales" element={<MentionsLegales />} />
+                <Route path="/mycolleagues" element={<MyColleagues />} />
+                <Route path="/myfriends" element={<MyFriends />} />
+                <Route path="/passwordreset" element={<PasswordReset />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+                <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+                <Route path="/qvtmanagerdashboard" element={<QVTManagerDashboard />} />
+                <Route path="/simulatorhome" element={<SimulatorHome />} />
+                <Route path="/simulatorhub" element={<SimulatorHub />} />
+                <Route path="/simulatorselector" element={<SimulatorSelector />} />
+                <Route path="/teamleaderdashboard" element={<TeamLeaderDashboard />} />
+                <Route path="/teamspace" element={<TeamSpace />} />
+                <Route path="/teensaievaluation" element={<TeensAIEvaluation />} />
+                <Route path="/teenscalendar" element={<TeensCalendar />} />
+                <Route path="/teenscheckin" element={<TeensCheckIn />} />
+                <Route path="/teenscustomization" element={<TeensCustomization />} />
+                <Route path="/teensfamilyspace" element={<TeensFamilySpace />} />
+                <Route path="/teensfunsolutions" element={<TeensFunSolutions />} />
+                <Route path="/teensjournal" element={<TeensJournal />} />
+                <Route path="/teensparentalaccess" element={<TeensParentalAccess />} />
+                <Route path="/teenspersonalspace" element={<TeensPersonalSpace />} />
+                <Route path="/teensplaylist" element={<TeensPlaylist />} />
+                <Route path="/teensquickalert" element={<TeensQuickAlert />} />
+                <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="/workplacecomparativesimulator" element={<WorkplaceComparativeSimulator />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
         </Router>
       </AuthProvider>
     </QueryClientProvider>

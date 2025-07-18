@@ -166,26 +166,102 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-qvt-teal text-white">
+      {/* Section Statistiques et Témoignages */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="animate-fade-in delay-1800">
-              <div className="text-4xl font-bold mb-2">10k+</div>
-              <div className="text-qvt-off-white/80">Utilisateurs actifs</div>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-qvt-soft-black mb-4">
+              QVT Box en chiffres
+            </h2>
+            <p className="text-xl text-qvt-soft-black/70 max-w-3xl mx-auto">
+              Rejoignez les milliers de personnes et d'entreprises qui ont déjà transformé leur bien-être
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-4 gap-8 mb-16 animate-fade-in delay-1600">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-qvt-teal mb-2">2,500+</div>
+              <div className="text-qvt-soft-black/70">Collaborateurs accompagnés</div>
             </div>
-            <div className="animate-fade-in delay-2000">
-              <div className="text-4xl font-bold mb-2">95%</div>
-              <div className="text-qvt-off-white/80">Satisfaction</div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-qvt-aqua mb-2">150+</div>
+              <div className="text-qvt-soft-black/70">Entreprises partenaires</div>
             </div>
-            <div className="animate-fade-in delay-2200">
-              <div className="text-4xl font-bold mb-2">24/7</div>
-              <div className="text-qvt-off-white/80">Support</div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-purple-600 mb-2">800+</div>
+              <div className="text-qvt-soft-black/70">Familles accompagnées</div>
             </div>
-            <div className="animate-fade-in delay-2400">
-              <div className="text-4xl font-bold mb-2">3 ans</div>
-              <div className="text-qvt-off-white/80">D'expertise</div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-green-600 mb-2">95%</div>
+              <div className="text-qvt-soft-black/70">Taux de satisfaction</div>
             </div>
+          </div>
+
+          {/* Témoignages réels */}
+          <div className="grid md:grid-cols-3 gap-8 animate-fade-in delay-1800">
+            <Card className="bg-gradient-to-br from-teal-50 to-cyan-50 qvt-card">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <img src="/assets/sarah-rh-director.jpg" alt="Sarah M." className="w-12 h-12 rounded-full mr-4 object-cover" />
+                  <div>
+                    <div className="font-semibold text-qvt-soft-black">Sarah M.</div>
+                    <div className="text-sm text-qvt-soft-black/60">DRH, Entreprise Tech</div>
+                  </div>
+                </div>
+                <p className="text-qvt-soft-black/80 italic mb-4">
+                  "QVT Box a révolutionné notre approche du bien-être en entreprise. L'engagement de nos équipes a augmenté de 40% en 6 mois."
+                </p>
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 qvt-card">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-blue-600 font-semibold">ML</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-qvt-soft-black">Marie L.</div>
+                    <div className="text-sm text-qvt-soft-black/60">Maman de 2 ados, Rennes</div>
+                  </div>
+                </div>
+                <p className="text-qvt-soft-black/80 italic mb-4">
+                  "Grâce à QVTeen Box, j'ai enfin retrouvé une communication apaisée avec mes ados. Les outils sont formidables !"
+                </p>
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-purple-50 to-pink-50 qvt-card">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-purple-600 font-semibold">JD</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-qvt-soft-black">Julien D.</div>
+                    <div className="text-sm text-qvt-soft-black/60">Consultant indépendant</div>
+                  </div>
+                </div>
+                <p className="text-qvt-soft-black/80 italic mb-4">
+                  "En tant qu'indépendant, QVT Box m'aide à maintenir un équilibre vie pro/perso. Les questionnaires sont très éclairants."
+                </p>
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

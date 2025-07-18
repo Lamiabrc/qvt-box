@@ -11,9 +11,7 @@ const Footer = () => {
           {/* Logo et description */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-teal-500 to-blue-500 rounded-lg flex items-center justify-center">
-                <Heart className="w-5 h-5 text-white" />
-              </div>
+              <img src="/lovable-uploads/2d3e26d6-5cb1-45b2-ba64-2b4c8e6477e5.png" alt="QVT Box" className="w-10 h-10 rounded-lg" />
               <span className="text-xl font-bold">QVT Box</span>
             </Link>
             <p className="text-slate-300 text-sm leading-relaxed">
@@ -64,21 +62,21 @@ const Footer = () => {
             <div className="space-y-3 text-slate-300">
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <a href="mailto:lamia.brechet@outlook.fr" className="hover:text-white transition-colors">
-                  lamia.brechet@outlook.fr
+                <a href="mailto:contact@qvtbox.com" className="hover:text-white transition-colors">
+                  contact@qvtbox.com
                 </a>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="w-4 h-4" />
-                <a href="tel:+33647851507" className="hover:text-white transition-colors">
-                  06 47 85 15 07
+                <a href="tel:+33676435551" className="hover:text-white transition-colors">
+                  06 76 43 55 51
                 </a>
               </div>
               <div className="flex items-start space-x-2">
                 <MapPin className="w-4 h-4 mt-1" />
                 <span className="text-sm">
                   QVT Box<br />
-                  Normandie, France
+                  Rennes, France
                 </span>
               </div>
             </div>

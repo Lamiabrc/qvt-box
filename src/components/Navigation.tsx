@@ -1,66 +1,74 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, Heart, Zap, Users, ShoppingBag, HelpCircle, FileText } from 'lucide-react';
+import {
+  Menu,
+  Zap,
+  Users,
+  ShoppingBag,
+  HelpCircle,
+  FileText,
+  LayoutDashboard,
+  HeartHandshake,
+  Map,
+} from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
   const navigationItems = [
-    { name: 'Accueil', href: '/', icon: Heart },
-    { name: 'Solutions', href: '/enterprise-solutions', icon: Users },
-    { name: 'Questionnaires', href: '/questionnaires', icon: Zap },
+    { name: 'Accueil', href: '/', icon: LayoutDashboard },
+    { name: 'Solutions QVT', href: '/entreprise', icon: HeartHandshake },
+    { name: 'Simulateur', href: '/simulator', icon: Zap },
     { name: 'Boutique', href: '/shop', icon: ShoppingBag },
     { name: 'Tarifs', href: '/pricing', icon: FileText },
     { name: 'FAQ', href: '/faq', icon: HelpCircle },
-    { name: 'Contact', href: '/contact', icon: Users }
+    { name: 'Contact', href: '/contact', icon: Users },
+    // Dev tool visible seulement en phase projet
+    { name: 'Sitemap', href: '/sitemap', icon: Map }
   ];
 
-  const isActivePath = (path: string) => {
-    return location.pathname === path;
-  };
+  const isActivePath = (path: string) => location.pathname === path;
 
   return (
-    <nav className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
+    <nav className="bg-qvt-dark/95 backdrop-blur-sm border-b border-qvt-glacier sticky top-0 z-50 text-white">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <img src="/lovable-uploads/2d3e26d6-5cb1-45b2-ba64-2b4c8e6477e5.png" alt="QVT Box" className="w-10 h-10 rounded-lg" />
-            <span className="text-xl font-bold text-gray-900">QVT Box</span>
+            <img src="/logo-qvt.png" alt="QVT Box" className="w-10 h-10" />
+            <span className="text-xl font-bold text-qvt-glacier">QVT Box</span>
           </Link>
 
           {/* Navigation desktop */}
           <div className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActivePath(item.href)
-                      ? 'text-teal-600 bg-teal-50'
-                      : 'text-gray-700 hover:text-teal-600 hover:bg-gray-50'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{item.name}</span>
-                </Link>
-              );
-            })}
+            {navigationItems.map(({ name, href, icon: Icon }) => (
+              <Link
+                key={name}
+                to={href}
+                className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  isActivePath(href)
+                    ? 'text-qvt-turquoise bg-white/10'
+                    : 'text-white hover:text-qvt-turquoise hover:bg-white/5'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span>{name}</span>
+              </Link>
+            ))}
           </div>
 
-          {/* Boutons d'action desktop */}
+          {/* Actions desktop */}
           <div className="hidden md:flex items-center space-x-4">
             <Link to="/login">
-              <Button variant="outline">Connexion</Button>
+              <Button variant="outline" className="border-qvt-glacier text-white hover:bg-qvt-glacier/10">
+                Connexion
+              </Button>
             </Link>
             <Link to="/pricing">
-              <Button className="bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700">
+              <Button className="bg-gradient-to-r from-qvt-turquoise to-qvt-glacier text-qvt-dark hover:opacity-90">
                 Commencer
               </Button>
             </Link>
@@ -71,46 +79,43 @@ const Navigation = () => {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="sm">
-                  <Menu className="w-6 h-6" />
+                  <Menu className="w-6 h-6 text-white" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80">
+              <SheetContent side="right" className="w-80 bg-qvt-dark text-white">
                 <div className="flex items-center justify-between mb-8">
                   <Link to="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
-                    <img src="/lovable-uploads/2d3e26d6-5cb1-45b2-ba64-2b4c8e6477e5.png" alt="QVT Box" className="w-10 h-10 rounded-lg" />
-                    <span className="text-xl font-bold text-gray-900">QVT Box</span>
+                    <img src="/logo-qvt.png" alt="QVT Box" className="w-10 h-10" />
+                    <span className="text-xl font-bold text-qvt-glacier">QVT Box</span>
                   </Link>
                 </div>
 
                 <div className="space-y-4">
-                  {navigationItems.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        onClick={() => setIsOpen(false)}
-                        className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                          isActivePath(item.href)
-                            ? 'text-teal-600 bg-teal-50'
-                            : 'text-gray-700 hover:text-teal-600 hover:bg-gray-50'
-                        }`}
-                      >
-                        <Icon className="w-5 h-5" />
-                        <span>{item.name}</span>
-                      </Link>
-                    );
-                  })}
+                  {navigationItems.map(({ name, href, icon: Icon }) => (
+                    <Link
+                      key={name}
+                      to={href}
+                      onClick={() => setIsOpen(false)}
+                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                        isActivePath(href)
+                          ? 'text-qvt-turquoise bg-white/10'
+                          : 'text-white hover:text-qvt-turquoise hover:bg-white/5'
+                      }`}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span>{name}</span>
+                    </Link>
+                  ))}
                 </div>
 
                 <div className="mt-8 space-y-4">
                   <Link to="/login" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full border-qvt-glacier text-white hover:bg-qvt-glacier/10">
                       Connexion
                     </Button>
                   </Link>
                   <Link to="/pricing" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700">
+                    <Button className="w-full bg-gradient-to-r from-qvt-turquoise to-qvt-glacier text-qvt-dark hover:opacity-90">
                       Commencer
                     </Button>
                   </Link>

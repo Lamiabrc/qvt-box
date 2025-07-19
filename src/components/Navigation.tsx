@@ -20,14 +20,12 @@ const Navigation = () => {
 
   const navigationItems = [
     { name: 'Accueil', href: '/', icon: LayoutDashboard },
-    { name: 'Solutions QVT', href: '/entreprise', icon: HeartHandshake },
+    { name: 'Solutions QVT', href: '/enterprise-solutions', icon: HeartHandshake },
     { name: 'Simulateur', href: '/simulator', icon: Zap },
     { name: 'Boutique', href: '/shop', icon: ShoppingBag },
     { name: 'Tarifs', href: '/pricing', icon: FileText },
     { name: 'FAQ', href: '/faq', icon: HelpCircle },
-    { name: 'Contact', href: '/contact', icon: Users },
-    // Dev tool visible seulement en phase projet
-    { name: 'Sitemap', href: '/sitemap', icon: Map }
+    { name: 'Contact', href: '/contact', icon: Users }
   ];
 
   const isActivePath = (path: string) => location.pathname === path;

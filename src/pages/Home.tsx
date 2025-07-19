@@ -40,22 +40,23 @@ const Home = () => {
 
   const portals = [
     {
-      title: "Portail Famille",
-      description: "Solutions pour l'équilibre vie professionnelle et familiale",
+      title: "Solutions Entreprise", 
+      description: "Plateforme complète QVT pour RH, managers et équipes. Accompagnement personnalisé selon les situations individuelles (couples, célibataires, handicap, etc.)",
+      icon: Building2,
+      color: "from-blue-600 to-teal-600",
+      link: "/enterprise-portal",
+      featured: true
+    },
+    {
+      title: "Équilibre Vie Pro/Perso",
+      description: "Volet famille complémentaire pour l'équilibre vie professionnelle et familiale des collaborateurs",
       icon: Heart,
       color: "from-purple-500 to-pink-500",
       link: "/family-portal"
     },
     {
-      title: "Portail Entreprise", 
-      description: "Outils de pilotage QVT et bien-être collaborateurs",
-      icon: Building2,
-      color: "from-blue-500 to-teal-500",
-      link: "/enterprise-portal"
-    },
-    {
-      title: "Portail Indépendant",
-      description: "Accompagnement personnalisé pour entrepreneurs",
+      title: "Accompagnement Indépendant",
+      description: "Support personnalisé pour entrepreneurs et travailleurs indépendants",
       icon: Target,
       color: "from-orange-500 to-red-500", 
       link: "/independent-portal"
@@ -75,25 +76,30 @@ const Home = () => {
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in delay-300">
-              Sortez de votre bulle,<br />on veille sur vous
+              Sortez de votre bulle,<br />on veille sur vos équipes
             </h1>
 
             <p className="text-xl text-qvt-soft-black/80 mb-8 max-w-2xl mx-auto animate-fade-in delay-500">
-              Notre solution aide les entreprises à transformer l'attention portée aux collaborateurs en actions concrètes, mesurables et bienveillantes pour améliorer la qualité de vie au travail.
+              <strong>"Sortez de votre bulle, on veille sur vous"</strong><br />
+              Solution QVT complète pour les décideurs d'entreprise. Accompagnez vos collaborateurs dans leur équilibre vie pro/perso, leurs défis d'équipe et leurs spécificités individuelles.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mb-12 animate-fade-in delay-700">
               <Badge variant="secondary" className="text-qvt-teal bg-qvt-teal/10">
-                <Target className="w-4 h-4 mr-1" />
-                IA Recommandations
+                <Building2 className="w-4 h-4 mr-1" />
+                Solution Entreprise
+              </Badge>
+              <Badge variant="secondary" className="text-qvt-teal bg-qvt-teal/10">
+                <Users className="w-4 h-4 mr-1" />
+                Accompagnement RH
+              </Badge>
+              <Badge variant="secondary" className="text-qvt-teal bg-qvt-teal/10">
+                <Heart className="w-4 h-4 mr-1" />
+                Équilibre Vie Pro/Perso
               </Badge>
               <Badge variant="secondary" className="text-qvt-teal bg-qvt-teal/10">
                 <Shield className="w-4 h-4 mr-1" />
                 Données sécurisées
-              </Badge>
-              <Badge variant="secondary" className="text-qvt-teal bg-qvt-teal/10">
-                <Star className="w-4 h-4 mr-1" />
-                Accompagnement expert
               </Badge>
             </div>
 
@@ -141,18 +147,26 @@ const Home = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Nos Solutions</h2>
-            <p className="text-xl text-qvt-soft-black/70 max-w-2xl mx-auto">
-              Découvrez nos portails spécialisés pour répondre aux besoins spécifiques de chaque profil
+            <h2 className="text-4xl font-bold mb-4">Solutions QVT Complètes</h2>
+            <p className="text-xl text-qvt-soft-black/70 max-w-3xl mx-auto">
+              Une plateforme intégrée pour les décideurs d'entreprise : accompagnez vos collaborateurs dans toutes les dimensions de leur bien-être professionnel et personnel, quelles que soient leurs situations individuelles.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {portals.map((portal, index) => (
-              <Card key={index} className="p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+              <Card 
+                key={index} 
+                className={`p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 ${
+                  portal.featured ? 'ring-2 ring-qvt-teal ring-opacity-50 scale-105' : ''
+                }`}
+              >
                 <div className={`w-16 h-16 bg-gradient-to-br ${portal.color} rounded-full flex items-center justify-center mb-6`}>
                   <portal.icon className="w-8 h-8 text-white" />
                 </div>
+                {portal.featured && (
+                  <Badge className="mb-4 bg-qvt-teal text-white">Solution principale</Badge>
+                )}
                 <h3 className="text-2xl font-bold mb-4">{portal.title}</h3>
                 <p className="text-qvt-soft-black/70 mb-6">{portal.description}</p>
                 <Link to={portal.link}>

@@ -24,15 +24,13 @@ export default {
         exo: ["Exo", "sans-serif"], // futuriste pour les titres (optionnel)
       },
       colors: {
-        // QVT Box charte mise à jour
+        // QVT Box charte mise à jour selon logo
         "qvt-turquoise": "#00EFC2",   // turquoise fluo du logo
         "qvt-glacier": "#7CE2FF",     // bleu glacier
         "qvt-dark": "#4B4E78",        // fond violet foncé
         "qvt-bubble": "#E1FDFE",      // bulle douce
         "qvt-off-white": "#F2F7F6",
         "qvt-soft-black": "#212121",
-        "qvt-aqua": "hsl(180, 45%, 65%)",
-        "qvt-light-blue": "hsl(200, 80%, 75%)",
 
         // Palette émotionnelle 1-15 (burnout à passion)
         "emotion-burnout": "hsl(0, 75%, 35%)",
@@ -50,11 +48,11 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#00EFC2", // turquoise du logo
+          DEFAULT: "#00EFC2", // turquoise fluo du logo
           foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#7CE2FF", // glacier
+          DEFAULT: "#7CE2FF", // bleu glacier
           foreground: "#1e1e1e",
         },
         destructive: {

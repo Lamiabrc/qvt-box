@@ -33,6 +33,11 @@ import CGU from "./pages/CGU";
 import Confidentiality from "./pages/Confidentiality";
 import LegalMentions from "./pages/LegalMentions";
 import AdminLogin from "./pages/AdminLogin";
+import EmployeeDashboard from "./pages/EmployeeDashboard";
+import EnterpriseSimulator from "./pages/EnterpriseSimulator";
+import EnterpriseManagerSimulator from "./pages/EnterpriseManagerSimulator";
+import EnterpriseEmployeeSimulator from "./pages/EnterpriseEmployeeSimulator";
+import SimulatorHub from "./pages/SimulatorHub";
 
 const queryClient = new QueryClient();
 
@@ -73,6 +78,11 @@ function App() {
                 <Route path="/confidentiality" element={<Confidentiality />} />
                 <Route path="/legal-mentions" element={<LegalMentions />} />
                 <Route path="/admin-login" element={<AdminLogin />} />
+                <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+                <Route path="/enterprise-simulator" element={<EnterpriseSimulator />} />
+                <Route path="/enterprise-manager-simulator" element={<EnterpriseManagerSimulator />} />
+                <Route path="/enterprise-employee-simulator" element={<EnterpriseEmployeeSimulator />} />
+                <Route path="/simulator-hub" element={<SimulatorHub />} />
                 <Route path="*" element={<Error404 />} />
               </Routes>
             </main>

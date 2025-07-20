@@ -8,12 +8,13 @@
 
 @layer base {
   :root {
-    /* Charte graphique QVT Box */
-    --qvt-teal: 183 100% 19%;           /* Vert canard #005B5F */
-    --qvt-off-white: 150 20% 96%;       /* Blanc cassé #F2F7F6 */
-    --qvt-soft-black: 0 0% 13%;         /* Noir doux #212121 */
-    --qvt-aqua: 180 45% 65%;            /* Vert eau */
-    --qvt-light-blue: 200 80% 75%;      /* Bleu clair */
+    /* Charte graphique QVT Box - Mise à jour selon logo */
+    --qvt-turquoise: 167 100% 50%;      /* Turquoise fluo #00EFC2 */
+    --qvt-glacier: 195 100% 75%;        /* Bleu glacier #7CE2FF */
+    --qvt-dark: 245 25% 38%;           /* Fond violet foncé #4B4E78 */
+    --qvt-bubble: 180 80% 95%;         /* Bulle douce #E1FDFE */
+    --qvt-off-white: 150 20% 96%;      /* Blanc cassé #F2F7F6 */
+    --qvt-soft-black: 0 0% 13%;        /* Noir doux #212121 */
     
     /* Palette émotionnelle - Score 1 à 15 (burnout à passion) */
     --emotion-burnout: 0 75% 35%;        /* 1-3: Burnout - Rouge profond */
@@ -34,30 +35,30 @@
     --popover: 0 0% 100%;
     --popover-foreground: var(--qvt-soft-black);
 
-    --primary: var(--qvt-teal);
-    --primary-foreground: var(--qvt-off-white);
+    --primary: var(--qvt-turquoise);
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: var(--qvt-light-blue);
+    --secondary: var(--qvt-glacier);
     --secondary-foreground: var(--qvt-soft-black);
 
     --muted: 150 15% 90%;
     --muted-foreground: var(--qvt-soft-black);
 
-    --accent: var(--qvt-aqua);
-    --accent-foreground: var(--qvt-soft-black);
+    --accent: var(--qvt-dark);
+    --accent-foreground: 0 0% 100%;
 
     --destructive: var(--emotion-stress);
     --destructive-foreground: var(--qvt-off-white);
 
     --border: 150 20% 85%;
     --input: 150 20% 92%;
-    --ring: var(--qvt-teal);
+    --ring: var(--qvt-turquoise);
 
     --radius: 1rem; /* Formes plus arrondies inspirées des bulles */
 
     /* Couleurs spécifiques QVT Box */
-    --qvt-gradient-primary: linear-gradient(135deg, hsl(var(--qvt-teal)), hsl(var(--qvt-aqua)));
-    --qvt-gradient-secondary: linear-gradient(135deg, hsl(var(--qvt-aqua)), hsl(var(--qvt-light-blue)));
+    --qvt-gradient-primary: linear-gradient(135deg, hsl(var(--qvt-turquoise)), hsl(var(--qvt-glacier)));
+    --qvt-gradient-secondary: linear-gradient(135deg, hsl(var(--qvt-glacier)), hsl(var(--qvt-dark)));
     --qvt-gradient-teens: linear-gradient(135deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4); /* Style Rubik's cube */
 
     --sidebar-background: var(--qvt-off-white);

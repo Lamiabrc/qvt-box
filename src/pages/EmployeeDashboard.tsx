@@ -144,22 +144,22 @@ const EmployeeDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-qvt-bubble via-qvt-off-white to-qvt-glacier/20 relative overflow-hidden">
       <FloatingBubbles />
       
       <div className="container mx-auto px-4 py-6 relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-blue-800">Mon Espace Salarié</h1>
-            <p className="text-blue-600">Tableau de bord bien-être professionnel</p>
+            <h1 className="text-3xl font-bold text-qvt-dark">Mon Espace Salarié</h1>
+            <p className="text-qvt-dark/70">Tableau de bord bien-être professionnel</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" className="border-blue-300">
+            <Button variant="outline" className="border-qvt-glacier/50">
               <Bell className="w-4 h-4 mr-2" />
               Notifications
             </Button>
-            <Button className="bg-blue-600 hover:bg-blue-700">
+            <Button className="bg-qvt-turquoise hover:bg-qvt-turquoise/90">
               <MessageCircle className="w-4 h-4 mr-2" />
               Support
             </Button>

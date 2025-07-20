@@ -10,66 +10,69 @@ import FloatingBubbles from '@/components/FloatingBubbles';
 const Pricing = () => {
   const plans = [
     {
-      name: "Starter Famille",
-      price: "29€",
-      period: "/mois",
-      description: "Parfait pour débuter",
+      name: "Bulle Équipe",
+      price: "89€",
+      period: "/mois/équipe",
+      description: "Pour équipes jusqu'à 20 personnes",
       features: [
-        "Jusqu'à 4 membres",
-        "Questionnaires QVT",
-        "Tableau de bord familial",
+        "Jusqu'à 20 collaborateurs",
+        "Évaluations QVT complètes",
+        "Tableau de bord manager",
         "Support email",
-        "Box mensuelle optionnelle"
+        "Box bien-être trimestrielle",
+        "Rapports d'équipe"
       ],
       popular: false,
-      color: "from-blue-500 to-cyan-500"
+      color: "from-qvt-glacier to-qvt-turquoise"
     },
     {
-      name: "Premium Famille",
-      price: "49€",
+      name: "Bulle Enterprise",
+      price: "249€",
       period: "/mois",
-      description: "Le plus populaire",
+      description: "Solution complète entreprise",
       features: [
-        "Membres illimités",
-        "Tous les questionnaires",
+        "Collaborateurs illimités",
+        "Tous les simulateurs",
         "IA personnalisée",
         "Support prioritaire",
         "Box mensuelle incluse",
-        "Coaching famille"
+        "Coaching RH dédié",
+        "Dashboard exécutif",
+        "Analytics avancés"
       ],
       popular: true,
-      color: "from-purple-500 to-pink-500"
+      color: "from-qvt-turquoise to-qvt-dark"
     },
     {
-      name: "Enterprise",
-      price: "Sur devis",
-      period: "",
-      description: "Pour les entreprises",
+      name: "Bulle Famille",
+      price: "39€",
+      period: "/mois",
+      description: "Complément famille",
       features: [
-        "Solution complète",
-        "Nombre d'employés illimité",
-        "Tableau de bord RH",
-        "Support dédié",
-        "Formations incluses",
-        "Compliance RGPD"
+        "Jusqu'à 6 membres",
+        "Évaluations familiales",
+        "Tableau de bord parents",
+        "Support email",
+        "Box famille mensuelle",
+        "Interface ados"
       ],
       popular: false,
-      color: "from-green-500 to-teal-500"
+      color: "from-pink-400 to-purple-500"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-qvt-bubble via-qvt-off-white to-qvt-glacier/20 relative overflow-hidden">
       <FloatingBubbles />
       
       <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="text-center mb-12">
-          <Badge className="mb-4 bg-blue-100 text-blue-800">Tarifs</Badge>
-          <h1 className="text-4xl font-bold text-slate-800 mb-6">
-            Choisissez votre abonnement QVT Box
+          <Badge className="mb-4 bg-qvt-turquoise text-white">Bulles Attentionnées</Badge>
+          <h1 className="text-4xl font-bold text-qvt-dark mb-6">
+            Nos Bulles Attentionnées QVT
           </h1>
-          <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-            Des solutions adaptées à tous les besoins pour améliorer votre qualité de vie
+          <p className="text-xl text-qvt-dark/70 mb-8 max-w-3xl mx-auto">
+            Des solutions sur-mesure pour accompagner vos collaborateurs dans leur bien-être professionnel et personnel
           </p>
         </div>
 

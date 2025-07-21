@@ -92,6 +92,13 @@ export default {
         "bubble-float-delayed": "bubbleFloat 6s ease-in-out infinite 2s",
         "pulse-slow": "pulse 3s infinite",
       },
+      keyframes: {
+  bubbleFloat: {
+    '0%, 100%': { transform: 'translateY(0)' },
+    '50%': { transform: 'translateY(-20px)' },
+  },
+},
+
       backgroundImage: {
         "qvt-gradient-primary": "linear-gradient(135deg, #00EFC2, #7CE2FF)",
         "qvt-gradient-secondary": "linear-gradient(135deg, #7CE2FF, #A4D4AE)",

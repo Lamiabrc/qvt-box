@@ -31,6 +31,7 @@ export default {
         "qvt-bubble": "#E1FDFE",      // bulle douce
         "qvt-off-white": "#F2F7F6",
         "qvt-soft-black": "#212121",
+        "qvt-teal": "#005B5F",
 
         // Palette émotionnelle 1-15 (burnout à passion)
         "emotion-burnout": "hsl(0, 75%, 35%)",

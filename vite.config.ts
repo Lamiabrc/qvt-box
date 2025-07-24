@@ -19,3 +19,4 @@ export default defineConfig({
     jsxInject: `import React from 'react'`,
   },
 })
+fix vite.config.ts

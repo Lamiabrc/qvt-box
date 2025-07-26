@@ -19,8 +19,8 @@ const Navigation = () => {
 
   const navigationItems = [
     { name: 'Accueil', href: '/', icon: LayoutDashboard },
-    { name: 'Solutions QVT', href: '/enterprise-solutions', icon: HeartHandshake },
-    { name: 'Simulateur Entreprise', href: '/simulator', icon: Zap },
+    { name: 'Solutions QVT', href: '/simulator', icon: HeartHandshake },
+    { name: 'Simulateur Entreprise', href: '/enterprise-solutions', icon: Zap },
     { name: 'Boutique', href: '/shop', icon: ShoppingBag },
     { name: 'Tarifs', href: '/pricing', icon: FileText },
     { name: 'FAQ', href: '/faq', icon: HelpCircle },

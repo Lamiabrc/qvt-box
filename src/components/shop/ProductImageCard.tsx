@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, ShoppingCart, Plus, Minus } from "lucide-react";
 import { Product } from "@/data/shopProducts";
-import { getProductImage } from "@/data/realProductImages";
+import { DEFAULT_PRODUCT_IMAGE } from "@/data/realProductImages"; // ✅ remplacement correct
 
 interface ProductImageCardProps {
   product: Product;
@@ -33,11 +32,11 @@ const ProductImageCard = ({ product, cart, onAddToCart, onRemoveFromCart }: Prod
       <CardHeader className="pb-3">
         <div className="w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-3 overflow-hidden">
           <img 
-            src={getProductImage(product.id)}
+            src={product.image ?? DEFAULT_PRODUCT_IMAGE}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             onError={(e) => {
-              e.currentTarget.src = 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+              e.currentTarget.src = DEFAULT_PRODUCT_IMAGE;
             }}
           />
         </div>

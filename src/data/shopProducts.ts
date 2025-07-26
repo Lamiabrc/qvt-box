@@ -18,7 +18,7 @@ export interface Product {
 }
 
 export const shopProducts: Product[] = [
-  // 100 produits générés, exemples réalistes avec majoration de 10 %
+  // 1000 produits générés, exemples réalistes avec majoration de 10 %
   ...[...Array(1000)].map((_, index) => {
     const basePrice = 10 + index * 0.7;
     const id = `produit-${index + 1}`;

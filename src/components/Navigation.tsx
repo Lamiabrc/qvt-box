@@ -11,7 +11,6 @@ import {
   FileText,
   LayoutDashboard,
   HeartHandshake,
-  Map,
 } from 'lucide-react';
 
 const Navigation = () => {
@@ -21,7 +20,7 @@ const Navigation = () => {
   const navigationItems = [
     { name: 'Accueil', href: '/', icon: LayoutDashboard },
     { name: 'Solutions QVT', href: '/enterprise-solutions', icon: HeartHandshake },
-    { name: 'Simulateur', href: '/simulator', icon: Zap },
+    { name: 'Simulateur Entreprise', href: '/simulator', icon: Zap },
     { name: 'Boutique', href: '/shop', icon: ShoppingBag },
     { name: 'Tarifs', href: '/pricing', icon: FileText },
     { name: 'FAQ', href: '/faq', icon: HelpCircle },
@@ -34,6 +33,7 @@ const Navigation = () => {
     <nav className="bg-qvt-dark/95 backdrop-blur-sm border-b border-qvt-glacier sticky top-0 z-50 text-white">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
+
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img src="/logo-qvt.png" alt="QVT Box" className="w-10 h-10" />
@@ -61,12 +61,16 @@ const Navigation = () => {
           {/* Actions desktop */}
           <div className="hidden md:flex items-center space-x-4">
             <Link to="/login">
-              <Button variant="outline" className="border-qvt-glacier text-white hover:bg-qvt-glacier/10">
+              <Button
+                variant="outline"
+                className="border-qvt-glacier text-white hover:bg-white/10 hover:text-qvt-turquoise"
+              >
                 Connexion
               </Button>
             </Link>
             <Link to="/pricing">
-              <Button className="bg-gradient-to-r from-qvt-turquoise to-qvt-glacier text-qvt-dark hover:opacity-90">
+              <Button className="bg-gradient-to-r from-qvt-turquoise to-qvt-glacier text-qvt-dark hover:brightness-110">
+                <Zap className="w-4 h-4 mr-2" />
                 Commencer
               </Button>
             </Link>
@@ -108,12 +112,13 @@ const Navigation = () => {
 
                 <div className="mt-8 space-y-4">
                   <Link to="/login" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full border-qvt-glacier text-white hover:bg-qvt-glacier/10">
+                    <Button variant="outline" className="w-full border-qvt-glacier text-white hover:bg-white/10 hover:text-qvt-turquoise">
                       Connexion
                     </Button>
                   </Link>
                   <Link to="/pricing" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-gradient-to-r from-qvt-turquoise to-qvt-glacier text-qvt-dark hover:opacity-90">
+                    <Button className="w-full bg-gradient-to-r from-qvt-turquoise to-qvt-glacier text-qvt-dark hover:brightness-110">
+                      <Zap className="w-4 h-4 mr-2" />
                       Commencer
                     </Button>
                   </Link>

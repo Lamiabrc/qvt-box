@@ -46,7 +46,7 @@ const PostFeed: React.FC<PostFeedProps> = ({ posts, loading, onGiveBubble, curre
     switch (type) {
       case 'activity': return 'Activité';
       case 'life_event': return 'Événement de vie';
-      case 'mood_weather': return 'Météo de vie';
+      case 'mood_weather': return 'Météo émotionelle';
       default: return 'Général';
     }
   };

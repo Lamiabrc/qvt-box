@@ -13,16 +13,16 @@ import {
   TrendingUp,
   MessageSquare,
   Calendar,
-  ArrowRight
+  ArrowRight,
+  Smile
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import MoodWeather from "../components/MoodWeather";
 import FloatingBubbles from "../components/FloatingBubbles";
 
 const FamilyPortal = () => {
-  const [selectedRole, setSelectedRole] = useState<'parent' | 'teen' | null>(null);
+  const [selectedRole, setSelectedRole] = useState<'parent' | 'teen' | 'senior' | null>(null);
 
-  // Météo familiale simulée
   const familyWeather = {
     harmony: 72,
     communication: 'Bonne',
@@ -53,6 +53,15 @@ const FamilyPortal = () => {
       color: 'from-cyan-500 to-blue-500',
       features: ['Espace privé', 'Alerte rapide', 'Teen Box mensuelle'],
       route: '/teens-home'
+    },
+    {
+      role: 'senior',
+      title: 'Grand-parent',
+      description: 'Un espace doux pour partager, transmettre et créer du lien intergénérationnel',
+      icon: Smile,
+      color: 'from-yellow-400 to-orange-400',
+      features: ['Journal mémoire', 'Activités petits-enfants', 'Box Senior mensuelle'],
+      route: '/senior-dashboard'
     }
   ];
 
@@ -129,7 +138,6 @@ const FamilyPortal = () => {
           </p>
         </div>
 
-        {/* Météo Familiale */}
         <Card className="mb-12 border-purple-200 bg-gradient-to-r from-purple-50 to-pink-50">
           <CardHeader>
             <CardTitle className="text-center text-2xl text-purple-800">
@@ -175,20 +183,19 @@ const FamilyPortal = () => {
           </CardContent>
         </Card>
 
-        {/* Sélection du rôle */}
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
             Qui êtes-vous dans la famille ?
           </h2>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {roleCards.map((card) => {
               const Icon = card.icon;
               return (
                 <Card 
                   key={card.role}
                   className="hover:shadow-xl transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-purple-200"
-                  onClick={() => setSelectedRole(card.role as 'parent' | 'teen')}
+                  onClick={() => setSelectedRole(card.role as 'parent' | 'teen' | 'senior')}
                 >
                   <CardHeader className="text-center">
                     <div className={`w-20 h-20 bg-gradient-to-br ${card.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
@@ -217,7 +224,6 @@ const FamilyPortal = () => {
           </div>
         </div>
 
-        {/* Actions rapides */}
         <div className="mt-12 text-center">
           <h3 className="text-xl font-semibold text-gray-800 mb-6">Actions rapides famille</h3>
           <div className="flex flex-wrap justify-center gap-4">

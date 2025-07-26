@@ -97,7 +97,7 @@ const Faq = () => {
               </Button>
             </Link>
             <Button variant="outline">
-              support@qvtbox.com
+              contact@qvtbox.com
             </Button>
           </div>
         </div>

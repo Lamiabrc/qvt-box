@@ -31,14 +31,14 @@ const Home = () => {
     {
       name: "Marie Dubois",
       role: "DRH, TechCorp France",
-      comment: "QVT Box a transformé notre approche du bien-être au travail. Nos collaborateurs, qu'ils soient en situation de handicap, parents isolés ou jeunes diplômés, trouvent tous les ressources adaptées à leur situation.",
+      comment: "QVT Box a transformé notre approche du bien-être au travail. Nos collaborateurs, qu'ils soient en situation de handicap, parents isolés ou jeunes diplômés, sont ravis de recevoir plusieurs fois par an un petit quelque chose de la part de leur entreprise et grâce à l'outil IA et le tableau de bord RH j'ai une vue rapide et en live du bien être des collaborateurs",
       rating: 5,
       company: "TechCorp France - 850 collaborateurs"
     },
     {
       name: "Pierre Martin",
       role: "Directeur Général, InnovSoft",
-      comment: "Une solution complète qui nous permet de prendre soin de nos équipes de manière proactive. Les tableaux de bord RH nous donnent une vision claire du bien-être de chaque service.",
+      comment: "Une solution complète qui nous permet de prendre soin de nos équipes de manière proactive et au plus prés des collaborateurs. Les tableaux de bord RH nous donnent une vision claire du bien-être de chaque service.",
       rating: 5,
       company: "InnovSoft - 320 collaborateurs"
     }
@@ -47,17 +47,17 @@ const Home = () => {
   const benefits = [
     {
       title: "Accompagnement personnalisé",
-      description: "Prise en compte des spécificités individuelles : situation familiale, handicap, mobilité professionnelle, etc.",
+      description: "Prise en compte des spécificités individuelles : situation familiale, handicap, mobilité professionnelle, âge, sexe ...etc.",
       icon: Heart
     },
     {
       title: "Outils RH intégrés",
-      description: "Tableaux de bord, indicateurs QVT, suivi d'équipes et recommandations personnalisées pour les managers",
+      description: "Tableaux de bord, indicateurs QVT, suivi d'équipes et recommandations personnalisées pour les managers et leurs équipes",
       icon: TrendingUp
     },
     {
       title: "Solution complète",
-      description: "De l'évaluation initiale aux actions concrètes, en passant par l'accompagnement famille si nécessaire",
+      description: "De l'évaluation initiale aux actions concrètes, en passant par l'accompagnement pour un équilibre accru entre la vie professionelle et familiale si nécessaire",
       icon: CheckCircle
     }
   ];

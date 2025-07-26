@@ -39,7 +39,6 @@ import EnterpriseSimulator from './pages/EnterpriseSimulator';
 import EnterpriseManagerSimulator from './pages/EnterpriseManagerSimulator';
 import EnterpriseEmployeeSimulator from './pages/EnterpriseEmployeeSimulator';
 import SimulatorHub from './pages/SimulatorHub';
-
 import Dashboard from './pages/Dashboard';
 import DevenirPrestataire from './pages/DevenirPrestataire';
 import EmailConfirmation from './pages/EmailConfirmation';
@@ -66,7 +65,6 @@ import MarketResearchLanding from './pages/MarketResearchLanding';
 import MentionsLegales from './pages/MentionsLegales';
 import MyColleagues from './pages/MyColleagues';
 import MyFriends from './pages/MyFriends';
-import NotFound from './pages/NotFound';
 import PasswordReset from './pages/PasswordReset';
 import Payment from './pages/Payment';
 import PaymentSuccess from './pages/PaymentSuccess';
@@ -89,6 +87,7 @@ import TeensPlaylist from './pages/TeensPlaylist';
 import TeensQuickAlert from './pages/TeensQuickAlert';
 import Unauthorized from './pages/Unauthorized';
 import WorkplaceComparativeSimulator from './pages/WorkplaceComparativeSimulator';
+import SeniorDashboard from './pages/SeniorDashboard';
 
 const queryClient = new QueryClient();
 
@@ -132,8 +131,6 @@ function App() {
                 <Route path="/enterprise-manager-simulator" element={<EnterpriseManagerSimulator />} />
                 <Route path="/enterprise-employee-simulator" element={<EnterpriseEmployeeSimulator />} />
                 <Route path="/simulator-hub" element={<SimulatorHub />} />
-
-                {/* Pages supplémentaires manquantes */}
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/devenir-prestataire" element={<DevenirPrestataire />} />
                 <Route path="/email-confirmation" element={<EmailConfirmation />} />
@@ -182,8 +179,7 @@ function App() {
                 <Route path="/teens-quick-alert" element={<TeensQuickAlert />} />
                 <Route path="/unauthorized" element={<Unauthorized />} />
                 <Route path="/workplace-comparative-simulator" element={<WorkplaceComparativeSimulator />} />
-
-                {/* Catch-all route */}
+                <Route path="/senior-dashboard" element={<SeniorDashboard />} />
                 <Route path="*" element={<Error404 />} />
               </Routes>
             </main>

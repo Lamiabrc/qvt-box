@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,17 +12,26 @@ import FloatingBubbles from "../components/FloatingBubbles";
 const Login = () => {
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const { user, loading } = useAuth();
+  const [showContent, setShowContent] = useState(false);
 
-  if (loading) {
+  useEffect(() => {
+    // On attend max 2 secondes pour forcer l'affichage (sécurité anti-bug Supabase)
+    const timer = setTimeout(() => setShowContent(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  console.log("AUTH STATE >", { user, loading });
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  if (!showContent && loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-teal-600"></div>
       </div>
     );
-  }
-
-  if (user) {
-    return <Navigate to="/dashboard" replace />;
   }
 
   return (

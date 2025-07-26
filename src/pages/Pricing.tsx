@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,53 +10,95 @@ const Pricing = () => {
   const plans = [
     {
       name: "Bulle Équipe",
-      price: "89€",
-      period: "/mois/équipe",
+      price: "Sur devis",
+      period: "",
       description: "Pour équipes jusqu'à 20 personnes",
       features: [
         "Jusqu'à 20 collaborateurs",
         "Évaluations QVT complètes",
         "Tableau de bord manager",
         "Support email",
-        "Box bien-être trimestrielle",
-        "Rapports d'équipe"
+        "Box bien-être trimestrielle (option payante)"
       ],
       popular: false,
+      contactOnly: true,
       color: "from-qvt-glacier to-qvt-turquoise"
     },
     {
       name: "Bulle Enterprise",
-      price: "249€",
-      period: "/mois",
+      price: "Sur devis",
+      period: "",
       description: "Solution complète entreprise",
       features: [
         "Collaborateurs illimités",
         "Tous les simulateurs",
         "IA personnalisée",
         "Support prioritaire",
-        "Box mensuelle incluse",
+        "Box mensuelle incluse (option sans box disponible)",
         "Coaching RH dédié",
         "Dashboard exécutif",
-        "Analytics avancés"
+        "Analytics avancés",
+        "Interface famille intégrée",
+        "Accès à la boutique",
+        "Avatars & espace gamifié"
       ],
       popular: true,
+      contactOnly: true,
       color: "from-qvt-turquoise to-qvt-dark"
     },
     {
       name: "Bulle Famille",
-      price: "39€",
+      price: "8€",
       period: "/mois",
-      description: "Complément famille",
+      description: "Abonnement famille sans box — ajoutez des box selon vos besoins",
       features: [
-        "Jusqu'à 6 membres",
+        "Jusqu'à 15 membres",
         "Évaluations familiales",
         "Tableau de bord parents",
         "Support email",
-        "Box famille mensuelle",
-        "Interface ados"
+        "Interface ados",
+        "Profils enfants/parents",
+        "Alertes émotionnelles urgentes",
+        "Accès 'Ma bulle attentionnée'",
+        "+30€/mois par box famille ajoutée"
       ],
       popular: false,
+      contactOnly: false,
       color: "from-pink-400 to-purple-500"
+    },
+    {
+      name: "Bulle Solo",
+      price: "12€",
+      period: "/mois",
+      description: "Pour les utilisateurs individuels",
+      features: [
+        "Évaluations personnelles",
+        "Suivi bien-être",
+        "Recommandations IA",
+        "Accès à 1 box par trimestre (option)",
+        "Tableau personnel",
+        "Interface mobile simple"
+      ],
+      popular: false,
+      contactOnly: false,
+      color: "from-amber-300 to-orange-400"
+    },
+    {
+      name: "Bulle Retraité",
+      price: "45€",
+      period: "/mois",
+      description: "Pour les seniors & grands-parents",
+      features: [
+        "Box mémoire ou découverte (option sans box possible)",
+        "Partage famille",
+        "Activités intergénérationnelles",
+        "Espace famille simplifié",
+        "Profils petits-enfants",
+        "Soutien émotionnel discret"
+      ],
+      popular: false,
+      contactOnly: false,
+      color: "from-green-100 to-green-400"
     }
   ];
 
@@ -72,7 +113,7 @@ const Pricing = () => {
             Nos Bulles Attentionnées QVT
           </h1>
           <p className="text-xl text-qvt-dark/70 mb-8 max-w-3xl mx-auto">
-            Des solutions sur-mesure pour accompagner vos collaborateurs dans leur bien-être professionnel et personnel
+            Des solutions sur-mesure pour vous accompagner dans votre bien-être professionnel et personnel
           </p>
         </div>
 
@@ -110,9 +151,9 @@ const Pricing = () => {
                   ))}
                 </ul>
 
-                <Link to="/payment" className="block">
+                <Link to={plan.contactOnly ? "/contact" : "/payment"} className="block">
                   <Button className={`w-full bg-gradient-to-r ${plan.color} hover:opacity-90 text-white`}>
-                    {plan.name === "Enterprise" ? "Nous contacter" : "Commencer"}
+                    {plan.contactOnly ? "Demander un devis" : "Commencer"}
                   </Button>
                 </Link>
 

@@ -42,39 +42,39 @@ export default {
         "emotion-fulfilled": "hsl(180, 60%, 50%)",
         "emotion-passion": "hsl(280, 70%, 60%)",
 
-        // Design system standard
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        // Design system standard avec couleurs fixes (pas de CSS var ici)
+        border: "#D7E0DC",
+        input: "#EAEFED",
+        ring: "#00EFC2",
+        background: "#F2F7F6",
+        foreground: "#212121",
         primary: {
-          DEFAULT: "#00EFC2", // turquoise fluo du logo
+          DEFAULT: "#00EFC2",
           foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#7CE2FF", // bleu glacier
+          DEFAULT: "#7CE2FF",
           foreground: "#1e1e1e",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "#e4572e",
+          foreground: "#ffffff",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "#E0F0ED",
+          foreground: "#212121",
         },
         accent: {
-          DEFAULT: "#4B4E78", // violet foncé
+          DEFAULT: "#4B4E78",
           foreground: "#ffffff",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "#ffffff",
+          foreground: "#212121",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "#ffffff",
+          foreground: "#212121",
         },
       },
       borderRadius: {
@@ -93,12 +93,11 @@ export default {
         "pulse-slow": "pulse 3s infinite",
       },
       keyframes: {
-  bubbleFloat: {
-    '0%, 100%': { transform: 'translateY(0)' },
-    '50%': { transform: 'translateY(-20px)' },
-  },
-},
-
+        bubbleFloat: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+      },
       backgroundImage: {
         "qvt-gradient-primary": "linear-gradient(135deg, #00EFC2, #7CE2FF)",
         "qvt-gradient-secondary": "linear-gradient(135deg, #7CE2FF, #A4D4AE)",

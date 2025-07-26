@@ -26,8 +26,7 @@ export const shopProducts: Product[] = [
     const id = `produit-${index + 1}`;
     const name = `Produit Made in France n°${index + 1}`;
     const description = `Description du produit ${index + 1}, fabriqué en France avec soin et qualité.`;
-    const placeholderImage = `https://via.placeholder.com/200x200.png?text=Produit+${index + 1}`;
-    const image = placeholderImage || DEFAULT_PRODUCT_IMAGE;
+    const image = DEFAULT_PRODUCT_IMAGE;
     const productUrl = `https://exemple.com/produit-${index + 1}`;
     const category = ['meditation', 'nutrition', 'bijoux', 'aromatherapie', 'hygiene'][index % 5];
     const subcategory = ['accessoires', 'plantes', 'bougies', 'cristaux', 'huiles'][index % 5];

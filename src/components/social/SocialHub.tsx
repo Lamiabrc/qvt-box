@@ -32,7 +32,7 @@ const SocialHub: React.FC<SocialHubProps> = ({ groupType, title, description }) 
   const getShareButtonText = () => {
     switch (groupType) {
       case 'team': return 'Partager avec mes collègues';
-      case 'family': return 'Partager avec mon équipe famille';
+      case 'family': return 'Partager avec ma famille';
       case 'friends': return 'Partager avec mes potes';
       default: return 'Partager';
     }

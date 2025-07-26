@@ -1,9 +1,2 @@
-import { Star, ShoppingCart, Plus, Minus } from "lucide-react";
-import { Product } from "@/data/shopProducts";
-import { DEFAULT_PRODUCT_IMAGE } from "@/data/realProductImages"; // ✅ remplacement
-
-<img
-  src={product.image ?? DEFAULT_PRODUCT_IMAGE}
-  alt={product.name}
-  className="w-full h-48 object-cover rounded-xl"
-/>
+// Image par défaut : enfant qui souffle des bulles de savon (libre de droits - Unsplash)
+export const DEFAULT_PRODUCT_IMAGE = "https://images.unsplash.com/photo-1603570419874-5e5c24a3aa3b?auto=format&fit=crop&w=900&q=80";

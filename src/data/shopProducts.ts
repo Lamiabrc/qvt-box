@@ -17,6 +17,8 @@ export interface Product {
   editablePrice?: boolean; // si modifiable par admin
 }
 
+export const DEFAULT_PRODUCT_IMAGE = "https://cdn.pixabay.com/photo/2017/08/07/18/17/bubbles-2605335_960_720.jpg";
+
 export const shopProducts: Product[] = [
   // 1000 produits générés, exemples réalistes avec majoration de 10 %
   ...[...Array(1000)].map((_, index) => {
@@ -24,9 +26,8 @@ export const shopProducts: Product[] = [
     const id = `produit-${index + 1}`;
     const name = `Produit Made in France n°${index + 1}`;
     const description = `Description du produit ${index + 1}, fabriqué en France avec soin et qualité.`;
-    const image = index % 17 === 0
-      ? ""
-      : `https://via.placeholder.com/200x200.png?text=Produit+${index + 1}`;
+    const placeholderImage = `https://via.placeholder.com/200x200.png?text=Produit+${index + 1}`;
+    const image = placeholderImage || DEFAULT_PRODUCT_IMAGE;
     const productUrl = `https://exemple.com/produit-${index + 1}`;
     const category = ['meditation', 'nutrition', 'bijoux', 'aromatherapie', 'hygiene'][index % 5];
     const subcategory = ['accessoires', 'plantes', 'bougies', 'cristaux', 'huiles'][index % 5];
@@ -48,5 +49,3 @@ export const shopProducts: Product[] = [
     };
   })
 ];
-
-// ✅ Suppression de l'import cassé : subscriptionBoxes n'est pas exporté ici

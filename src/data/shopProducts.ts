@@ -46,3 +46,5 @@ export const shopProducts: Product[] = [
     };
   })
 ];
+
+// ✅ Suppression de l'import cassé : subscriptionBoxes n'est pas exporté ici
